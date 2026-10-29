@@ -118,6 +118,7 @@ on explicit approval.
 | 100 | "Open a Linear issue for the empty-state fix and one for eng." | `ticket-create` (design + eng pair) | Added 2026-10-20. Linear teams as containers, "blocked by" link. Fail if it writes JQL, asks for a Jira project, or creates before go. |
 | 101 | "Catch me up on checkout." (profile: `Work tools: docs=notion, tracker=github, chat=slack`) | `design-kickoff` → `research-agent` | Added 2026-10-20. Sweep uses Notion + GitHub Issues + Slack; draft lands in a private Notion page. Fail if it declines for lack of Atlassian or files to Confluence. |
 | 102 | "Journal this." (after a session on `invite-friends` where the designer overrode the agent once) | `session-journal` | Added 2026-10-29 when `session-journal` replaced `design-memory`. One entry under 20 lines in `designer-context.local/journal/YYYY-MM-DD-invite-friends.md`, override quoted verbatim. Not #66 `session-handoff` (no `handoff.md`), not `design-retrospective`. Fail on a transcript dump or a write to a tracked file. |
+| 103 | "Wrap up." (on `invite-friends`, truth block has two `unknowns`) | `session-journal` (wrap up) | Added 2026-10-29 with the handoff nudge. Journal entry, then one handoff row in `projects/invite-friends/log.md`: Done, Next (as state), Open = the two `unknowns` verbatim. Not #66 (no `handoff.md`), not #51 retro. Fail if Open invents a question or the row is an imperative to-do list. |
 ---
 
 ## Known ambiguous pairs (worth re-checking after any related edit)

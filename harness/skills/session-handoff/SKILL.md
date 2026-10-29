@@ -35,12 +35,12 @@ fresh chat", "context is full — compact this"
 | One handoff artifact + short "paste this" prompt | Stakeholder shareout (`research-shareout` / `deck-builder`) |
 | Writes `projects/<slug>/handoff.md` | **`design-handoff`** — eng spec → `handoff-spec.md` |
 
-**On-demand only.** Never auto-fires when context gets long — but per
-`harness/ORCHESTRATOR.md` §5's session-length nudge (2026-08-12, cost
-audit), once a chat hits ~15–20 turns on one task the agent may *suggest*
-a handoff in one short line. That's a suggestion, not this skill firing:
-this skill only runs, and only writes `handoff.md`, on the designer's
-explicit go.
+**On-demand only.** Never auto-fires when context gets long. The
+handoff nudge (`harness/ORCHESTRATOR.md` §5) — Claude Code's status line
+from 50% context, or a one-line suggestion after ~15–20 turns in Cursor
+— points the designer at "wrap up" (`session-journal`). That's a
+suggestion, not this skill firing: this skill only runs, and only writes
+`handoff.md`, on the designer's explicit go.
 
 ---
 

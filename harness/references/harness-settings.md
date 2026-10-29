@@ -17,7 +17,7 @@ the Settings page owns it.
 | `behaviour.caseStudyDraft` | `true` | Shown as "Write the case study". `true`: `ui-agent` Step 6.6 writes `case-study.md` once a project's `decisions.md` holds a chosen direction. `false`: ask once first (write it / not now). A direct ask still writes one. |
 | `behaviour.variantForks` | `true` | `false`: at `ui-agent` Step 3.5, don't build variants. Ask **one** `AskQuestion` naming the structural choice, then build only the pick. Still log the choice and the rejected option to `decisions.md`. An explicit "show me options" still forks. |
 | `behaviour.tasteCheckpoint` | `true` | `false`: skip `ui-agent` Step 5.5 (mid-build taste checkpoint). An explicit "taste check this" still routes to `taste-feedback`. |
-| `behaviour.handoffNudge` | `true` | `false`: don't add the session-length handoff line (`harness/ORCHESTRATOR.md` §5). `session-handoff` still runs on request. |
+| `behaviour.handoffNudge` | `true` | `false`: no handoff nudge — the Claude Code status line shows only the context percentage, and Cursor chats skip the turn-count line (`harness/ORCHESTRATOR.md` §5). "Wrap up" and `session-handoff` still run on request. |
 | `harness.name`, `harness.tagline`, `harness.defaultTheme` | `Design Harness`, the home line, `dark` | Design Harness app only (home page, rail, first-visit theme). No effect on skills. |
 
 A setting never overrides a hard rule: tokens only, `ds` composition, the plan

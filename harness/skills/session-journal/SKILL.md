@@ -6,7 +6,9 @@ description: >-
   or overrode the agent (in their words), decisions taken, and screenshot
   links — to `designer-context.local/journal/YYYY-MM-DD-<project>.md`.
   Triggers on: "wrap up", "journal this", "add this to my journal", "log
-  this session to my journal", and runs inside `session-handoff`. Read
+  this session to my journal", and runs inside `session-handoff`. "Wrap
+  up" also appends a handoff note (done, next, open questions from the
+  truth block) to the project's `log.md`. Read
   back on resume with `decisions.md`, and by `case-study`. Not a
   transcript, not a handoff (`session-handoff` writes `handoff.md`), not a
   retrospective (`design-retrospective`), not taste rules
@@ -39,7 +41,7 @@ session, in a private file per day per project.
 | Trigger | What gets written |
 |---|---|
 | "journal this" | The journal entry |
-| "wrap up" | The journal entry |
+| "wrap up" | The journal entry, then the handoff note (§ Wrap up) |
 | `session-handoff` runs | The journal entry, alongside `handoff.md` |
 
 Never on its own. No trigger, no entry.
@@ -91,6 +93,32 @@ Rules:
    named them as the source of a decision.
 
 Show the entry in chat after writing it, with the path.
+
+---
+
+## Wrap up
+
+"Wrap up" ends a session so the next chat can start clean. Write the
+journal entry, then append one handoff row to `projects/<slug>/log.md`:
+
+```markdown
+| YYYY-MM-DD | wrap up | session-journal | **Handoff.** Done: <what's finished>. Next: <what's not started or partial, as state>. Open: <the `unknowns` from the truth block in `brief.md`, or "none recorded"> | journal/YYYY-MM-DD-<slug>.md |
+```
+
+- **Done / Next** come from this session's real work and the task folder.
+  State, not commands: "shorter hold line agreed, not in the screen yet",
+  never "apply the hold line".
+- **Open** lists **every** `unknowns` entry in the truth block (read the
+  whole fenced YAML block in `brief.md`, not a search hit), its text
+  verbatim, separated by `; `. Don't shorten, merge, or pick. Don't add
+  questions that aren't in it; if the session raised a new one, say so in
+  chat and offer to add it to `brief.md`.
+- No task folder → journal entry only; say there was no `log.md` to write.
+- Then end with one line: "Wrapped up. Start a new chat and say 'continue
+  <slug>'."
+
+Wrap up doesn't write `handoff.md`. "Handoff this session" still does
+(`session-handoff`).
 
 ---
 

@@ -145,6 +145,37 @@ this hook's guessed schema is independently confirmed correct.
 
 ---
 
+### Cursor can't warn at 50% context — the handoff nudge counts turns instead
+
+**Found:** 2026-10-29, while adding the context-window handoff nudge.
+
+**What:** Claude Code passes `context_window.used_percentage` to the status
+line, so `scripts/claude-statusline.mjs` warns at 50% and suggests "wrap
+up" from 60%. Cursor IDE hooks get no equivalent:
+
+- No hook payload carries the context window size or a used percentage.
+- The `stop` hook's `input_tokens` (logged by
+  `.cursor/hooks/token-usage-tracker.mjs`) sum every model call in the
+  turn, so they aren't context use — logged turns exceed 470k on a
+  200k-window model.
+- A hook's only way into the chat after a reply is `followup_message`,
+  which sends a new agent turn, not a line to the designer.
+
+A percentage built from those numbers would be made up, so there isn't
+one. In Cursor the orchestrator's turn-count nudge (`harness/ORCHESTRATOR.md`
+§5, ~15–20 turns) stands in.
+
+**Partial exception:** the Cursor CLI (`cursor-agent`) has a status line
+with the same `context_window.used_percentage` field, but it's configured
+per user in `~/.cursor/cli-config.json`, so a repo can't ship it. To use
+it, point that file's `statusLine.command` at
+`node <path-to-clone>/scripts/claude-statusline.mjs`.
+
+Remove this entry once a Cursor IDE hook exposes context use and can show
+the designer a line.
+
+---
+
 ### Harness interface has no token file of its own
 
 **Found:** 2026-10-12, while building the Intro tour — the "Skip
