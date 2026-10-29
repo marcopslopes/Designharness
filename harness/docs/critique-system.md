@@ -198,7 +198,7 @@ Claims in this doc map to repo evidence as follows.
 | design-critique chain | `harness/skills/ux-pattern/SKILL.md`, `harness/skills/content/SKILL.md`, §2d |
 | `audit` checks, BLOCKING/ADVISORY, mandatory close | `harness/skills/audit/SKILL.md` (artifact gate, two layers, result semantics ~380–394); POUR: `harness/skills/audit/references/a11y-pour-checklist.md`; heuristics: `harness/skills/audit/references/heuristic-pass.md` (Check 5b) |
 | Project debt vs KNOWN-ISSUES | `harness/references/project-debt-register.md`, `projects/<slug>/debt.md` |
-| Design memory (inert) | `harness/skills/design-memory/SKILL.md`, `harness/references/design-record-template.md` |
+| Session journal (not read by critique) | `harness/skills/session-journal/SKILL.md` |
 | `figma-ux-audit` workflow, cards, layers | `harness/skills/figma-ux-audit/SKILL.md`, `offer-questions.md` |
 | Two-layer labels + precedence wording | `harness/agents/product-designer.md` ~41–52; `audit/SKILL.md` ~45–58; `figma-ux-audit/SKILL.md` ~105–119 |
 | Precedence **not** E2E-tested | Absence of overlap test in `findings.md` / `routing-log.md` (grep); V2 shows related advisories + synthesis, not conflict test |

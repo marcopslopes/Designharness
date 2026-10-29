@@ -4,7 +4,8 @@ description: >-
   Writes a project's case study once, as content — the eight-chapter story
   (opening, problem, evidence, options, decision, live prototype, outcome,
   sources) — into `projects/<slug>/case-study.md`, sourced only from that
-  task folder's `brief.md`, `findings.md` and `decisions.md`. Triggers on:
+  task folder's `brief.md`, `findings.md` and `decisions.md`, plus the
+  designer's journal entries for the project. Triggers on:
   "case study for this project", "build the case study", "tell the story of
   this project", "write up how we got here" (no format named), "case study
   of <slug>", "turn this project into a case study". Owns the story, not the
@@ -71,7 +72,11 @@ the call from decisions.
    and the file shape.
 2. The task folder: `brief.md`, `findings.md`, `decisions.md` in full;
    `log.md` for dates; `screens/` for real prototype routes.
-3. `harness/references/anti-ai-writing.md` — before saving.
+3. Every journal entry for the project:
+   `designer-context.local/journal/*-<slug>.md` (`session-journal`). They
+   hold where the designer changed direction and why, in their words.
+   None → carry on from the folder.
+4. `harness/references/anti-ai-writing.md` — before saving.
 
 No task folder → say so. Work from a pasted brief only if the designer
 confirms, and label every chapter that has no folder source as skipped.
@@ -80,8 +85,8 @@ confirms, and label every chapter that has no folder source as skipped.
 
 ## Workflow
 
-1. **Source.** Read the folder files. Note which chapters each file can
-   fill. If `brief.md` has no problem statement, stop and ask.
+1. **Source.** Read the folder files and the journal. Note which
+   chapters each file can fill. If `brief.md` has no problem statement, stop and ask.
 2. **Outline in chat.** One line per chapter: what goes in it and its
    source file, or **skip — nothing in <file>**. Wait for go or adjust. This
    is the cheap point to catch missing evidence. In after-build mode, show

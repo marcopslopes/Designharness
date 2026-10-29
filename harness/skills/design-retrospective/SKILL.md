@@ -2,11 +2,10 @@
 name: design-retrospective
 description: >-
   Structured post-ship (or milestone) reflection — what worked, what
-  didn't, what to carry forward. Optionally appends *observational*
-  notes to design-memory. Triggers on: "design retrospective", "retro
+  didn't, what to carry forward. Reads the designer's journal entries
+  for the project as evidence. Triggers on: "design retrospective", "retro
   this project", "what did we learn from [slug]", "reflect on this
-  launch", "close out this project". Does not steer the next build from
-  the record (`design-memory` stays inert). Does not replace
+  launch", "close out this project". Does not replace
   `research-agent` verdict synthesis for "did the change help users."
 ---
 
@@ -28,8 +27,8 @@ referrals entry-points", "design retrospective"
 - **Does not fire on:** "did this move the metric" → `research-agent`
   verdict mode; "document why we chose X" → `design-rationale`; weekly
   team process retros outside a `projects/<slug>/`.
-- **design-memory:** may *offer* to append observational habit notes;
-  never auto-writes; never loads the record to steer a future skill.
+- **session-journal:** reads `designer-context.local/journal/*-<slug>.md`
+  as evidence of where the designer changed direction. Never writes to it.
 
 ---
 
@@ -79,8 +78,6 @@ one?"). Infer the rest.
 ### Carry forward (for humans, not auto-applied)
 - [1–5 practical notes for the next similar project]
 
-### Optional — design-memory observations
-[Only if designer opts in: descriptive habit signals, never "always do X"]
 ```
 
 ---
@@ -89,9 +86,6 @@ one?"). Infer the rest.
 
 1. Append the retro to `projects/<slug>/findings.md` (dated).
 2. One line in the task `log.md`.
-3. If the designer opts in: append observational entries to
-   `designer-context.local/design-record.md` per `design-memory` rules
-   (descriptive, habit-revealing, never prescriptive).
 
 ---
 
@@ -102,7 +96,7 @@ one?"). Infer the rest.
 - Never invent metrics outcomes ("conversion improved") without a sourced
   verdict
 - Never skip open `debt.md` items — name them
-- Never write "always use X" into design-memory
+- Never write to the designer's journal — it records their sessions, not retros
 
 ---
 
@@ -110,7 +104,7 @@ one?"). Infer the rest.
 
 | File | Role |
 |------|------|
-| `harness/skills/design-memory/SKILL.md` | Optional observation sink |
+| `harness/skills/session-journal/SKILL.md` | Journal entries read as evidence |
 | `harness/skills/design-debt-tracker/SKILL.md` | Open promises to surface |
 | `harness/skills/research-agent/SKILL.md` | Product/outcome verdict (different job) |
 | `harness/skills/design-retrospective/GUIDE.md` | Designer guide |

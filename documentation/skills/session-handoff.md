@@ -234,4 +234,4 @@ But explicit handoff is better - more context preserved.
 
 - [design-kickoff](design-kickoff.md) - Creates initial context
 - [publish-project](publish-project.md) - Final handoff
-- [design-memory](design-memory.md) - Long-term project memory
+- [session-journal](session-journal.md) - Journal entry written at every handoff

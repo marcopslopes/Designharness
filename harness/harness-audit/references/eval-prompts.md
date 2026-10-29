@@ -117,6 +117,7 @@ on explicit approval.
 | 99 | "Put this decision write-up in Notion under Design / Briefs." | `docs-brief` | Added 2026-10-20 with the work-tools contract. Notion parent page, draft→go→create. Fail if it says it needs Confluence, or runs a `research-agent` sweep. |
 | 100 | "Open a Linear issue for the empty-state fix and one for eng." | `ticket-create` (design + eng pair) | Added 2026-10-20. Linear teams as containers, "blocked by" link. Fail if it writes JQL, asks for a Jira project, or creates before go. |
 | 101 | "Catch me up on checkout." (profile: `Work tools: docs=notion, tracker=github, chat=slack`) | `design-kickoff` → `research-agent` | Added 2026-10-20. Sweep uses Notion + GitHub Issues + Slack; draft lands in a private Notion page. Fail if it declines for lack of Atlassian or files to Confluence. |
+| 102 | "Journal this." (after a session on `invite-friends` where the designer overrode the agent once) | `session-journal` | Added 2026-10-29 when `session-journal` replaced `design-memory`. One entry under 20 lines in `designer-context.local/journal/YYYY-MM-DD-invite-friends.md`, override quoted verbatim. Not #66 `session-handoff` (no `handoff.md`), not `design-retrospective`. Fail on a transcript dump or a write to a tracked file. |
 ---
 
 ## Known ambiguous pairs (worth re-checking after any related edit)
@@ -201,6 +202,8 @@ sides of a pair whenever either row changes:
 | #72 `live-page-review` vs #18 `competitor-scan` | Competitor **URL** + review → live-page-review captures, then competitor-scan. Named competitor + flow with **no** URL → competitor-scan (Mobbin/web) only. |
 | #74 `research-artifacts` Mode 5 vs #39 persona | Job = situation/motivation/outcome. Persona = who. Same skill, different mode — trigger language decides. |
 | #74 `research-artifacts` Mode 5 vs `product-strategy` | Job stories name the jobs. OST / bets / experiments → `product-strategy` (consumes jobs). |
+| #102 `session-journal` vs #66 `session-handoff` | "Journal this" / "wrap up" → #102 (journal entry). "Handoff this session" / "context is full" → #66, which also writes the journal entry. |
+| #102 `session-journal` vs #51 `design-retrospective` | "Wrap up" ends a session → #102. "Close out this project" / "retro this project" → #51. |
 
 ---
 

@@ -429,7 +429,7 @@ Even if you say "just build X", if no prototype exists and no PRD is approved, k
 
 ### Memory & Ops
 
-- **`design-memory`** — Read-only observational habits report
+- **`session-journal`** — Your judgment per session, read back next time
 - **`design-retrospective`** — Post-ship reflection
 - **`design-debt-tracker`** — Triage project debt register
 - **`design-rationale`** — Document decisions after they're made

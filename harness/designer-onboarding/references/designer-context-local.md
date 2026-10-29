@@ -29,10 +29,10 @@ After reading `designer-profile.local.md`, agents should:
    don't dump every file into context on a one-liner ask.
 4. **Never** copy personal notes into committed repo files (`brief.md`,
    `decisions.md`, harness docs) without you asking.
-5. **`design-record.md` is special:** read or update **only** when the
-   designer asks for the design-memory report or explicitly opts in at
-   project close (`harness/skills/design-memory/SKILL.md`). **Never** load
-   it for `audit`, design-critique, `ui-agent`, or `design-kickoff`.
+5. **`journal/` is written by `session-journal`** on "wrap up" / "journal
+   this" / handoff, and read back on resume (latest entry for the slug)
+   and by `case-study`. Not read for `audit` or design-critique. An old
+   `design-record.md` from `design-memory` is no longer read.
 6. **`preferences.md` is read by section:** `ui-agent`, `content`,
    `ux-pattern`, `writing`, and `docs-brief` each read only their own
    section; nothing is written there without the designer's Yes
@@ -53,6 +53,7 @@ designer-context.local/
   README.md           # index — list files/folders and when to read them
   preferences.md      # taste log — rules by work type (agent-maintained)
   working-notes.md    # anything cross-project you want remembered
+  journal/            # session journal — YYYY-MM-DD-<project>.md (agent-written)
   sources.md          # optional — cross-cutting private link catalog
   referrals/          # optional nested topic folder (example)
     README.md

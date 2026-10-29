@@ -14,7 +14,7 @@ Agents load [`harness/skills/taste-feedback/SKILL.md`](SKILL.md).
 | Agent skill | `harness/skills/taste-feedback/SKILL.md` |
 | Routing entry | `harness/ORCHESTRATOR.md` §2 |
 | Persists to | `projects/<slug>/decisions.md` |
-| Distinct from | `ux-pattern` critique, `audit`, `design-memory` (never steers) |
+| Distinct from | `ux-pattern` critique, `audit`, the taste log (`preferences.md`) |
 
 ---
 

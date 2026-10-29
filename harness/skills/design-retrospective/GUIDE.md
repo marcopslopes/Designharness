@@ -1,8 +1,8 @@
 # Design retrospective — how it works
 
 The **design-retrospective** skill runs a structured post-ship (or
-milestone) reflection from the task folder, with an optional
-observational append to design-memory.
+milestone) reflection from the task folder and your journal entries for
+the project.
 
 Agents load [`harness/skills/design-retrospective/SKILL.md`](SKILL.md).
 
@@ -14,7 +14,7 @@ Agents load [`harness/skills/design-retrospective/SKILL.md`](SKILL.md).
 |------|------|
 | Agent skill | `harness/skills/design-retrospective/SKILL.md` |
 | Routing entry | `harness/ORCHESTRATOR.md` §2 |
-| Persists to | `projects/<slug>/findings.md`; optional `designer-context.local/design-record.md` |
+| Persists to | `projects/<slug>/findings.md` |
 | Distinct from | `research-agent` verdict (metrics), `design-rationale` (one decision) |
 
 ---
@@ -40,6 +40,6 @@ Acceptance: [`tests/scenarios.md`](../../../tests/scenarios.md) Scenario 39.
 
 | Doc | Role |
 |-----|------|
-| [`harness/skills/design-memory/SKILL.md`](../design-memory/SKILL.md) | Optional observation sink |
+| [`harness/skills/session-journal/SKILL.md`](../session-journal/SKILL.md) | Journal entries read as evidence |
 | [`design-debt-tracker`](../design-debt-tracker/GUIDE.md) | Open promises to name |
 | [`how-the-harness-works.md`](../../../documentation/guides/how-the-harness-works.md) | Roster |

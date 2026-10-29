@@ -11,7 +11,7 @@ description: >-
   a point of view inside existing tokens; Operate/Read stays restrained.
   Does not invent brand colours or tokens outside
   Foundations / `context/design-system/ds`. Does not replace `ux-pattern`
-  critique or `audit`. Does not load `design-memory` to steer the work.
+  critique or `audit`.
 ---
 
 # Taste feedback (mid-build)
@@ -33,8 +33,6 @@ Process discipline produces correct design. Mid-build taste checks catch
 - **Does not fire on:** inventing a new brand palette, radius system, or
   component (that's `design-system` / Foundations). Pure structural builds
   with no visual surface yet.
-- **Does not** load `designer-context.local/design-record.md` to steer —
-  same inert rule as `design-memory`.
 - **Composes with:** `ui-agent` (optional checkpoints during build),
   `ux-pattern` (full critique later), `inspiration-scouting` (references
   beforehand). Named hierarchy / density / palette-mass terms:
@@ -198,9 +196,9 @@ Append each answered checkpoint to `projects/<slug>/decisions.md`:
 - Rejected: …
 ```
 
-These are *this project's* signals — never written into design-memory
-unless the designer later runs `design-retrospective` and opts to observe
-a habit.
+These are *this project's* signals. A rule the designer wants every time
+goes to the taste log (`harness/references/designer-preferences.md`),
+only on their Yes.
 
 ---
 
@@ -211,7 +209,6 @@ a habit.
 - Never treat Persuade as permission to leave Foundations
 - Never ask vague approval questions
 - Never run more than 4 checkpoints in one build without the designer asking
-- Never feed `design-record.md` into the checkpoint
 - Never treat taste check as a substitute for `audit` or design-critique
 
 ---
@@ -221,7 +218,7 @@ a habit.
 | File | Role |
 |------|------|
 | `harness/skills/ui-agent/SKILL.md` | Build chain that can opt into checkpoints |
-| `harness/skills/design-memory/SKILL.md` | Observational only — never steers here |
+| `harness/references/designer-preferences.md` | Taste log — reusable rules, saved on Yes |
 | `harness/skills/inspiration-scouting/SKILL.md` | Pre-build aesthetic references |
 | `harness/skills/motion-choreography/SKILL.md` | When the taste question is motion |
 | `harness/references/ui-craft-rules.md` | Named hierarchy / density / palette-mass terms — cite 1–2 |

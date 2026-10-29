@@ -191,7 +191,6 @@ clear PM guidance, and the research that set us up for success.
 ---
 
 Logged to: projects/city-leaderboard/RETROSPECTIVE.md
-Added to: design-memory (searchable)
 ```
 
 ---
@@ -200,7 +199,7 @@ Added to: design-memory (searchable)
 
 `design-retrospective` works with:
 - `publish-project` (review after shipping)
-- `design-memory` (logs lessons)
+- `session-journal` (journal entries as evidence)
 - `design-rationale` (reviews decisions)
 
 ---
@@ -224,5 +223,5 @@ Make retrospectives searchable for whole team.
 ## Related Skills
 
 - [publish-project](publish-project.md) - Handoff first
-- [design-memory](design-memory.md) - Archives lessons
+- [session-journal](session-journal.md) - Your session journal
 - [benchmark](benchmark.md) - Tracks metrics

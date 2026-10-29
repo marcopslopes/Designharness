@@ -100,7 +100,7 @@ wording that has to land close enough for §2 to route there.
 | `design-rationale` | Phrase | After a pick | "write up why we chose this approach" | |
 | `design-debt-tracker` | Phrase | Audit/critique **offer** fix-or-log | "log this as design debt" / "what debt do we have on X" | Writing rows is composed; triage is phrase. |
 | `design-retrospective` | Phrase | — | "let's do a retro on this project" | |
-| `design-memory` | Phrase | — | "what have we decided about X before" | Read-only, never steers. |
+| `session-journal` | Phrase | `session-handoff` | "wrap up", "journal this" | Designer's judgment only; read back on resume and by `case-study`. |
 | `roadmap-prioritization` | Phrase | — | "help me prioritize the roadmap" | |
 | `okr-goal-setting` | Phrase | — | "help me set OKRs for this" | |
 | `stakeholder-alignment` | Phrase | — | "help me align stakeholders on X" | |

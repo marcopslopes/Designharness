@@ -20,7 +20,7 @@ and `context/design-system/tokens.css` — never invents components, never guess
 | `harness/skills/responsive-patterns/SKILL.md` | Content-driven breakpoints, priority maps, 200% zoom/reflow. |
 | `harness/skills/inspiration-scouting/SKILL.md` | Aesthetic/cross-domain references with take/leave before visual direction locks. |
 | `harness/skills/design-debt-tracker/SKILL.md` | Standalone triage of `projects/<slug>/debt.md` (critique/audit advisories). |
-| `harness/skills/design-retrospective/SKILL.md` | Post-ship/milestone reflection; optional observational append to `design-memory`. |
+| `harness/skills/design-retrospective/SKILL.md` | Post-ship/milestone reflection; reads `session-journal` entries as evidence. |
 | `harness/skills/figma-ux-audit/SKILL.md` | Optional canvas annotations after written critique — same two-layer labels. Never auto-runs. |
 | `harness/skills/deck-builder/SKILL.md` | HTML case-study / workshop / stakeholder decks from a task folder; live Design Harness embeds via `?embed=1`. |
 | `harness/skills/publish-project/SKILL.md` | On-demand publish of a picked `artifacts/decks/` file into `public/projects/<slug>/`. Requires a prior `audit` PASS; never auto-fires. |

@@ -62,7 +62,7 @@ not on every request.
 | `harness/skills/taste-feedback/SKILL.md` | Mid-build aesthetic checkpoints within Foundations; human guide `harness/skills/taste-feedback/GUIDE.md` |
 | `harness/skills/motion-choreography/SKILL.md` | Motion spec / review / opportunities / audit→plan / vocabulary / list / scan / apply (sheet, menu, pill); human guide `harness/skills/motion-choreography/GUIDE.md` |
 | `harness/skills/synthetic-user-testing/SKILL.md` | Persona/archetype walkthroughs — advisory only; human guide `harness/skills/synthetic-user-testing/GUIDE.md` |
-| `harness/skills/design-retrospective/SKILL.md` | Post-ship reflection; optional design-memory append; human guide `harness/skills/design-retrospective/GUIDE.md` |
+| `harness/skills/design-retrospective/SKILL.md` | Post-ship reflection; reads session-journal entries; human guide `harness/skills/design-retrospective/GUIDE.md` |
 | `harness/skills/inspiration-scouting/SKILL.md` | Aesthetic/cross-domain refs with take/leave; human guide `harness/skills/inspiration-scouting/GUIDE.md` |
 | `harness/skills/cognitive-accessibility/SKILL.md` | Mental load / wayfinding / COGA-style review; human guide `harness/skills/cognitive-accessibility/GUIDE.md` |
 | `harness/skills/responsive-patterns/SKILL.md` | Content-driven breakpoints + 200% zoom/reflow; human guide `harness/skills/responsive-patterns/GUIDE.md` |

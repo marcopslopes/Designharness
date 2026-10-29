@@ -7,6 +7,7 @@ Each release is a version in `package.json` and a matching Git tag, such as `v0.
 ### 29 October 2026
 
 - **The agent can learn your rules.** When you correct its output with a rule you'd want every time ("no borders on cards"), it asks once: "Save as a preference? [Yes / Just this time]". Saved rules go to `designer-context.local/preferences.md`, grouped by prototype, copy, Figma, writing, and Slack/docs. The prototype, copy, critique, writing, and docs skills each read only their own section first, and say "Following your preference: …" whenever a saved rule applies. Nothing is saved without your Yes, and Claude Code's own auto memory is off in this repo so rules don't land anywhere else.
+- **A session journal replaces design memory.** Say "journal this" or "wrap up" and the agent writes a short entry to `designer-context.local/journal/YYYY-MM-DD-<project>.md`: what you asked, what got built, where you overrode it (in your words), what you decided, and links to any screenshots it saved. The next session on that project reads the latest entry and `decisions.md`, and `case-study` reads every entry for the project. `design-memory` is gone; an old `design-record.md` is no longer read.
 
 ### 28 October 2026
 

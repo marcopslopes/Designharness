@@ -1181,7 +1181,7 @@ skips a real stakeholder who hasn't spoken up yet.
 **Expected:**
 1. MATCHED `taste-feedback`.
 2. Specific questions (not "does this look good?"); alternatives stay inside Foundations tokens.
-3. Records signal to `decisions.md` when answered; does not load `design-memory` to steer.
+3. Records signal to `decisions.md` when answered.
 4. Logged.
 
 **Fail conditions:** invents off-token colours/fonts; vague approval questions; substitutes for `audit`.
@@ -1228,7 +1228,7 @@ skips a real stakeholder who hasn't spoken up yet.
 
 **Expected:**
 1. MATCHED `design-retrospective`.
-2. Grounds wins/misses in brief/decisions/findings/debt; names open debt; offers optional design-memory append (does not auto-write).
+2. Grounds wins/misses in brief/decisions/findings/debt; names open debt; may read the project's `session-journal` entries as evidence, never writes them.
 3. Does not invent metric outcomes.
 4. Logged.
 
@@ -1574,23 +1574,26 @@ canonical ones; skips the First look paragraph.
 
 ---
 
-## Scenario 55 — `design-memory` read-only habits report
+## Scenario 55 — `session-journal` on "journal this"
 
-**Request:** *"How do I actually design, based on what I've done so
-far?"*
+**Request:** after a session on `projects/<slug>/` where the designer
+corrected the agent once (*"no, keep the reward in the title"*):
+*"journal this"*
 
 **Expected:**
-1. MATCHED `design-memory` — read-only, sourced from
-   `designer-context.local/design-record.md`.
-2. Report is observational only — does **not** get fed into any
-   critique, `audit`, or build decision, even in the same session.
-3. Logged.
+1. MATCHED `session-journal`.
+2. Appends one entry under 20 lines to
+   `designer-context.local/journal/YYYY-MM-DD-<slug>.md` (date from the
+   clock): Asked, Built, Changed direction (the correction quoted
+   verbatim), Decisions, Screenshots (`none captured` if none were saved).
+3. Shows the entry and the path in chat. Writes nothing tracked.
+4. A later "continue <slug>" reads `decisions.md` and that entry.
 
-**Fail conditions:** uses this skill's output to steer or justify a
-critique/build decision elsewhere in the same conversation; invents a
-pattern not actually present in the design record.
+**Fail conditions:** pastes chat turns or code into the entry; paraphrases
+the correction; invents a screenshot or decision; writes without a
+trigger; critique (`ux-pattern`, `audit`) cites the journal.
 
-**Designer HOWTO:** `harness/skills/design-memory/SKILL.md`
+**Designer HOWTO:** `harness/skills/session-journal/SKILL.md`
 
 ---
 

@@ -110,7 +110,10 @@ rejected and why.
 
 **Source:** `decisions.md` (primary). Supplement with option frames
 already documented in findings or IA docs only if decisions doesn't list
-them yet — still cite the file, never invent a rejected option.
+them yet — still cite the file, never invent a rejected option. The
+designer's journal (`designer-context.local/journal/*-<slug>.md`) shows
+where they changed direction; use it to order the options and explain a
+rejection, citing the entry's date.
 
 **Write like:** 2–4 options. Each: what it is, why chosen or why not.
 Mark the rejected path plainly. Equal weight for rejected and chosen
@@ -135,7 +138,8 @@ options to add to `decisions.md` first — don't invent Option B.
 chosen.
 
 **Source:** The decisive entry in `decisions.md`, cross-checked against
-`brief.md` Goal.
+`brief.md` Goal. The journal entry from that session may supply the
+designer's own reason, quoted verbatim.
 
 **Write like:** Label it (`The decision` / `What we locked`). One
 sentence decision, one sentence why. Don't restate the options.
@@ -231,6 +235,8 @@ If Sources is empty, fix the brief first.
 
 - Pull the story from the task folder; never re-derive it from chat
   memory when `brief.md` / `findings.md` / `decisions.md` answer it.
+- The journal is private. Quote only the designer's own words from it,
+  never other people named there, and cite it as `journal YYYY-MM-DD`.
 - Never fabricate a quote, number, rejected option, or shipped outcome.
 - One idea per group inside a chapter: numbers, voices and tables stay
   apart.

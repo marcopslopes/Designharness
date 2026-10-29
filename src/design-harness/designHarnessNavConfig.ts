@@ -736,7 +736,6 @@ const SKILL_MENU = {
     'writing',
   ],
   Harness: [
-    'design-memory',
     'designer-workload',
     'harness-setup',
     'manager-1on1-prep',
@@ -745,6 +744,7 @@ const SKILL_MENU = {
     'publish-project',
     'scheduling',
     'session-handoff',
+    'session-journal',
     'workload-agent',
   ],
 } as const

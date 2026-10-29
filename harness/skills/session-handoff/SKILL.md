@@ -87,7 +87,10 @@ explicit go.
    - No task → `designer-context.local/session-handoff.md` if that
      folder exists, else tell the designer the chat block is the
      artifact (do not commit a root `HANDOFF.md`).
-5. **Tell the designer** the path + the one-line paste for a fresh chat:
+5. **Journal.** Append this session's entry per
+   `harness/skills/session-journal/SKILL.md` — the designer's asks,
+   overrides, and decisions, not the handoff again.
+6. **Tell the designer** the path + the one-line paste for a fresh chat:
    `Read <path>, verify claims against the listed files, then wait for
    my instructions.`
 
@@ -161,3 +164,4 @@ my instructions before taking any action.
 | `projects/<slug>/handoff.md` | Preferred durable artifact |
 | `harness/designer-onboarding/SKILL.md` | Different "handoff" — next-work menu |
 | `harness/skills/design-retrospective/SKILL.md` | Post-ship learning, not chat continuity |
+| `harness/skills/session-journal/SKILL.md` | Journal entry written at every handoff |
