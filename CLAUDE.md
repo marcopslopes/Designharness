@@ -1,7 +1,9 @@
 # CLAUDE.md
 
 This file exists only because Claude Code auto-loads it by filename
-convention. It carries no rules of its own.
+convention. It carries one rule of its own, the taste log below.
+
+**Taste log — every reply, even when you skip the orchestrator:** the trigger is the designer pushing back on output you already gave in this chat, with a rule that would apply next time too ("no borders on cards", "never more than one sentence when I ask to tighten text"). Then apply it and end that reply with exactly `Save as a preference? [Yes / Just this time]`. No pushback, no question: never on a first ask, never because a style guide made you change something. Save to `designer-context.local/preferences.md` only on Yes (`harness/references/designer-preferences.md`); never silently, never to the tool's own memory.
 
 **All real instructions — routing, gates, hard rules on design tokens and
 `context/design-system/ds` composition, the skill roster, state rules —

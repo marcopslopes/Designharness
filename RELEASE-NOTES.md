@@ -4,6 +4,10 @@ What changed in the harness and Design Harness, newest first. Add an entry when 
 
 Each release is a version in `package.json` and a matching Git tag, such as `v0.1.0`. New entries go under a date heading above the latest version until the next release.
 
+### 29 October 2026
+
+- **The agent can learn your rules.** When you correct its output with a rule you'd want every time ("no borders on cards"), it asks once: "Save as a preference? [Yes / Just this time]". Saved rules go to `designer-context.local/preferences.md`, grouped by prototype, copy, Figma, writing, and Slack/docs. The prototype, copy, critique, writing, and docs skills each read only their own section first, and say "Following your preference: …" whenever a saved rule applies. Nothing is saved without your Yes, and Claude Code's own auto memory is off in this repo so rules don't land anywhere else.
+
 ### 28 October 2026
 
 - **A design board.** The rail has a new Design board (`#/board`): an infinite canvas with pages, sticky notes, text, frames, shapes, arrows and a pen. Drop or paste images and files (PDFs preview inline), embed Figma, FigJam or Miro links, and place live prototype screens from your projects — double-click one to tap through it. Pan with space-drag or two fingers, zoom with ⌘-scroll or a pinch, and undo with ⌘Z. The board saves in this browser; export and import it as a file from the ⋯ menu.

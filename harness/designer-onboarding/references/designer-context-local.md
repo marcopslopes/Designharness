@@ -33,6 +33,10 @@ After reading `designer-profile.local.md`, agents should:
    designer asks for the design-memory report or explicitly opts in at
    project close (`harness/skills/design-memory/SKILL.md`). **Never** load
    it for `audit`, design-critique, `ui-agent`, or `design-kickoff`.
+6. **`preferences.md` is read by section:** `ui-agent`, `content`,
+   `ux-pattern`, `writing`, and `docs-brief` each read only their own
+   section; nothing is written there without the designer's Yes
+   (`harness/references/designer-preferences.md`).
 
 Trivial one-liners don't require reading the whole tree every time.
 
@@ -47,7 +51,7 @@ indexes, then open relevant `.md` files under those paths.
 ```text
 designer-context.local/
   README.md           # index — list files/folders and when to read them
-  preferences.md      # plans vs just-do-it, platforms, tone
+  preferences.md      # taste log — rules by work type (agent-maintained)
   working-notes.md    # anything cross-project you want remembered
   sources.md          # optional — cross-cutting private link catalog
   referrals/          # optional nested topic folder (example)
@@ -76,7 +80,7 @@ Agents read it for standing context.
 
 | Path | When to read |
 |------|----------------|
-| preferences.md | Any design or research task |
+| preferences.md | Only the matching work-type section, by its reader skill |
 | sources.md | Cross-cutting private bookmarks |
 | working-notes.md | Referrals, payments, or agent/harness work |
 | referrals/ | Referral / growth topics |

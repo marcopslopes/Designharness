@@ -34,6 +34,14 @@ essays, blog/LinkedIn posts, written case-study narratives, retrospective
 writeups. An HTML report of a critique (findings, not a ship story) is
 `review-report`.
 
+## Before Step 0 — Your preferences
+
+**First, before any other load:** read the `## Writing` section of
+`designer-context.local/preferences.md` if the file exists — that
+section only. If a saved rule there applies to this draft, your reply
+must say so once: "Following your preference: <rule>." Contract:
+`harness/references/designer-preferences.md`.
+
 ## Step 0 — Scope the piece (skip only what's already answered)
 
 **Existing-article pass:** skip this step (and Step 2.5). The paste

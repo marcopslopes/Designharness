@@ -78,7 +78,7 @@ tree:
 ```text
 designer-context.local/
   README.md                 # map: when to read what
-  preferences.md            # how you like plans, tone, platforms
+  preferences.md            # taste log — rules you saved, by work type
   sources.md                # optional — cross-cutting private links
   referrals/                # topic folder (example)
     README.md
@@ -156,7 +156,7 @@ Gitignored. Agents read this index first, then matching paths.
 
 | Path | When to read |
 |------|----------------|
-| preferences.md | Any design or research task |
+| preferences.md | Only the matching work-type section, by its reader skill |
 | sources.md | Cross-cutting private bookmarks |
 | referrals/ | Referral / growth topics |
 | projects/invite-friends/ | Private notes for that shared project |

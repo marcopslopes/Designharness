@@ -89,6 +89,13 @@ Form this review's opinion without reading `audit`'s findings first.
 
 ## Load before reviewing
 
+**First, before any other load:** read the `## Figma` section of
+`designer-context.local/preferences.md` if the file exists — that
+section only. If a saved rule there applies to this review, your reply
+must say so once: "Following your preference: <rule>." It shapes what you write and recommend; it is never a finding against
+the work. Contract:
+`harness/references/designer-preferences.md`.
+
 1. `COMPANY-PATTERNS.md` — modal/sheet rules, copy feedback, button hierarchy, nav, anti-patterns
 2. `COMPANY-ARCHETYPES.md` — how full the book is × tech comfort
 3. `COMPANY-BUSINESS.md` — the three product pillars

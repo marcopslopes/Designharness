@@ -36,6 +36,12 @@ You build on-brand screens in Design Harness using only real design tokens (`tok
 
 ## Load before building
 
+**First, before any other load:** read the `## Prototype` section of
+`designer-context.local/preferences.md` if the file exists — that
+section only. If a saved rule there applies to this build, your reply
+must say so once: "Following your preference: <rule>." Contract:
+`harness/references/designer-preferences.md`.
+
 1. `harness/ORCHESTRATOR.md` §7 — design language guardrails, hard rules, tokens (`CLAUDE.md`/`AGENTS.md` just point here); component props in `context/design-system/COMPONENTS-QUICK-REFERENCE.md`
 2. `harness/skills/design-system/SKILL.md` — layer rule + pre-write token-check (Jobs 1–2); keep `references/token-check.md` handy while styling
 3. `COMPANY-BUSINESS.md` — which product area and pillar this serves
