@@ -1,0 +1,528 @@
+/*
+ * Brand system — the brand book (`components/BrandBook.tsx`). Reuses the
+ * marketing blocks and remaps their colours and display face to the brand.
+ * `data-theme="light"` keeps product light values in either Harness theme.
+ */
+
+.design-harness-brand-book {
+  --brand-display: 'Instrument Serif', Georgia, serif;
+  --mkt-display-font: var(--brand-display);
+  --mkt-display-tracking: -0.01em;
+  --mkt-wordmark-font: var(--brand-display);
+  --mkt-wordmark-weight: var(--font-weight-regular);
+  --mkt-wordmark-tracking: -0.02em;
+  --mkt-mark-fill: transparent;
+  --mkt-mark-style: italic;
+  --design-harness-accent: var(--kit-brand);
+  --design-harness-accent-base: var(--kit-brand);
+  --design-harness-sand: var(--brand-sand);
+  --design-harness-band: var(--color-bg-brand-dark);
+  --design-harness-forest-surface: var(--color-bg-brand-dark);
+  --design-harness-shell-panel: var(--kit-paper);
+  --design-harness-warm-sand: var(--brand-paper);
+  --design-harness-warm-ink: var(--kit-ink);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-08);
+  padding: var(--spacing-06);
+  border-radius: var(--radius-03);
+  background: var(--brand-paper);
+  color: var(--kit-ink);
+  font-family: var(--font-family-text);
+}
+
+.design-harness-system__demo:has(> .design-harness-brand-book) {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.design-harness-brand-book .design-harness-mkt-headline mark {
+  padding: 0;
+}
+
+.design-harness-brand-book .design-harness-mkt-footer {
+  background: var(--kit-ink);
+}
+
+.design-harness-brand-book .design-harness-feature-row {
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+}
+
+.design-harness-brand-book .design-harness-feature-row h3 {
+  font-family: var(--brand-display);
+  font-size: var(--type-h4-size);
+  font-weight: var(--font-weight-regular);
+}
+
+.design-harness-brand-book .design-harness-band[data-tone='dark'] .design-harness-mkt-headline mark {
+  color: var(--kit-brand-80);
+}
+
+/* ——— Cover ——— */
+.design-harness-brand-book__cover {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-05);
+  min-height: 22rem;
+  padding: var(--spacing-08) var(--spacing-07);
+  border-radius: var(--radius-03);
+  background: var(--color-bg-brand-dark);
+  color: var(--brand-paper);
+}
+
+.design-harness-brand-book__cover .design-harness-wordmark {
+  margin-top: auto;
+  color: inherit;
+}
+
+.design-harness-brand-book__cover-kicker {
+  margin: 0;
+  font-size: var(--font-size-label-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.design-harness-brand-book__cover-line {
+  max-width: 30rem;
+  margin: 0;
+  font-family: var(--brand-display);
+  font-size: var(--type-h4-size);
+  line-height: 1.2;
+}
+
+.design-harness-brand-book__cover-note {
+  margin: 0;
+  font-size: var(--font-size-label-small);
+  opacity: 0.7;
+}
+
+/* ——— Chapter index ——— */
+.design-harness-brand-book__index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-02);
+}
+
+.design-harness-brand-book__index button {
+  display: inline-flex;
+  gap: var(--spacing-02);
+  padding: var(--spacing-02) var(--spacing-04);
+  border: var(--border-01) solid color-mix(in srgb, var(--kit-ink) 16%, transparent);
+  border-radius: var(--radius-05);
+  background: transparent;
+  color: var(--kit-ink);
+  font: inherit;
+  font-size: var(--font-size-label-small);
+  cursor: pointer;
+}
+
+.design-harness-brand-book__index button span {
+  color: var(--kit-ink-50);
+}
+
+.design-harness-brand-book__index button:hover {
+  background: var(--brand-sand);
+}
+
+.design-harness-brand-book__index button:focus-visible {
+  outline: 2px solid var(--kit-brand);
+  outline-offset: 2px;
+}
+
+/* ——— Chapters ——— */
+.design-harness-brand-book__chapter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-06);
+  padding-top: var(--spacing-07);
+  border-top: var(--border-01) solid color-mix(in srgb, var(--kit-ink) 12%, transparent);
+  scroll-margin-top: var(--spacing-08);
+}
+
+.design-harness-brand-book__chapter-head {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  column-gap: var(--spacing-04);
+  row-gap: var(--spacing-02);
+}
+
+.design-harness-brand-book__number {
+  grid-row: span 2;
+  color: var(--kit-brand);
+  font-family: var(--brand-display);
+  font-size: var(--type-h4-size);
+  line-height: 1;
+}
+
+.design-harness-brand-book__title {
+  margin: 0;
+  font-family: var(--brand-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--font-weight-regular);
+  line-height: 1;
+}
+
+.design-harness-brand-book__lead {
+  margin: 0;
+  color: var(--kit-ink-50);
+}
+
+.design-harness-brand-book__stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-05);
+}
+
+.design-harness-brand-book__stack--loose {
+  gap: var(--spacing-08);
+}
+
+.design-harness-brand-book__subhead {
+  margin: var(--spacing-04) 0 0;
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.design-harness-brand-book__aside,
+.design-harness-brand-book__muted {
+  margin: 0;
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+}
+
+/* ——— Tiles ——— */
+.design-harness-brand-book__tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--spacing-04);
+}
+
+.design-harness-brand-book__tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-05);
+  min-height: 11rem;
+  margin: 0;
+  padding: var(--spacing-06) var(--spacing-05) var(--spacing-04);
+  border-radius: var(--radius-02);
+  overflow: hidden;
+}
+
+.design-harness-brand-book__tile figcaption {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  margin-top: auto;
+  font-size: var(--font-size-label-small);
+  text-align: center;
+  opacity: 0.75;
+}
+
+.design-harness-brand-book__tile > :first-child {
+  margin-top: auto;
+}
+
+.design-harness-brand-book__tile[data-surface='paper'] {
+  border: var(--border-01) solid color-mix(in srgb, var(--kit-ink) 10%, transparent);
+  background: var(--kit-paper);
+}
+
+.design-harness-brand-book__tile[data-surface='sand'] {
+  background: var(--brand-sand);
+}
+
+.design-harness-brand-book__tile[data-surface='deep'] {
+  background: var(--color-bg-brand-dark);
+  color: var(--brand-paper);
+}
+
+.design-harness-brand-book__tile[data-surface='ink'] {
+  background: var(--kit-ink);
+  color: var(--brand-paper);
+}
+
+.design-harness-brand-book__tile[data-surface='deep'] .design-harness-wordmark,
+.design-harness-brand-book__tile[data-surface='ink'] .design-harness-wordmark {
+  color: inherit;
+}
+
+.design-harness-brand-book__tile[data-dont] figcaption {
+  color: var(--kit-danger);
+  opacity: 1;
+}
+
+.design-harness-brand-book__clearspace {
+  padding: 0.7em;
+  outline: var(--border-01) dashed var(--kit-brand);
+  font-size: var(--type-h2-size);
+}
+
+.design-harness-brand-book__clearspace .design-harness-wordmark {
+  display: block;
+  font-size: inherit;
+  outline: var(--border-01) solid color-mix(in srgb, var(--kit-brand) 40%, transparent);
+}
+
+.design-harness-brand-book__min .design-harness-wordmark {
+  font-size: 1rem;
+}
+
+/* ——— Colour ——— */
+.design-harness-brand-book__swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: var(--spacing-05) var(--spacing-04);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.design-harness-brand-book__swatches li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-01);
+}
+
+.design-harness-brand-book__chip {
+  height: 6rem;
+  margin-bottom: var(--spacing-02);
+  border: var(--border-01) solid color-mix(in srgb, var(--kit-ink) 10%, transparent);
+  border-radius: var(--radius-02);
+}
+
+.design-harness-brand-book__pairs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: var(--spacing-03);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.design-harness-brand-book__pairs li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-01);
+  padding: var(--spacing-04);
+  border: var(--border-01) solid color-mix(in srgb, var(--kit-ink) 10%, transparent);
+  border-radius: var(--radius-02);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-brand-book__pair-sample {
+  font-family: var(--brand-display);
+  font-size: var(--type-h3-size);
+  line-height: 1;
+}
+
+.design-harness-brand-book__pair-grade {
+  opacity: 0.8;
+}
+
+/* ——— Type ——— */
+.design-harness-brand-book__specimen {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.design-harness-brand-book__specimen figcaption {
+  display: block;
+  text-align: left;
+}
+
+.design-harness-brand-book__specimen-glyph {
+  font-size: 5rem;
+  line-height: 1;
+}
+
+.design-harness-brand-book__specimen-glyph[data-role='display'] {
+  font-family: var(--brand-display);
+}
+
+.design-harness-brand-book__specimen-glyph em {
+  margin-left: var(--spacing-03);
+  color: var(--kit-brand);
+}
+
+.design-harness-brand-book__specimen-glyph[data-role='text'] {
+  font-weight: var(--font-weight-medium);
+  letter-spacing: -0.04em;
+}
+
+.design-harness-brand-book__scale {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.design-harness-brand-book__scale li {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--spacing-05);
+  padding: var(--spacing-04) 0;
+  border-bottom: var(--border-01) solid color-mix(in srgb, var(--kit-ink) 10%, transparent);
+}
+
+.design-harness-brand-book__scale-meta {
+  display: flex;
+  flex-direction: column;
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-brand-book__scale-meta strong {
+  color: var(--kit-ink);
+  font-weight: var(--font-weight-medium);
+}
+
+.design-harness-brand-book__scale-sample[data-role='display'] {
+  font-family: var(--brand-display);
+  letter-spacing: -0.01em;
+}
+
+.design-harness-brand-book__scale-sample[data-size='d1'] {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1;
+}
+
+.design-harness-brand-book__scale-sample[data-size='d2'] {
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  line-height: 1.05;
+}
+
+.design-harness-brand-book__scale-sample[data-size='d3'] {
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  line-height: 1.1;
+}
+
+.design-harness-brand-book__scale-sample[data-size='lead'] {
+  font-size: 1.25rem;
+  line-height: 1.45;
+}
+
+.design-harness-brand-book__scale-sample[data-size='body'] {
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.design-harness-brand-book__scale-sample[data-size='small'] {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.design-harness-brand-book__scale-sample[data-size='label'] {
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ——— Imagery ——— */
+.design-harness-brand-book__shot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-02);
+  margin: 0;
+}
+
+.design-harness-brand-book__shot-frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-02);
+  background: var(--brand-sand);
+}
+
+.design-harness-brand-book__shot[data-shape='tall'] .design-harness-brand-book__shot-frame {
+  aspect-ratio: 3 / 4;
+}
+
+.design-harness-brand-book__shot[data-shape='banner'] .design-harness-brand-book__shot-frame {
+  aspect-ratio: 21 / 8;
+}
+
+.design-harness-brand-book__shot figcaption {
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-brand-book .design-harness-hero__media {
+  background: transparent;
+}
+
+.design-harness-brand-book__rules {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-02);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.design-harness-brand-book__rule {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-02);
+}
+
+.design-harness-brand-book__rule > :first-child {
+  flex: none;
+  margin-top: 0.15em;
+  color: var(--kit-brand);
+}
+
+.design-harness-brand-book__rule[data-ok='false'] > :first-child {
+  color: var(--kit-ink-50);
+}
+
+.design-harness-brand-book__rule[data-ok='false'] span {
+  color: var(--kit-ink-50);
+}
+
+/* ——— Voice ——— */
+.design-harness-brand-book__voice {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--spacing-04);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.design-harness-brand-book__voice > li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-04);
+  padding: var(--spacing-05);
+  border-radius: var(--radius-02);
+  background: var(--brand-sand);
+}
+
+.design-harness-brand-book__voice h3 {
+  margin: 0;
+  font-family: var(--brand-display);
+  font-size: var(--type-h4-size);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.15;
+}
+
+@media (max-width: 720px) {
+  .design-harness-brand-book {
+    padding: var(--spacing-04);
+  }
+
+  .design-harness-brand-book__scale li {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-02);
+  }
+}

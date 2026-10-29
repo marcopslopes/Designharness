@@ -1,0 +1,9 @@
+/**
+ * Design Harness styles entry — thin barrel.
+ * Real design tokens/primitives: context/design-system/
+ * Catalog chrome + prototypes: src/design-harness/styles/
+ *
+ * Prefer importing `./design-harness/styles/index.css` from new code;
+ * this file keeps existing `import "../design-harness.css"` paths working.
+ */
+@import './design-harness/styles/index.css';

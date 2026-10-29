@@ -1,0 +1,640 @@
+/**
+ * Presentation formats — Variants and Compare (`src/design-harness/pages/PresentationPages.tsx`).
+ * Full-window, like a tool: the screen fills the canvas, panels dock to the edge, a keyboard button
+ * sits bottom right. Harness frame chrome, so kit tokens, not product tokens.
+ */
+
+.design-harness-present {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  background: var(--kit-bg);
+  color: var(--kit-ink);
+  font-family: var(--font-family-text);
+}
+
+.design-harness-present--compare {
+  flex-direction: column;
+}
+
+/* ——— A screen scaled to its pane ——— */
+.design-harness-present__pane {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.design-harness-present__screen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 0;
+  transform: translate(-50%, -50%) scale(var(--present-scale, 1));
+  transform-origin: center;
+}
+
+/* Room around the device so its drop shadow fades out instead of being cut at the frame edge.
+   The device sits at the top of that box, so it's nudged down to look centred. */
+.design-harness-present__screen[data-viewport='phone'] {
+  width: 35rem;
+  height: 64rem;
+  transform: translate(-50%, -50%) scale(var(--present-scale, 1)) translateY(4.5rem);
+}
+
+.design-harness-present__screen[data-viewport='desktop'] {
+  width: 80rem;
+  height: 50rem;
+}
+
+.design-harness-present__missing {
+  margin: auto;
+  padding: var(--spacing-06);
+  color: var(--kit-ink-70);
+}
+
+/* ——— Variants ——— */
+.design-harness-present__canvas {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  padding: var(--spacing-06);
+}
+
+.design-harness-present__panel {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 22.5rem;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  border-left: var(--border-01) solid var(--kit-line-strong);
+  background: var(--kit-paper);
+}
+
+.design-harness-present__panel-header {
+  padding: var(--spacing-06) var(--spacing-05) var(--spacing-05);
+}
+
+.design-harness-present__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-01);
+  font-size: var(--font-size-label-small);
+  color: var(--kit-ink-50);
+  text-decoration: none;
+}
+
+.design-harness-present__back:hover {
+  color: var(--kit-ink);
+}
+
+.design-harness-present__title {
+  margin: var(--spacing-03) 0 0;
+  font-family: var(--font-family-display);
+  font-size: var(--kit-font-title-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+}
+
+.design-harness-present__intro,
+.design-harness-present__combo-note {
+  margin: var(--spacing-02) 0 0;
+  font-size: var(--font-size-label);
+  line-height: var(--line-height-body);
+  color: var(--kit-ink-50);
+}
+
+.design-harness-present__combo-note {
+  margin-top: var(--spacing-03);
+  color: var(--kit-ink);
+}
+
+.design-harness-present__section {
+  padding: var(--spacing-04) 0 var(--spacing-01);
+  border-top: var(--border-01) solid var(--kit-line-strong);
+}
+
+.design-harness-present__section-title {
+  margin: 0;
+  padding: 0 var(--spacing-05) var(--spacing-03);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+}
+
+.design-harness-present__group {
+  padding: 0 var(--spacing-05) var(--spacing-04);
+}
+
+.design-harness-present__group-label {
+  margin: 0 0 var(--spacing-02);
+  font-size: var(--font-size-label-small);
+  font-weight: var(--kit-font-weight-medium);
+  color: var(--kit-ink-70);
+}
+
+.design-harness-present__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-01);
+}
+
+.design-harness-present__note {
+  margin: var(--spacing-02) 0 0;
+  font-size: var(--font-size-label-small);
+  line-height: var(--line-height-body);
+  color: var(--kit-ink-50);
+}
+
+/* ——— Compare ——— */
+.design-harness-present__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-03);
+  padding: var(--spacing-02) var(--spacing-04);
+  border-bottom: var(--border-01) solid var(--kit-line-strong);
+  background: var(--kit-paper);
+}
+
+.design-harness-present__bar-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.design-harness-present__bar-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  height: var(--size-07);
+  padding: 0 var(--spacing-03);
+  border: 0;
+  border-radius: var(--radius-02);
+  background: transparent;
+  color: var(--kit-ink-70);
+  font: inherit;
+  font-size: var(--font-size-label);
+  cursor: pointer;
+}
+
+.design-harness-present__bar-button:hover {
+  background: var(--kit-sunken);
+  color: var(--kit-ink);
+}
+
+.design-harness-present__stepper {
+  display: flex;
+  gap: var(--spacing-01);
+}
+
+.design-harness-present__frames {
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(var(--compare-count, 2), minmax(0, 1fr));
+  gap: var(--border-01);
+  min-height: 0;
+  background: var(--kit-line-strong);
+}
+
+.design-harness-present__frame {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  background: var(--kit-bg);
+}
+
+.design-harness-present__frame-num {
+  position: absolute;
+  top: var(--spacing-04);
+  left: var(--spacing-05);
+  z-index: 1;
+  font-size: var(--font-size-label);
+  font-weight: var(--kit-font-weight-medium);
+  font-variant-numeric: tabular-nums;
+  color: var(--kit-ink-50);
+}
+
+/* ——— Popovers (native `popover`: light dismiss and Esc come with it) ——— */
+.design-harness-present__popover {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: var(--spacing-04);
+  border: var(--border-01) solid var(--kit-line-strong);
+  border-radius: var(--radius-04);
+  background: var(--kit-paper);
+  color: var(--kit-ink);
+  box-shadow: var(--kit-shadow-lifted);
+}
+
+.design-harness-present__popover-title {
+  margin: 0 0 var(--spacing-03);
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-bold);
+  color: var(--kit-ink-50);
+}
+
+.design-harness-present__popover ul,
+.design-harness-present__popover ol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-03);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.design-harness-present__keys {
+  position: fixed;
+  right: var(--spacing-05);
+  bottom: var(--spacing-05);
+  z-index: 2;
+}
+
+.design-harness-present__key-button {
+  display: grid;
+  place-items: center;
+  width: var(--size-08);
+  height: var(--size-08);
+  padding: 0;
+  border: var(--border-01) solid var(--kit-line-strong);
+  border-radius: 50%;
+  background: var(--kit-paper);
+  color: var(--kit-ink-70);
+  box-shadow: var(--kit-shadow-border);
+  cursor: pointer;
+}
+
+.design-harness-present__key-button:hover {
+  color: var(--kit-ink);
+}
+
+.design-harness-present__key-menu {
+  right: var(--spacing-05);
+  bottom: calc(var(--spacing-05) + var(--size-08) + var(--spacing-02));
+  width: 15rem;
+}
+
+.design-harness-present__key-menu li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-03);
+  font-size: var(--font-size-label);
+}
+
+.design-harness-present__key-menu kbd {
+  min-width: var(--spacing-05);
+  padding: 0 var(--spacing-02);
+  border: var(--border-01) solid var(--kit-line-strong);
+  border-radius: var(--radius-01);
+  background: var(--kit-bg);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-label-small);
+  text-align: center;
+  color: var(--kit-ink-70);
+}
+
+.design-harness-present__notes {
+  top: calc(var(--size-07) + var(--spacing-04) + var(--spacing-02));
+  right: var(--spacing-04);
+  width: 22rem;
+}
+
+.design-harness-present__notes li {
+  display: flex;
+  gap: var(--spacing-03);
+}
+
+.design-harness-present__notes-num {
+  flex: none;
+  width: var(--spacing-05);
+  font-size: var(--font-size-label);
+  font-weight: var(--kit-font-weight-medium);
+  font-variant-numeric: tabular-nums;
+  color: var(--kit-ink-50);
+}
+
+.design-harness-present__notes-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  margin: 0;
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ——— Stage ——— */
+.design-harness-present--stage {
+  overflow: hidden;
+}
+
+.design-harness-present__drawer {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  max-width: 100%;
+  border-left: var(--border-01) solid var(--kit-line-strong);
+  background: var(--kit-paper);
+  box-shadow: var(--kit-shadow-lifted);
+  animation: design-harness-present-drawer-in var(--duration-medium) var(--easing-emphasized);
+}
+
+@keyframes design-harness-present-drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .design-harness-present__drawer {
+    animation: none;
+  }
+}
+
+.design-harness-present__drawer-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-02);
+  padding: var(--spacing-05) var(--spacing-05) var(--spacing-04);
+}
+
+.design-harness-present__drawer-eyebrow {
+  margin: 0;
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  color: var(--kit-ink-70);
+}
+
+.design-harness-present__drawer-title {
+  margin: var(--spacing-01) 0 0;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+}
+
+.design-harness-present__steps {
+  display: grid;
+  gap: var(--spacing-01);
+  margin: 0;
+  padding: 0 var(--spacing-03);
+  overflow-y: auto;
+  list-style: none;
+}
+
+.design-harness-present__step {
+  display: flex;
+  gap: var(--spacing-03);
+  width: 100%;
+  padding: var(--spacing-02);
+  border: 0;
+  border-radius: var(--radius-03);
+  background: transparent;
+  color: var(--kit-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.design-harness-present__step:hover {
+  background: color-mix(in srgb, var(--kit-sunken) 60%, transparent);
+}
+
+.design-harness-present__step[aria-current='step'] {
+  background: var(--kit-sunken);
+}
+
+.design-harness-present__step-mark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--size-06);
+  height: var(--size-06);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 var(--border-01) var(--kit-line-strong);
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--kit-ink-50);
+}
+
+.design-harness-present__step[aria-current='step'] .design-harness-present__step-mark {
+  background: var(--kit-ink);
+  box-shadow: none;
+  color: var(--kit-paper);
+}
+
+.design-harness-present__step-name {
+  display: block;
+  font-size: var(--font-size-label);
+  font-weight: var(--kit-font-weight-medium);
+}
+
+.design-harness-present__step-note {
+  display: block;
+  font-size: var(--font-size-label-small);
+  line-height: var(--line-height-body);
+  color: var(--kit-ink-50);
+}
+
+.design-harness-present__drawer-section {
+  margin-top: var(--spacing-04);
+  padding: var(--spacing-04) var(--spacing-05) 0;
+  border-top: var(--border-01) solid var(--kit-line-strong);
+}
+
+.design-harness-present__drawer-footer {
+  display: grid;
+  gap: var(--spacing-02);
+  margin-top: auto;
+  padding: var(--spacing-04) var(--spacing-05);
+  border-top: var(--border-01) solid var(--kit-line-strong);
+}
+
+.design-harness-present__drawer-footer kbd {
+  font-family: var(--font-family-mono);
+}
+
+.design-harness-present__drawer-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-02);
+  padding: var(--spacing-02);
+  border: var(--border-01) solid var(--kit-line-strong);
+  border-radius: var(--radius-02);
+  background: transparent;
+  color: var(--kit-ink);
+  font: inherit;
+  font-size: var(--font-size-label);
+  font-weight: var(--kit-font-weight-medium);
+  cursor: pointer;
+}
+
+.design-harness-present__drawer-button:hover {
+  background: var(--kit-sunken);
+}
+
+/* ——— Ideas ——— */
+.design-harness-present__index {
+  flex-shrink: 0;
+  width: 16rem;
+  overflow-y: auto;
+  border-right: var(--border-01) solid var(--kit-line-strong);
+  background: var(--kit-paper);
+}
+
+.design-harness-present__index-header {
+  padding: var(--spacing-05) var(--spacing-04) var(--spacing-02);
+}
+
+.design-harness-present__index-title {
+  margin: var(--spacing-03) 0 0;
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+}
+
+.design-harness-present__index nav {
+  padding: 0 var(--spacing-02) var(--spacing-03);
+}
+
+.design-harness-present__index-group {
+  margin: 0;
+  padding: var(--spacing-03) var(--spacing-02) var(--spacing-01);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  color: var(--kit-ink-50);
+}
+
+.design-harness-present__index-item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-02);
+  width: 100%;
+  padding: var(--spacing-02);
+  border: 0;
+  border-radius: var(--radius-02);
+  background: transparent;
+  color: var(--kit-ink-70);
+  font: inherit;
+  font-size: var(--font-size-label);
+  text-align: left;
+  cursor: pointer;
+}
+
+.design-harness-present__index-item:hover {
+  background: var(--kit-sunken);
+}
+
+.design-harness-present__index-item[aria-current='page'] {
+  background: var(--kit-sunken);
+  color: var(--kit-ink);
+  font-weight: var(--kit-font-weight-medium);
+}
+
+.design-harness-present__index-num {
+  flex: none;
+  width: var(--spacing-05);
+  font-size: var(--font-size-label-small);
+  font-variant-numeric: tabular-nums;
+  color: var(--kit-ink-30);
+}
+
+.design-harness-present__idea {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.design-harness-present__idea-header {
+  padding: var(--spacing-05) var(--spacing-06) 0;
+}
+
+.design-harness-present__idea-title {
+  margin: 0;
+  overflow: hidden;
+  font-size: var(--kit-font-title-size);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.design-harness-present__idea-notes {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: var(--spacing-05);
+  width: 20rem;
+  padding: var(--spacing-05);
+  overflow-y: auto;
+  border-left: var(--border-01) solid var(--kit-line-strong);
+  background: var(--kit-paper);
+}
+
+.design-harness-present__idea-prompt {
+  margin: 0;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+.design-harness-present__idea-note-title {
+  margin: 0 0 var(--spacing-01);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+}
+
+.design-harness-present__idea-note-body {
+  margin: 0;
+  font-size: var(--font-size-label);
+  line-height: var(--line-height-body);
+  color: var(--kit-ink-70);
+}
+
+@media (max-width: 56rem) {
+  .design-harness-present--ideas {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .design-harness-present__index,
+  .design-harness-present__idea-notes {
+    width: auto;
+    border: 0;
+  }
+
+  .design-harness-present__idea {
+    min-height: 80dvh;
+  }
+
+  .design-harness-present--variants {
+    flex-direction: column;
+  }
+
+  .design-harness-present__canvas {
+    min-height: 70dvh;
+  }
+
+  .design-harness-present__panel {
+    width: auto;
+    border-top: var(--border-01) solid var(--kit-line-strong);
+    border-left: 0;
+  }
+
+  .design-harness-present__frames {
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: 80dvh;
+    overflow-y: auto;
+  }
+}

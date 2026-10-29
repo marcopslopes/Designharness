@@ -1,0 +1,233 @@
+/* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP OF THIS FILE, ABOVE THE TAILWIND IMPORTS — DO NOT DELETE THIS COMMENT */
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800&display=swap');
+
+/* CRITICAL: THE FOLLOWING TAILWIND IMPORTS MUST NEVER BE DELETED OR REORDERED — DO NOT DELETE THIS COMMENT */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
+
+/* ─────────────────────────────────────────────────────────────
+   ROLE-TOKEN SYSTEM — One vocabulary, three modes.
+
+   Every UI token resolves to a CSS variable. The same role
+   (color.surface.raised, color.fg.default, color.action.primary)
+   maps to a different RGB triplet per mode without renaming.
+
+   - [data-theme='light']           → warm paper canvas, ink type
+   - [data-theme='dark']            → near-black canvas, lifted accents
+   - [data-contrast='high']         → AAA — saturated, no muting
+   - [data-theme='dark'][data-contrast='high'] → pure black + neon yellow
+   ───────────────────────────────────────────────────────────── */
+
+:root,
+[data-theme='light'] {
+  --font-sans: 'Proxima Nova', 'Mulish', system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* surface · fg · border (space-separated RGB for <alpha-value>)
+     Light mode depth ladder — pulled from the palette neutrals.
+     Tile uses #F5F5F5 to mimic the real Northline app background,
+     so widgets feel embedded in their native context. Paper
+     cards still pop cleanly off the lighter tile.
+       canvas  #FAFAF7   (warm anchor, matches the brand)
+       tile    #F5F5F5   (app-bg, mirrors the real product)
+       sunken  #ECECEC   (recessed wells — darker than tile)
+       paper   #FFFFFF   (raised surface, palette doc)
+     Borders sit at #E8E8E8 so they're a whisper. */
+  --c-paper: 255 255 255;        /* surface.raised  #FFFFFF */
+  --c-sunken: 236 236 236;       /* recessed wells  #ECECEC */
+  --c-sunken-2: 250 250 247;     /* surface.canvas  #FAFAF7 */
+  --c-ink: 20 22 26;             /* fg.default      #14161A */
+  --c-ink-70: 75 85 99;          /* fg.muted        #4B5563 (palette) */
+  --c-ink-50: 107 114 128;       /* fg.subtle       #6B7280 (palette) */
+  --c-muted-soft: 156 163 175;
+  --c-line: 240 240 240;         /* border.subtle   #F0F0F0 (whisper) */
+  /* Accents */
+  --c-teal: 0 112 120;            /* fg.accent       #007078 */
+  --c-teal-soft: 229 246 247;
+  --c-plum: 79 55 145;
+  --c-plum-soft: 235 229 245;
+  --c-rose: 194 74 110;
+  --c-rose-soft: 248 226 233;
+  --c-leaf: 46 160 67;
+  --c-leaf-soft: 223 245 228;
+  --c-amber: 184 106 0;
+  --c-amber-soft: 250 239 215;
+  --c-danger: 180 35 24;
+  --c-danger-soft: 249 227 223;
+  /* Shadows — light mode whispers. Total alpha kept under ~5%
+     so cards lift without casting visible shadows on a light tile. */
+  --shadow-card: 0 1px 2px rgba(20, 22, 26, 0.02),
+    0 2px 8px rgba(20, 22, 26, 0.025);
+  --shadow-card-strong: 0 1px 3px rgba(20, 22, 26, 0.03),
+    0 8px 24px -6px rgba(20, 22, 26, 0.06),
+    0 16px 40px -12px rgba(20, 22, 26, 0.05);
+  --shadow-border:
+    0 0 0 1px rgba(0, 0, 0, 0.03),
+    0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  /* Raised-surface edge highlight (subtle bevel for light = inset highlight) */
+  --edge-raised: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  /* Page chrome — tile is a solid warm well clearly darker than
+     sunken, so cards inside pop regardless of which surface they
+     use. */
+  --page-bg: #FAFAF7;
+  --page-bg-image: none;
+  --page-fg: #14161A;
+  --page-soft: #3D424A;
+  --page-muted: #6B7280;
+  --page-num: #6B7280;
+  --page-eyebrow: #4F3791;
+  --page-tile-bg: #F5F5F5;
+  --page-tile-image: none;
+  --page-line: #F0F0F0;
+  --page-toggle-bg: rgba(255, 255, 255, 0.85);
+  --page-toggle-fg: #14161A;
+  --page-toggle-track: #F5F5F5;
+}
+/* ───── DARK ─────
+   Premium dark: tonal stacking, edge-lit surfaces, atmospheric
+   page background with teal + plum hints at the edges. */
+[data-theme='dark'] {
+  --c-paper: 24 28 34;           /* surface.raised  #181C22 */
+  --c-sunken: 29 31 36;          /* recessed wells  #1D1F24 */
+  --c-sunken-2: 14 17 21;        /* surface.canvas  #0E1115 */
+  --c-ink: 241 242 244;          /* fg.default      #F1F2F4 */
+  --c-ink-70: 199 202 209;       /* fg.muted        #C7CAD1 */
+  --c-ink-50: 156 160 168;       /* fg.subtle       #9CA0A8 */
+  --c-muted-soft: 156 160 168;
+  --c-line: 56 60 68;            /* border.subtle   #383C44 */
+  --c-teal: 104 211 217;          /* fg.accent       #68D3D9 */
+  --c-teal-soft: 13 47 51;
+  --c-plum: 180 157 250;
+  --c-plum-soft: 47 36 84;
+  --c-rose: 248 123 152;
+  --c-rose-soft: 84 32 50;
+  --c-leaf: 108 213 140;
+  --c-leaf-soft: 26 67 36;
+  --c-amber: 242 162 74;
+  --c-amber-soft: 72 48 8;
+  --c-danger: 248 113 113;
+  --c-danger-soft: 84 26 24;
+  /* Dark shadows — deep ambient + faint teal glow, with a top-edge highlight.
+     The inset highlight is what gives the surface its "lifted" feel. */
+  --shadow-card:
+    0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+    0 1px 2px rgba(0, 0, 0, 0.45),
+    0 8px 24px -8px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-card-strong:
+    0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    0 16px 40px -8px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-border:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 1px 2px -1px rgba(0, 0, 0, 0.5);
+  --edge-raised: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  /* Atmospheric page background — subtle teal at top-left, plum at
+     bottom-right. Both at very low alpha to suggest brand without
+     being decorative. Pure black canvas underneath. */
+  --page-bg: #0E1115;
+  --page-bg-image:
+    radial-gradient(60% 50% at 0% 0%, rgba(104, 211, 217, 0.06), transparent 60%),
+    radial-gradient(50% 50% at 100% 100%, rgba(180, 157, 250, 0.05), transparent 60%);
+  --page-fg: #F1F2F4;
+  --page-soft: #C7CAD1;
+  --page-muted: #9CA0A8;
+  --page-num: #9CA0A8;
+  --page-eyebrow: #B49DFA;
+  /* Tile backgrounds: lifted glass over the canvas, with a faint
+     teal glow seeping through. */
+  --page-tile-bg: rgba(24, 28, 34, 0.6);
+  --page-tile-image:
+    radial-gradient(80% 60% at 50% 0%, rgba(104, 211, 217, 0.04), transparent 70%);
+  --page-line: #383C44;
+  --page-toggle-bg: rgba(29, 31, 36, 0.7);
+  --page-toggle-fg: #F1F2F4;
+  --page-toggle-track: rgba(14, 17, 21, 0.8);
+}
+/* ───── HIGH CONTRAST (light + AAA) ───── */
+[data-contrast='high'] {
+  --c-ink: 0 0 0;
+  --c-ink-70: 0 0 0;
+  --c-ink-50: 20 22 26;
+  --c-line: 20 22 26;
+  --page-soft: #14161A;
+  --page-muted: #14161A;
+  --page-num: #14161A;
+  --page-eyebrow: #14161A;
+  --page-line: #14161A;
+}
+/* ───── HIGH CONTRAST (dark + AAA) ───── */
+[data-theme='dark'][data-contrast='high'] {
+  --c-paper: 0 0 0;
+  --c-sunken: 14 17 21;
+  --c-sunken-2: 0 0 0;
+  --c-ink: 255 255 255;
+  --c-ink-70: 255 255 255;
+  --c-ink-50: 229 231 235;
+  --c-line: 255 255 255;
+  --c-teal: 255 255 0;
+  --c-teal-soft: 0 0 0;
+  --c-plum: 209 192 255;
+  --c-leaf: 140 230 168;
+  --c-amber: 255 165 0;
+  --c-danger: 255 107 107;
+  --page-bg: #000000;
+  --page-bg-image: none;
+  --page-fg: #FFFFFF;
+  --page-soft: #FFFFFF;
+  --page-muted: #FFFFFF;
+  --page-num: #FFFFFF;
+  --page-eyebrow: #FFFF00;
+  --page-tile-bg: #000000;
+  --page-tile-image: none;
+  --page-line: #FFFFFF;
+}
+/* ─────────────────────────────────────────────────────────────
+   Base styles
+   ───────────────────────────────────────────────────────────── */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html,
+body {
+  font-family: var(--font-sans);
+  color: rgb(var(--c-ink));
+  background-color: var(--page-bg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+* {
+  font-family: var(--font-sans);
+}
+p, li, figcaption, .description {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+:focus-visible {
+  outline: 3px solid rgb(var(--c-teal));
+  outline-offset: 2px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+/* Hide native scrollbars on iOS-style horizontal rails */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

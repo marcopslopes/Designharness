@@ -1,0 +1,885 @@
+/**
+ * Design board (`#/board`) — Harness chrome. Tokens only; follows the frame's
+ * light/dark theme. Live prototype embeds keep their own light surface.
+ */
+
+.design-harness-ds__main:has(> .design-harness-board) {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+
+.design-harness-board {
+  --board-accent: var(--design-harness-accent);
+  --board-dot: color-mix(in srgb, var(--kit-ink) 16%, transparent);
+  position: relative;
+  height: 100%;
+  min-height: 70vh;
+  overflow: hidden;
+  background: var(--design-harness-shell-canvas);
+  color: var(--kit-ink);
+  font-family: var(--design-harness-font);
+  font-size: var(--type-label-size);
+}
+
+.design-harness-board__viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  outline: none;
+  touch-action: none;
+  user-select: none;
+  cursor: default;
+}
+
+.design-harness-board[data-background='dots'] .design-harness-board__viewport {
+  background-image: radial-gradient(circle, var(--board-dot) calc(var(--border-01) / 2), transparent var(--border-01));
+}
+
+.design-harness-board__viewport[data-tool='hand'] {
+  cursor: grab;
+}
+
+.design-harness-board__viewport[data-panning='true'] {
+  cursor: grabbing;
+}
+
+.design-harness-board__viewport:is(
+  [data-tool='text'],
+  [data-tool='frame'],
+  [data-tool='sticky'],
+  [data-tool='pen'],
+  [data-tool='rect'],
+  [data-tool='ellipse'],
+  [data-tool='line'],
+  [data-tool='arrow']
+) {
+  cursor: crosshair;
+}
+
+.design-harness-board__viewport[data-tool='text'] {
+  cursor: text;
+}
+
+.design-harness-board__world {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
+}
+
+/* While dragging, iframes must not swallow the pointer. */
+.design-harness-board__viewport[data-dragging='true'] iframe,
+.design-harness-board__viewport[data-panning='true'] iframe {
+  pointer-events: none;
+}
+
+/* ——— Nodes ——— */
+.design-harness-board-node {
+  --board-fill: color-mix(in srgb, var(--ds-calendar-strong-yellow-3) 40%, var(--kit-paper));
+  --board-stroke: var(--kit-ink);
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.design-harness-board-node[data-color='yellow'] {
+  --board-fill: color-mix(in srgb, var(--ds-calendar-strong-yellow-3) 40%, var(--kit-paper));
+  --board-stroke: var(--ds-calendar-strong-yellow-1);
+}
+.design-harness-board-node[data-color='teal'] {
+  --board-fill: var(--kit-brand-soft);
+  --board-stroke: var(--kit-brand);
+}
+.design-harness-board-node[data-color='plum'] {
+  --board-fill: var(--kit-premium-soft);
+  --board-stroke: var(--kit-premium);
+}
+.design-harness-board-node[data-color='rose'] {
+  --board-fill: var(--kit-rose-soft);
+  --board-stroke: var(--kit-rose);
+}
+.design-harness-board-node[data-color='leaf'] {
+  --board-fill: var(--kit-leaf-soft);
+  --board-stroke: var(--kit-leaf);
+}
+.design-harness-board-node[data-color='amber'] {
+  --board-fill: var(--kit-amber-soft);
+  --board-stroke: var(--kit-amber);
+}
+.design-harness-board-node[data-color='ink'] {
+  --board-fill: var(--kit-sunken);
+  --board-stroke: var(--kit-ink);
+}
+.design-harness-board-node[data-color='paper'] {
+  --board-fill: var(--kit-paper);
+  --board-stroke: var(--kit-ink-30);
+}
+
+.design-harness-board-node[data-type='sticky'] {
+  padding: var(--spacing-05);
+  border-radius: var(--radius-01);
+  background: var(--board-fill);
+  box-shadow: var(--kit-shadow-2);
+}
+
+.design-harness-board-node__sticky-text,
+.design-harness-board-node__text,
+.design-harness-board-node__shape-text {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: var(--kit-ink);
+  font: inherit;
+  font-size: var(--font-size-body-large);
+  line-height: var(--type-body-large-line);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  resize: none;
+  outline: none;
+}
+
+.design-harness-board-node__sticky-text[data-empty='true'],
+.design-harness-board-node__text[data-empty='true'] {
+  color: var(--kit-ink-50);
+}
+
+.design-harness-board-node__input {
+  user-select: text;
+  cursor: text;
+}
+
+.design-harness-board-node[data-type='text'] .design-harness-board-node__text {
+  font-size: var(--type-h6-size);
+  line-height: var(--type-h6-line);
+}
+
+.design-harness-board-node[data-type='text'][data-heading='true'] .design-harness-board-node__text {
+  font-size: var(--type-h1-size);
+  line-height: var(--type-h1-line);
+  font-weight: var(--font-weight-bold);
+}
+
+.design-harness-board-node[data-type='text'][data-color]:not([data-color='ink']) .design-harness-board-node__text {
+  color: var(--board-stroke);
+}
+
+.design-harness-board-node[data-type='shape'] {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-04);
+  border: var(--border-02) solid var(--board-stroke);
+  border-radius: var(--radius-02);
+  background: color-mix(in srgb, var(--board-fill) 70%, transparent);
+}
+
+.design-harness-board-node[data-shape='ellipse'] {
+  border-radius: 50%;
+}
+
+.design-harness-board-node__shape-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  max-height: 100%;
+  text-align: center;
+}
+
+textarea.design-harness-board-node__shape-text {
+  height: 100%;
+}
+
+.design-harness-board-node[data-type='frame'] {
+  border-radius: var(--radius-02);
+  background: var(--design-harness-shell-panel);
+  box-shadow:
+    0 0 0 var(--border-01) var(--design-harness-shell-panel-border),
+    var(--kit-shadow-1);
+}
+
+.design-harness-board-node__frame-bar {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  width: max-content;
+  max-width: calc(100% * var(--board-zoom));
+  padding-bottom: var(--spacing-02);
+  transform: scale(calc(1 / var(--board-zoom)));
+  transform-origin: 0 100%;
+  color: var(--kit-ink-50);
+}
+
+.design-harness-board-node__frame-title {
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--type-label-sm-size);
+  line-height: var(--type-label-sm-line);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: default;
+}
+
+input.design-harness-board-node__frame-title {
+  min-width: 12rem;
+  color: var(--kit-ink);
+  outline: var(--border-01) solid var(--board-accent);
+}
+
+.design-harness-board-node__frame-action {
+  --solar-size: var(--size-03);
+  display: inline-flex;
+  padding: var(--spacing-01);
+  border: 0;
+  border-radius: var(--radius-01);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.design-harness-board-node__frame-action:hover {
+  color: var(--kit-ink);
+}
+
+.design-harness-board-node__frame-action:focus-visible {
+  outline: var(--border-02) solid var(--board-accent);
+}
+
+/* Lines and drawings: only the stroke takes the pointer. */
+.design-harness-board-node:is([data-type='line'], [data-type='draw']) {
+  pointer-events: none;
+  color: var(--board-stroke);
+}
+
+.design-harness-board-node[data-type='line'][data-color='ink'],
+.design-harness-board-node[data-type='draw'][data-color='ink'] {
+  color: var(--kit-ink);
+}
+
+.design-harness-board-node__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.design-harness-board-node__stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--border-02);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.design-harness-board-node[data-type='draw'] .design-harness-board-node__stroke {
+  stroke-width: var(--spacing-02);
+}
+
+.design-harness-board-node__hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: var(--spacing-05);
+  pointer-events: stroke;
+  cursor: move;
+}
+
+.design-harness-board-node__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-01);
+  pointer-events: none;
+}
+
+/* ——— Cards: files, live prototypes, links ——— */
+.design-harness-board-node__card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: var(--border-02) solid var(--kit-line-strong);
+  border-radius: var(--radius-02);
+  background: var(--design-harness-shell-panel);
+  box-shadow: var(--kit-shadow-1);
+}
+
+.design-harness-board-node:is([data-type='prototype'], [data-type='embed']) .design-harness-board-node__embed-body {
+  overflow: hidden;
+}
+
+.design-harness-board-node__card-head {
+  --solar-size: var(--size-05);
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--spacing-04);
+  padding: var(--spacing-05) var(--spacing-06);
+  border-bottom: var(--border-01) solid var(--kit-line);
+  color: var(--kit-ink-50);
+}
+
+.design-harness-board-node__card-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--kit-ink);
+  font: inherit;
+  font-weight: var(--ds-font-weight-semibold);
+  text-align: start;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.design-harness-board-node__card-title:hover,
+.design-harness-board-node__card-title:focus-visible {
+  color: var(--board-accent);
+}
+
+.design-harness-board-node__card-meta {
+  flex-shrink: 0;
+  font-size: var(--type-label-sm-size);
+}
+
+.design-harness-board-node[data-interactive='true'] .design-harness-board-node__card-meta {
+  color: var(--board-accent);
+}
+
+.design-harness-board-node__card-action {
+  display: inline-flex;
+  padding: var(--spacing-02);
+  border-radius: var(--radius-01);
+  color: var(--kit-ink-50);
+}
+
+.design-harness-board-node__card-action:hover {
+  background: var(--design-harness-field-fill);
+  color: var(--kit-ink);
+}
+
+.design-harness-board-node__card-action:focus-visible {
+  outline: var(--border-02) solid var(--board-accent);
+}
+
+.design-harness-board-node__card-preview {
+  flex: 1;
+  margin: 0;
+  padding: var(--spacing-04);
+  overflow: hidden;
+  color: var(--kit-ink-70);
+  font-family: var(--font-family-mono);
+  font-size: var(--type-label-sm-size);
+  line-height: var(--type-label-sm-line);
+  white-space: pre-wrap;
+}
+
+.design-harness-board-node__card-empty {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--kit-ink-30);
+  --solar-size: var(--size-11);
+}
+
+.design-harness-board-node__embed-body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: var(--kit-bg);
+}
+
+.design-harness-board-node__iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  color-scheme: light;
+  /* Live embeds cover most of the board — they must not eat pinch, scroll or select. */
+  pointer-events: none;
+}
+
+.design-harness-board-node[data-interactive='true'] .design-harness-board-node__iframe {
+  pointer-events: auto;
+}
+
+/* Until double-clicked, the embed is part of the canvas: pan, zoom and select through it. */
+.design-harness-board-node__shield {
+  position: absolute;
+  inset: 0;
+}
+
+.design-harness-board-node[data-interactive='true'] {
+  outline: var(--border-02) solid var(--board-accent);
+  outline-offset: var(--spacing-01);
+  border-radius: var(--radius-02);
+}
+
+/* ——— Drafts while creating ——— */
+.design-harness-board__draft {
+  position: absolute;
+  box-sizing: border-box;
+  border: calc(var(--border-01) / var(--board-zoom)) dashed var(--board-accent);
+  border-radius: var(--radius-01);
+  background: color-mix(in srgb, var(--board-accent) 6%, transparent);
+}
+
+.design-harness-board__draft[data-ellipse='true'] {
+  border-radius: 50%;
+}
+
+.design-harness-board__draft-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--border-01);
+  height: var(--border-01);
+  overflow: visible;
+  color: var(--kit-ink);
+}
+
+.design-harness-board__draft-svg :is(line, polyline) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--spacing-02);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ——— Selection overlay (screen space) ——— */
+.design-harness-board__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.design-harness-board__outline {
+  position: absolute;
+  box-sizing: border-box;
+  border: var(--border-02) solid var(--board-accent);
+  border-radius: var(--radius-01);
+}
+
+.design-harness-board__outline[data-outline='line'],
+.design-harness-board__outline[data-outline='draw'] {
+  border-style: dashed;
+  border-width: var(--border-01);
+}
+
+.design-harness-board__outline--group {
+  border-style: dashed;
+  border-width: var(--border-01);
+}
+
+.design-harness-board__handle {
+  position: absolute;
+  width: var(--size-00);
+  height: var(--size-00);
+  border: var(--border-02) solid var(--board-accent);
+  border-radius: var(--radius-01);
+  background: var(--kit-paper);
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+
+.design-harness-board__handle:is([data-handle='nw'], [data-handle='se']) {
+  cursor: nwse-resize;
+}
+.design-harness-board__handle:is([data-handle='ne'], [data-handle='sw']) {
+  cursor: nesw-resize;
+}
+.design-harness-board__handle:is([data-handle='n'], [data-handle='s']) {
+  cursor: ns-resize;
+}
+.design-harness-board__handle:is([data-handle='e'], [data-handle='w']) {
+  cursor: ew-resize;
+}
+.design-harness-board__handle:is([data-handle='start'], [data-handle='end']) {
+  border-radius: 50%;
+  cursor: move;
+}
+
+.design-harness-board__marquee {
+  position: absolute;
+  border: var(--border-01) solid var(--board-accent);
+  background: color-mix(in srgb, var(--board-accent) 8%, transparent);
+}
+
+.design-harness-board__empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 24rem;
+  transform: translate(-50%, -50%);
+  color: var(--kit-ink-50);
+  text-align: center;
+  pointer-events: none;
+}
+
+.design-harness-board__empty p {
+  margin: 0 0 var(--spacing-02);
+}
+
+.design-harness-board__notice {
+  position: absolute;
+  bottom: var(--spacing-09);
+  left: 50%;
+  margin: 0;
+  padding: var(--spacing-03) var(--spacing-05);
+  border-radius: var(--radius-05);
+  background: var(--kit-ink);
+  color: var(--kit-paper);
+  transform: translateX(-50%);
+}
+
+/* ——— Floating toolbars ——— */
+.design-harness-board-toolbar {
+  position: absolute;
+  top: var(--spacing-04);
+  left: var(--spacing-04);
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-01);
+  max-width: calc(100% - 2 * var(--spacing-04));
+  padding: var(--spacing-02);
+  border-radius: var(--radius-03);
+  background: var(--design-harness-shell-panel);
+  box-shadow:
+    0 0 0 var(--border-01) var(--design-harness-shell-panel-border),
+    var(--design-harness-shell-elevated);
+}
+
+.design-harness-board-toolbar--end {
+  right: var(--spacing-04);
+  left: auto;
+}
+
+.design-harness-board-toolbar--selection {
+  top: auto;
+  bottom: var(--spacing-05);
+  left: 50%;
+  transform: translateX(-50%);
+  flex-wrap: nowrap;
+  max-width: none;
+}
+
+.design-harness-board-toolbar .design-harness-ds-shell-rail__btn:disabled {
+  opacity: var(--kit-disabled-opacity);
+  cursor: default;
+}
+
+.design-harness-board-toolbar .design-harness-ds-shell-rail__btn[aria-pressed='true'] {
+  background: color-mix(in srgb, var(--board-accent) 12%, transparent);
+  color: var(--board-accent);
+}
+
+.design-harness-board-toolbar__rule {
+  width: var(--border-01);
+  height: var(--size-06);
+  margin: 0 var(--spacing-02);
+  background: var(--kit-line-strong);
+}
+
+.design-harness-board-toolbar__split {
+  display: inline-flex;
+  align-items: center;
+}
+
+.design-harness-board-toolbar__more,
+.design-harness-board-toolbar__zoom,
+.design-harness-board-toolbar__text-button,
+.design-harness-board-pages__trigger {
+  --solar-size: var(--size-03);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  height: var(--size-09);
+  padding: 0 var(--spacing-02);
+  border: 0;
+  border-radius: var(--radius-02);
+  background: transparent;
+  color: var(--kit-ink-50);
+  font: inherit;
+  cursor: pointer;
+}
+
+.design-harness-board-toolbar__zoom {
+  min-width: var(--size-12);
+  justify-content: center;
+  color: var(--kit-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.design-harness-board-toolbar__text-button {
+  padding: 0 var(--spacing-03);
+  color: var(--kit-ink);
+}
+
+.design-harness-board-toolbar__text-button[aria-pressed='true'] {
+  color: var(--board-accent);
+}
+
+.design-harness-board-pages__trigger {
+  padding: 0 var(--spacing-03) 0 var(--spacing-02);
+  color: var(--kit-ink);
+}
+
+.design-harness-board-pages__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size-05);
+  height: var(--size-05);
+  border-radius: var(--radius-05);
+  background: var(--design-harness-field-fill);
+  color: var(--kit-ink-50);
+  font-size: var(--type-label-sm-size);
+}
+
+.design-harness-board-pages__name {
+  max-width: 16rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+:is(
+  .design-harness-board-toolbar__more,
+  .design-harness-board-toolbar__zoom,
+  .design-harness-board-toolbar__text-button,
+  .design-harness-board-pages__trigger
+):hover {
+  background: color-mix(in srgb, var(--kit-ink) 6%, transparent);
+  color: var(--kit-ink);
+}
+
+:is(
+  .design-harness-board-toolbar__more,
+  .design-harness-board-toolbar__zoom,
+  .design-harness-board-toolbar__text-button,
+  .design-harness-board-pages__trigger
+):focus-visible {
+  outline: var(--border-02) solid var(--board-accent);
+  outline-offset: var(--spacing-01);
+}
+
+.design-harness-board-toolbar__count {
+  max-width: 14rem;
+  padding: 0 var(--spacing-03);
+  overflow: hidden;
+  color: var(--kit-ink-50);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ——— Menus (native popover, `.design-harness-menu` look) ——— */
+.design-harness-board-menu {
+  --solar-size: var(--size-04);
+}
+
+.design-harness-board-menu .design-harness-menu__item:disabled {
+  opacity: var(--kit-disabled-opacity);
+  cursor: default;
+}
+
+.design-harness-board-menu .design-harness-menu__item[aria-checked='true'] {
+  color: var(--board-accent);
+}
+
+.design-harness-board-menu__rule {
+  margin: var(--spacing-02) 0;
+  border: 0;
+  border-top: var(--border-01) solid var(--kit-line-strong);
+}
+
+.design-harness-board-menu__key {
+  color: var(--kit-ink-50);
+  font: inherit;
+  font-size: var(--type-label-sm-size);
+}
+
+.design-harness-board-pages__menu {
+  min-width: 18rem;
+}
+
+.design-harness-board-pages__row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-01);
+}
+
+.design-harness-board-pages__row > .design-harness-menu__item {
+  flex: 1;
+  min-width: 0;
+}
+
+.design-harness-board-pages__actions {
+  display: inline-flex;
+  opacity: 0;
+}
+
+.design-harness-board-pages__row:is(:hover, :focus-within) .design-harness-board-pages__actions {
+  opacity: 1;
+}
+
+.design-harness-board-pages__actions .design-harness-ds-shell-rail__btn {
+  width: var(--size-07);
+  height: var(--size-07);
+}
+
+.design-harness-board-pages__rename {
+  flex: 1;
+  min-width: 0;
+  padding: var(--spacing-02) var(--spacing-03);
+  border: var(--border-01) solid var(--board-accent);
+  border-radius: var(--radius-01);
+  background: var(--design-harness-field-fill);
+  color: var(--kit-ink);
+  font: inherit;
+  outline: none;
+}
+
+.design-harness-board-swatches {
+  display: flex;
+  gap: var(--spacing-02);
+  padding: var(--spacing-02);
+}
+
+.design-harness-board-swatch {
+  width: var(--size-06);
+  height: var(--size-06);
+  padding: 0;
+  border: var(--border-01) solid color-mix(in srgb, var(--kit-ink) 12%, transparent);
+  border-radius: 50%;
+  background: var(--board-fill);
+  cursor: pointer;
+}
+
+.design-harness-board-swatch[data-color='yellow'] {
+  --board-fill: color-mix(in srgb, var(--ds-calendar-strong-yellow-3) 55%, var(--kit-paper));
+}
+.design-harness-board-swatch[data-color='teal'] {
+  --board-fill: var(--kit-brand);
+}
+.design-harness-board-swatch[data-color='plum'] {
+  --board-fill: var(--kit-premium);
+}
+.design-harness-board-swatch[data-color='rose'] {
+  --board-fill: var(--kit-rose);
+}
+.design-harness-board-swatch[data-color='leaf'] {
+  --board-fill: var(--kit-leaf);
+}
+.design-harness-board-swatch[data-color='amber'] {
+  --board-fill: var(--kit-amber);
+}
+.design-harness-board-swatch[data-color='ink'] {
+  --board-fill: var(--kit-ink);
+}
+.design-harness-board-swatch[data-color='paper'] {
+  --board-fill: var(--kit-paper);
+}
+
+.design-harness-board-swatch[aria-checked='true'] {
+  box-shadow:
+    0 0 0 var(--border-02) var(--design-harness-shell-panel),
+    0 0 0 calc(var(--border-02) * 2) var(--board-accent);
+}
+
+.design-harness-board-swatch:focus-visible {
+  outline: var(--border-02) solid var(--board-accent);
+  outline-offset: var(--spacing-01);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .design-harness-board * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@media (max-width: 899px) {
+  .design-harness-board {
+    height: 80vh;
+  }
+
+  .design-harness-board-toolbar--end {
+    top: auto;
+    bottom: var(--spacing-04);
+  }
+}
+
+/* Tools read a step larger than the rail's icons. */
+.design-harness-board-toolbar .design-harness-ds-shell-rail__btn {
+  --solar-size: var(--size-05);
+  color: var(--kit-ink-70);
+}
+
+/* Artifact viewer — one frame at full size over the board. */
+.design-harness-command.design-harness-board-viewer {
+  width: calc(100vw - 2 * var(--spacing-08));
+  height: calc(100vh - 2 * var(--spacing-08));
+  margin: auto;
+}
+
+.design-harness-board-viewer__panel {
+  height: 100%;
+}
+
+.design-harness-board-viewer__head {
+  --solar-size: var(--size-04);
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--spacing-04);
+  padding: var(--spacing-03) var(--spacing-03) var(--spacing-03) var(--spacing-05);
+  border-bottom: var(--border-01) solid var(--design-harness-shell-panel-border);
+}
+
+.design-harness-board-viewer__title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-weight: var(--font-weight-medium);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.design-harness-board-viewer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  color: var(--kit-ink-50);
+  text-decoration: none;
+}
+
+.design-harness-board-viewer__link:hover {
+  color: var(--kit-ink);
+}
+
+.design-harness-board-viewer__frame {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  background: var(--design-harness-shell-canvas);
+}

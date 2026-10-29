@@ -1,0 +1,24 @@
+.design-harness-howto-html {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: calc(100vh - 3rem);
+  margin: -0.25rem 0 0;
+  border-radius: var(--radius-lg, 16px);
+  overflow: hidden;
+  border: 1px solid #f0f1f2;
+  background: var(--color-bg-default);
+}
+
+.design-harness-ds[data-design-harness-theme='dark'] .design-harness-howto-html {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.design-harness-howto-html__frame {
+  display: block;
+  width: 100%;
+  flex: 1;
+  min-height: calc(100vh - 4rem);
+  border: 0;
+  background: #0d1417;
+}

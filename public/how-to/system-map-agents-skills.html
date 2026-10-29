@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Map — Agents &amp; Skills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1113; --surface:#141D22; --surface-2:#1B262C;
+    --line: rgba(237,242,247,0.14);
+    --text:#EDF2F2; --muted:#8FA3A6;
+    --teal:#2FD9C4; --teal-dim: rgba(47,217,196,0.12);
+    --coral:#FF7A59; --coral-dim: rgba(255,122,89,0.12);
+    --violet:#9B8CFF; --violet-dim: rgba(155,140,255,0.12);
+    --amber:#FFC65C; --amber-dim: rgba(255,198,92,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--ink); color:var(--text);
+    font-family:'Inter', sans-serif;
+    padding: 32px 5vw 60px;
+  }
+  .display{ font-family:'Space Grotesk', sans-serif; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+
+  .wrap{ max-width:1100px; margin:0 auto; }
+  .heading{ text-align:center; margin-bottom:34px; }
+  .heading h1{ font-size: clamp(24px,4vw,38px); font-weight:700; }
+  .heading p{ color:var(--muted); font-size:13px; margin-top:8px; font-family:'IBM Plex Mono',monospace; }
+
+  /* HUB */
+  .hub{
+    max-width:340px; margin:0 auto 8px;
+    border:2px solid var(--teal); border-radius:18px;
+    background:radial-gradient(circle at 30% 20%, rgba(47,217,196,.14), var(--surface) 70%);
+    padding:20px 24px; text-align:center;
+    box-shadow:0 0 40px rgba(47,217,196,.15);
+  }
+  .hub .icon{ font-size:26px; }
+  .hub .name{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:19px; margin-top:4px; }
+  .hub .sub{ color:var(--muted); font-size:12px; margin-top:4px; font-family:'IBM Plex Mono',monospace; }
+
+  .stem{ width:2px; height:28px; background:var(--line); margin:0 auto; }
+
+  /* GATES row */
+  .gates-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:30px; }
+  .gate{
+    display:flex; align-items:center; gap:9px;
+    border:1.5px solid var(--amber); background:var(--amber-dim);
+    border-radius:12px; padding:10px 16px;
+    font-size:13px; font-weight:600;
+  }
+  .gate .emoji{ font-size:16px; }
+
+  /* section label */
+  .section-label{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); text-align:center; margin: 30px 0 16px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .section-label::before, .section-label::after{ content:''; flex:1; height:1px; background:var(--line); }
+
+  /* ROLES grid */
+  .roles-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:12px; }
+  .role-card{
+    border:1.5px solid var(--violet); background:var(--violet-dim);
+    border-radius:14px; padding:16px 18px;
+  }
+  .role-card .name{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; color:var(--violet); }
+  .role-card .job{ color:var(--muted); font-size:12px; margin-top:6px; line-height:1.4; }
+
+  /* SKILLS grid */
+  .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:10px; }
+  .skill-card{
+    border:1px solid var(--line); background:var(--surface);
+    border-radius:12px; padding:13px 16px;
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .skill-card .name{ font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--teal); }
+  .skill-card .job{ font-size:12px; color:var(--text); line-height:1.4; }
+  .skill-card .used-by{ font-size:10.5px; color:var(--muted); margin-top:2px; }
+  .skill-card.gated{ border-color:var(--amber); }
+  .skill-card.gated .name{ color:var(--amber); }
+
+  /* PROTOCOLS */
+  .protocols-row{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .protocol-chip{
+    display:flex; align-items:center; gap:8px;
+    border:1.5px solid var(--coral); background:var(--coral-dim);
+    border-radius:20px; padding:9px 16px;
+    font-size:12.5px; font-weight:600;
+  }
+
+  .legend{ display:flex; justify-content:center; gap:24px; margin-top:36px; flex-wrap:wrap; }
+  .legend .item{ display:flex; align-items:center; gap:8px; font-size:12px; color:var(--muted); font-family:'IBM Plex Mono',monospace; }
+  .legend .swatch{ width:11px; height:11px; border-radius:4px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="heading">
+    <h1 class="display">Not a Harness. A Studio Partner.</h1>
+    <p>the real roles, skills, and gates — not the abstract version</p>
+  </div>
+
+  <div class="hub">
+    <div class="icon">◈</div>
+    <div class="name">Orchestrator</div>
+    <div class="sub">reads the routing table first, always</div>
+  </div>
+  <div class="stem"></div>
+
+  <div class="gates-row">
+    <div class="gate"><span class="emoji">🧑</span>Approve the brief — nothing builds before this</div>
+    <div class="gate"><span class="emoji">🧑</span>Approve the plan — before anything sends</div>
+  </div>
+
+  <div class="section-label">Five roles it can reason from</div>
+  <div class="roles-grid">
+    <div class="role-card"><div class="name">Researcher</div><div class="job">Discovery sweeps, PRD drafting, evaluative testing</div></div>
+    <div class="role-card"><div class="name">Product Designer</div><div class="job">Solution design, prototyping, exploring real alternatives</div></div>
+    <div class="role-card"><div class="name">Content Designer</div><div class="job">Voice, copy, localisation</div></div>
+    <div class="role-card"><div class="name">Craft Reviewer</div><div class="job">Accessibility + design-system compliance, the automatic gate</div></div>
+    <div class="role-card"><div class="name">Design Ops</div><div class="job">Routing accuracy, traceability, the audit trail itself</div></div>
+  </div>
+
+  <div class="section-label">The skills, mapped to what they actually do</div>
+  <div class="skills-grid">
+    <div class="skill-card gated">
+      <div class="name">design-kickoff</div>
+      <div class="job">Front door for anything new — mandatory research before any build</div>
+      <div class="used-by">used by → Researcher · gates → Product Designer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">research-agent</div>
+      <div class="job">Deep discovery sweep — internal docs, tickets, chat history</div>
+      <div class="used-by">used by → Researcher</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">assumption-mapper</div>
+      <div class="job">Separates sourced "known" from unsourced "believed" before research/a build starts</div>
+      <div class="used-by">used by → Researcher · composed by → design-kickoff</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">research-question-sharpener</div>
+      <div class="job">Rewrites vague stakeholder questions into story-based (TEDW) ones</div>
+      <div class="used-by">used by → Researcher · feeds → usability-test-guide</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">usability-test-guide</div>
+      <div class="job">Builds a quant or qual usability test guide against an existing prototype</div>
+      <div class="used-by">used by → Researcher · fires from → design-kickoff Step 1.5</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">research-synthesis</div>
+      <div class="job">Debrief/lightning synthesis/full tag+affinity — raw session data into pattern candidates</div>
+      <div class="used-by">used by → Researcher · feeds → insight-writer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">insight-writer</div>
+      <div class="job">Key learning + why + consequence insights, plus a so-what check before anything ships</div>
+      <div class="used-by">used by → Researcher · consumes → research-synthesis</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">screener-builder</div>
+      <div class="job">Behavior-first recruitment screener with knockout logic</div>
+      <div class="used-by">used by → Researcher · feeds → usability-test-guide</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">decision-first-research</div>
+      <div class="job">Names the decision and blocking unknown before picking a method</div>
+      <div class="used-by">used by → Researcher · feeds → design-kickoff Step 1.5</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">ia-methods</div>
+      <div class="job">Card sorting + tree testing for navigation and IA questions</div>
+      <div class="used-by">used by → Researcher · routed from → design-kickoff Step 1.5</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">research-artifacts</div>
+      <div class="job">Persona / empathy map / journey map / ability spectrum from synthesized research</div>
+      <div class="used-by">used by → Researcher · feeds from → research-synthesis</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">design-rationale</div>
+      <div class="job">Documents an already-made design decision for the record</div>
+      <div class="used-by">used by → Product designer · composes with → ux-pattern decision framework mode</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">research-summary</div>
+      <div class="job">Session summary or executive topline</div>
+      <div class="used-by">used by → Researcher · feeds → research-synthesis / research-shareout</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">research-shareout</div>
+      <div class="job">Audience-first plan so findings get acted on</div>
+      <div class="used-by">used by → Researcher · may hand off → deck-builder</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">workshop-whiteboard</div>
+      <div class="job">Timed research-scoping board for workshops</div>
+      <div class="used-by">used by → Researcher · feeds → decision-first-research / Step 1.5</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">roadmap-prioritization / okr-goal-setting</div>
+      <div class="job">Rank backlog with visible reasoning; write falsifiable OKRs</div>
+      <div class="used-by">used by → Product Designer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">stakeholder-alignment</div>
+      <div class="job">Maps stakeholders + disagreement shape; drafts asks, never sends alone</div>
+      <div class="used-by">used by → Product Designer · hands off → design-rationale</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">synthetic-user-testing</div>
+      <div class="job">Persona/archetype walkthroughs — advisory only, not real UT</div>
+      <div class="used-by">used by → Researcher · Product Designer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">ui-agent</div>
+      <div class="job">Builds real screens from real tokens and components</div>
+      <div class="used-by">used by → Product Designer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">interaction-design / responsive-patterns</div>
+      <div class="job">State matrices + feedback timing; breakpoints / 200% zoom / reflow</div>
+      <div class="used-by">used by → Product Designer · feeds → ui-agent</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">taste-feedback / motion-choreography</div>
+      <div class="job">Mid-build aesthetic checks; motion spec / review / opportunities / plans + reduced-motion</div>
+      <div class="used-by">used by → Product Designer · during / after ui-agent</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">inspiration-scouting</div>
+      <div class="job">Aesthetic / cross-domain refs with take/leave — not competitor-scan</div>
+      <div class="used-by">used by → Product Designer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">design-system / mobile-shell / icon-usage</div>
+      <div class="job">Token + layer check, PhoneShell chrome, Tabler icons</div>
+      <div class="used-by">used by → Product Designer · rides inside ui-agent</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">ux-pattern / figma-ux-audit</div>
+      <div class="job">Written critique + optional Figma canvas annotation cards</div>
+      <div class="used-by">used by → Product Designer · Craft Reviewer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">content</div>
+      <div class="job">Copy and voice review against the real style guide</div>
+      <div class="used-by">used by → Content Designer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">accessibility / audit</div>
+      <div class="job">The mandatory pre-share gate — DS, a11y, copy — every time</div>
+      <div class="used-by">used by → Craft Reviewer · runs after → Product Designer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">cognitive-accessibility / adaptive-interfaces</div>
+      <div class="job">Mental load / wayfinding; prefers-* / text-size — no product dark mode</div>
+      <div class="used-by">used by → Craft Reviewer · Product Designer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">accessibility-decisions</div>
+      <div class="job">A11y decision records, tradeoffs, and eng handoff specs</div>
+      <div class="used-by">used by → Craft Reviewer · Product Designer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">interface-change-review</div>
+      <div class="job">Git-scoped UI craft — introduced / regression / pre-existing (not share audit)</div>
+      <div class="used-by">used by → Craft Reviewer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">live-page-review</div>
+      <div class="job">Capture a live or local URL (optional click-through) then hand off — not a share audit</div>
+      <div class="used-by">used by → Product Designer · Craft Reviewer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">review-report</div>
+      <div class="job">Scrollable HTML critique report from existing findings — not slides, not a case study</div>
+      <div class="used-by">used by → Product Designer · Craft Reviewer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">design-debt-tracker</div>
+      <div class="job">Standalone triage of projects/&lt;slug&gt;/debt.md deferred advisories</div>
+      <div class="used-by">used by → Craft Reviewer · Product Designer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">design-retrospective</div>
+      <div class="job">Post-ship reflection; optional observational design-memory append</div>
+      <div class="used-by">used by → Product Designer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">deck-builder</div>
+      <div class="job">HTML case-study / workshop / stakeholder decks with live Design Harness embeds</div>
+      <div class="used-by">used by → Product Designer · Design Ops</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">publish-project</div>
+      <div class="job">On-demand copy of a picked deck to public/projects/&lt;slug&gt;/ — requires a prior audit PASS</div>
+      <div class="used-by">used by → Product Designer · Design Ops</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">writing</div>
+      <div class="job">Long-form prose (essay/case-study/short-form) grounded in real task-folder evidence — always DRAFT-labeled</div>
+      <div class="used-by">used by → Product Designer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">ticket-create</div>
+      <div class="job">Lean Jira work orders — draft, then create only on go</div>
+      <div class="used-by">used by → any role, on request</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">session-handoff</div>
+      <div class="job">Compact this chat into a state-first handoff for a fresh agent session</div>
+      <div class="used-by">used by → any role, on request</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">workload-agent</div>
+      <div class="job">Live status snapshot — personal, or team-wide for leads</div>
+      <div class="used-by">used by → any role, on request</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">manager-1on1-prep / people-coaching</div>
+      <div class="job">Status 1:1 prep; feedback / hard talk / growth plan — never Slack DMs</div>
+      <div class="used-by">calls → workload-agent · gated to manager profiles</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">session-handoff</div>
+      <div class="job">State-first chat compact for a fresh agent session — points at the task folder</div>
+      <div class="used-by">used by → any role, on request</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">scheduling</div>
+      <div class="job">Finds a slot, proposes it, books only on confirmation</div>
+      <div class="used-by">called by → manager-1on1-prep, or directly</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">competitor-scan / benchmark</div>
+      <div class="job">Named-competitor lookups, and gap analysis against our own screens</div>
+      <div class="used-by">used by → Researcher, Product Designer</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">design-memory</div>
+      <div class="job">Read-only habits report — never steers critique or build</div>
+      <div class="used-by">used by → designer, on request</div>
+    </div>
+    <div class="skill-card">
+      <div class="name">harness-audit</div>
+      <div class="job">Log mining + prospective routing evals before table changes ship</div>
+      <div class="used-by">used by → Design Ops</div>
+    </div>
+  </div>
+
+  <div class="section-label">What stays a person's call, always</div>
+  <div class="protocols-row">
+    <div class="protocol-chip">🧑 Ask, don't guess</div>
+    <div class="protocol-chip">⊘ Never touches private DMs</div>
+    <div class="protocol-chip">◎ Profile stays local, never pushed</div>
+    <div class="protocol-chip">👁 Taste is never automated</div>
+  </div>
+
+  <div class="legend">
+    <div class="item"><span class="swatch" style="background:var(--teal);"></span>Orchestrator / source of truth</div>
+    <div class="item"><span class="swatch" style="background:var(--violet);"></span>Roles</div>
+    <div class="item"><span class="swatch" style="background:var(--amber);"></span>Human gate — required</div>
+    <div class="item"><span class="swatch" style="background:var(--coral);"></span>What stays a person's call</div>
+  </div>
+</div>
+
+</body>
+</html>

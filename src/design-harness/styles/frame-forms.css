@@ -1,0 +1,193 @@
+/*
+ * Design Harness frame — form controls (designer decision 2026-10-10): filled fields with no resting border, a thin
+ * accent border while typing (no outer ring), pill buttons, and native selects with a solid caret.
+ * Scoped to `.design-harness-form` and named frame surfaces so the real DS
+ * (`context/design-system/ds`) and every prototype keep their own look.
+ */
+
+.design-harness {
+  --design-harness-field-fill: color-mix(in srgb, var(--kit-ink) 4%, var(--design-harness-warm-sand));
+  --design-harness-field-chip: var(--kit-paper);
+}
+
+/* Dark sunken sits too close to the panel, so fields lift instead of sink. */
+.design-harness[data-design-harness-theme='dark'] {
+  --design-harness-field-fill: color-mix(in srgb, var(--kit-ink) 8%, transparent);
+  --design-harness-field-chip: color-mix(in srgb, var(--kit-ink) 10%, transparent);
+}
+
+/* Home search: one filled surface, chips sit on it as paper pills. */
+.design-harness-home__composer {
+  border: var(--border-01) solid transparent;
+  border-radius: var(--radius-03);
+  background: var(--design-harness-field-fill);
+  box-shadow: none;
+  transition:
+    border-color var(--duration-fast) var(--easing-standard),
+    box-shadow var(--duration-fast) var(--easing-standard);
+}
+
+.design-harness-home__composer:focus-within {
+  border-color: var(--design-harness-accent);
+  box-shadow: none;
+}
+
+.design-harness-home__chip {
+  --solar-size: 14px;
+  border-color: transparent;
+  background: var(--design-harness-field-chip);
+}
+
+.design-harness-home__chip:hover {
+  background: var(--design-harness-field-chip);
+  color: var(--kit-ink);
+}
+
+/* ⌘K command search — a native modal dialog over any page. */
+.design-harness-command {
+  width: min(36rem, calc(100vw - 2 * var(--spacing-05)));
+  max-width: none;
+  max-height: none;
+  margin: 12vh auto auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--kit-ink);
+}
+
+.design-harness-command::backdrop {
+  background: color-mix(in srgb, var(--kit-ink) 24%, transparent);
+}
+
+/* Dark ink is light, so dim with the canvas instead. */
+.design-harness[data-design-harness-theme='dark'] .design-harness-command::backdrop {
+  background: color-mix(in srgb, var(--design-harness-shell-canvas) 72%, transparent);
+}
+
+.design-harness-command__panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-03);
+  background: var(--design-harness-shell-panel);
+  box-shadow:
+    0 0 0 var(--border-01) var(--design-harness-shell-panel-border),
+    var(--design-harness-shell-elevated);
+}
+
+.design-harness-command__field {
+  --solar-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-03);
+  margin: var(--spacing-03);
+  padding: 0 var(--spacing-04);
+  border: var(--border-01) solid transparent;
+  border-radius: var(--radius-02);
+  background: var(--design-harness-field-fill);
+  color: var(--kit-ink-50);
+}
+
+.design-harness-command__field:focus-within {
+  border-color: var(--design-harness-accent);
+  box-shadow: none;
+}
+
+.design-harness-command__input {
+  flex: 1;
+  min-width: 0;
+  height: var(--spacing-09);
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--kit-ink);
+  font: inherit;
+}
+
+.design-harness-command__list {
+  max-height: min(24rem, 50vh);
+  margin: 0;
+  padding: 0 var(--spacing-03) var(--spacing-03);
+  overflow-y: auto;
+  list-style: none;
+}
+
+.design-harness-command__option {
+  --solar-size: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-03);
+  padding: var(--spacing-03);
+  border-radius: var(--radius-02);
+  color: var(--kit-ink-50);
+  cursor: pointer;
+}
+
+.design-harness-command__option[aria-selected='true'] {
+  background: var(--design-harness-field-fill);
+  color: var(--kit-ink);
+}
+
+.design-harness-command__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-01);
+  min-width: 0;
+}
+
+.design-harness-command__label {
+  color: var(--kit-ink);
+  font-weight: var(--font-weight-medium);
+}
+
+.design-harness-command__label mark {
+  border-radius: var(--radius-01);
+  background: color-mix(in srgb, var(--design-harness-accent) 18%, transparent);
+  color: inherit;
+}
+
+.design-harness-command__path,
+.design-harness-command__empty,
+.design-harness-command__keys {
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-command__empty {
+  margin: 0;
+  padding: var(--spacing-04) var(--spacing-05) var(--spacing-05);
+}
+
+.design-harness-command__keys {
+  display: flex;
+  gap: var(--spacing-05);
+  padding: var(--spacing-03) var(--spacing-05);
+  border-top: var(--border-01) solid var(--design-harness-shell-panel-border);
+}
+
+.design-harness-command__keys-end {
+  margin-left: auto;
+}
+
+.design-harness-command__keys kbd {
+  display: inline-block;
+  min-width: var(--spacing-05);
+  margin-right: var(--spacing-01);
+  padding: 0 var(--spacing-01);
+  border-radius: var(--radius-01);
+  background: var(--design-harness-field-fill);
+  font: inherit;
+  text-align: center;
+}
+
+/* Sidebar "Search context and skills" field. */
+.design-harness-ds-shell-tree[data-docs='true'] .design-harness-ds-section-nav__search-input {
+  border-color: transparent;
+  background: var(--design-harness-field-fill);
+}
+
+.design-harness-ds-shell-tree[data-docs='true'] .design-harness-ds-section-nav__search-input:focus {
+  outline: none;
+  border-color: var(--design-harness-accent);
+  box-shadow: none;
+}

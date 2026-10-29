@@ -1,0 +1,859 @@
+/**
+ * Design tokens — Design Harness foundations + Design Harness kit.
+ *
+ * Colour / type / depth authority (2026-08-11): Design Harness kit
+ * (`source/design-harness-kit/`) — teal + plum + warm paper. Token *names*
+ * kept for taxonomy stability. Spacing / size / radius / border scales kept
+ * (generic geometry), except button radii aligned to kit’s 16px family.
+ *
+ * See context/design-system/STUDIO-OS-KIT-NOTES.md.
+ * Lab-only vars: src/design-harness/styles/tokens.lab.css.
+ */
+
+/* Inter + JetBrains Mono loaded from Google Fonts in index.html */
+
+/* `[data-theme='light']` re-applies the light values inside a dark root — e.g. the prototype surface in Design Harness. */
+:root,
+[data-theme='light'] {
+  /* ═══════════════════════════════════════════════════════════════════
+   * Design Harness kit (2026-08-11) — colour/type/depth authority.
+   * Source: context/design-system/source/design-harness-kit/src/index.css
+   * See STUDIO-OS-KIT-NOTES.md. Legacy --ds-* / --color-* remapped
+   * to the same palette; geometry scales kept (KNOWN-ISSUES.md).
+   * ═══════════════════════════════════════════════════════════════════ */
+
+  /* Neutrals + semantic surfaces (light) — neutral light grey page */
+  --kit-bg: #f5f5f5;
+  --kit-paper: #ffffff;
+  --kit-sunken: #ececec;
+  --kit-tile: #f5f5f5;
+  --kit-line: #f0f0f0;
+  --kit-line-strong: #e8e8e8;
+  --kit-ink: #14161a;
+  --kit-ink-70: #4b5563;
+  --kit-ink-50: #6b7280;
+  --kit-ink-30: #9ca3af;
+  --kit-ink-15: #e5e7eb;
+  --kit-focus-halo: rgba(0, 112, 120, 0.28);
+
+  /* Brand + semantic accents (light) — teal + plum */
+  --kit-brand: #007078;
+  --kit-brand-deep: #086c72;
+  --kit-brand-soft: #e5f6f7;
+  --kit-premium: #4f3791;
+  --kit-premium-deep: #322160;
+  --kit-premium-soft: #ebe5f5;
+  --kit-rose: #c24a6e;
+  --kit-rose-soft: #f8e2e9;
+  --kit-leaf: #2ea043;
+  --kit-leaf-soft: #dff5e4;
+  --kit-amber: #b86a00;
+  --kit-amber-soft: #faefd7;
+  --kit-danger: #b42318;
+  --kit-danger-soft: #f9e3df;
+  --kit-sour: #90f239;
+
+  /* Depth + glass (light) — kit whisper shadows */
+  --kit-shadow-1: 0 1px 2px rgba(20, 22, 26, 0.02), 0 2px 8px rgba(20, 22, 26, 0.025);
+  --kit-shadow-2: 0 1px 3px rgba(20, 22, 26, 0.03), 0 8px 24px -6px rgba(20, 22, 26, 0.06),
+    0 16px 40px -12px rgba(20, 22, 26, 0.05);
+  --kit-shadow-0: none;
+  --kit-shadow-press: 0 2px 0 rgba(0, 0, 0, 0.04), 0 6px 18px -6px rgba(20, 22, 26, 0.12);
+  --kit-shadow-lifted: 0 8px 20px rgba(20, 22, 26, 0.28);
+  --kit-shadow-lifted-hover: 0 10px 24px rgba(20, 22, 26, 0.32);
+  --kit-shadow-border: 0 0 0 1px rgba(0, 0, 0, 0.03), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  /* Kit COMPONENT_AUDIT — hairline lift on interactive tiles */
+  --kit-shadow-border-hover: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08),
+    0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  --kit-edge-raised: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --kit-glass-bg: rgba(255, 255, 255, 0.72);
+  --kit-glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(20, 22, 26, 0.04);
+  --kit-glass-blur: 28px;
+  --kit-glass-saturate: 1.8;
+
+  /* Tonal ramps — kit neutral / teal / plum */
+  --kit-neutral-98: #fafafa;
+  --kit-neutral-95: #f5f5f5;
+  --kit-neutral-90: #e5e7eb;
+  --kit-neutral-80: #d1d5db;
+  --kit-neutral-60: #9ca3af;
+  --kit-neutral-50: #6b7280;
+  --kit-neutral-40: #4b5563;
+  --kit-neutral-30: #374151;
+  --kit-neutral-20: #1f2937;
+  --kit-neutral-10: #111827;
+  --kit-neutral-0: #000000;
+
+  --kit-brand-98: #f0fbfb;
+  --kit-brand-95: #e0f7f8;
+  --kit-brand-90: #c3f0f2;
+  --kit-brand-80: #95e2e6;
+  --kit-brand-70: #5dcfd5;
+  --kit-brand-60: #2cb9c0;
+  --kit-brand-50: #0ba3ad;
+  --kit-brand-40: #0a8a92;
+  --kit-brand-30: #086c72;
+  --kit-brand-20: #054f54;
+  --kit-brand-10: #02282b;
+
+  --kit-premium-98: #f5f2fa;
+  --kit-premium-95: #ebe5f5;
+  --kit-premium-90: #dcd1ee;
+  --kit-premium-80: #b9a2dd;
+  --kit-premium-70: #9576cc;
+  --kit-premium-60: #714bbb;
+  --kit-premium-50: #4f3791;
+  --kit-premium-40: #422c7a;
+  --kit-premium-30: #322160;
+  --kit-premium-20: #221645;
+  --kit-premium-10: #110a24;
+
+  /* Button geometry — Design Harness ButtonShowcase (rounded-2xl family) */
+  --kit-button-height-xl: 56px;
+  --kit-button-height-lg: 52px;
+  --kit-button-height-md: 44px;
+  --kit-button-height-sm: 36px;
+  --kit-button-padding-x-xl: 24px;
+  --kit-button-padding-x-lg: 20px;
+  --kit-button-padding-x-md: 16px;
+  --kit-button-padding-x-sm: 14px;
+  --kit-button-radius-xl: 16px;
+  --kit-button-radius-lg: 16px;
+  --kit-button-radius-md: 16px;
+  --kit-button-radius-sm: 12px;
+  --kit-button-font-xl: 16px;
+  --kit-button-font-lg: 16px;
+  --kit-button-font-md: 14px;
+  --kit-button-font-sm: 12px;
+
+  /* Badge geometry — UI Kit v2 § Badges */
+  --kit-badge-padding-y: 4px;
+  --kit-badge-padding-x: 10px;
+  --kit-badge-padding-y-lg: 6px;
+  --kit-badge-padding-x-lg: 14px;
+  --kit-badge-font: 12px;
+  --kit-badge-font-lg: 13px;
+  --kit-badge-gap: 6px;
+  --kit-badge-dot: 6px;
+  --kit-badge-line: 1.3;
+
+  /* Chip geometry — UI Kit v2 § Chips */
+  --kit-chip-padding-y: 10px;
+  --kit-chip-padding-x: 16px;
+  --kit-chip-radius: 14px;
+  --kit-chip-font: 14px;
+  --kit-chip-gap: 6px;
+
+  /* Toast geometry — UI Kit v2 § Feedback & toasts */
+  --kit-toast-radius: 18px;
+  --kit-toast-padding-y: 14px;
+  --kit-toast-padding-x: 18px;
+  --kit-toast-gap: 12px;
+  --kit-toast-icon: 28px;
+  --kit-toast-font: 14px;
+  --kit-toast-action-font: 13px;
+
+  /* Card geometry — UI Kit v2 paper surface */
+  --kit-card-radius: 16px;
+  --kit-card-padding: 24px;
+
+  /* Toggle / switch — UI Kit v2 § Toggle (.switch) */
+  --kit-toggle-width: 52px;
+  --kit-toggle-height: 32px;
+  --kit-toggle-thumb: 26px;
+  --kit-toggle-inset: 3px;
+  --kit-toggle-width-sm: 40px;
+  --kit-toggle-height-sm: 24px;
+  --kit-toggle-thumb-sm: 20px;
+  --kit-toggle-inset-sm: 2px;
+
+  /* Checkbox / radio — UI Kit v2 checklist + form controls */
+  --kit-control-size: 20px;
+  --kit-control-radius: 6px;
+  --kit-radio-dot: 8px;
+  --kit-control-border: 2px;
+
+  /* Text field — UI Kit v2 § Forms (.input) */
+  --kit-field-gap: 8px;
+  --kit-field-label-size: 13px;
+  --kit-field-radius: 16px;
+  --kit-field-padding-y: 16px;
+  --kit-field-padding-x: 18px;
+  --kit-field-font: 16px;
+  --kit-field-min-height: 52px;
+  --kit-field-hint-size: 12.5px;
+  --kit-field-focus-ring: 4px;
+
+  /* Progress bar — Design Harness kit ProgressBarSet (h-2 track) */
+  --kit-progress-height: 8px;
+  --kit-progress-radius: 999px;
+  --kit-progress-height-sm: 5px;
+
+  /* Segmented control — Design Harness kit SegmentedControl */
+  --kit-segment-track-radius: 12px;
+  --kit-segment-thumb-radius: 8px;
+  --kit-segment-padding: 4px;
+  --kit-segment-height: 36px;
+  --kit-segment-font: 14px;
+  --kit-segment-gap: 0px;
+
+  /* Sheet — Design Harness kit SheetHeader / ActionSheet */
+  --kit-sheet-radius: 28px;
+  --kit-sheet-radius-action: 20px;
+  --kit-sheet-grabber-width: 36px;
+  --kit-sheet-grabber-height: 4px;
+  --kit-sheet-padding-x: 20px;
+  --kit-sheet-title-size: 16px;
+  --kit-sheet-action-size: 15px;
+  --kit-sheet-shadow: 0 -8px 32px -8px rgba(20, 22, 26, 0.12), 0 -1px 0 0 rgba(20, 22, 26, 0.04);
+
+  /* Empty state — Design Harness kit EmptyState */
+  --kit-empty-icon-frame: 96px;
+  --kit-empty-icon-size: 48px;
+  --kit-empty-title-size: 18px;
+  --kit-empty-body-size: 13px;
+  --kit-empty-radius: 16px;
+  --kit-empty-padding: 24px;
+
+  /* Loader — Design Harness kit LoadingSpinner */
+  --kit-loader-size: 40px;
+  --kit-loader-size-sm: 28px;
+  --kit-loader-size-xs: 20px;
+  --kit-loader-petal-width: 3px;
+  --kit-loader-petal-height: 10px;
+  --kit-loader-dot: 10px;
+
+  /* FAB — Design Harness kit FabMenu (size-14 circle + lifted ink) */
+  --kit-fab-size: 56px;
+  --kit-fab-size-sm: 48px;
+  --kit-fab-size-lg: 64px;
+  --kit-fab-icon: 24px;
+  --kit-fab-shadow: 0 4px 12px rgba(20, 22, 26, 0.15);
+  --kit-fab-menu-gap: 12px;
+  --kit-fab-menu-item-radius: 12px;
+  --kit-fab-menu-item-padding-y: 8px;
+  --kit-fab-menu-item-padding-x: 16px;
+  --kit-fab-menu-icon-size: 32px;
+
+  /* Alert — Design Harness kit AlertSet */
+  --kit-alert-radius: 16px;
+  --kit-alert-padding-y: 8px;
+  --kit-alert-padding-inline-start: 8px;
+  --kit-alert-padding-inline-end: 16px;
+  --kit-alert-gap: 12px;
+  --kit-alert-icon-size: 40px;
+  --kit-alert-icon-size-ink: 36px;
+  --kit-alert-title-size: 14px;
+  --kit-alert-desc-size: 12px;
+  --kit-alert-action-size: 14px;
+
+  /* Tabs — Design Harness kit AnimatedTabs */
+  --kit-tabs-font: 14px;
+  --kit-tabs-padding-y: 12px;
+  --kit-tabs-underline: 2px;
+  --kit-tabs-panel-padding: 24px;
+
+  /* Skeleton — Design Harness kit SkeletonPrimitive */
+  --kit-skeleton-radius-bar: 6px;
+  --kit-skeleton-radius-square: 16px;
+  --kit-skeleton-radius-pill: 12px;
+  --kit-skeleton-shimmer: rgba(255, 255, 255, 0.55);
+  --kit-skeleton-duration: 1.6s;
+  --kit-alert-desc-opacity: 0.85;
+  --kit-disabled-opacity: 0.4;
+  --kit-alert-action-tracking: 0.08em;
+
+  /* Floating field — Design Harness kit FloatingLabelField */
+  --kit-field-floating-height: 56px;
+  --kit-field-floating-font: 15px;
+  --kit-field-floating-label-scale: 0.75;
+
+  /* Settings row — Design Harness kit SettingsRow / SettingsGroup */
+  --kit-settings-row-radius: 16px;
+  --kit-settings-row-radius-compact: 12px;
+  --kit-settings-row-padding: 12px;
+  --kit-settings-row-gap: 16px;
+  --kit-settings-row-gap-compact: 12px;
+  --kit-settings-icon-size: 40px;
+  --kit-settings-icon-size-compact: 36px;
+  --kit-settings-icon-radius: 12px;
+  --kit-settings-icon-radius-compact: 8px;
+  --kit-settings-group-label-size: 10px;
+  --kit-settings-group-gap: 8px;
+
+  /* Avatar — Design Harness kit AvatarGroup */
+  --kit-avatar-sm: 28px;
+  --kit-avatar-md: 40px;
+  --kit-avatar-lg: 48px;
+  --kit-avatar-overlap-sm: 8px;
+  --kit-avatar-overlap-lg: 12px;
+  --kit-avatar-ring-sm: 2px;
+  --kit-avatar-ring-lg: 3px;
+  --kit-avatar-font-sm: 10px;
+  --kit-avatar-font-lg: 14px;
+
+  /* Swiper — page dots on kit ink */
+  --kit-swiper-dot: 8px;
+  --kit-swiper-dot-active: 8px;
+  --kit-swiper-dot-hit: 12px;
+  --kit-swiper-dot-on-dark: var(--ds-additional-content-white-overlay);
+
+  /* Type scale — sizes only; families live in --font-family-* below */
+  --kit-font-display-size: 56px;
+  --kit-font-display-line: 0.98;
+  --kit-font-display-weight: 300;
+  --kit-font-headline-size: 32px;
+  --kit-font-headline-weight: 400;
+  --kit-font-title-size: 20px;
+  --kit-font-title-weight: 500;
+  --kit-font-body-size: 15px;
+  --kit-font-body-line: 1.6;
+  --kit-font-body-weight: 400;
+  --kit-font-caption-size: 13px;
+  --kit-font-mono-label-size: 11px;
+  --kit-font-mono-label-weight: 500;
+  --kit-font-weight-medium: 500;
+  --kit-font-weight-semibold: 600;
+  --kit-font-weight-bold: 700;
+
+  /*
+   * Primitive scales — names kept; values = Design Harness teal / plum ramps.
+   * “teal”/“mosque”/“sea” resolve to brand teal (not indigo).
+   */
+  --ds-primitive-teal-900: #02282b;
+  --ds-primitive-teal-800: #054f54;
+  --ds-primitive-teal-700: #086c72;
+  --ds-primitive-teal-600: #007078;
+  --ds-primitive-teal-500: #0ba3ad;
+  --ds-primitive-teal-400: #2cb9c0;
+  --ds-primitive-teal-300: #5dcfd5;
+  --ds-primitive-teal-200: #95e2e6;
+  --ds-primitive-teal-100: #e0f7f8;
+  --ds-primitive-teal-50: #f0fbfb;
+
+  --ds-primitive-mosque-900: #110a24;
+  --ds-primitive-mosque-800: #221645;
+  --ds-primitive-mosque-700: #322160;
+  --ds-primitive-mosque-600: #422c7a;
+  --ds-primitive-mosque-500: #4f3791;
+  --ds-primitive-mosque-400: #714bbb;
+  --ds-primitive-mosque-300: #9576cc;
+  --ds-primitive-mosque-200: #b9a2dd;
+  --ds-primitive-mosque-100: #dcd1ee;
+  --ds-primitive-mosque-50: #f5f2fa;
+
+  --ds-primitive-orange-900: #7c2d12;
+  --ds-primitive-orange-800: #9a3412;
+  --ds-primitive-orange-700: #c2410c;
+  --ds-primitive-orange-600: #ea580c;
+  --ds-primitive-orange-500: #f97316;
+  --ds-primitive-orange-400: #fb923c;
+  --ds-primitive-orange-300: #fdba74;
+  --ds-primitive-orange-200: #fed7aa;
+  --ds-primitive-orange-100: #ffedd5;
+  --ds-primitive-orange-50: #fff7ed;
+
+  --ds-primitive-green-900: #14532d;
+  --ds-primitive-green-800: #166534;
+  --ds-primitive-green-700: #15803d;
+  --ds-primitive-green-600: #16a34a;
+  --ds-primitive-green-500: #22c55e;
+  --ds-primitive-green-400: #4ade80;
+  --ds-primitive-green-300: #86efac;
+  --ds-primitive-green-200: #bbf7d0;
+  --ds-primitive-green-100: #dcfce7;
+  --ds-primitive-green-50: #f0fdf4;
+
+  --ds-primitive-red-900: #7f1d1d;
+  --ds-primitive-red-800: #991b1b;
+  --ds-primitive-red-700: #b91c1c;
+  --ds-primitive-red-600: #dc2626;
+  --ds-primitive-red-500: #ef4444;
+  --ds-primitive-red-400: #f87171;
+  --ds-primitive-red-300: #fca5a5;
+  --ds-primitive-red-200: #fecaca;
+  --ds-primitive-red-100: #fee2e2;
+  --ds-primitive-red-50: #fef2f2;
+
+  --ds-primitive-gray-900: #111827;
+  --ds-primitive-gray-800: #1f2937;
+  --ds-primitive-gray-700: #374151;
+  --ds-primitive-gray-600: #4b5563;
+  --ds-primitive-gray-500: #6b7280;
+  --ds-primitive-gray-400: #9ca3af;
+  --ds-primitive-gray-300: #d1d5db;
+  --ds-primitive-gray-200: #e5e7eb;
+  --ds-primitive-gray-100: #f5f5f5;
+  --ds-primitive-gray-50: #fafafa;
+  --ds-primitive-gray-25: #fafaf7;
+
+  --ds-primitive-black: #14161a;
+  --ds-primitive-system-black: #000000;
+  --ds-primitive-white: #ffffff;
+
+  --ds-primitive-violet-900: #4f3791;
+  --ds-primitive-violet-200: #ebe5f5;
+  --ds-primitive-pink-900: #c24a6e;
+  --ds-primitive-pink-200: #f8e2e9;
+
+  --ds-primitive-gradient-purple: linear-gradient(
+    117.68deg,
+    #a5b4fc 41.52%,
+    #818cf8 82.06%
+  );
+  --ds-primitive-gradient-purple-1: #a5b4fc;
+  --ds-primitive-gradient-purple-2: #818cf8;
+  --ds-primitive-gradient-black: linear-gradient(
+    117.65deg,
+    #18181b 17.19%,
+    #27272a 82.81%
+  );
+  --ds-primitive-gradient-black-1: #18181b;
+  --ds-primitive-gradient-black-2: #27272a;
+
+  /* Core UI colours — warm paper surfaces */
+  --ds-core-content-primary: #14161a;
+  --ds-core-content-secondary: #4b5563;
+  --ds-core-content-tertiary: #d1d5db;
+  --ds-core-background-primary: #ffffff;
+  --ds-core-background-secondary: #f5f5f5;
+  --ds-core-background-tertiary: #fafaf7;
+  --ds-core-background-quaternary: #e5e7eb;
+  --ds-core-border-primary: #f0f0f0;
+  --ds-core-border-secondary: #9ca3af;
+  --ds-core-border-subtle: #f5f5f5;
+
+  /*
+   * “Sea” tokens keep the name for taxonomy — values = brand teal
+   * (same as --kit-brand / --color-surface-brand).
+   */
+  --ds-additional-background-sea: #007078;
+  --ds-additional-background-sea-hover: #086c72;
+  --ds-additional-background-sea-press: #054f54;
+  --ds-additional-background-sea-light: #e5f6f7;
+  --ds-additional-background-sea-light-hover: #e0f7f8;
+  --ds-additional-background-sea-light-press: #c3f0f2;
+  --ds-additional-content-sea: #007078;
+  --ds-additional-border-sea: #007078;
+  --ds-additional-content-white: #ffffff;
+  --ds-additional-content-black-overlay: rgba(20, 22, 26, 0.5);
+  --ds-additional-content-black-overlay-light: #14161a;
+  --ds-additional-content-white-overlay: rgba(255, 255, 255, 0.5);
+  --ds-additional-background-black: #14161a;
+  --ds-additional-background-black-hover: #1f2937;
+  --ds-additional-background-black-press: #1f2937;
+  --ds-additional-border-black: #14161a;
+  --ds-additional-border-white: #ffffff;
+  --ds-additional-content-negative: #b42318;
+  --ds-additional-background-negative: #b42318;
+  --ds-additional-background-negative-hover: #951c13;
+  --ds-additional-background-negative-press: #74160f;
+  --ds-additional-background-negative-light: #f9e3df;
+  --ds-additional-content-warning: #b86a00;
+  --ds-additional-background-warning: #b86a00;
+  --ds-additional-background-warning-light: #faefd7;
+  --ds-additional-background-review-light: #e9c16b;
+  --ds-additional-content-disabled: #9ca3af;
+  --ds-additional-background-disabled: #f5f5f5;
+  /* Legacy name “legacy-brand” kept — value is rose accent */
+  --ds-additional-background-legacy-brand: #c24a6e;
+  --ds-additional-background-legacy-brand-hover: #a23a5c;
+  --ds-additional-background-legacy-brand-press: #7e2c47;
+  --ds-additional-background-legacy-brand-light: #f8e2e9;
+  --ds-additional-content-legacy-brand: #c24a6e;
+  --ds-additional-background-positive: #2ea043;
+  --ds-additional-background-positive-light: #dff5e4;
+  --ds-additional-background-positive-light-hover: #c2ebcc;
+  --ds-additional-background-positive-light-press: #94daa4;
+  --ds-additional-content-positive: #2ea043;
+  --ds-additional-border-positive: #2ea043;
+  --ds-additional-border-negative: #b42318;
+  --ds-additional-border-warning: #b86a00;
+  --ds-additional-border-violet: #4f3791;
+  --ds-additional-background-progress-strong: #90f239;
+  --ds-additional-content-violet: #4f3791;
+  --ds-additional-background-violet: #4f3791;
+  --ds-additional-background-violet-dark: #322160;
+  --ds-additional-background-violet-light: #ebe5f5;
+  --ds-additional-background-lilac: #9576cc;
+  --ds-additional-background-graphite: #1f2937;
+  --ds-additional-background-system-black: #000000;
+  --ds-additional-background-black-overlay: rgba(9, 9, 11, 0.9);
+  --ds-additional-background-black-overlay-light: rgba(9, 9, 11, 0.5);
+  --ds-additional-background-white-overlay: rgba(255, 255, 255, 0.5);
+  --ds-additional-background-gradient-1: var(--ds-primitive-gradient-purple);
+  --ds-additional-background-gradient-client: var(--ds-primitive-gradient-black);
+
+  /* Hovered / Pressed */
+  --ds-hovered-white: #f5f5f5;
+  --ds-hovered-gray: #e5e7eb;
+  --ds-hovered-black: #1f2937;
+  --ds-hovered-sea: #086c72;
+  --ds-hovered-sea-light: #e0f7f8;
+  --ds-pressed-white: #e5e7eb;
+  --ds-pressed-gray: #d1d5db;
+  --ds-pressed-black: #1f2937;
+  --ds-pressed-sea: #054f54;
+  --ds-pressed-sea-light: #c3f0f2;
+
+  /*
+   * Calendar Strong / Light — appointment tile fills (names kept; values
+   * still a multi-hue catalog for calendar prototypes).
+   */
+  --ds-calendar-strong-pink-1: #ffa1ea;
+  --ds-calendar-strong-pink-2: #bd4580;
+  --ds-calendar-strong-pink-3: #b9205e;
+  --ds-calendar-strong-red-1: #b60104;
+  --ds-calendar-strong-red-2: #ec4a4a;
+  --ds-calendar-strong-red-3: #cd7a73;
+  --ds-calendar-strong-orange-1: #d55227;
+  --ds-calendar-strong-orange-2: #d36c19;
+  --ds-calendar-strong-yellow-1: #da9222;
+  --ds-calendar-strong-yellow-2: #eeba2b;
+  --ds-calendar-strong-yellow-3: #ffd702;
+  --ds-calendar-strong-yellow-4: #dfeb6d;
+  --ds-calendar-strong-green-1: #c1c945;
+  --ds-calendar-strong-green-2: #8db14d;
+  --ds-calendar-strong-green-3: #90f239;
+  --ds-calendar-strong-green-4: #aae4cb;
+  --ds-calendar-strong-green-5: #6eb37b;
+  --ds-calendar-strong-green-6: #497f48;
+  --ds-calendar-strong-green-7: #549587;
+  --ds-calendar-strong-green-8: #176a7c;
+  --ds-calendar-strong-blue-1: #c2ebfc;
+  --ds-calendar-strong-blue-2: #b4e8e6;
+  --ds-calendar-strong-blue-3: #579ae2;
+  --ds-calendar-strong-blue-4: #5c83f0;
+  --ds-calendar-strong-blue-5: #4651b1;
+  --ds-calendar-strong-blue-6: #8dafd8;
+  --ds-calendar-strong-purple-1: #7b85c7;
+  --ds-calendar-strong-purple-2: #ab9bd8;
+  --ds-calendar-strong-purple-3: #8f69ab;
+  --ds-calendar-strong-brown-1: #955636;
+  --ds-calendar-strong-brown-2: #70574a;
+
+  --ds-calendar-light-pink-1: #fff1fc;
+  --ds-calendar-light-pink-2: #f5e3ec;
+  --ds-calendar-light-pink-3: #f4dde7;
+  --ds-calendar-light-red-1: #fce4e4;
+  --ds-calendar-light-red-2: #f4d9d9;
+  --ds-calendar-light-red-3: #f7ebea;
+  --ds-calendar-light-orange-1: #f9e5df;
+  --ds-calendar-light-orange-2: #f8e9dc;
+  --ds-calendar-light-yellow-1: #f9efde;
+  --ds-calendar-light-yellow-2: #fcf5df;
+  --ds-calendar-light-yellow-3: #fff9d9;
+  --ds-calendar-light-yellow-4: #f4f7e1;
+  --ds-calendar-light-green-1: #f6f7e3;
+  --ds-calendar-light-green-2: #eef3e4;
+  --ds-calendar-light-green-3: #eefde1;
+  --ds-calendar-light-green-4: #f2fbf7;
+  --ds-calendar-light-green-5: #e9f4eb;
+  --ds-calendar-light-green-6: #e4ece3;
+  --ds-calendar-light-green-7: #e5efed;
+  --ds-calendar-light-blue-1: #f4fcfb;
+  --ds-calendar-light-blue-2: #f4fcfb;
+  --ds-calendar-light-blue-3: #e6f0fb;
+  --ds-calendar-light-blue-4: #e6ecfd;
+  --ds-calendar-light-blue-5: #e3e5f3;
+  --ds-calendar-light-blue-6: #eef3f9;
+  --ds-calendar-light-purple-1: #ebedf7;
+  --ds-calendar-light-purple-2: #f2f0f9;
+  --ds-calendar-light-purple-3: #f2f0f9;
+  --ds-calendar-light-purple-4: #ebdff1;
+  --ds-calendar-light-brown-1: #e7d8d1;
+  --ds-calendar-light-brown-2: #e1dcd3;
+
+  --ds-brand-facebook: #1877f2;
+  --ds-brand-facebook-hover: #166fe5;
+  --ds-brand-facebook-press: #1464d0;
+  --ds-brand-klarna-badge: #ffb1d2;
+  --ds-platform-primary-biz: #2a2c32;
+  /* Shared interaction surfaces (light / on-dark overlays) */
+  --ds-button-surface-hover: var(--color-bg-muted);
+  --ds-button-surface-press: var(--ds-core-background-quaternary);
+  --ds-button-overlay-white-hover: rgba(255, 255, 255, 0.12);
+  --ds-button-overlay-white-press: rgba(255, 255, 255, 0.22);
+  --ds-button-overlay-black-hover: rgba(21, 22, 24, 0.06);
+  --ds-button-overlay-black-press: rgba(21, 22, 24, 0.12);
+  /*
+   * Type White / Secondary White — always a light fill with dark label.
+   * Do not bind these to page `--ds-core-background-primary` (that flips in dark theme).
+   */
+  --ds-button-contrast-fill: #ffffff;
+  --ds-button-contrast-fill-hover: #eff0f0;
+  --ds-button-contrast-fill-press: #d5d5d5;
+  --ds-button-contrast-content: #09090b;
+  --ds-button-contrast-border: #a1a1aa;
+  /* Type Black outline when resting on dark canvas (transparent in light) */
+  --ds-button-solid-ring: transparent;
+  /* Ripple + modern elevation */
+  --ds-button-ripple-light: rgba(255, 255, 255, 0.38);
+  --ds-button-ripple-dark: rgba(9, 9, 11, 0.14);
+  --ds-button-shadow-rest: 0 1px 2px rgba(9, 9, 11, 0.06);
+  --ds-button-shadow-hover: 0 6px 16px rgba(9, 9, 11, 0.14);
+  --ds-button-shadow-press: 0 2px 6px rgba(9, 9, 11, 0.12);
+  --ds-button-press-scale: 0.97;
+
+  /* Buttons — legacy geometry (kept; kit Button uses --kit-button-*) */
+  --ds-button-height-sm: 24px;
+  --ds-button-height-md: 32px;
+  --ds-button-height-lg: 48px;
+  --ds-button-padding-y-md: 6px;
+  --ds-button-radius-primary-compact: 6px;
+  --ds-button-radius-primary-large: 8px;
+  --ds-button-fab-height-xs: var(--kit-fab-size-sm);
+  --ds-button-fab-height-sm: var(--kit-fab-size);
+  --ds-button-fab-height-lg: var(--kit-fab-size-lg);
+  --ds-button-fab-radius-sm: 999px;
+  --ds-button-fab-radius-lg: 999px;
+  --ds-button-fab-shadow: var(--kit-fab-shadow);
+  --ds-button-square-size: 164px;
+  --ds-button-dashed-circle-size: 120px;
+  --ds-button-dashed-square-width: 118px;
+  --ds-button-dashed-square-height: 100px;
+  --ds-button-complete-height: 56px;
+  /* Chips — legacy geometry (kept; kit Chip uses --kit-chip-*) */
+  --ds-chip-height-sm: 24px;
+  --ds-chip-height-md: 32px;
+  --ds-chip-height-lg: 48px;
+  --ds-chip-padding-compact: var(--spacing-02);
+  --ds-chip-padding-large: var(--spacing-04);
+  /* Controls — legacy geometry (kept; kit Toggle/Checkbox use --kit-toggle-* / --kit-control-*) */
+  --ds-control-size: 24px;
+  --ds-control-radius: 6px;
+  --ds-toggle-width-lg: 56px;
+  --ds-toggle-height-lg: 32px;
+  --ds-toggle-thumb-lg: 28px;
+  --ds-toggle-width-sm: 40px;
+  --ds-toggle-height-sm: 24px;
+  --ds-toggle-thumb-sm: 20px;
+  --ds-toggle-inset: 2px;
+  --ds-toggle-thumb-shadow:
+    0 2px 2px rgba(0, 0, 0, 0.08),
+    0 -1px 1.5px rgba(0, 0, 0, 0.07);
+  --ds-progress-height-mobile: 4px;
+  --ds-progress-height-desktop: 8px;
+  --ds-loader-size-default: 64px;
+  --ds-loader-size-sm: 48px;
+  --ds-loader-size-xs: 36px;
+  --ds-countdown-xl: 128px;
+  --ds-countdown-lg: 88px;
+  --ds-countdown-md: 64px;
+  --ds-countdown-sm: 48px;
+  --ds-swiper-dot-active: var(--kit-swiper-dot-active);
+  --ds-swiper-dot: var(--kit-swiper-dot);
+  --ds-swiper-dot-hit: var(--kit-swiper-dot-hit);
+  --ds-tooltip-radius: 2px;
+  --ds-font-label-m-size: 14px;
+  --ds-font-label-m-line: 20px;
+  --ds-font-label-l-size: 16px;
+  --ds-font-label-l-line: 24px;
+  --ds-font-label-xl-size: 18px;
+  --ds-font-label-xl-line: 24px;
+  --ds-font-label-xs-size: 11px;
+  --ds-font-label-xs-line: 12px;
+  --ds-font-label-s-size: 12px;
+  --ds-font-label-s-line: 16px;
+  --ds-font-weight-semibold: 600;
+
+  /* Toast — legacy pill fills (kit Toast uses --kit-* ink surface instead) */
+  --ds-toast-background-positive: #16a34a;
+  --ds-toast-background-warning: #d97706;
+  --ds-toast-background-negative: #dc2626;
+  --ds-toast-background-sea: #4f46e5;
+  --ds-toast-background-informative: #27272a;
+  --ds-toast-border: #ffffff;
+  --ds-toast-content: #ffffff;
+  --ds-toast-pill-radius: 24px;
+  --ds-toast-shadow: 0 -1px 1.5px rgba(0, 0, 0, 0.07), 0 2px 2px rgba(0, 0, 0, 0.08);
+
+  /* Elevation */
+  --ds-elevate-shadow-md: 0 12px 40px rgba(9, 9, 11, 0.1);
+  --ds-elevate-shadow-soft: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 20px rgba(0, 0, 0, 0.06);
+
+  /*
+   * Foundations semantic colours — Design Harness teal + warm paper.
+   * Token names unchanged.
+   */
+  --color-bg-default: #ffffff;
+  --color-bg-muted: #f5f5f5;
+  --color-bg-brand-dark: #02282b;
+  --color-surface-default: #ffffff;
+  --color-surface-muted: #f5f5f5;
+  --color-surface-brand: #007078;
+  --color-surface-brand-hover: #086c72;
+  --color-surface-inverse: #14161a;
+  --color-text-default: #14161a;
+  --color-text-secondary: #4b5563;
+  --color-text-muted: #6b7280;
+  --color-text-inverse: #fafaf7;
+  --color-text-link-default: #007078;
+  --color-text-link-hover: #054f54;
+  --color-border-default: #9ca3af;
+  --color-border-muted: #f0f0f0;
+  --color-border-brand: #007078;
+  --color-border-focus: #0ba3ad;
+  --color-border-error: #b42318;
+  --color-surface-error: #f9e3df;
+  --color-text-error: #951c13;
+  --color-surface-success: #dff5e4;
+  --color-surface-warning: #faefd7;
+  --color-text-success: #258438;
+
+  /* Spacing — kept (generic scale) */
+  --spacing-00: 0px;
+  --spacing-01: 2px;
+  --spacing-02: 4px;
+  --spacing-03: 8px;
+  --spacing-04: 12px;
+  --spacing-05: 16px;
+  --spacing-06: 24px;
+  --spacing-07: 32px;
+  --spacing-08: 40px;
+  --spacing-09: 48px;
+
+  /* Layout — Design Harness content column */
+  --size-layout-content-max: 1240px;
+
+  /* Radius — kept */
+  --radius-00: 0px;
+  --radius-01: 4px;
+  --radius-02: 8px;
+  --radius-025: 12px;
+  --radius-03: 16px;
+  --radius-04: 24px;
+  --radius-05: 999px;
+
+  /* Border width — kept */
+  --border-01: 1px;
+  --border-02: 2px;
+
+  /* Size — kept */
+  --size-00: 10px;
+  --size-01: 12px;
+  --size-02: 14px;
+  --size-03: 16px;
+  --size-04: 18px;
+  --size-05: 20px;
+  --size-06: 24px;
+  --size-07: 28px;
+  --size-08: 32px;
+  --size-09: 36px;
+  --size-10: 40px;
+  --size-11: 48px;
+  --size-12: 60px;
+
+  /* Typography — Inter + JetBrains Mono; size steps kept */
+  --font-family-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-family-text: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-family-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-size-h3: 24px;
+  --font-size-body-large: 18px;
+  --font-size-body: 16px;
+  --font-size-label: 14px;
+  --font-size-label-small: 12px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.2;
+  --line-height-body: 1.5;
+  --line-height-ui: 1.5;
+
+  /* Type scale — sizes kept; tracking slightly tightened for Inter */
+  --type-h1-size: 60px;
+  --type-h1-line: 72px;
+  --type-h2-size: 48px;
+  --type-h2-line: 56px;
+  --type-h3-size: 40px;
+  --type-h3-line: 48px;
+  --type-h4-size: 32px;
+  --type-h4-line: 40px;
+  --type-h5-size: 24px;
+  --type-h5-line: 32px;
+  --type-h6-size: 20px;
+  --type-h6-line: 28px;
+  --type-body-large-size: 20px;
+  --type-body-large-line: 28px;
+  --type-body-size: 16px;
+  --type-body-line: 24px;
+  --type-label-size: 14px;
+  --type-label-line: 20px;
+  --type-label-sm-size: 12px;
+  --type-label-sm-line: 16px;
+  --type-heading-tracking: -0.02em;
+  --type-font-family-display: var(--font-family-display);
+  --type-font-family-text: var(--font-family-text);
+
+  /* Motion */
+  --duration-fast: 120ms;
+  --duration-medium: 220ms;
+  --duration-ripple: 520ms;
+  --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (min-width: 768px) {
+  :root,
+  [data-theme='light'] {
+    --font-size-h3: 28px;
+    --font-size-body-large: 20px;
+  }
+}
+
+/**
+ * Design Harness kit — dark mode (2026-08-11). Real DS layer now, not a Design Harness-chrome-only
+ * concern — supersedes the old "prototypes are always light" hard rule (see
+ * harness/ORCHESTRATOR.md §7.1 rule 7 + context/design-system/STUDIO-OS-KIT-NOTES.md).
+ * Set `data-theme="dark"` on the app root — separate attribute from the pre-existing
+ * Design Harness-catalog-only `data-design-harness-theme`. Prototypes stay light: the
+ * prototype surface sets `data-theme="light"` (see ORCHESTRATOR.md §7.1 rule 7).
+ */
+:root[data-theme='dark'] {
+  --kit-bg: #0e1115;
+  --kit-paper: #181c22;
+  --kit-sunken: #1d1f24;
+  --kit-tile: rgba(24, 28, 34, 0.6);
+  --kit-line: #383c44;
+  --kit-line-strong: rgba(255, 255, 255, 0.12);
+  --kit-ink: #f1f2f4;
+  --kit-ink-70: #c7cad1;
+  --kit-ink-50: #9ca0a8;
+  --kit-ink-30: #6b7280;
+  --kit-ink-15: #383c44;
+  --kit-focus-halo: rgba(104, 211, 217, 0.35);
+
+  --kit-brand: #68d3d9;
+  --kit-brand-deep: #95e2e6;
+  --kit-brand-soft: rgba(104, 211, 217, 0.14);
+  --kit-premium: #b49dfa;
+  --kit-premium-deep: #dcd1ee;
+  --kit-premium-soft: rgba(180, 157, 250, 0.14);
+  --kit-rose: #f87b98;
+  --kit-rose-soft: rgba(248, 123, 152, 0.14);
+  --kit-leaf: #6cd58c;
+  --kit-leaf-soft: rgba(108, 213, 140, 0.14);
+  --kit-amber: #f2a24a;
+  --kit-amber-soft: rgba(242, 162, 74, 0.14);
+  --kit-danger: #f87171;
+  --kit-danger-soft: rgba(248, 113, 113, 0.14);
+
+  --kit-shadow-1: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset, 0 1px 2px rgba(0, 0, 0, 0.45),
+    0 8px 24px -8px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --kit-shadow-2: 0 1px 0 0 rgba(255, 255, 255, 0.06) inset, 0 2px 4px rgba(0, 0, 0, 0.5),
+    0 16px 40px -8px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --kit-shadow-0: none;
+  --kit-shadow-press: 0 2px 0 rgba(0, 0, 0, 0.3), 0 6px 18px -6px rgba(0, 0, 0, 0.55);
+  --kit-shadow-lifted: 0 8px 24px rgba(0, 0, 0, 0.55);
+  --kit-shadow-lifted-hover: 0 10px 28px rgba(0, 0, 0, 0.6);
+  --kit-shadow-border: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.5);
+  --kit-shadow-border-hover: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.4);
+  --kit-edge-raised: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --kit-glass-bg: rgba(24, 28, 34, 0.65);
+  --kit-glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  --kit-glass-blur: 28px;
+  --kit-glass-saturate: 1.8;
+
+  --kit-font-body-weight: 450;
+}

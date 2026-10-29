@@ -1,0 +1,5 @@
+# This repo is not deployed to Vercel as-is. It's a local harness for
+# design work. To publish a viewing copy, build it and serve dist/ from any
+# static host (see Dockerfile for a container example).
+
+*

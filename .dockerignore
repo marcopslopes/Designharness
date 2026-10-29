@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-ssr
+.git
+.remember
+docs
+tests
+
+# Private to this machine — never part of a hosted copy.
+designer-profile.local.md
+designer-context.local
+context/org-pack.local
+projects.local
+harness/logs

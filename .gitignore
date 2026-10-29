@@ -1,0 +1,96 @@
+# Logs (root-level only — harness/logs/ ships real tracked content,
+# e.g. routing-standards.md, docs-freshness.md; don't shadow it)
+/logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+storybook-static
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Personal working notes for building this repo - not public documentation (root only;
+# projects/<slug>/docs/ is project content Design Harness shows)
+/docs/
+
+# Ad-hoc doc export archives
+docs.zip
+
+# Per-designer local profile (harness/designer-onboarding) — personal to
+# one clone, never shared to the remote
+designer-profile.local.md
+designer-context.local/
+
+# Real company content pack (context/org-pack.local) — your company's
+# actual business/voice/patterns/squads/sources facts, never shared to
+# the remote. The public repo ships context/org-pack/ as a generic
+# fictional example only. Already covered by the `*.local` rule above;
+# spelled out here for clarity.
+context/org-pack.local/
+
+# Design-system files dropped on a system page. The prompt reads them; they are not the system yet.
+context/design-system/.inbox/
+
+# Real project work (briefs, findings, screens, published exports) —
+# personal/company deliverables, never shared to the remote. `projects/`
+# stays tracked and public with just `_template/` and `README.md` (the
+# schema); actual project folders and their published `public/` exports
+# live here instead. Already covered by `*.local` above; spelled out for
+# clarity.
+projects.local/
+
+# Real routing/benchmarking history — every skill/rule appends dated
+# real-request lines here, so these accumulate real company specifics
+# fast. Same never-shared intent as the `*.local` rule above, enforced
+# by exact path instead of a `.local` suffix because the filenames are
+# referenced literally throughout harness/ and .cursor/rules/. See the
+# matching *.example.md for format + first-run note.
+harness/logs/routing-log.md
+harness/logs/skill-benchmarking.md
+harness/logs/token-usage.jsonl
+harness/logs/benchmark-results.jsonl
+harness/logs/skill-usage.jsonl
+harness/logs/skill-usage-summary.md
+
+# Real NotebookLM notebook registry — accumulates real notebook IDs +
+# whatever they're summarised from (real names, real research). Same
+# never-shared intent, exact-path enforced because /research-refresh
+# and the notebooklm-mcp workflow reference this literal path.
+.CLAUDE/research-query/notebooks.md
+
+# Research-query scratch dumps (one-off pasted survey/data exports for a
+# single query session) — notebooks.md (the actual index) stays tracked
+.CLAUDE/research-query/tmp/
+.vercel
+
+# Real project work lives in projects.local/ — these names stay ignored
+# under projects/ in case a copy lands here by mistake
+projects/calendar-screen/
+projects/ai-receptionist/
+projects/signals-db/
+projects/gallery-card-trigger-verify/
+REPOSITORY-GUIDE.md
+
+# Design Harness settings (#/settings, dev only) — studio identity + harness
+# behaviour switches. Personal to each clone, like designer-profile.local.md.
+harness.config.local.json
+
+# Licensed webfonts dropped in per clone (see public/fonts/README.md).
+public/fonts/*
+!public/fonts/README.md

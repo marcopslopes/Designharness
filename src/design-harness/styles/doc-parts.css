@@ -1,0 +1,477 @@
+/*
+ * Design Harness frame — doc and page parts (`components/DocParts.tsx`): slash breadcrumb, quiet callouts,
+ * outlined feedback pills, a popover menu, arrow pills, sand and dark bands,
+ * and a deep forest closing card. Frame only — never inside a prototype.
+ */
+
+/* ——— Breadcrumb ——— */
+.design-harness-crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-02);
+  margin: 0 0 var(--spacing-03);
+  padding: 0;
+  list-style: none;
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-crumbs li + li::before {
+  content: '/';
+  margin-right: var(--spacing-02);
+}
+
+.design-harness-crumbs li:last-child {
+  color: var(--kit-ink);
+}
+
+.design-harness-crumbs a {
+  border-radius: var(--radius-01);
+  color: inherit;
+  text-decoration: none;
+}
+
+.design-harness-crumbs a:hover {
+  color: var(--kit-ink);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.design-harness-crumbs a:focus-visible,
+.design-harness-feedback__pill:focus-visible,
+.design-harness-menu__trigger:focus-visible,
+.design-harness-menu__item:focus-visible,
+.design-harness-arrow-button:focus-visible {
+  outline: 2px solid var(--design-harness-accent);
+  outline-offset: 2px;
+}
+
+/* ——— Callout — forest tint for info (one accent in the frame), amber for warnings ——— */
+.design-harness-callout {
+  display: flex;
+  gap: var(--spacing-03);
+  margin: var(--spacing-04) 0;
+  padding: var(--spacing-04) var(--spacing-05);
+  border-radius: var(--radius-02);
+  background: color-mix(in srgb, var(--design-harness-accent) 8%, var(--design-harness-shell-panel));
+  color: var(--kit-ink);
+}
+
+.design-harness-callout[data-tone='warning'] {
+  background: color-mix(in srgb, var(--kit-amber) 12%, var(--design-harness-shell-panel));
+}
+
+.design-harness[data-design-harness-theme='dark'] .design-harness-callout {
+  background: color-mix(in srgb, var(--design-harness-accent) 14%, var(--design-harness-shell-panel));
+}
+
+.design-harness[data-design-harness-theme='dark'] .design-harness-callout[data-tone='warning'] {
+  background: color-mix(in srgb, var(--kit-amber) 18%, var(--design-harness-shell-panel));
+}
+
+.design-harness-callout__icon {
+  display: flex;
+  padding-top: var(--spacing-01);
+  color: var(--design-harness-accent);
+}
+
+.design-harness-callout[data-tone='warning'] .design-harness-callout__icon {
+  color: var(--kit-amber);
+}
+
+.design-harness-callout__body {
+  min-width: 0;
+}
+
+.design-harness-callout__body > :first-child {
+  margin-top: 0;
+}
+
+.design-harness-callout__body > :last-child {
+  margin-bottom: 0;
+}
+
+/* ——— Page feedback ——— */
+.design-harness-feedback {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-04);
+}
+
+.design-harness-feedback__question,
+.design-harness-feedback__thanks {
+  margin: 0;
+  color: var(--kit-ink);
+  font-weight: var(--font-weight-medium);
+}
+
+.design-harness-feedback__thanks {
+  color: var(--kit-ink-50);
+  font-weight: inherit;
+}
+
+.design-harness-feedback__answers {
+  display: flex;
+  gap: var(--spacing-02);
+}
+
+.design-harness-feedback__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  padding: var(--spacing-02) var(--spacing-04);
+  border: var(--border-01) solid var(--kit-line);
+  border-radius: var(--radius-05);
+  background: transparent;
+  color: var(--kit-ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.design-harness-feedback__pill:hover {
+  border-color: var(--kit-ink-50);
+}
+
+/* ——— Menu — a native popover under its trigger ——— */
+.design-harness-menu__trigger {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: var(--spacing-02);
+  padding: var(--spacing-02) var(--spacing-04);
+  border: 0;
+  border-radius: var(--radius-05);
+  background: var(--design-harness-field-fill);
+  color: var(--kit-ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.design-harness-menu {
+  position: fixed;
+  inset: auto;
+  min-width: 14rem;
+  margin: 0;
+  padding: var(--spacing-02);
+  border: 0;
+  border-radius: var(--radius-02);
+  background: var(--design-harness-shell-panel);
+  color: var(--kit-ink);
+  box-shadow:
+    0 0 0 var(--border-01) var(--design-harness-shell-panel-border),
+    var(--design-harness-shell-elevated);
+}
+
+.design-harness-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-03);
+  width: 100%;
+  padding: var(--spacing-02) var(--spacing-03);
+  border: 0;
+  border-radius: var(--radius-01);
+  background: transparent;
+  color: var(--kit-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.design-harness-menu__item > span {
+  flex: 1;
+}
+
+.design-harness-menu__item:hover,
+.design-harness-menu__item:focus-visible {
+  background: var(--design-harness-field-fill);
+}
+
+/* ——— Arrow button ——— */
+.design-harness-arrow-button {
+  --arrow-fill: var(--kit-ink);
+  --arrow-text: var(--kit-paper);
+  --arrow-circle: var(--kit-paper);
+  --arrow-icon: var(--kit-ink);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-03);
+  padding: var(--spacing-01) var(--spacing-01) var(--spacing-01) var(--spacing-04);
+  border: 0;
+  border-radius: var(--radius-05);
+  background: var(--arrow-fill);
+  color: var(--arrow-text);
+  font: inherit;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.design-harness-arrow-button[data-tone='forest'] {
+  --arrow-fill: var(--design-harness-accent-base);
+  --arrow-text: var(--ds-additional-content-white);
+  --arrow-circle: var(--ds-additional-content-white);
+  --arrow-icon: var(--design-harness-accent-base);
+}
+
+/* Light stays light in both themes — it sits on forest and dark bands. */
+.design-harness-arrow-button[data-tone='light'] {
+  --arrow-fill: var(--design-harness-warm-sand);
+  --arrow-text: var(--design-harness-warm-ink);
+  --arrow-circle: var(--ds-additional-content-white);
+  --arrow-icon: var(--design-harness-warm-ink);
+}
+
+.design-harness-arrow-button__circle {
+  display: grid;
+  place-items: center;
+  width: var(--spacing-07);
+  height: var(--spacing-07);
+  border-radius: var(--radius-05);
+  background: var(--arrow-circle);
+  color: var(--arrow-icon);
+  transition: transform var(--duration-fast) var(--easing-standard);
+}
+
+.design-harness-arrow-button:hover .design-harness-arrow-button__circle {
+  transform: translateX(2px);
+}
+
+/* ——— Bands ——— */
+.design-harness-band {
+  padding: var(--spacing-08) var(--spacing-07);
+  border-radius: var(--radius-03);
+  background: var(--design-harness-sand);
+  color: var(--kit-ink);
+}
+
+.design-harness-band[data-tone='dark'] {
+  background: var(--design-harness-band);
+  color: var(--ds-additional-content-white);
+}
+
+.design-harness-band__kicker {
+  margin: 0 0 var(--spacing-03);
+  font-size: var(--font-size-label-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.design-harness-band__title {
+  margin: 0;
+  font-family: var(--mkt-display-font, inherit);
+  font-size: var(--type-h4-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--type-h4-line);
+  letter-spacing: -0.02em;
+}
+
+.design-harness-band__text {
+  margin: var(--spacing-03) 0 0;
+  opacity: 0.7;
+}
+
+/* ——— Closing card ——— */
+.design-harness-cta {
+  display: grid;
+  gap: var(--spacing-07);
+  padding: var(--spacing-08) var(--spacing-07);
+  border-radius: var(--radius-03);
+  background: var(--design-harness-forest-surface);
+  color: var(--ds-additional-content-white);
+}
+
+.design-harness-cta[data-media='true'] {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  padding: var(--spacing-05) var(--spacing-05) var(--spacing-05) var(--spacing-07);
+}
+
+.design-harness-cta__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-04);
+  padding-block: var(--spacing-05);
+}
+
+.design-harness-cta__action {
+  margin-top: auto;
+  padding-top: var(--spacing-05);
+}
+
+.design-harness-cta__media {
+  overflow: hidden;
+  border-radius: var(--radius-02);
+  background: var(--ds-additional-content-white);
+  color: var(--design-harness-warm-ink);
+}
+
+@media (max-width: 720px) {
+  .design-harness-cta[data-media='true'] {
+    grid-template-columns: 1fr;
+    padding: var(--spacing-07) var(--spacing-05);
+  }
+}
+
+.design-harness-cta__title {
+  margin: 0;
+  font-family: var(--mkt-display-font, inherit);
+  font-size: var(--type-h4-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--type-h4-line);
+  letter-spacing: -0.02em;
+}
+
+.design-harness-cta__text {
+  margin: 0;
+  max-width: 36rem;
+  opacity: 0.75;
+}
+
+.design-harness-system__demo-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-04);
+}
+
+/* ——— Fine print ——— */
+.design-harness-fine-print {
+  margin: 0;
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-fine-print a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* ——— Previous and next ——— */
+.design-harness-prev-next {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-04);
+  margin-top: var(--spacing-08);
+}
+
+.design-harness-prev-next__link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-02);
+  padding: var(--spacing-04) var(--spacing-05);
+  border: var(--border-01) solid var(--kit-line);
+  border-radius: var(--radius-03);
+  background: var(--design-harness-shell-panel);
+  color: var(--kit-ink);
+  text-decoration: none;
+  transition: border-color var(--duration-fast) var(--easing-standard);
+}
+
+.design-harness-prev-next__link[data-side='next'] {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.design-harness-prev-next__link:hover {
+  border-color: var(--kit-ink-30);
+}
+
+.design-harness-prev-next__link:focus-visible {
+  outline: none;
+  box-shadow: var(--design-harness-focus-ring);
+}
+
+.design-harness-prev-next__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-prev-next__label {
+  font-weight: var(--font-weight-medium);
+}
+
+/* ——— Skill card ——— */
+.design-harness-skill-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-02);
+  max-width: 18rem;
+  padding: var(--spacing-05);
+  border: var(--border-01) solid var(--kit-line);
+  border-radius: var(--radius-03);
+  background: var(--design-harness-shell-panel);
+  color: var(--kit-ink);
+  text-decoration: none;
+  transition: border-color var(--duration-fast) var(--easing-standard);
+}
+
+.design-harness-skill-card:hover {
+  border-color: var(--kit-ink-30);
+}
+
+.design-harness-skill-card:focus-visible {
+  outline: none;
+  box-shadow: var(--design-harness-focus-ring);
+}
+
+.design-harness-skill-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-03);
+  margin-bottom: var(--spacing-03);
+}
+
+.design-harness-skill-card__icon {
+  display: inline-flex;
+  padding: var(--spacing-02);
+  border-radius: var(--radius-02);
+  background: color-mix(in srgb, var(--design-harness-accent) 12%, transparent);
+  color: var(--design-harness-accent);
+}
+
+.design-harness-skill-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--spacing-02);
+}
+
+.design-harness-skill-card__tag {
+  padding: var(--spacing-01) var(--spacing-03);
+  border-radius: var(--radius-05);
+  background: var(--kit-sunken);
+  color: var(--kit-ink-70);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-skill-card__name {
+  font-weight: var(--font-weight-bold);
+}
+
+.design-harness-skill-card__owner {
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+}
+
+/* ——— Frame pieces shown on their own system pages ——— */
+.design-harness-shell-demo {
+  display: flex;
+  height: 26rem;
+}
+
+.design-harness-shell-demo .design-harness-ds-shell-sidebar {
+  position: static;
+  width: auto;
+}
+
+.design-harness-system__demo .design-harness-ds-skip {
+  position: static;
+  width: fit-content;
+  transform: none;
+}

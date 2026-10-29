@@ -1,0 +1,144 @@
+/**
+ * Design Harness kit Depth & shadow showcase (DS Colours page).
+ */
+
+.design-harness-kit-shadow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-08);
+  width: 100%;
+}
+
+.design-harness-kit-shadow__intro {
+  max-width: 40rem;
+}
+
+.design-harness-kit-shadow__headline {
+  margin: 0;
+  color: var(--kit-ink);
+  font-family: var(--font-family-text);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: var(--kit-font-weight-bold);
+  letter-spacing: -0.02em;
+  line-height: var(--line-height-tight);
+}
+
+.design-harness-kit-shadow__headline em {
+  font-style: italic;
+  color: var(--kit-brand);
+  font-weight: var(--kit-font-weight-bold);
+}
+
+.design-harness-kit-shadow__lede {
+  margin: var(--spacing-04) 0 0;
+  color: var(--kit-ink-50);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-font-body-size);
+  line-height: var(--kit-font-body-line);
+}
+
+.design-harness-kit-shadow__block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-04);
+}
+
+.design-harness-kit-shadow__stage-label {
+  margin: 0;
+  color: var(--kit-ink-50);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-field-hint-size);
+  font-weight: var(--kit-font-weight-bold);
+  letter-spacing: 0.06em;
+  line-height: var(--line-height-ui);
+  text-transform: uppercase;
+}
+
+.design-harness-kit-shadow__stage {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-05);
+  padding: var(--spacing-06);
+  border-radius: var(--kit-sheet-radius-action);
+  background-color: var(--kit-sunken);
+  background-image:
+    radial-gradient(ellipse at top left, color-mix(in srgb, var(--kit-brand) 12%, transparent), transparent 60%),
+    radial-gradient(ellipse at bottom right, color-mix(in srgb, var(--kit-premium) 10%, transparent), transparent 60%);
+}
+
+.design-harness-kit-shadow__card {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 12.5rem;
+  padding: var(--spacing-06);
+  border-radius: var(--kit-field-radius);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.design-harness-kit-shadow__card[data-surface='sunken'] {
+  background: var(--kit-sunken);
+}
+
+.design-harness-kit-shadow__card[data-surface='paper'] {
+  background: var(--kit-paper);
+}
+
+.design-harness-kit-shadow__card[data-surface='glass'] {
+  border: var(--border-01) solid color-mix(in srgb, var(--kit-paper) 40%, transparent);
+  overflow: hidden;
+}
+
+.design-harness-kit-shadow__glass-glow {
+  position: absolute;
+  inset: var(--spacing-02);
+  z-index: -1;
+  border-radius: var(--kit-field-radius);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--kit-brand) 22%, transparent) 0%,
+    color-mix(in srgb, var(--kit-premium) 20%, transparent) 100%
+  );
+  filter: blur(var(--spacing-06));
+  pointer-events: none;
+}
+
+.design-harness-kit-shadow__name {
+  margin: 0;
+  color: var(--kit-ink);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-font-body-size);
+  font-weight: var(--kit-font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.design-harness-kit-shadow__token {
+  margin-top: var(--spacing-02);
+  color: var(--kit-ink-50);
+  font-family: var(--font-family-mono);
+  font-size: var(--kit-alert-desc-size);
+  letter-spacing: 0.04em;
+}
+
+.design-harness-kit-shadow__role {
+  margin: var(--spacing-03) 0 0;
+  color: var(--kit-ink-50);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-field-hint-size);
+  line-height: var(--line-height-ui);
+}
+
+@media (max-width: 720px) {
+  .design-harness-kit-shadow__stage {
+    grid-template-columns: 1fr;
+    padding: var(--spacing-05);
+  }
+}
+
+.design-harness-kit-colour__section--shadow {
+  margin-top: var(--spacing-04);
+}

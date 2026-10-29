@@ -1,0 +1,335 @@
+/**
+ * Design Harness kit colour palette layout (DS Colours page).
+ * Catalog chrome — consumes `--kit-*` tokens.
+ */
+
+.design-harness-kit-colour {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-09);
+  width: 100%;
+}
+
+.design-harness-kit-colour__intro {
+  max-width: 40rem;
+}
+
+.design-harness-kit-colour__headline {
+  margin: 0;
+  color: var(--kit-ink);
+  font-family: var(--font-family-text);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: var(--kit-font-weight-bold);
+  letter-spacing: -0.02em;
+  line-height: var(--line-height-tight);
+}
+
+.design-harness-kit-colour__headline em {
+  font-style: italic;
+  color: var(--kit-brand);
+  font-weight: var(--kit-font-weight-bold);
+}
+
+.design-harness-kit-colour__lede {
+  margin: var(--spacing-04) 0 0;
+  color: var(--kit-ink-50);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-font-body-size);
+  line-height: var(--kit-font-body-line);
+}
+
+.design-harness-kit-colour__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-04);
+}
+
+.design-harness-kit-colour__section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-04);
+  padding-bottom: var(--spacing-03);
+  border-bottom: var(--border-01) solid var(--kit-line);
+}
+
+.design-harness-kit-colour__section-title {
+  margin: 0;
+  color: var(--kit-ink);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-font-body-size);
+  font-weight: var(--kit-font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.design-harness-kit-colour__section-title span {
+  font-weight: var(--kit-font-weight-medium);
+  color: var(--kit-ink-50);
+}
+
+.design-harness-kit-colour__section-meta {
+  margin: 0;
+  color: var(--kit-ink-50);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-settings-group-label-size);
+  font-weight: var(--kit-font-weight-bold);
+  letter-spacing: var(--kit-alert-action-tracking);
+  text-align: right;
+}
+
+.design-harness-kit-colour__toggles {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  padding: var(--spacing-01);
+  border-radius: var(--kit-segment-track-radius);
+  background: var(--kit-sunken);
+  box-shadow: inset 0 0 0 var(--border-01) var(--kit-line);
+}
+
+.design-harness-kit-colour__segment {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-01);
+}
+
+.design-harness-kit-colour__seg-divider {
+  width: var(--border-01);
+  height: var(--spacing-05);
+  background: var(--kit-line);
+}
+
+.design-harness-kit-colour__seg-btn {
+  appearance: none;
+  border: none;
+  margin: 0;
+  padding: var(--spacing-02) var(--spacing-03);
+  border-radius: var(--kit-segment-thumb-radius);
+  background: transparent;
+  color: var(--kit-ink-50);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-alert-desc-size);
+  font-weight: var(--kit-font-weight-semibold);
+  cursor: pointer;
+}
+
+.design-harness-kit-colour__seg-btn[data-active='true'] {
+  background: var(--kit-paper);
+  color: var(--kit-ink);
+  box-shadow: var(--kit-shadow-border);
+}
+
+.design-harness-kit-colour__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--spacing-04);
+}
+
+.design-harness-kit-colour__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-03);
+  padding: var(--spacing-03);
+  border-radius: var(--kit-field-radius);
+  background: var(--kit-paper);
+  box-shadow: var(--kit-shadow-1);
+}
+
+.design-harness-kit-colour__swatch {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 8rem;
+  padding: var(--spacing-03);
+  border-radius: var(--kit-settings-icon-radius);
+  box-sizing: border-box;
+}
+
+.design-harness-kit-colour__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-01) var(--spacing-03);
+  border-radius: var(--radius-01);
+  background: color-mix(in srgb, var(--kit-ink) 90%, transparent);
+  color: var(--ds-additional-content-white);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-settings-group-label-size);
+  font-weight: var(--kit-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.design-harness-kit-colour__badge[data-on-dark='true'] {
+  background: color-mix(in srgb, var(--kit-paper) 90%, transparent);
+  color: var(--kit-ink);
+}
+
+.design-harness-kit-colour__meta {
+  padding: 0 var(--spacing-01) var(--spacing-01);
+}
+
+.design-harness-kit-colour__name {
+  margin: 0;
+  color: var(--kit-ink);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-font-body-size);
+  font-weight: var(--kit-font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.design-harness-kit-colour__role-inline {
+  font-weight: var(--kit-font-weight-medium);
+  color: var(--kit-ink-50);
+}
+
+.design-harness-kit-colour__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-03);
+  margin-top: var(--spacing-02);
+}
+
+.design-harness-kit-colour__role {
+  color: var(--kit-ink-50);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-alert-desc-size);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.design-harness-kit-colour__hex {
+  flex-shrink: 0;
+  color: var(--kit-ink-50);
+  font-family: var(--font-family-mono);
+  font-size: var(--kit-alert-desc-size);
+  font-weight: var(--kit-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.design-harness-kit-colour__mini-ramp {
+  display: flex;
+  gap: var(--spacing-02);
+  padding: 0 var(--spacing-01) var(--spacing-01);
+}
+
+.design-harness-kit-colour__mini-stop {
+  flex: 1;
+  height: var(--spacing-03);
+  border-radius: var(--radius-01);
+}
+
+.design-harness-kit-colour__ramps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-03);
+}
+
+.design-harness-kit-colour__ramp {
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  border-radius: var(--kit-field-radius);
+  background: var(--kit-paper);
+  box-shadow: var(--kit-shadow-1);
+}
+
+.design-harness-kit-colour__ramp-label {
+  display: flex;
+  align-items: center;
+  min-width: 7.5rem;
+  padding: 0 var(--spacing-05);
+  color: var(--kit-ink);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-font-body-size);
+  font-weight: var(--kit-font-weight-bold);
+}
+
+.design-harness-kit-colour__ramp-stops {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.design-harness-kit-colour__ramp-stop {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-05) 0;
+  color: var(--kit-ink-70);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-settings-group-label-size);
+  font-weight: var(--kit-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.design-harness-kit-colour__ramp-stop[data-dark='true'] {
+  color: color-mix(in srgb, var(--ds-additional-content-white) 90%, transparent);
+}
+
+@media (max-width: 960px) {
+  .design-harness-kit-colour__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .design-harness-kit-colour__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .design-harness-kit-colour__ramp {
+    flex-direction: column;
+  }
+
+  .design-harness-kit-colour__ramp-label {
+    min-width: 0;
+    padding: var(--spacing-03) var(--spacing-04);
+  }
+
+  .design-harness-kit-colour__ramp-stop {
+    padding: var(--spacing-04) 0;
+  }
+}
+
+.design-harness-ds[data-design-harness-theme='dark'] .design-harness-kit-colour__card,
+.design-harness-ds[data-design-harness-theme='dark'] .design-harness-kit-colour__ramp {
+  box-shadow: var(--kit-shadow-border);
+}
+
+/* Local preview: `data-theme` on the palette flips chrome tokens; swatches stay hex. */
+.design-harness-kit-colour[data-theme='dark'] {
+  --kit-paper: #181c22;
+  --kit-sunken: #1d1f24;
+  --kit-line: #383c44;
+  --kit-ink: #f1f2f4;
+  --kit-ink-50: #9ca0a8;
+  --kit-ink-70: #c7cad1;
+  --kit-brand: #68d3d9;
+  --kit-shadow-0: none;
+  --kit-shadow-1:
+    0 1px 0 0 rgba(255, 255, 255, 0.04) inset, 0 1px 2px rgba(0, 0, 0, 0.45), 0 8px 24px -8px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  --kit-shadow-2:
+    0 1px 0 0 rgba(255, 255, 255, 0.06) inset, 0 2px 4px rgba(0, 0, 0, 0.5), 0 16px 40px -8px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  --kit-shadow-border: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.5);
+  --kit-shadow-border-hover:
+    0 0 0 1px rgba(255, 255, 255, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.4);
+  --kit-edge-raised: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --kit-glass-bg: rgba(24, 28, 34, 0.65);
+  --kit-glass-edge: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  --kit-glass-blur: 28px;
+  --kit-glass-saturate: 1.8;
+}
+
+.design-harness-kit-colour[data-preview-contrast='aaa'] .design-harness-kit-colour__role,
+.design-harness-kit-colour[data-preview-contrast='aaa'] .design-harness-kit-colour__hex,
+.design-harness-kit-colour[data-preview-contrast='aaa'] .design-harness-kit-colour__section-meta {
+  color: var(--kit-ink-70);
+}

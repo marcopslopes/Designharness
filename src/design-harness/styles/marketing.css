@@ -1,0 +1,872 @@
+/*
+ * Harness brand — marketing blocks (`components/MarketingParts.tsx`). Warm
+ * paper, blue-black ink, forest accents; big regular-weight headlines with
+ * tight tracking and a few highlighted words. Frame only — never in a prototype.
+ */
+
+.design-harness-wordmark {
+  color: var(--kit-ink);
+  font-family: var(--mkt-wordmark-font, inherit);
+  font-weight: var(--mkt-wordmark-weight, var(--font-weight-medium));
+  letter-spacing: var(--mkt-wordmark-tracking, -0.04em);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.design-harness-wordmark[data-size='xl'] {
+  font-size: clamp(3rem, 8vw, 6rem);
+}
+
+.design-harness-wordmark[data-size='sm'] {
+  font-size: var(--type-body-size);
+}
+
+.design-harness-wordmark[data-size='md'] {
+  font-size: var(--type-h5-size);
+}
+
+.design-harness-wordmark[data-size='lg'] {
+  font-size: var(--type-h2-size);
+}
+
+.design-harness-mkt-headline {
+  margin: 0;
+  color: var(--kit-ink);
+  font-family: var(--mkt-display-font, inherit);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.04;
+  letter-spacing: var(--mkt-display-tracking, -0.04em);
+  text-wrap: balance;
+}
+
+h2.design-harness-mkt-headline {
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  line-height: 1.1;
+  letter-spacing: var(--mkt-display-tracking, -0.03em);
+}
+
+.design-harness-mkt-headline mark {
+  padding: 0 0.08em;
+  border-radius: var(--radius-01);
+  background: var(--mkt-mark-fill, color-mix(in srgb, var(--design-harness-accent) 14%, transparent));
+  color: var(--design-harness-accent);
+  font-style: var(--mkt-mark-style, normal);
+}
+
+.design-harness-band[data-tone='dark'] .design-harness-mkt-headline,
+.design-harness-band[data-tone='dark'] .design-harness-mkt-headline mark {
+  color: var(--ds-additional-content-white);
+}
+
+.design-harness-band[data-tone='dark'] .design-harness-mkt-headline mark {
+  background: var(--mkt-mark-fill, color-mix(in srgb, var(--ds-additional-content-white) 14%, transparent));
+}
+
+.design-harness-mkt-lead {
+  margin: 0;
+  max-width: 28rem;
+  color: var(--kit-ink-50);
+  font-size: var(--type-body-size);
+  line-height: 1.5;
+}
+
+/* ——— Read more ——— */
+.design-harness-read-more {
+  display: inline-flex;
+  gap: var(--spacing-02);
+  border-radius: var(--radius-01);
+  color: inherit;
+  font-size: var(--type-h5-size);
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.design-harness-read-more:hover {
+  opacity: 1;
+}
+
+.design-harness-read-more:focus-visible,
+.design-harness-announce a:focus-visible,
+.design-harness-announce__close:focus-visible,
+.design-harness-faq summary:focus-visible,
+.design-harness-mkt-footer a:focus-visible {
+  outline: 2px solid var(--design-harness-accent);
+  outline-offset: 2px;
+}
+
+/* ——— Announcement bar ——— */
+.design-harness-announce {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-03);
+  min-height: var(--spacing-08);
+  padding: var(--spacing-02) var(--spacing-08);
+  position: relative;
+  border-radius: var(--radius-02);
+  background: var(--design-harness-accent-base);
+  color: var(--ds-additional-content-white);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-announce a {
+  border-radius: var(--radius-01);
+  color: inherit;
+  opacity: 0.75;
+  text-decoration: none;
+}
+
+.design-harness-announce a:hover {
+  opacity: 1;
+}
+
+.design-harness-announce__close {
+  position: absolute;
+  right: var(--spacing-03);
+  display: grid;
+  place-items: center;
+  padding: var(--spacing-01);
+  border: 0;
+  border-radius: var(--radius-05);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* ——— Hero ——— */
+.design-harness-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-08);
+}
+
+.design-harness-hero__top {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  align-items: end;
+  gap: var(--spacing-08);
+}
+
+.design-harness-hero__kicker {
+  margin: 0 0 var(--spacing-04);
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-hero__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-05);
+}
+
+.design-harness-hero__media,
+.design-harness-split__media {
+  overflow: hidden;
+  border-radius: var(--radius-02);
+  background: var(--design-harness-sand);
+}
+
+/* A real Harness component standing in for product imagery. */
+.design-harness-brand-demo__shot {
+  --design-harness-field-fill: var(--design-harness-shell-panel);
+  display: grid;
+  place-items: center;
+  min-height: 14rem;
+  padding: var(--spacing-07);
+}
+
+.design-harness-brand-demo__shot > * {
+  width: min(100%, 32rem);
+}
+
+/* ——— Split section ——— */
+.design-harness-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: var(--spacing-08);
+  padding: var(--spacing-08) var(--spacing-07);
+  border-radius: var(--radius-03);
+  background: var(--design-harness-sand);
+}
+
+.design-harness-split__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--spacing-07);
+}
+
+.design-harness-split__right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-07);
+}
+
+.design-harness-split__columns {
+  display: grid;
+  gap: var(--spacing-06);
+}
+
+.design-harness-split__columns[data-count='2'] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.design-harness-split__columns p {
+  margin: 0;
+  color: var(--kit-ink-70);
+  font-size: var(--font-size-label-small);
+  line-height: 1.55;
+}
+
+/* ——— Feature row ——— */
+.design-harness-feature-row {
+  --feature-line: color-mix(in srgb, currentColor 16%, transparent);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  margin: var(--spacing-07) 0 0;
+  padding: 0;
+  border-top: var(--border-01) solid var(--feature-line);
+  border-left: var(--border-01) solid var(--feature-line);
+  list-style: none;
+}
+
+.design-harness-feature-row li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-03);
+  min-height: 12rem;
+  padding: var(--spacing-05);
+  border-right: var(--border-01) solid var(--feature-line);
+  border-bottom: var(--border-01) solid var(--feature-line);
+}
+
+.design-harness-feature-row h3 {
+  margin: 0;
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.design-harness-feature-row p {
+  margin: 0;
+  font-size: var(--font-size-label-small);
+  line-height: 1.5;
+  opacity: 0.7;
+}
+
+.design-harness-feature-row__icon {
+  margin-top: auto;
+  opacity: 0.7;
+}
+
+/* ——— Stats ——— */
+.design-harness-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--spacing-05);
+  margin: 0;
+}
+
+.design-harness-stats div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--spacing-02);
+  padding-top: var(--spacing-04);
+  border-top: var(--border-01) solid var(--kit-line);
+}
+
+.design-harness-stats dd {
+  margin: 0;
+  color: var(--kit-ink);
+  font-family: var(--mkt-display-font, inherit);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: var(--mkt-display-tracking, -0.04em);
+}
+
+.design-harness-stats dt {
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+}
+
+/* ——— Quote ——— */
+.design-harness-quote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-05);
+  margin: 0;
+  padding: var(--spacing-07);
+  border-radius: var(--radius-03);
+  background: var(--design-harness-shell-panel);
+  box-shadow: var(--design-harness-shell-panel-shadow);
+}
+
+.design-harness-quote blockquote {
+  margin: 0;
+  color: var(--kit-ink);
+  font-family: var(--mkt-display-font, inherit);
+  font-size: var(--type-h5-size);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.design-harness-quote figcaption {
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-quote figcaption span {
+  display: block;
+  color: var(--kit-ink);
+}
+
+/* ——— FAQ ——— */
+.design-harness-faq {
+  border-top: var(--border-01) solid var(--kit-line);
+}
+
+.design-harness-faq details {
+  border-bottom: var(--border-01) solid var(--kit-line);
+}
+
+.design-harness-faq summary {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-04);
+  padding: var(--spacing-04) 0;
+  border-radius: var(--radius-01);
+  color: var(--kit-ink);
+  cursor: pointer;
+  list-style: none;
+}
+
+.design-harness-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.design-harness-faq summary::after {
+  content: '+';
+  color: var(--kit-ink-50);
+}
+
+.design-harness-faq details[open] summary::after {
+  content: '−';
+}
+
+.design-harness-faq p {
+  margin: 0;
+  padding: 0 0 var(--spacing-05);
+  max-width: 40rem;
+  color: var(--kit-ink-50);
+  line-height: 1.55;
+}
+
+/* ——— Footer ——— */
+.design-harness-mkt-footer {
+  display: grid;
+  width: 100%;
+  box-sizing: border-box;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--spacing-07);
+  padding: var(--spacing-08) var(--spacing-07) var(--spacing-06);
+  background: var(--design-harness-band);
+  color: var(--ds-additional-content-white);
+}
+
+.design-harness-mkt-footer .design-harness-wordmark {
+  color: inherit;
+}
+
+.design-harness-mkt-footer__columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: var(--spacing-06);
+}
+
+.design-harness-mkt-footer h3 {
+  margin: 0 0 var(--spacing-03);
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-medium);
+  opacity: 0.6;
+}
+
+.design-harness-mkt-footer ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-02);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.design-harness-mkt-footer a {
+  border-radius: var(--radius-01);
+  color: inherit;
+  font-size: var(--font-size-label-small);
+  text-decoration: none;
+}
+
+.design-harness-mkt-footer a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.design-harness-mkt-footer__fine {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-top: var(--spacing-05);
+  border-top: var(--border-01) solid color-mix(in srgb, currentColor 16%, transparent);
+  font-size: var(--font-size-label-small);
+  opacity: 0.6;
+}
+
+/* ——— Media frame (photo slot) ——— */
+.design-harness-mkt-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  padding: var(--spacing-05);
+  border-radius: var(--radius-02);
+  background:
+    linear-gradient(160deg, transparent 50%, color-mix(in srgb, var(--design-harness-accent) 16%, transparent)),
+    var(--design-harness-sand);
+  color: var(--kit-ink-50);
+}
+
+.design-harness-mkt-frame[data-tone='dark'] {
+  background:
+    linear-gradient(200deg, color-mix(in srgb, var(--ds-additional-content-white) 10%, transparent), transparent 60%),
+    var(--design-harness-forest-surface);
+  color: color-mix(in srgb, var(--ds-additional-content-white) 60%, transparent);
+}
+
+.design-harness-mkt-frame[data-shape='square'] {
+  aspect-ratio: 1;
+}
+
+.design-harness-mkt-frame[data-shape='tall'] {
+  aspect-ratio: 3 / 4;
+}
+
+.design-harness-mkt-frame[data-shape='banner'] {
+  aspect-ratio: 21 / 8;
+}
+
+.design-harness-mkt-frame__brief {
+  position: absolute;
+  left: var(--spacing-04);
+  bottom: var(--spacing-03);
+  right: var(--spacing-04);
+  font-size: var(--font-size-label-small);
+  line-height: 1.4;
+}
+
+.design-harness-mkt-frame__overlay {
+  width: min(100%, 18rem);
+  margin-bottom: var(--spacing-06);
+}
+
+/* Narrow frames: let a product toast wrap instead of truncating. */
+.design-harness-mkt-frame__overlay .ds-toast__message {
+  white-space: normal;
+}
+
+/* ——— Product cards ——— */
+.design-harness-mkt-cards,
+.design-harness-mkt-benefits,
+.design-harness-mkt-icon-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--spacing-07) var(--spacing-05);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.design-harness-mkt-cards li,
+.design-harness-mkt-benefits li,
+.design-harness-mkt-icon-features li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-03);
+}
+
+.design-harness-mkt-cards__ui {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.design-harness-mkt-cards__ui > * {
+  max-width: 100%;
+}
+
+.design-harness-mkt-cards__ui .ds-toast {
+  width: 100%;
+}
+
+.design-harness-mkt-cards__ui .ds-toast__message {
+  white-space: normal;
+}
+
+.design-harness-system__demo:has(> .design-harness-mkt-cards),
+.design-harness-system__demo:has(> .design-harness-mkt-footer),
+.design-harness-system__demo > .design-harness-brand-book:not(:has(.design-harness-brand-book__chapter)) {
+  width: 100%;
+  align-self: stretch;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.design-harness-mkt-cards li > h3,
+.design-harness-mkt-benefits h3,
+.design-harness-mkt-icon-features h3 {
+  margin: 0;
+  color: var(--kit-ink);
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.design-harness-mkt-cards li > p,
+.design-harness-mkt-benefits p,
+.design-harness-mkt-icon-features p {
+  margin: 0;
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+  line-height: 1.55;
+}
+
+.design-harness-mkt-cards .design-harness-read-more {
+  margin-top: var(--spacing-02);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-mkt-icon-features {
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+}
+
+.design-harness-mkt-icon-features li > :first-child {
+  margin-bottom: var(--spacing-03);
+  color: var(--kit-ink);
+}
+
+/* ——— Quote band ——— */
+.design-harness-mkt-quote-band {
+  position: relative;
+  display: grid;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-03);
+}
+
+.design-harness-mkt-quote-band > * {
+  grid-area: 1 / 1;
+}
+
+.design-harness-mkt-quote-band__frame {
+  min-height: 18rem;
+  border-radius: 0;
+}
+
+.design-harness-mkt-quote-band__copy {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-05);
+  padding: var(--spacing-08) var(--spacing-07);
+  color: var(--ds-additional-content-white);
+  text-align: center;
+}
+
+.design-harness-mkt-quote-band blockquote {
+  max-width: 34rem;
+  margin: 0;
+  font-family: var(--mkt-display-font, inherit);
+  font-size: var(--type-h4-size);
+  line-height: 1.3;
+  letter-spacing: var(--mkt-display-tracking, -0.02em);
+  text-wrap: balance;
+}
+
+.design-harness-mkt-quote-band figcaption {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-size-label-small);
+  opacity: 0.75;
+}
+
+:is(
+    .design-harness-mkt-quote-band,
+    .design-harness-mkt-stories,
+    .design-harness-mkt-logo-strip,
+    .design-harness-mkt-logo-grid
+  )
+  [data-placeholder='true'] {
+  opacity: 0.6;
+}
+
+/* ——— Big stats ——— */
+.design-harness-mkt-big-stats,
+.design-harness-mkt-hero-stats {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: var(--spacing-08);
+}
+
+.design-harness-mkt-big-stats__intro {
+  color: var(--kit-ink);
+  font-size: var(--type-body-size);
+  line-height: 1.45;
+}
+
+.design-harness-mkt-big-stats__intro p {
+  margin: 0 0 var(--spacing-04);
+}
+
+.design-harness-mkt-stat-stack {
+  margin: 0;
+}
+
+.design-harness-mkt-stat-stack div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 9rem);
+  gap: var(--spacing-05);
+  padding: var(--spacing-04) 0 var(--spacing-06);
+  border-top: var(--border-01) solid var(--kit-line);
+}
+
+.design-harness-mkt-stat-stack dd {
+  margin: 0;
+  color: var(--kit-ink);
+  font-family: var(--mkt-display-font, inherit);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: var(--mkt-display-tracking, -0.04em);
+}
+
+.design-harness-mkt-stat-stack dt {
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+  line-height: 1.4;
+}
+
+/* ——— Hero with stats ——— */
+.design-harness-mkt-hero-stats__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-05);
+}
+
+.design-harness-mkt-hero-stats__logos {
+  grid-column: 1 / -1;
+}
+
+/* ——— Logos ——— */
+.design-harness-mkt-logo-strip,
+.design-harness-mkt-logo-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.design-harness-mkt-logo-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--spacing-05) var(--spacing-07);
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.design-harness-mkt-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  border-top: var(--border-01) solid var(--kit-line);
+  border-left: var(--border-01) solid var(--kit-line);
+}
+
+.design-harness-mkt-logo-grid li {
+  display: grid;
+  place-items: center;
+  min-height: 7rem;
+  padding: var(--spacing-04);
+  border-right: var(--border-01) solid var(--kit-line);
+  border-bottom: var(--border-01) solid var(--kit-line);
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+  text-align: center;
+}
+
+/* ——— Newsroom ——— */
+.design-harness-mkt-news {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--spacing-03);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.design-harness-mkt-news li {
+  position: relative;
+  display: grid;
+  min-width: 0;
+}
+
+.design-harness-mkt-news .design-harness-mkt-frame[data-shape] {
+  aspect-ratio: auto;
+}
+
+.design-harness-mkt-news li[data-lead='true'] {
+  grid-row: span 2;
+}
+
+.design-harness-mkt-news li > *,
+.design-harness-mkt-news a > * {
+  grid-area: 1 / 1;
+}
+
+.design-harness-mkt-news a {
+  display: grid;
+  border-radius: var(--radius-02);
+  color: inherit;
+  text-decoration: none;
+}
+
+.design-harness-mkt-news a:focus-visible {
+  outline: 2px solid var(--design-harness-accent);
+  outline-offset: 2px;
+}
+
+.design-harness-mkt-news .design-harness-mkt-frame {
+  height: 100%;
+  min-height: 9rem;
+}
+
+.design-harness-mkt-news .design-harness-mkt-frame__brief {
+  top: var(--spacing-03);
+  bottom: auto;
+}
+
+.design-harness-mkt-news__text {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--spacing-01);
+  padding: var(--spacing-04);
+  color: var(--ds-additional-content-white);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-mkt-news__text time {
+  opacity: 0.75;
+}
+
+.design-harness-mkt-news__text strong {
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+.design-harness-mkt-news li[data-lead='true'] .design-harness-mkt-news__text strong {
+  font-family: var(--mkt-display-font, inherit);
+  font-size: var(--type-h4-size);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.15;
+}
+
+/* ——— Stories ——— */
+.design-harness-mkt-stories {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-05);
+}
+
+.design-harness-mkt-stories__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-02);
+}
+
+.design-harness-mkt-stories > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: var(--spacing-05) var(--spacing-03);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.design-harness-mkt-stories li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-03);
+}
+
+.design-harness-mkt-stories .design-harness-mkt-frame {
+  place-items: start;
+}
+
+.design-harness-mkt-stories__tag {
+  display: inline-block;
+  padding: var(--spacing-01) var(--spacing-03);
+  border-radius: var(--radius-05);
+  background: color-mix(in srgb, var(--kit-ink) 55%, transparent);
+  color: var(--ds-additional-content-white);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-mkt-stories .design-harness-mkt-frame__overlay {
+  width: auto;
+}
+
+.design-harness-mkt-stories blockquote {
+  margin: 0;
+  color: var(--kit-ink);
+  line-height: 1.4;
+}
+
+.design-harness-mkt-stories li p {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  color: var(--kit-ink-50);
+  font-size: var(--font-size-label-small);
+}
+
+.design-harness-mkt-stories li p span {
+  color: var(--kit-ink);
+}
+
+@media (max-width: 720px) {
+  .design-harness-mkt-big-stats,
+  .design-harness-mkt-hero-stats,
+  .design-harness-mkt-news {
+    grid-template-columns: 1fr;
+  }
+
+  .design-harness-mkt-news li[data-lead='true'] {
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .design-harness-hero__top,
+  .design-harness-split,
+  .design-harness-split__columns[data-count='2'],
+  .design-harness-mkt-footer {
+    grid-template-columns: 1fr;
+  }
+}

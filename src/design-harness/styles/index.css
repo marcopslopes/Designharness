@@ -1,0 +1,33 @@
+/**
+ * Design Harness styles barrel — three-layer IA:
+ *   1. Real DS → context/design-system/tokens.css + ds/ (not here)
+ *   2. Catalog chrome → chrome.css; shared lab device frame → phone-shell.css
+ *   3. Per-prototype → prototypes/*.css
+ *
+ * Import order preserves the former monolithic cascade (phone-shell after
+ * early prototypes, before navigation-profile).
+ *
+ * Imported via src/design-harness.css (thin re-export for existing entry points).
+ */
+
+@import './chrome.css';
+@import './kit-colour-palette.css';
+@import './kit-shadow.css';
+@import './settings.css';
+@import './frame-forms.css';
+@import './harness-ui.css';
+@import './harness-intro.css';
+@import './doc-parts.css';
+@import './marketing.css';
+@import './brand-book.css';
+
+/* Shared PhoneShell — after the above so device-chrome rules keep their old cascade weight */
+@import './phone-shell.css';
+@import './desktop-shell.css';
+@import './storyboard.css';
+@import './present.css';
+@import './board.css';
+@import './standalone-proto.css';
+
+@import './prototypes/navigation-profile.css';
+@import './prototypes/wallet-home.css';

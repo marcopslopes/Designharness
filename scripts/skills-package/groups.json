@@ -1,0 +1,37 @@
+{
+  "understand": {
+    "title": "Understand the problem",
+    "description": "Frame the problem before designing: assumptions, objects, decisions, strategy, and priorities.",
+    "skills": ["assumption-mapper", "conceptual-model", "decision-first-research", "design-kickoff", "diagnostic", "okr-goal-setting", "product-strategy", "roadmap-prioritization", "stakeholder-alignment", "workload-agent"]
+  },
+  "research": {
+    "title": "Research and synthesize",
+    "description": "Plan, run, and synthesize research: screeners, test guides, synthesis, insights, and share-outs.",
+    "skills": ["benchmark", "competitor-scan", "ia-methods", "insight-writer", "research-agent", "research-artifacts", "research-question-sharpener", "research-shareout", "research-summary", "research-synthesis", "screener-builder", "usability-test-guide", "workshop-whiteboard"]
+  },
+  "shape": {
+    "title": "Shape the experience",
+    "description": "Shape interaction, content, motion, accessibility, and responsive behaviour.",
+    "skills": ["accessibility-decisions", "adaptive-interfaces", "cognitive-accessibility", "content", "inspiration-scouting", "interaction-design", "motion-choreography", "responsive-patterns"]
+  },
+  "build": {
+    "title": "Build and prototype",
+    "description": "Build screens on real design tokens and components, and keep Figma and code in sync.",
+    "skills": ["design-system", "figma-asset-sync", "figma-code-sync", "figma-effects-catalog", "figma-library-manager", "figma-token-sync", "icon-usage", "mobile-shell", "ui-agent"]
+  },
+  "review": {
+    "title": "Review and validate",
+    "description": "Critique and check work before sharing: UX patterns, accessibility, live pages, and audits.",
+    "skills": ["accessibility", "audit", "critique-prep", "figma-ux-audit", "interface-change-review", "live-page-review", "synthetic-user-testing", "taste-feedback", "ux-pattern", "ux-review"]
+  },
+  "handoff": {
+    "title": "Explain and hand off",
+    "description": "Explain decisions and hand work off: rationale, handoff specs, reports, decks, and writing.",
+    "skills": ["deck-builder", "design-handoff", "design-rationale", "review-report", "session-handoff", "writing"]
+  },
+  "operate": {
+    "title": "Run the design practice",
+    "description": "Run the practice around the work: setup, memory, debt, scheduling, tickets, and team coaching.",
+    "skills": "rest"
+  }
+}

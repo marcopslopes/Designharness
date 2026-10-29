@@ -1,0 +1,1279 @@
+/**
+ * Navigation / Profile (+ related IA styles historically colocated)
+ *
+ * Layer: per-prototype
+ * Extracted from monolithic src/design-harness.css (IA split — design-system skill Job 1).
+ * Tokens/primitives stay in context/design-system/ — do not invent values here.
+ */
+
+/* —— Navigation / Profile prototype content (Figma lKsNe3YlWnsb9P07e9ZSLv, node 4083-31947) —— */
+
+.nav-profile__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-04);
+  padding: var(--spacing-02) 0;
+}
+
+.nav-profile__toolbar-title-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  min-width: 0;
+}
+
+.nav-profile__toolbar-title.ds-text {
+  margin: 0;
+  font-size: var(--type-h6-size);
+  line-height: var(--type-h6-line);
+  font-weight: var(--ds-font-weight-semibold);
+  letter-spacing: -0.02em;
+  color: var(--ds-core-content-primary);
+}
+
+.nav-profile__toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-03);
+  flex-shrink: 0;
+}
+
+/* Apple-style floating capsule (paired actions) — Clients header explore */
+.nav-profile__ios-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: var(--spacing-01);
+  border-radius: var(--radius-05);
+  background: var(--color-surface-default);
+  box-shadow: var(--ds-elevate-shadow-soft);
+}
+
+.nav-profile__ios-capsule-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-10);
+  height: var(--size-10);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-05);
+  background: transparent;
+  color: var(--ds-core-content-primary);
+  cursor: pointer;
+}
+
+.nav-profile__ios-capsule-btn:hover {
+  background: var(--ds-core-background-secondary);
+}
+
+.nav-profile__ios-capsule-btn:focus-visible {
+  outline: var(--border-02) solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Push-nav header — circular icon buttons + centered title (DS chrome) */
+.nav-profile__nav-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--spacing-03);
+  padding: var(--spacing-02) var(--spacing-04);
+  background: var(--color-surface-default);
+}
+
+.nav-profile__nav-header-side {
+  display: flex;
+  align-items: center;
+  min-width: var(--size-10);
+}
+
+.nav-profile__nav-header-side--end {
+  justify-content: flex-end;
+}
+
+.nav-profile__nav-header-title.ds-text {
+  margin: 0;
+  text-align: center;
+  font-size: var(--type-h6-size);
+  line-height: var(--type-h6-line);
+  font-weight: var(--ds-font-weight-semibold);
+  letter-spacing: -0.02em;
+  color: var(--ds-core-content-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-profile__nav-header-spacer {
+  display: inline-block;
+  width: var(--size-10);
+  height: var(--size-10);
+}
+
+.nav-profile__icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-10);
+  height: var(--size-10);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-05);
+  background: color-mix(in srgb, var(--ds-core-background-primary) 92%, transparent);
+  box-shadow: var(--ds-elevate-shadow-soft);
+  color: var(--ds-core-content-primary);
+  cursor: pointer;
+}
+
+.nav-profile__icon-btn:hover {
+  background: var(--ds-core-background-primary);
+}
+
+.nav-profile__icon-btn:focus-visible {
+  outline: var(--border-02) solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Bare variant — no circle background, used only for the Calendar screen's
+   filter / more-options icon buttons. */
+.nav-profile__icon-btn--bare {
+  background: transparent;
+  box-shadow: none;
+}
+
+.nav-profile__icon-btn--bare:hover {
+  background: var(--color-bg-muted);
+}
+
+.nav-profile__icon-btn-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-05);
+  background: var(--ds-toast-background-warning);
+  border: var(--border-01) solid var(--ds-core-background-primary);
+}
+
+.nav-profile__icon-btn-badge-count {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 var(--spacing-02);
+  border-radius: var(--radius-05);
+  background: var(--ds-additional-background-negative);
+  border: var(--border-01) solid var(--ds-core-background-primary);
+  color: var(--ds-additional-content-white);
+  font-family: var(--font-family-text);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  line-height: 16px;
+  text-align: center;
+}
+
+/* Segmented control (shared: client list, business/booking site, booking-site tabs) */
+.nav-profile__segmented {
+  display: flex;
+  gap: var(--spacing-01);
+  padding: var(--spacing-01);
+  background: var(--ds-core-background-secondary);
+  border: var(--border-01) solid var(--ds-core-background-primary);
+  border-radius: var(--radius-04);
+  box-shadow: var(--ds-elevate-shadow-soft);
+}
+
+.nav-profile__segmented--scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-profile__segmented-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: var(--spacing-03) var(--spacing-04);
+  border: none;
+  border-radius: var(--radius-03);
+  background: transparent;
+  font-family: var(--font-family-text);
+  font-size: var(--ds-font-label-m-size);
+  line-height: var(--ds-font-label-m-line);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-core-content-primary);
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.nav-profile__segmented--scroll .nav-profile__segmented-btn {
+  flex: 0 0 auto;
+}
+
+.nav-profile__segmented-btn[data-active='true'] {
+  background: var(--ds-additional-background-black);
+  color: var(--ds-additional-content-white);
+}
+
+.nav-profile__segmented-btn:focus-visible {
+  outline: var(--border-02) solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.nav-profile__avatar {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-09);
+  height: var(--spacing-09);
+  border-radius: var(--radius-05);
+  background: var(--ds-additional-background-sea-light);
+  color: var(--ds-additional-content-sea);
+  font-family: var(--font-family-text);
+  font-size: var(--ds-font-label-m-size);
+  font-weight: var(--ds-font-weight-semibold);
+}
+
+.nav-profile__avatar--sm {
+  width: var(--spacing-07);
+  height: var(--spacing-07);
+  font-size: var(--ds-font-label-xs-size);
+}
+
+.nav-profile__fab {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--spacing-09) + var(--spacing-02) + var(--spacing-01));
+  height: calc(var(--spacing-09) + var(--spacing-02) + var(--spacing-01));
+  border: none;
+  border-radius: var(--radius-05);
+  background: var(--ds-additional-background-black);
+  color: var(--ds-additional-content-white);
+  box-shadow: var(--ds-elevate-shadow-md);
+  cursor: pointer;
+}
+
+.nav-profile__fab:hover {
+  background: var(--ds-additional-background-black-hover);
+}
+
+.nav-profile__fab:focus-visible {
+  outline: var(--border-02) solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Calendar */
+.nav-profile__cal-summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-04);
+}
+
+.nav-profile__cal-today {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-01);
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-family-display);
+  font-size: var(--type-h6-size);
+  font-weight: var(--font-weight-bold);
+  color: var(--ds-core-content-primary);
+  cursor: pointer;
+}
+
+.nav-profile__cal-today-chev {
+  transform: rotate(90deg);
+  color: var(--ds-core-content-secondary);
+}
+
+.nav-profile__cal-today-chev--down {
+  transform: rotate(90deg);
+}
+
+.nav-profile__cal-hours.ds-text {
+  margin: 0;
+}
+
+.nav-profile__cal-tools {
+  display: flex;
+  gap: var(--spacing-03);
+  flex-shrink: 0;
+}
+
+.nav-profile__cal-week {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-01);
+}
+
+.nav-profile__cal-day {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-02);
+  padding: var(--spacing-02) 0;
+  border-radius: var(--radius-03);
+}
+
+.nav-profile__cal-day-label {
+  font-size: var(--ds-font-label-xs-size);
+  line-height: var(--ds-font-label-xs-line);
+  color: var(--ds-core-content-secondary);
+  font-weight: var(--ds-font-weight-semibold);
+}
+
+.nav-profile__cal-day-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-07);
+  height: var(--spacing-07);
+  border-radius: var(--radius-05);
+  font-size: var(--ds-font-label-m-size);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-core-content-primary);
+}
+
+.nav-profile__cal-day[data-active='true'] .nav-profile__cal-day-num {
+  background: var(--color-surface-error);
+  color: var(--color-text-error);
+}
+
+.nav-profile__cal-day[data-active='true'] .nav-profile__cal-day-label {
+  color: var(--color-text-error);
+}
+
+.nav-profile__cal-staff {
+  display: flex;
+  gap: var(--spacing-05);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--spacing-02);
+}
+
+.nav-profile__cal-staff-item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-03);
+  min-width: 0;
+}
+
+.nav-profile__cal-staff-name.ds-text,
+.nav-profile__cal-staff-hours.ds-text {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.nav-profile__cal-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-04);
+}
+
+.nav-profile__cal-appt {
+  padding: var(--spacing-04);
+  border-radius: var(--radius-02);
+  border-left: var(--border-02) solid transparent;
+}
+
+.nav-profile__cal-appt--pink {
+  background: color-mix(in srgb, var(--color-surface-error) 45%, var(--ds-core-background-primary));
+  border-left-color: color-mix(in srgb, var(--color-text-error) 55%, var(--color-surface-brand));
+}
+
+.nav-profile__cal-appt--red {
+  background: var(--color-surface-error);
+  border-left-color: var(--color-text-error);
+}
+
+.nav-profile__cal-appt--violet {
+  background: var(--ds-additional-background-violet-light);
+  border-left: var(--border-02) solid var(--ds-additional-content-violet);
+}
+
+.nav-profile__cal-day--today .nav-profile__cal-day-num {
+  background: var(--color-surface-brand);
+  color: var(--ds-additional-content-white);
+}
+
+.nav-profile__cal-day--today .nav-profile__cal-day-label {
+  color: var(--ds-core-content-primary);
+}
+
+.nav-profile__cal-agenda-screen {
+  gap: var(--spacing-04);
+}
+
+.nav-profile__cal-agenda-wrap {
+  margin: 0;
+  padding: var(--spacing-04) var(--spacing-04);
+  background: var(--ds-core-background-primary);
+  border-radius: var(--radius-03);
+  box-shadow: var(--ds-elevate-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-03);
+}
+
+.nav-profile__cal-appt-name.ds-text,
+.nav-profile__cal-appt-svc.ds-text {
+  margin: 0;
+}
+
+.nav-profile__cal-appt-time--violet.ds-text {
+  margin: var(--spacing-02) 0 0;
+  color: var(--ds-additional-content-violet);
+}
+
+.nav-profile__cal-appt-time--brand.ds-text {
+  margin: var(--spacing-02) 0 0;
+  color: var(--color-surface-brand);
+}
+
+.nav-profile__cal-agenda-hour.ds-text {
+  margin: 0;
+  padding: var(--spacing-03) 0 var(--spacing-01);
+  border-top: var(--border-01) solid var(--ds-core-border-primary);
+  font-size: var(--ds-font-label-xs-size);
+}
+
+.nav-profile__cal-appt-time.ds-text,
+.nav-profile__cal-appt-title.ds-text {
+  margin: 0;
+  color: var(--ds-core-content-primary);
+}
+
+.nav-profile__cal-fabs {
+  position: absolute;
+  right: var(--spacing-05);
+  bottom: calc(
+    var(--spacing-04) + var(--design-harness-proto-tabbar-height) + var(--design-harness-proto-fab-tabbar-gap)
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-03);
+  z-index: 3;
+}
+
+/* iOS prod day view — multi-staff time grid */
+.phone-shell__screen-frame:has(.nav-profile__cal-ios-screen) {
+  background: var(--ds-core-background-secondary);
+}
+
+.phone-shell__screen-frame:has(.nav-profile__cal-ios-screen) .phone-shell__ios-status {
+  background: var(--ds-core-background-secondary);
+}
+
+.phone-shell__body:has(.nav-profile__cal-ios-screen) {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  background: var(--ds-core-background-secondary);
+}
+
+.nav-profile__cal-ios-screen {
+  gap: var(--spacing-03);
+  padding-bottom: var(--spacing-02);
+  min-height: 0;
+  flex: 1 1 auto;
+  background: var(--ds-core-background-secondary);
+}
+
+/* Dashboard|Calendar chrome — full-bleed toolbar, calendar content below. */
+.phone-shell__body:has(.nav-profile__cal-ios-screen--home-chrome) {
+  overflow: hidden;
+}
+
+.phone-shell__screen-frame:has(.nav-profile__cal-ios-screen--home-chrome) {
+  background: var(--color-surface-default);
+}
+
+.phone-shell__screen-frame:has(.nav-profile__cal-ios-screen--home-chrome) .phone-shell__ios-status {
+  background: var(--color-surface-default);
+}
+
+.nav-profile__cal-ios-screen--home-chrome.phone-shell__screen {
+  padding: 0;
+  gap: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ds-core-background-secondary);
+}
+
+.nav-profile__cal-ios-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: var(--spacing-03);
+  padding: var(--spacing-03) var(--spacing-05) var(--spacing-02);
+  overflow: hidden;
+  background: var(--ds-core-background-secondary);
+}
+
+.nav-profile__cal-ios-screen--home-chrome .nav-profile__cal-ios-scroll {
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.nav-profile__cal-week--ios .nav-profile__cal-day {
+  gap: var(--spacing-01);
+}
+
+.nav-profile__cal-day--ios-selected .nav-profile__cal-day-num {
+  background: var(--ds-additional-background-black);
+  color: var(--ds-additional-content-white);
+}
+
+.nav-profile__cal-day--ios-selected .nav-profile__cal-day-label {
+  color: var(--ds-core-content-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.nav-profile__cal-ios-staff-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-05);
+  font-size: 9px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.nav-profile__cal-ios-staff-chip--empty {
+  visibility: hidden;
+}
+
+.nav-profile__cal-ios-staff-chip--sea {
+  background: var(--ds-additional-background-sea-light);
+  color: var(--ds-additional-content-sea);
+}
+
+.nav-profile__cal-ios-staff-chip--violet {
+  background: var(--ds-additional-background-violet-light);
+  color: var(--ds-additional-content-violet);
+}
+
+.nav-profile__cal-ios-staff-chip--mint {
+  background: var(--ds-additional-background-positive-light);
+  color: var(--ds-additional-content-positive);
+}
+
+.nav-profile__cal-ios-staff-chip--peach {
+  background: var(--ds-additional-background-warning-light);
+  color: var(--ds-additional-content-warning);
+}
+
+.nav-profile__cal-ios-staff-names {
+  display: grid;
+  grid-template-columns: 36px repeat(3, 1fr);
+  gap: var(--spacing-01);
+  padding: 0 var(--spacing-01);
+  margin-top: calc(-1 * var(--spacing-02));
+}
+
+.nav-profile__cal-ios-staff-name {
+  font-size: 9px;
+  line-height: 1.2;
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-core-content-secondary);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-profile__cal-ios-scroll {
+  flex: 1 1 auto;
+  min-height: 160px;
+  overflow-x: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  margin-right: calc(-1 * var(--spacing-05));
+  padding-right: var(--spacing-05);
+  background: var(--ds-core-background-secondary);
+}
+
+.nav-profile__cal-ios-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-profile__cal-ios-track {
+  position: relative;
+  display: flex;
+  gap: var(--spacing-02);
+  min-width: 100%;
+}
+
+.nav-profile__cal-ios-hours {
+  flex: 0 0 36px;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-profile__cal-ios-hour {
+  height: 56px;
+  font-size: 11px;
+  line-height: 1;
+  color: var(--ds-core-content-secondary);
+  transform: translateY(-6px);
+}
+
+.nav-profile__cal-ios-cols-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 100%;
+  background: var(--ds-core-background-secondary);
+}
+
+.nav-profile__cal-ios-cols {
+  display: flex;
+  gap: 3px;
+  height: 100%;
+  min-height: 100%;
+}
+
+.nav-profile__cal-ios-col {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 100%;
+  background: var(--ds-core-background-primary);
+  border-radius: var(--radius-01);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 55px,
+    var(--ds-core-border-primary) 55px,
+    var(--ds-core-border-primary) 56px
+  );
+}
+
+.nav-profile__cal-ios-appt {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  min-height: 28px;
+  padding: var(--spacing-02) var(--spacing-02);
+  border-radius: var(--radius-02);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.nav-profile__cal-ios-appt--mint {
+  background: var(--ds-additional-background-positive-light);
+  border-left: var(--border-02) solid var(--ds-additional-content-positive);
+}
+
+.nav-profile__cal-ios-appt--lavender {
+  background: var(--ds-additional-background-violet-light);
+  border-left: var(--border-02) solid var(--ds-additional-content-violet);
+}
+
+.nav-profile__cal-ios-appt--peach {
+  background: color-mix(in srgb, var(--ds-additional-background-warning-light) 85%, var(--ds-core-background-primary));
+  border-left: var(--border-02) solid var(--ds-additional-content-warning);
+}
+
+.nav-profile__cal-ios-appt--violet {
+  background: var(--ds-additional-background-violet-light);
+  border-left: var(--border-02) solid var(--ds-additional-content-violet);
+}
+
+.nav-profile__cal-ios-appt--sea {
+  background: var(--ds-additional-background-sea-light);
+  border-left: var(--border-02) solid var(--ds-additional-content-sea);
+}
+
+.nav-profile__cal-ios-appt-time.ds-text,
+.nav-profile__cal-ios-appt-client.ds-text,
+.nav-profile__cal-ios-appt-svc.ds-text {
+  margin: 0;
+  line-height: 1.25;
+  font-weight: var(--font-weight-regular);
+}
+
+.nav-profile__cal-ios-appt-time.ds-text {
+  font-size: 9px;
+  color: var(--ds-core-content-secondary);
+}
+
+.nav-profile__cal-ios-appt-client.ds-text {
+  font-size: 11px;
+  font-weight: var(--font-weight-regular);
+  color: var(--ds-core-content-primary);
+  margin-top: 1px;
+}
+
+.nav-profile__cal-ios-appt-svc.ds-text {
+  font-size: 10px;
+  font-weight: var(--font-weight-regular);
+  margin-top: 1px;
+}
+
+.nav-profile__cal-ios-now {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  transform: translateY(-50%);
+  padding-left: 0;
+}
+
+.nav-profile__cal-ios-now-pill {
+  flex: 0 0 auto;
+  margin-left: -4px;
+  padding: var(--spacing-01) 6px;
+  border-radius: var(--radius-05);
+  background: var(--ds-additional-background-negative);
+  color: var(--ds-additional-content-white);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+}
+
+.nav-profile__cal-ios-now-line {
+  flex: 1 1 auto;
+  height: 2px;
+  background: var(--ds-additional-background-negative);
+}
+
+/* Client hub */
+.nav-profile__search {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-03);
+  padding: var(--spacing-03) var(--spacing-04);
+  border-radius: var(--radius-05);
+  background: var(--ds-core-background-primary);
+  box-shadow: var(--ds-elevate-shadow-soft);
+}
+
+.nav-profile__search input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-family-text);
+  font-size: var(--ds-font-label-l-size);
+  color: var(--ds-core-content-primary);
+}
+
+.nav-profile__search-icon {
+  flex-shrink: 0;
+  color: var(--ds-core-content-secondary);
+}
+
+.nav-profile__client-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-03);
+  background: var(--color-surface-default);
+  box-shadow: var(--ds-elevate-shadow-soft);
+  overflow: hidden;
+}
+
+.nav-profile__client-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-04);
+  padding: var(--spacing-04) var(--spacing-05);
+  min-height: calc(var(--spacing-09) + var(--spacing-05));
+}
+
+.nav-profile__client-row + .nav-profile__client-row::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--spacing-05);
+  right: 0;
+  height: var(--border-01);
+  background: var(--ds-core-border-primary);
+}
+
+.nav-profile__client-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.nav-profile__client-name.ds-text {
+  margin: 0;
+  font-size: var(--ds-font-label-l-size);
+  line-height: var(--ds-font-label-l-line);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--color-text-default);
+}
+
+.nav-profile__client-phone.ds-text {
+  margin: var(--spacing-01) 0 0;
+  font-size: var(--ds-font-label-m-size);
+  line-height: var(--ds-font-label-m-line);
+  color: var(--color-text-secondary);
+}
+
+.nav-profile__avatar--sea {
+  background: var(--ds-additional-background-sea-light);
+  color: var(--ds-additional-content-sea);
+}
+
+.nav-profile__avatar--lavender {
+  background: var(--ds-additional-background-violet-light);
+  color: var(--ds-additional-background-violet);
+}
+
+.nav-profile__avatar--mint {
+  background: var(--ds-additional-background-positive-light);
+  color: var(--ds-additional-background-positive);
+}
+
+.nav-profile__avatar--peach {
+  background: var(--ds-additional-background-legacy-brand-light);
+  color: var(--ds-additional-background-legacy-brand);
+}
+
+.nav-profile__avatar--beige {
+  background: var(--color-surface-warning);
+  color: var(--ds-additional-background-warning);
+}
+
+.nav-profile__avatar--warning {
+  background: var(--ds-additional-background-warning-light);
+  color: var(--ds-additional-background-warning);
+}
+
+.nav-profile__clients-screen {
+  padding-bottom: calc(var(--spacing-09) + var(--design-harness-proto-tabbar-height));
+  background: var(--ds-core-background-secondary);
+}
+
+.phone-shell__screen-frame:has(.nav-profile__clients-screen) {
+  background: var(--ds-core-background-secondary);
+}
+
+.phone-shell__screen-frame:has(.nav-profile__clients-screen) .phone-shell__ios-status {
+  background: var(--ds-core-background-secondary);
+}
+
+/* Clients list — standalone prototype */
+.clients-list-proto__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-04);
+  flex-wrap: wrap;
+}
+
+.clients-list-proto__search {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-03);
+  padding: var(--spacing-03) var(--spacing-04);
+  border-radius: var(--radius-02);
+  border: var(--border-01) solid var(--color-border-default);
+  background: var(--color-surface-default);
+  max-width: 28rem;
+}
+
+.clients-list-proto__search input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body);
+  color: var(--color-text-default);
+}
+
+.clients-list-proto__search-icon {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
+.clients-list-proto__segments {
+  display: flex;
+  gap: var(--spacing-02);
+  flex-wrap: wrap;
+}
+
+.clients-list-proto__segment {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  padding: var(--spacing-02) var(--spacing-04);
+  border-radius: var(--radius-05);
+  border: var(--border-01) solid var(--color-border-muted);
+  background: var(--color-surface-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.clients-list-proto__segment[data-active='true'] {
+  border-color: var(--color-border-brand);
+  background: color-mix(in srgb, var(--color-surface-brand) 10%, transparent);
+  color: var(--color-text-link-default);
+}
+
+.clients-list-proto__segment:focus-visible {
+  outline: var(--border-02) solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.clients-list-proto__segment-count {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-regular);
+}
+
+.clients-list-proto__segment[data-active='true'] .clients-list-proto__segment-count {
+  color: var(--color-text-link-default);
+}
+
+.clients-list-proto__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.clients-list-proto__row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-04);
+  padding: var(--spacing-04) 0;
+  border-bottom: var(--border-01) solid var(--color-border-muted);
+}
+
+.clients-list-proto__row:last-child {
+  border-bottom: none;
+}
+
+.clients-list-proto__avatar {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-09);
+  height: var(--spacing-09);
+  border-radius: var(--radius-05);
+  background: color-mix(in srgb, var(--color-surface-brand) 14%, transparent);
+  color: var(--color-text-link-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+}
+
+.clients-list-proto__info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.clients-list-proto__name.ds-text,
+.clients-list-proto__meta.ds-text {
+  margin: 0;
+}
+
+.clients-list-proto__empty {
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-07) var(--spacing-04);
+  color: var(--color-text-secondary);
+}
+
+.clients-list-proto__empty-state .ds-empty__actions {
+  flex-direction: row;
+  justify-content: center;
+  width: auto;
+}
+
+.clients-list-proto__header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-03);
+  flex-wrap: wrap;
+}
+
+.clients-list-proto__list--flat {
+  border-radius: var(--radius-02);
+  border: var(--border-01) solid var(--color-border-default);
+  background: var(--color-surface-default);
+  padding: 0 var(--spacing-04);
+}
+
+.clients-list-proto__list--row-cards {
+  gap: var(--spacing-03);
+}
+
+.clients-list-proto__list--row-cards > li {
+  list-style: none;
+}
+
+.clients-list-proto__row--in-card {
+  padding: 0;
+  border-bottom: none;
+}
+
+.clients-list-proto__row-card {
+  width: 100%;
+}
+
+.clients-list-proto__fork-stage {
+  width: 100%;
+  max-width: var(--size-layout-content-max);
+  margin: 0 auto;
+}
+
+.clients-list-proto__layout-tabs {
+  display: flex;
+  gap: var(--spacing-02);
+  flex-wrap: wrap;
+}
+
+.clients-list-proto__layout-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-02) var(--spacing-04);
+  border-radius: var(--radius-05);
+  border: var(--border-01) solid var(--color-border-muted);
+  background: var(--color-surface-default);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.clients-list-proto__layout-tab[data-active='true'] {
+  border-color: var(--color-border-brand);
+  background: color-mix(in srgb, var(--color-surface-brand) 10%, transparent);
+  color: var(--color-text-link-default);
+}
+
+.clients-list-proto__layout-tab:focus-visible {
+  outline: var(--border-02) solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.clients-list-proto__tip-icon {
+  flex-shrink: 0;
+  color: var(--color-text-link-default);
+}
+
+/* Checkout */
+
+.nav-profile__segmented--surface {
+  background: var(--ds-core-background-secondary);
+  border: none;
+  box-shadow: none;
+}
+
+.nav-profile__segmented--surface .nav-profile__segmented-btn[data-active='true'] {
+  background: var(--ds-core-background-primary);
+  color: var(--ds-core-content-primary);
+  box-shadow: var(--ds-elevate-shadow-soft);
+}
+
+/* Business / Booking site shared card chrome — DS elevate soft + thin light border */
+
+/* Beat `.ds-icon { color: currentColor }` (ds.css often loads after proto CSS). */
+
+/* Booking site — segment control (Services | Reviews | Portfolio | Details) */
+
+/* Legacy equal-width site segment (unused by BookingSitePanel; keep for other surfaces) */
+
+/* Business hours — list card with internal dividers (Schedule management). */
+
+/* Service set up — categorized, reorderable service list. */
+
+/* Booking site */
+
+/* Identity thumb strip — marketplace listing chrome under cover */
+
+/* Marketplace-style identity: compact title → address/rating/footer */
+
+/* Copy-link confirmation toast — top of the device frame, above status bar /
+   notch (z-index 7) and tab chrome so it never hides under the clock. */
+
+/* Share Profile modal — full-bleed sheet over the fixed-size device frame,
+   entering as a bottom sheet (slides up, backdrop fades in) like a native
+   mobile share sheet. */
+
+.nav-profile__cal-settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-03);
+}
+
+.nav-profile__cal-settings-group-label {
+  margin: 0;
+  padding: 0 var(--spacing-02);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.nav-profile__cal-settings-card {
+  overflow: hidden;
+  border-radius: var(--radius-03);
+  background: var(--color-surface-default);
+}
+
+/* iOS grouped settings sheet (four-tab / phone prototypes) */
+
+/* Lighter inset row dividers (iOS grouped list) */
+
+/* Figma: title Label/L Semibold 16/24; subtitle Paragraph/M (Label M) 14/20 */
+
+.nav-profile__settings-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-04);
+  width: 100%;
+  padding: var(--spacing-04) var(--spacing-05);
+  border-top: var(--border-01) solid var(--color-border-muted);
+}
+
+.nav-profile__settings-toggle-row .ds-toggle-wrap {
+  flex-shrink: 0;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav-profile__settings-toggle-row:first-child {
+  border-top: none;
+}
+
+.nav-profile__settings-toggle-copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-01);
+  min-width: 0;
+}
+
+.nav-profile__settings-toggle-label {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body);
+  line-height: var(--type-body-line);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-default);
+}
+
+.nav-profile__settings-toggle-sub {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-label);
+  line-height: var(--type-label-line);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+}
+
+/* Tab bar rules moved to the shared "Phone shell" section above
+   (.phone-shell__tabbar / .phone-shell__tab) — see PhoneShell.tsx. */
+
+/* ── Settings IA screens ── */
+
+/* Deck / chromeless embed — phone only, no case-study write-up */
+
+/* iOS grouped settings primitives (shared) */
+.ios-settings__slider-block {
+  padding: var(--spacing-04) var(--spacing-05);
+  border-bottom: var(--border-01) solid var(--color-border-muted);
+}
+
+.ios-settings__slider-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-04);
+  margin-bottom: var(--spacing-03);
+}
+
+.ios-settings__slider-value {
+  flex-shrink: 0;
+  font-size: var(--font-size-label);
+  color: var(--color-text-secondary);
+}
+
+.ios-settings__slider {
+  display: block;
+  width: 100%;
+  margin: 0;
+  accent-color: var(--color-surface-brand);
+}
+
+/* Device wrap + citations (artifact pattern) */
+
+.cal-settings-proto__citation-anchor {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Full-screen settings push — iOS grouped list */
+
+/* Notifications — iOS prod list + settings sheet */
+
+/* ——— Four-tab lab: top toolbar outside phone stage ——— */
+
+.nav-profile__lab-stage {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  padding: var(--spacing-05);
+  overflow: hidden;
+}
+
+.nav-profile__lab-stage > .design-harness-ds-page {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Pin header; only the body scrolls (same pattern as calendar settings). */
+
+/* Business home: status + header share page muted (no white band). */
+
+/* Business home: title + gift/gear row, full-width segment below (supersedes icon|segment|icon). */
+
+/* Flex shrink + overflow:hidden on biz/site cards was clipping identity blocks. */
+
+/* —— Stats & Reports —— */
+
+/* Pin Wallet / Stats like Business dash — shell body doesn't grow; inner body scrolls. */
+
+/* —— Business Wallet —— */
+
+/* ── Payments settings L3 (Wallet push) ── */

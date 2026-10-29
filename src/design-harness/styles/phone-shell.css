@@ -1,0 +1,313 @@
+/**
+ * Shared PhoneShell device chrome (lab)
+ *
+ * Layer: Design Harness catalog chrome / shared lab chrome
+ * Extracted from monolithic src/design-harness.css (IA split — design-system skill Job 1).
+ * Tokens/primitives stay in context/design-system/ — do not invent values here.
+ */
+
+/* —— Phone shell (shared) ——
+   Realistic mobile device chrome — hardware bezel, notch, iOS status bar,
+   floating pill tab bar, home indicator — shared by every mobile prototype
+   via `src/design-harness/shared/PhoneShell.tsx`. Originated in the Navigation /
+   Profile prototype (Figma lKsNe3YlWnsb9P07e9ZSLv, node 4083-31947);
+   extracted 2026-07-07 so all mobile screens get the same chrome instead of
+   each prototype inventing its own. See `harness/skills/mobile-shell/SKILL.md`. */
+
+/* Fit wrapper: reserves scaled layout box so small laptops don't clip the
+   canonical 402×812 frame. Scale is set by PhoneShell (transform on device). */
+.phone-shell__fit {
+  box-sizing: border-box;
+  position: relative;
+  flex-shrink: 0;
+  max-width: 100%;
+}
+
+.phone-shell__fit[data-phone-fit='true'] .phone-shell__device {
+  transform: scale(var(--phone-fit-scale, 1));
+  /* top left — scaled visual matches the reserved fit box. top center
+     spilled past the box and overlapped sibling lab controls. */
+  transform-origin: top left;
+  /* The fit box is already the scaled size. max-width:100% would shrink the
+     bezel to that box and the transform would shrink it again, while the
+     screen stays at the canonical width and spills out of the frame. */
+  max-width: none;
+}
+
+.phone-shell__device {
+  position: relative;
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: var(--design-harness-proto-device-bezel);
+  border-radius: var(--design-harness-proto-device-corner-radius);
+  background: linear-gradient(155deg, #3a3a3d 0%, #1c1c1e 45%, #0a0a0b 100%);
+  box-shadow:
+    0 40px 80px -30px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 0 2px 1px rgba(0, 0, 0, 0.6);
+}
+
+.phone-shell__device-btn {
+  position: absolute;
+  border-radius: var(--radius-01);
+  background: linear-gradient(90deg, #0a0a0b, #2c2c2e);
+}
+
+.phone-shell__device-btn--action {
+  top: 108px;
+  left: -3px;
+  width: 3px;
+  height: 32px;
+}
+
+.phone-shell__device-btn--vol-up {
+  top: 164px;
+  left: -3px;
+  width: 3px;
+  height: 52px;
+}
+
+.phone-shell__device-btn--vol-down {
+  top: 228px;
+  left: -3px;
+  width: 3px;
+  height: 52px;
+}
+
+.phone-shell__device-btn--power {
+  top: 180px;
+  right: -3px;
+  width: 3px;
+  height: 88px;
+}
+
+.phone-shell__screen-frame {
+  box-sizing: border-box;
+  width: var(--design-harness-proto-width-phone-lg);
+  max-width: 100%;
+  flex-shrink: 0;
+  height: var(--design-harness-proto-device-frame-height);
+  max-height: min(var(--design-harness-proto-device-frame-height), calc(100vh - var(--spacing-09)));
+  background: var(--ds-core-background-tertiary);
+  border-radius: var(--design-harness-proto-device-screen-radius);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  color: var(--ds-core-content-primary);
+  font-family: var(--font-family-text);
+}
+
+/* Fit mode keeps the canonical frame height — scale the device, don't reflow UI. */
+.phone-shell__fit[data-phone-fit='true'] .phone-shell__screen-frame {
+  max-width: var(--design-harness-proto-width-phone-lg);
+  max-height: var(--design-harness-proto-device-frame-height);
+}
+
+.phone-shell__notch {
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 7;
+  width: 126px;
+  height: 37px;
+  border-radius: var(--radius-05);
+  background: #0a0a0b;
+  pointer-events: none;
+}
+
+.phone-shell__home-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: var(--spacing-02);
+  transform: translateX(-50%);
+  z-index: 7;
+  width: 108px;
+  height: 4px;
+  border-radius: var(--radius-05);
+  background: var(--ds-core-content-primary);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* Fixed-height shell: only this area scrolls, so the tab bar below never shifts
+   when switching tabs between screens of different content length.
+   Scrollbars stay hidden — a visible gutter steals width and shifts layout
+   inside the 375px frame (real phones don't show desktop scrollbars). */
+.phone-shell__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* legacy Edge */
+}
+
+.phone-shell__body::-webkit-scrollbar {
+  display: none; /* Chromium / Safari */
+  width: 0;
+  height: 0;
+}
+
+.phone-shell__ios-status {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 54px;
+  padding: 0 var(--spacing-06);
+  font-size: var(--ds-font-label-xs-size);
+  line-height: var(--ds-font-label-xs-line);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-core-content-primary);
+  background: var(--ds-core-background-tertiary);
+}
+
+/* Screen templates: the status bar is part of the same surface as the large title. */
+.phone-shell__screen-frame:has(.ds-pattern) .phone-shell__ios-status,
+.phone-shell__screen-frame:has(.ds-pattern) .phone-shell__ios-signals {
+  background: var(--kit-sunken);
+  color: var(--kit-ink);
+}
+
+.phone-shell__ios-time {
+  flex: 0 0 auto;
+}
+
+.phone-shell__ios-signals {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  color: var(--ds-core-content-primary);
+}
+
+.phone-shell__ios-signal-icon,
+.phone-shell__ios-wifi-icon,
+.phone-shell__ios-battery-icon {
+  opacity: 0.9;
+}
+
+/* Standard mobile screen padding — 16px (--spacing-05) sides, applied by
+   every screen's content wrapper inside the shell body. */
+.phone-shell__screen {
+  padding: var(--spacing-02) var(--spacing-05) calc(var(--spacing-09) + var(--spacing-07));
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-05);
+}
+
+/* Tab bar — pinned to the bottom of the fixed-height shell (not the scrolling
+   body), so it stays in the exact same place when switching between screens
+   of different content length. iOS 26-style floating pill. */
+.phone-shell__tabbar {
+  position: absolute;
+  left: var(--spacing-05);
+  right: var(--spacing-05);
+  bottom: var(--spacing-04);
+  z-index: 4;
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+  padding: var(--spacing-03) var(--spacing-02);
+  gap: var(--spacing-02);
+  border-radius: var(--radius-05);
+  border: var(--border-01) solid var(--ds-core-border-subtle);
+  background: color-mix(in srgb, var(--ds-core-background-primary) 88%, transparent);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: var(--ds-elevate-shadow-md);
+}
+
+.phone-shell__tab {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-02);
+  padding: var(--spacing-02);
+  border: none;
+  border-radius: var(--radius-05);
+  background: transparent;
+  font-family: var(--font-family-text);
+  font-size: var(--ds-font-label-xs-size);
+  line-height: var(--ds-font-label-xs-line);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-core-content-primary);
+  cursor: pointer;
+}
+
+.phone-shell__tab[data-active='true'] {
+  background: var(--ds-core-background-secondary);
+}
+
+.phone-shell__tab[data-active='true'] .ds-icon {
+  color: var(--ds-core-content-primary);
+}
+
+.phone-shell__tab:focus-visible {
+  outline: var(--border-02) solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.phone-shell__tab svg {
+  display: block;
+}
+
+/* Prod bottom tab bar — full-bleed black bar, 5 tabs (Appointments · Clients · …). */
+.phone-shell__tabbar--today {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: var(--design-harness-proto-tabbar-height-today);
+  align-items: flex-start;
+  padding: var(--spacing-04) var(--spacing-02) var(--spacing-07);
+  gap: 0;
+  border: none;
+  border-radius: 0;
+  background: var(--ds-additional-background-black);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+.phone-shell__tabbar--today .phone-shell__tab {
+  gap: var(--spacing-02);
+  padding: 0 var(--spacing-01) var(--spacing-02);
+  font-size: var(--ds-font-label-xs-size);
+  line-height: var(--ds-font-label-xs-line);
+  font-weight: var(--font-weight-regular);
+  color: var(--ds-core-content-tertiary);
+}
+
+.phone-shell__tabbar--today .phone-shell__tab svg {
+  width: var(--spacing-06);
+  height: var(--spacing-06);
+}
+
+.phone-shell__tabbar--today .phone-shell__tab[data-active='true'] {
+  background: transparent;
+  color: var(--color-text-inverse);
+  font-weight: var(--ds-font-weight-semibold);
+}
+
+.phone-shell__screen-frame[data-tabbar='today'] .phone-shell__screen {
+  padding-bottom: calc(var(--design-harness-proto-tabbar-height-today) + var(--spacing-05));
+}
+
+.phone-shell__screen-frame[data-tabbar='today'] .phone-shell__home-indicator {
+  background: var(--color-text-inverse);
+  opacity: 0.45;
+  bottom: var(--spacing-03);
+  z-index: 8;
+}
+
+.phone-shell__screen-frame[data-tabbar='today'] .nav-profile__cal-fabs {
+  bottom: calc(var(--design-harness-proto-tabbar-height-today) + var(--design-harness-proto-fab-tabbar-gap));
+}

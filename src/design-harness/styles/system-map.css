@@ -1,0 +1,78 @@
+/*
+ * Design Harness frame — the System map page (`pages/SystemMapPage.tsx`).
+ * Frame only: role cards reuse the home help cards; this file is the compact
+ * skill grid under each role.
+ */
+
+.design-harness-map__role {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-03);
+  margin-top: var(--spacing-04);
+}
+
+.design-harness-map__role-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-04);
+  padding-bottom: var(--spacing-02);
+  border-bottom: var(--border-01) solid var(--color-border-muted);
+}
+
+.design-harness-map__role-head h3 {
+  margin: 0;
+}
+
+.design-harness-map__skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: var(--spacing-03);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.design-harness-map__skill {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-01);
+  height: 100%;
+  padding: var(--spacing-03) var(--spacing-04);
+  border: var(--border-01) solid var(--color-border-muted);
+  border-radius: var(--radius-02);
+  background: var(--color-surface-default);
+  color: var(--color-text-default);
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--easing-standard);
+}
+
+.design-harness-map__skill:hover {
+  background: color-mix(in srgb, var(--color-surface-default) 96%, var(--kit-ink));
+}
+
+.design-harness-map__skill:focus-visible {
+  outline: var(--border-02) solid var(--design-harness-accent);
+  outline-offset: var(--border-02);
+}
+
+.design-harness-map__skill-name {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--type-label-line);
+}
+
+.design-harness-map__skill-job,
+.design-harness-map__roles .design-harness-home__card-desc {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+.design-harness-map__skill-job {
+  font-size: var(--font-size-label-small);
+  line-height: var(--type-label-line);
+  color: var(--color-text-muted);
+}

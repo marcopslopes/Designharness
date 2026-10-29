@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": ".cursor/hooks/designer-onboarding-check.sh",
+        "failClosed": false
+      }
+    ],
+    "preToolUse": [
+      {
+        "command": ".cursor/hooks/design-detector-preblock.mjs",
+        "matcher": "Write|StrReplace",
+        "failClosed": false
+      }
+    ],
+    "postToolUse": [
+      {
+        "command": ".cursor/hooks/skill-usage-tracker.mjs",
+        "matcher": "Read",
+        "failClosed": false
+      }
+    ],
+    "stop": [
+      {
+        "command": ".cursor/hooks/token-usage-tracker.mjs",
+        "failClosed": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+---
+description: Gate designer onboarding — read profile file before any onboarding UI
+alwaysApply: true
+---
+
+# Designer profile gate (every chat)
+
+**Before any reply or other tool call**, read `designer-profile.local.md` at
+the workspace root (`Read` tool).
+
+| Result | Action |
+|--------|--------|
+| **File exists** (`Status: ACTIVE` or `SKIPPED`) | **Stop.** Do not run onboarding, MCP gate, profile `AskQuestion`, squad questions, handoff tables, or handoff menu. Use the profile silently. Handle the user's message. |
+| **File not found** | **Output the Muse greeting first** (`harness/designer-onboarding/SKILL.md` § The greeting — both plain-text blocks, no preamble) as the literal first content of your response, **before any other tool call** (only the gate-check `Read` above may precede it). Then run the rest of `SKILL.md` per `harness/ORCHESTRATOR.md` §0. **Forbidden:** future-tense narration instead of the greeting ("I'll greet you, then…"); MCP probe or other tools before the greeting text is already in this response. |
+
+**Never** infer "profile missing" from memory, a new chat, or prior turns.
+**Never** run onboarding because the user typed a short message (`df`, `hi`).
+The filesystem is the only source of truth.
+
+**No narration leak on this `Read` itself.** Found live (2026-07-17): the
+gate-check narrated as "Checking your designer profile, then I'll greet
+you back" — a stray bit of internal planning leaking into user-facing
+text, announcing the *next* step before its own result is known. Either
+run this `Read` silently, or, if you narrate it at all, stop at
+"Checking your designer profile..." — never a forward-looking clause
+("...then I'll greet you back", "...then I'll continue"). What happens
+next is decided by this `Read`'s actual result, not pre-announced.

@@ -1,0 +1,131 @@
+/**
+ * Standalone Design Harness prototype shells (navigation-profile.html, navigation-four-tab.html).
+ * Canonical PhoneShell internal size (402×812). Outer fit-scale (PhoneShell) shrinks
+ * uniformly on short laptops — do not reflow the frame with max-width/height clamps.
+ * See harness/skills/mobile-shell/SKILL.md.
+ */
+
+/* Shell: lab toolbar above the phone proto frame (never inside it). */
+.nav-four-tab-shell {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: var(--color-bg-muted);
+}
+
+.nav-four-tab-shell > .nav-profile__lab-toolbar {
+  flex: 0 0 auto;
+}
+
+.nav-four-tab-shell > .standalone-proto {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+}
+
+.standalone-proto {
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 0;
+  background: var(--color-bg-muted);
+  overflow: hidden;
+}
+
+.nav-four-tab-shell > .standalone-proto {
+  min-height: 0;
+}
+
+.standalone-proto .nav-profile__lab {
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  height: 100%;
+  min-height: 0;
+}
+
+.standalone-proto .nav-profile__lab--stage-only {
+  /* Phone stage fills the proto frame — no in-frame toolbar. */
+  min-height: 100%;
+}
+
+.standalone-proto .design-harness-ds-page {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  max-width: none;
+}
+
+/* Full device width — bezel + 402px screen (tokens.lab.css). Scale via .phone-shell__fit. */
+.standalone-proto .phone-shell__device {
+  flex-shrink: 0;
+  max-width: none;
+  width: fit-content;
+}
+
+.standalone-proto .phone-shell__screen-frame {
+  width: var(--design-harness-proto-width-phone-lg);
+  max-width: var(--design-harness-proto-width-phone-lg);
+  height: var(--design-harness-proto-device-frame-height);
+  max-height: var(--design-harness-proto-device-frame-height);
+  flex-shrink: 0;
+}
+
+/* Iframe embed: transparent — parent hub / proto-frame is the only backdrop. */
+html.standalone-embed {
+  background: transparent;
+}
+
+html.standalone-embed body,
+html.standalone-embed #root,
+html.standalone-embed .nav-four-tab-shell,
+html.standalone-embed .standalone-proto,
+html.standalone-embed .design-harness-ds-page,
+html.standalone-embed .nav-profile__lab-stage {
+  background: transparent;
+}
+
+html.standalone-embed,
+html.standalone-embed body,
+html.standalone-embed #root {
+  min-height: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+html.standalone-embed .nav-four-tab-shell {
+  height: 100%;
+  min-height: 100%;
+  background: transparent;
+}
+
+html.standalone-embed .standalone-proto {
+  height: 100%;
+  min-height: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* In-page toolbar (direct standalone / Design Harness) — page chrome, not phone chrome. */
+.nav-four-tab-shell > .nav-profile__lab-toolbar {
+  background: color-mix(in srgb, var(--ds-additional-content-white) 8%, #0c0d0e);
+  border-bottom: var(--border-01) solid color-mix(in srgb, var(--ds-additional-content-white) 14%, transparent);
+  color: var(--ds-additional-content-white);
+}
+
+.nav-four-tab-shell > .nav-profile__lab-toolbar .nav-profile__lab-bar,
+.nav-four-tab-shell > .nav-profile__lab-toolbar .ds-toggle-wrap,
+.nav-four-tab-shell > .nav-profile__lab-toolbar .nav-profile__lab-roles-label {
+  color: var(--ds-additional-content-white);
+}

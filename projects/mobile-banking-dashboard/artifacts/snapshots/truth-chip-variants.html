@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Truth chip — review board</title>
+<link rel="stylesheet" href="../../../../context/design-system/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-family-text);
+    background: var(--color-surface-inverse);
+    color: var(--color-text-inverse);
+    min-height: 100vh;
+    padding: var(--spacing-07) var(--spacing-06) var(--spacing-09);
+  }
+  .board-head, .grid { max-width: 1280px; margin-left: auto; margin-right: auto; }
+  .board-head h1 {
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.02em;
+  }
+  .board-head p, .why, .foot {
+    font-size: var(--font-size-label);
+    line-height: 1.45;
+  }
+  .board-head p {
+    margin-top: var(--spacing-03);
+    max-width: 46rem;
+    color: var(--color-text-inverse);
+    opacity: 0.72;
+  }
+  .meta {
+    margin-top: var(--spacing-04);
+    font-size: var(--font-size-label-small);
+    opacity: 0.55;
+  }
+  .swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-03);
+    margin-top: var(--spacing-05);
+    padding: var(--spacing-03);
+    width: fit-content;
+    background: var(--color-bg-default);
+    border-radius: var(--radius-02);
+  }
+  .grid {
+    margin-top: var(--spacing-06);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-06);
+  }
+  @media (max-width: 960px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--color-bg-brand-dark);
+    border: var(--border-01) solid color-mix(in srgb, var(--color-text-inverse) 12%, transparent);
+    border-radius: var(--radius-03);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-label { padding: var(--spacing-04) var(--spacing-05) var(--spacing-04); }
+  .id {
+    display: inline-block;
+    margin-bottom: var(--spacing-02);
+    font-size: var(--font-size-label-small);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-surface-warning);
+  }
+  .card-label h2 { font-size: var(--font-size-body); font-weight: var(--font-weight-bold); }
+  .why { margin-top: var(--spacing-02); opacity: 0.72; }
+  .mock {
+    background: var(--color-bg-muted);
+    padding: var(--spacing-04);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-04);
+    flex: 1;
+  }
+  .stage {
+    background: var(--kit-bg);
+    border-radius: var(--radius-02);
+    padding: var(--spacing-04);
+    color: var(--color-text-default);
+  }
+  .stage-name {
+    margin-bottom: var(--spacing-03);
+    font-size: var(--font-size-label-small);
+    font-weight: var(--ds-font-weight-semibold);
+    color: var(--color-text-secondary);
+  }
+  .frame-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--spacing-03);
+    margin-bottom: var(--spacing-03);
+  }
+  .body { display: flex; align-items: flex-start; gap: var(--spacing-03); }
+  .phone {
+    width: 148px;
+    flex-shrink: 0;
+    height: 220px;
+    border-radius: var(--radius-04);
+    background: var(--color-bg-default);
+    border: var(--border-01) solid var(--color-border-muted);
+    padding: var(--spacing-04) var(--spacing-03);
+  }
+  .phone span {
+    display: block;
+    height: 10px;
+    margin-bottom: var(--spacing-03);
+    border-radius: var(--radius-05);
+    background: var(--color-border-muted);
+  }
+  .phone span:first-child { width: 46%; height: 14px; }
+  .phone span:nth-child(2) { width: 100%; height: 48px; }
+  .panel {
+    flex: 1;
+    min-width: 0;
+    background: var(--color-bg-default);
+    border: var(--border-01) solid var(--color-border-muted);
+    border-radius: var(--radius-02);
+    padding: var(--spacing-04);
+  }
+  .panel h3 {
+    margin: var(--spacing-04) 0 var(--spacing-02);
+    font-size: var(--font-size-label-small);
+    font-weight: var(--ds-font-weight-semibold);
+    color: var(--color-text-secondary);
+  }
+  .panel h3:first-child { margin-top: 0; }
+  .panel li {
+    margin-left: 1.1em;
+    font-size: var(--font-size-label-small);
+    line-height: 1.4;
+    color: var(--color-text-default);
+  }
+  .panel li + li { margin-top: var(--spacing-02); }
+  .owner { color: var(--color-text-muted); }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-02);
+    height: var(--ds-chip-height-sm);
+    padding: 0 var(--spacing-03);
+    border-radius: var(--radius-05);
+    border: var(--border-01) solid transparent;
+    font-size: var(--font-size-label-small);
+    font-weight: var(--ds-font-weight-semibold);
+    line-height: 1;
+  }
+  .chip[data-status="exploring"] { background: var(--color-surface-muted); color: var(--color-text-muted); }
+  .chip[data-status="draft"] { background: var(--color-surface-warning); color: var(--ds-additional-content-warning); }
+  .chip[data-status="approved"] { background: var(--color-surface-success); color: var(--color-text-success); }
+  .chip[data-status="closed"] { background: var(--color-surface-inverse); color: var(--color-text-inverse); }
+  .chip.is-dot { background: var(--color-bg-default); color: var(--color-text-default); border-color: var(--color-border-default); }
+  .dot { width: var(--spacing-03); height: var(--spacing-03); border-radius: var(--radius-05); }
+  .chip.is-dot[data-status="exploring"] .dot { background: var(--color-text-muted); }
+  .chip.is-dot[data-status="draft"] .dot { background: var(--ds-additional-content-warning); }
+  .chip.is-dot[data-status="approved"] .dot { background: var(--color-text-success); }
+  .chip.is-dot[data-status="closed"] .dot { background: var(--color-surface-inverse); }
+  .line {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--spacing-02);
+    font-size: var(--font-size-label);
+    font-weight: var(--ds-font-weight-semibold);
+  }
+  .line[data-status="exploring"] { color: var(--color-text-muted); }
+  .line[data-status="draft"] { color: var(--ds-additional-content-warning); }
+  .line[data-status="approved"] { color: var(--color-text-success); }
+  .line[data-status="closed"] { color: var(--color-text-default); }
+  .line em { font-style: normal; font-weight: var(--font-weight-regular); color: var(--color-text-muted); }
+  .hide {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-02);
+    font-size: var(--font-size-label-small);
+    color: var(--color-text-secondary);
+  }
+  .switch {
+    width: var(--spacing-08);
+    height: var(--spacing-05);
+    border-radius: var(--radius-05);
+    background: var(--color-surface-muted);
+    border: var(--border-01) solid var(--color-border-default);
+    position: relative;
+  }
+  .switch i {
+    position: absolute;
+    top: var(--spacing-01);
+    left: var(--spacing-01);
+    width: var(--spacing-03);
+    height: var(--spacing-03);
+    border-radius: var(--radius-05);
+    background: var(--color-bg-default);
+    border: var(--border-01) solid var(--color-border-default);
+  }
+  .popover { position: relative; }
+  .popover .panel {
+    position: absolute;
+    z-index: 1;
+    top: calc(100% + var(--spacing-02));
+    left: 0;
+    width: 280px;
+    max-height: 240px;
+    overflow: auto;
+    box-shadow: 0 var(--spacing-02) var(--spacing-06) color-mix(in srgb, var(--color-surface-inverse) 12%, transparent);
+  }
+  .foot {
+    padding: var(--spacing-04) var(--spacing-05);
+    font-size: var(--font-size-label-small);
+    opacity: 0.65;
+  }
+</style>
+</head>
+<body>
+  <header class="board-head">
+    <h1>Truth chip</h1>
+    <p>Static mockups only. The chip sits in the frame, outside the phone. Same two projects on every card. Nothing is wired until you pick a letter.</p>
+    <p class="meta">Wallet home · Clients list · 28 Oct 2026 · the four chips under the title are the status colours, not another project</p>
+    <div class="swatches" aria-label="Colour by status">
+      <span class="chip" data-status="exploring">Exploring · 0 open</span>
+      <span class="chip" data-status="draft">Draft · 7 open</span>
+      <span class="chip" data-status="approved">Approved · 9 open</span>
+      <span class="chip" data-status="closed">Closed · 0 open</span>
+    </div>
+  </header>
+
+  <main class="grid">
+    <article class="card">
+      <div class="card-label">
+        <span class="id">Today</span>
+        <h2>No chip</h2>
+        <p class="why">The frame shows the phone and nothing about what is still open.</p>
+      </div>
+      <div class="mock">
+        <div class="stage">
+          <p class="stage-name">Wallet home</p>
+          <div class="phone" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="stage">
+          <p class="stage-name">Clients list</p>
+          <div class="phone" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        </div>
+      </div>
+      <p class="foot">Baseline. Approved and draft look the same from the frame.</p>
+    </article>
+
+    <article class="card">
+      <div class="card-label">
+        <span class="id">A</span>
+        <h2>Tinted chip, side panel</h2>
+        <p class="why">Status fills the chip. The panel is a column beside the phone. The owner stays on the question’s line.</p>
+      </div>
+      <div class="mock">
+        <div class="stage">
+          <p class="stage-name">Wallet home</p>
+          <div class="frame-row">
+            <span class="chip" data-status="approved">Approved · 9 open</span>
+            <span class="hide"><span class="switch" aria-hidden="true"><i></i></span> Hide for a demo</span>
+          </div>
+          <div class="body">
+            <div class="phone" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <div class="panel">
+              <h3>Open questions</h3>
+              <ul>
+                <li>Success metric — baseline and target are both UNKNOWN</li>
+                <li>PM of record — the designer opened this; no PM</li>
+                <li>Who owns wallet design <span class="owner">· Design → Finance</span></li>
+                <li>What the current wallet home shows — not reviewed <span class="owner">· Design</span></li>
+                <li>Jira roadmap and Confluence specs — not connected this session</li>
+                <li>How many support contacts are about balance, payouts, or the wallet <span class="owner">· Support / data</span></li>
+                <li>Which markets have the wallet beyond the first two <span class="owner">· Finance</span></li>
+                <li>Does the wallet receive the reason for a block or hold from the payment provider? <span class="owner">· Finance</span></li>
+                <li>Are the missing transactions a data problem? <span class="owner">· Finance</span></li>
+              </ul>
+              <h3>Assumptions</h3>
+              <ul>
+                <li>The confusion is common, not a handful of loud cases.</li>
+                <li>The cause is how the wallet presents money, not missing data behind it.</li>
+                <li>The reason for a block or a hold is available to show in the app.</li>
+                <li>Owners check the wallet on their phone, after work or when a payout is due.</li>
+              </ul>
+              <h3>Parked directions</h3>
+              <ul>
+                <li>Balance as the hero, copied from a consumer-bank home. Hero is Next payout; the Available card was dropped.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="stage">
+          <p class="stage-name">Clients list</p>
+          <div class="frame-row">
+            <span class="chip" data-status="draft">Draft · 7 open</span>
+            <span class="hide"><span class="switch" aria-hidden="true"><i></i></span> Hide for a demo</span>
+          </div>
+          <div class="body">
+            <div class="phone" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <div class="panel">
+              <h3>Open questions</h3>
+              <ul>
+                <li>Success metric — the brief names none</li>
+                <li>Who requested this, and who the designer is</li>
+                <li>How clients land in Premium — balance, products held, or set by the bank</li>
+                <li>Whether 6 months is right for every client</li>
+                <li>What a short check-in opens</li>
+                <li>Whether a manager with no clients reaches this screen</li>
+                <li>Which clients would find a check-in intrusive</li>
+              </ul>
+              <h3>Assumptions</h3>
+              <ul>
+                <li>Three segments — Premium, New and Dormant — are enough to act on.</li>
+                <li>Dormant means no contact in 6 months or more.</li>
+                <li>A short check-in is the right first step with a dormant client.</li>
+                <li>A manager opens this list often enough to notice the tip.</li>
+              </ul>
+              <h3>Parked directions</h3>
+              <ul>
+                <li>Flat list layout — single card won</li>
+                <li>Card per row — single card won</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="foot">This is the brief as written. A section with nothing in it would be left out. Both of these have all three. The switch is off: the chip stays visible.</p>
+    </article>
+
+    <article class="card">
+      <div class="card-label">
+        <span class="id">B</span>
+        <h2>Dot on a paper chip</h2>
+        <p class="why">The chip stays paper, with a status dot, so the corner of a demo is not a green or amber pill. The owner is the line under the question.</p>
+      </div>
+      <div class="mock">
+        <div class="stage">
+          <p class="stage-name">Wallet home</p>
+          <div class="frame-row">
+            <span class="chip is-dot" data-status="approved"><i class="dot"></i> Approved · 9 open</span>
+            <span class="hide"><span class="switch" aria-hidden="true"><i></i></span> Hide for a demo</span>
+          </div>
+          <div class="body">
+            <div class="phone" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <div class="panel">
+              <h3>Open questions</h3>
+              <ul>
+                <li>Success metric — baseline and target are both UNKNOWN</li>
+                <li>PM of record — the designer opened this; no PM</li>
+                <li>Who owns wallet design<br><span class="owner">Design → Finance</span></li>
+                <li>What the current wallet home shows — not reviewed<br><span class="owner">Design</span></li>
+                <li>Jira roadmap and Confluence specs — not connected this session</li>
+                <li>How many support contacts are about balance, payouts, or the wallet<br><span class="owner">Support / data</span></li>
+                <li>Which markets have the wallet beyond the first two<br><span class="owner">Finance</span></li>
+                <li>Does the wallet receive the reason for a block or hold from the payment provider?<br><span class="owner">Finance</span></li>
+                <li>Are the missing transactions a data problem?<br><span class="owner">Finance</span></li>
+              </ul>
+              <h3>Assumptions</h3>
+              <ul>
+                <li>The confusion is common, not a handful of loud cases.</li>
+                <li>The cause is how the wallet presents money, not missing data behind it.</li>
+                <li>The reason for a block or a hold is available to show in the app.</li>
+                <li>Owners check the wallet on their phone, after work or when a payout is due.</li>
+              </ul>
+              <h3>Parked directions</h3>
+              <ul><li>Balance as the hero, copied from a consumer-bank home. Hero is Next payout; the Available card was dropped.</li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="stage">
+          <p class="stage-name">Clients list</p>
+          <div class="frame-row">
+            <span class="chip is-dot" data-status="draft"><i class="dot"></i> Draft · 7 open</span>
+            <span class="hide"><span class="switch" aria-hidden="true"><i></i></span> Hide for a demo</span>
+          </div>
+          <div class="body">
+            <div class="phone" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <div class="panel">
+              <h3>Open questions</h3>
+              <ul>
+                <li>Success metric — the brief names none</li>
+                <li>Who requested this, and who the designer is</li>
+                <li>How clients land in Premium — balance, products held, or set by the bank</li>
+                <li>Whether 6 months is right for every client</li>
+                <li>What a short check-in opens</li>
+                <li>Whether a manager with no clients reaches this screen</li>
+                <li>Which clients would find a check-in intrusive</li>
+              </ul>
+              <h3>Assumptions</h3>
+              <ul>
+                <li>Three segments — Premium, New and Dormant — are enough to act on.</li>
+                <li>Dormant means no contact in 6 months or more.</li>
+                <li>A short check-in is the right first step with a dormant client.</li>
+                <li>A manager opens this list often enough to notice the tip.</li>
+              </ul>
+              <h3>Parked directions</h3>
+              <ul>
+                <li>Flat list layout — single card won</li>
+                <li>Card per row — single card won</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="foot">Same facts as A. A question with no owner has no second line. The switch is off: the chip stays visible.</p>
+    </article>
+
+    <article class="card">
+      <div class="card-label">
+        <span class="id">C</span>
+        <h2>A line of type, panel under it</h2>
+        <p class="why">No pill. The status word takes the status colour, and the panel hangs under the line instead of standing beside the phone.</p>
+      </div>
+      <div class="mock">
+        <div class="stage">
+          <p class="stage-name">Wallet home</p>
+          <div class="popover">
+            <span class="line" data-status="approved">Approved <em>· 9 open</em></span>
+            <div class="panel">
+              <div class="frame-row" style="margin-bottom: var(--spacing-03)">
+                <span class="hide"><span class="switch" aria-hidden="true"><i></i></span> Hide for a demo</span>
+              </div>
+              <h3>Open questions</h3>
+              <ul>
+                <li>Success metric — baseline and target are both UNKNOWN</li>
+                <li>PM of record — the designer opened this; no PM</li>
+                <li>Who owns wallet design <span class="owner">· Design → Finance</span></li>
+                <li>What the current wallet home shows — not reviewed <span class="owner">· Design</span></li>
+                <li>Jira roadmap and Confluence specs — not connected this session</li>
+                <li>How many support contacts are about balance, payouts, or the wallet <span class="owner">· Support / data</span></li>
+                <li>Which markets have the wallet beyond the first two <span class="owner">· Finance</span></li>
+                <li>Does the wallet receive the reason for a block or hold from the payment provider? <span class="owner">· Finance</span></li>
+                <li>Are the missing transactions a data problem? <span class="owner">· Finance</span></li>
+              </ul>
+              <h3>Assumptions</h3>
+              <ul>
+                <li>The confusion is common, not a handful of loud cases.</li>
+                <li>The cause is how the wallet presents money, not missing data behind it.</li>
+                <li>The reason for a block or a hold is available to show in the app.</li>
+                <li>Owners check the wallet on their phone, after work or when a payout is due.</li>
+              </ul>
+              <h3>Parked directions</h3>
+              <ul><li>Balance as the hero, copied from a consumer-bank home. Hero is Next payout; the Available card was dropped.</li></ul>
+            </div>
+          </div>
+          <div class="phone" aria-hidden="true" style="margin-top: var(--spacing-08)"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="stage">
+          <p class="stage-name">Clients list</p>
+          <div class="popover">
+            <span class="line" data-status="draft">Draft <em>· 7 open</em></span>
+            <div class="panel">
+              <h3>Open questions</h3>
+              <ul>
+                <li>Success metric — the brief names none</li>
+                <li>Who requested this, and who the designer is</li>
+                <li>How clients land in Premium — balance, products held, or set by the bank</li>
+                <li>Whether 6 months is right for every client</li>
+                <li>What a short check-in opens</li>
+                <li>Whether a manager with no clients reaches this screen</li>
+                <li>Which clients would find a check-in intrusive</li>
+              </ul>
+              <h3>Assumptions</h3>
+              <ul>
+                <li>Three segments — Premium, New and Dormant — are enough to act on.</li>
+                <li>Dormant means no contact in 6 months or more.</li>
+                <li>A short check-in is the right first step with a dormant client.</li>
+                <li>A manager opens this list often enough to notice the tip.</li>
+              </ul>
+              <h3>Parked directions</h3>
+              <ul>
+                <li>Flat list layout — single card won</li>
+                <li>Card per row — single card won</li>
+              </ul>
+            </div>
+          </div>
+          <div class="phone" aria-hidden="true" style="margin-top: var(--spacing-08)"><span></span><span></span><span></span><span></span></div>
+        </div>
+      </div>
+      <p class="foot">Drawn open, as if the line had been tapped. The hide switch sits in the panel, not in the frame. The panel scrolls; the facts are the same as A.</p>
+    </article>
+  </main>
+</body>
+</html>

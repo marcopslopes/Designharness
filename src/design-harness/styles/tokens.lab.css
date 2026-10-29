@@ -1,0 +1,99 @@
+/**
+ * Lab / prototype tokens — NOT Foundations, NOT Northline Design System.
+ *
+ * Lives with Design Harness so `context/design-system/tokens.css` stays the real
+ * source of truth. Loaded after Foundations/DS tokens (see `src/index.css`).
+ *
+ * Promote a value into `tokens.css` only when it is Figma-backed Foundations
+ * or a documented DS component token — never because one prototype needs it.
+ */
+
+:root {
+  /* Calendar + waitlist metrics — screen refs (Figma Untitled), not Foundations */
+  --ds-calendar-light-blue-2: #f4fcfb;
+  --ds-calendar-strong-blue-1: #c2ebfc;
+  --ds-calendar-strong-green-8: #176a7c;
+  --ds-calendar-day-selected-bg: color-mix(in srgb, var(--color-surface-error) 50%, var(--color-bg-default));
+  --ds-calendar-day-selected-fg: color-mix(in srgb, var(--color-text-error) 70%, var(--ds-core-content-primary));
+  --ds-waitlist-conversion-surface: #f9fafb;
+  --ds-waitlist-conversion-border: #f3f4f6;
+  --ds-waitlist-summary-border: #fafafa;
+  --ds-waitlist-trend-positive: #059669;
+
+  /* Referral prototypes */
+  --ds-ref-wallet-hero-gradient-start: #c6b7f5;
+  --ds-ref-wallet-hero-gradient-end: #a5c9ff;
+  --ds-ref-wallet-b2c-hero-bg: #e6f5fb;
+  --ds-ref-program-dash-hero-start: #34323a;
+  --ds-ref-program-dash-hero-end: #2db1bb;
+  --referral-prototype-compact-hero-height: 360px;
+  --color-referral-sky-hero-fill: var(--ds-additional-background-sea-light);
+  --color-referral-whatsapp: #25d366;
+  --color-referral-whatsapp-hover: #1ebe5a;
+  --color-referral-message-surface: #f4f1ec;
+  --color-referral-message-border: #e5dfd4;
+  --font-family-referral-serif: ui-serif, Georgia, 'Times New Roman', serif;
+
+  /* Pro home / onboarding prototype shell radii */
+  --ds-pro-radius-shell: 20px;
+  --ds-pro-radius-alt-panel: 16px;
+  --ds-pro-radius-inner-metric: 12px;
+  --ds-pro-radius-control: 13px;
+  --ds-pro-radius-segment-active: 10px;
+  --ds-pro-radius-segment-idle: 8px;
+  --ds-pro-radius-level-icon: 11px;
+  --ds-pro-border-card-shell: var(--ds-core-background-secondary);
+  --ds-pro-border-alt-panel: #e5e7eb;
+  --ds-pro-shadow-alt-panel: 0 1px 1px rgba(0, 0, 0, 0.05);
+
+  /* One-off surfaces used only by prototypes (not Foundations semantic success) */
+  --ds-surface-success-mint: #ecfdf5;
+  --ds-additional-content-rating-star: #f59e0b;
+
+  /* Design Harness frame accent — rgb(0, 80, 50). Not the product brand. */
+  --design-harness-accent-base: #005032;
+
+  /* The Harness logo's blue bar. Same in both themes; only the logo uses it. */
+  --design-harness-logo-blue: #254292;
+
+  /* Design Harness frame — warm palette. Frame only. */
+  --design-harness-warm-page: #fafaf9;
+  --design-harness-warm-sand: #f3f2ee;
+  --design-harness-warm-ink: #0d1016;
+  --design-harness-warm-text: #68655e;
+  --design-harness-warm-line: #e6e6e6;
+  --design-harness-deep-forest: #00301e;
+  /* Brand system (example: Northline) — marketing paper and sand. Teal, deep teal, plum and ink come from tokens.css. */
+  --brand-paper: #fbf8f2;
+  --brand-sand: #f1ece2;
+  /* Dark mode — derived to match. */
+  --design-harness-warm-dark-page: #0d1016;
+  --design-harness-warm-dark-panel: #16191f;
+  --design-harness-warm-dark-sand: #1c1e22;
+  --design-harness-warm-dark-ink: #f3f2ee;
+  --design-harness-warm-dark-ink-70: #cdcac3;
+  --design-harness-warm-dark-text: #9c998f;
+  --design-harness-warm-dark-line: #2c2f35;
+  --design-harness-warm-dark-band: #07090c;
+
+  /* Design Harness DesktopShell — macOS window buttons (lab chrome — not Foundations) */
+  --design-harness-proto-window-close: #ff5f57;
+  --design-harness-proto-window-minimize: #febc2e;
+  --design-harness-proto-window-zoom: #28c840;
+  --design-harness-proto-window-button-edge: rgba(0, 0, 0, 0.12);
+
+  /* Design Harness PhoneShell / device frame (lab chrome — not Foundations) */
+  --design-harness-proto-device-frame-width: 375px;
+  --design-harness-proto-device-frame-height: 812px;
+  --design-harness-proto-width-phone-sm: 375px;
+  --design-harness-proto-width-phone: 390px;
+  --design-harness-proto-width-phone-lg: 402px;
+  --design-harness-proto-width-tablet: 720px;
+  --design-harness-proto-width-desktop: 960px;
+  --design-harness-proto-device-bezel: 14px;
+  --design-harness-proto-device-corner-radius: 62px;
+  --design-harness-proto-device-screen-radius: 48px;
+  --design-harness-proto-tabbar-height: 66px;
+  --design-harness-proto-tabbar-height-today: 84px;
+  --design-harness-proto-fab-tabbar-gap: 20px;
+}

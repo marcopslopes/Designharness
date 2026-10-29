@@ -1,0 +1,36 @@
+---
+description: Classify every ask against ORCHESTRATOR §2; log fallbacks and misroutes; never silent freestyle
+alwaysApply: true
+---
+
+# Orchestrator gate — classify → log → skill (or loud fallback)
+
+After the designer-profile gate, **before** answering substance or editing
+prototype code:
+
+1. **Classify** the ask against `harness/ORCHESTRATOR.md` §2 (read the
+   table if unsure this session).
+2. **Log exceptions only** to `harness/logs/routing-log.md`: `FALLBACK`,
+   `MISROUTE`, or an approved §3 plan. Plain matches are recorded by the
+   skill-usage hook. If a `projects/<slug>/` applies, add a row to that
+   task’s `log.md`.
+3. **Then**:
+   - Matched skill(s) → `Read` full `harness/skills/<name>/SKILL.md` (or
+     `harness/harness-audit/SKILL.md`) and follow it. Multi-skill → §3 PLAN
+     and wait for go.
+   - No match → §4 loud fallback only (“doesn't match… closest is X… run
+     that or freestyle without harness?”). **No substantive freestyle in
+     the same turn.**
+
+## Forbidden
+
+- Answering design/product/harness questions as normal chat when no skill
+  was loaded and no FALLBACK was logged
+- Editing `src/design-harness/**`, `projects/*/screens/**`, or prototype CSS without matching the iterating /
+  micro-edit row and loading `ui-agent` (account-settings failure mode)
+- Treating “quick”, “just”, or “any thoughts?” as license to skip routing
+
+## Related
+
+- Design critiques: `.cursor/rules/figma-critique-harness.mdc` + §2d
+- Full rules: `harness/ORCHESTRATOR.md` §2e, §4, §5

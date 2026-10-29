@@ -1,0 +1,6 @@
+{
+  "_note": "Northline's plug-in config for scripts/design-detector. The engine under scripts/design-detector/core/ has no idea this file exists until it's pointed here — a different company forks the engine and drops their own version of this file at their repo root instead. See scripts/design-detector/README.md.",
+  "tokensPath": "context/design-system/tokens.css",
+  "targetDirs": ["src/design-harness/styles/prototypes"],
+  "extensions": [".css"]
+}

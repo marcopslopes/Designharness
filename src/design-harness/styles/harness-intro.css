@@ -1,0 +1,257 @@
+/* First-run tour — a native modal dialog, sized and dimmed like ⌘K command search. */
+
+.design-harness-intro {
+  width: min(34rem, calc(100vw - 2 * var(--spacing-05)));
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--kit-ink);
+}
+
+.design-harness-intro::backdrop {
+  background: color-mix(in srgb, var(--kit-ink) 24%, transparent);
+  backdrop-filter: blur(var(--spacing-01));
+}
+
+.design-harness[data-design-harness-theme='dark'] .design-harness-intro::backdrop {
+  background: color-mix(in srgb, var(--design-harness-shell-canvas) 72%, transparent);
+}
+
+.design-harness-intro__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-05);
+  padding: var(--spacing-07);
+  border-radius: var(--radius-03);
+  background: var(--design-harness-shell-panel);
+  box-shadow:
+    0 0 0 var(--border-01) var(--design-harness-shell-panel-border),
+    var(--design-harness-shell-elevated);
+  font-family: var(--design-harness-font);
+}
+
+.design-harness-intro__progress {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.design-harness-intro__dot {
+  width: var(--spacing-02);
+  height: var(--spacing-02);
+  border-radius: var(--radius-05);
+  background: color-mix(in srgb, var(--kit-ink-50) 40%, transparent);
+  transition: width var(--duration-medium) var(--easing-standard);
+}
+
+.design-harness-intro__dot[data-state='done'] {
+  background: var(--kit-ink-50);
+}
+
+.design-harness-intro__dot[data-state='current'] {
+  width: var(--spacing-06);
+  background: var(--kit-ink);
+}
+
+.design-harness-intro__title {
+  margin: 0;
+  font-size: var(--type-h5-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--type-h5-line);
+  letter-spacing: -0.01em;
+}
+
+.design-harness-intro__tabs {
+  background: transparent;
+  padding: 0;
+}
+
+.design-harness-intro__tab {
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.design-harness-intro__tab[data-active='true'] {
+  background: var(--design-harness-field-fill);
+  box-shadow: none;
+}
+
+.design-harness-intro__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-05);
+  padding: var(--spacing-05);
+  border: var(--border-01) solid var(--design-harness-shell-panel-border);
+  border-radius: var(--radius-03);
+  background: color-mix(in srgb, var(--design-harness-field-fill) 40%, var(--design-harness-shell-panel));
+}
+
+.design-harness-intro__text {
+  margin: 0;
+  color: var(--kit-ink-50);
+  font-size: var(--type-label-size);
+  line-height: var(--type-label-line);
+}
+
+/* Wireframe illustration: hairline windows on a quiet surface. */
+.design-harness-intro__scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-04);
+  min-height: calc(var(--spacing-09) * 3);
+  padding: var(--spacing-04) 0;
+  user-select: none;
+}
+
+.design-harness-intro__sketch {
+  position: relative;
+  flex: 0 1 calc(var(--spacing-09) * 3.5);
+  min-width: 0;
+  border: var(--border-01) solid var(--kit-line);
+  border-radius: var(--radius-02);
+  background: var(--design-harness-shell-panel);
+}
+
+.design-harness-intro__sketch-title {
+  margin: 0;
+  padding: var(--spacing-02) var(--spacing-03);
+  border-bottom: var(--border-01) solid var(--kit-line);
+  overflow: hidden;
+  color: var(--kit-ink-50);
+  font-size: var(--type-label-sm-size);
+  line-height: var(--type-label-sm-line);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.design-harness-intro__sketch-body {
+  display: flex;
+  gap: var(--spacing-03);
+  padding: var(--spacing-03);
+}
+
+.design-harness-intro__sketch-thumb {
+  flex: 0 0 var(--spacing-07);
+  min-height: var(--spacing-09);
+  border-radius: var(--radius-01);
+  background: var(--design-harness-field-fill);
+}
+
+.design-harness-intro__sketch-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-03);
+  min-width: 0;
+}
+
+.design-harness-intro__sketch-row {
+  padding-bottom: var(--spacing-01);
+  border-bottom: var(--border-01) solid var(--kit-line);
+  overflow: hidden;
+  color: var(--kit-ink);
+  font-size: var(--type-label-sm-size);
+  line-height: var(--type-label-sm-line);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.design-harness-intro__sketch-line {
+  height: var(--border-01);
+  background: var(--kit-line);
+}
+
+.design-harness-intro__sketch-line:last-child {
+  width: 60%;
+}
+
+.design-harness-intro__sketch-swatches {
+  display: flex;
+  gap: var(--spacing-02);
+}
+
+.design-harness-intro__sketch-swatches span {
+  width: var(--spacing-05);
+  height: var(--spacing-05);
+  border-radius: var(--radius-05);
+  background: var(--kit-ink-50);
+}
+
+.design-harness-intro__sketch-swatches span:first-child {
+  background: var(--kit-line);
+}
+
+.design-harness-intro__sketch-swatches span:last-child {
+  background: var(--kit-ink);
+}
+
+.design-harness-intro__sketch-tag {
+  align-self: flex-start;
+  padding: 0 var(--spacing-02);
+  border: var(--border-01) solid var(--kit-line);
+  border-radius: var(--radius-01);
+  color: var(--kit-ink);
+  font-size: var(--type-label-sm-size);
+  line-height: var(--type-label-sm-line);
+}
+
+.design-harness-intro__pointer {
+  position: absolute;
+  right: var(--spacing-04);
+  bottom: calc(-1 * var(--spacing-02));
+  display: flex;
+  color: var(--kit-ink);
+}
+
+.design-harness-intro__arrow,
+.design-harness-intro__person {
+  display: flex;
+  flex: none;
+  color: var(--kit-ink-50);
+}
+
+.design-harness-intro__link {
+  flex: 0 1 var(--spacing-07);
+  border-top: var(--border-01) dashed var(--kit-ink-50);
+}
+
+.design-harness-intro__actions,
+.design-harness-intro__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-02);
+}
+
+.design-harness-intro__actions {
+  justify-content: space-between;
+  margin-top: var(--spacing-02);
+}
+
+@media (max-width: 599px) {
+  .design-harness-intro__panel {
+    padding: var(--spacing-05);
+  }
+
+  .design-harness-intro__scene {
+    gap: var(--spacing-02);
+  }
+
+  .design-harness-intro__arrow,
+  .design-harness-intro__link {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .design-harness-intro__dot {
+    transition: none;
+  }
+}

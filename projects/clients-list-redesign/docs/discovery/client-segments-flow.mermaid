@@ -1,0 +1,11 @@
+flowchart LR
+  accTitle: Client segments flow
+  accDescr: A relationship manager opens their Clients list, filters by segment, and checks in with dormant clients.
+  open[Open Clients] --> any{Any clients assigned?}
+  any -- No --> empty[Add a prospect or import a list]
+  any -- Yes --> list[See all clients with segment counts]
+  list --> search[Search by name]
+  list --> segment[Pick Premium, New, or Dormant]
+  segment --> dormant[Dormant – no contact in 6+ months]
+  dormant --> message[Send a short check-in]
+  message --> back[Client replies or books a review]

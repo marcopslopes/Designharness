@@ -1,0 +1,41 @@
+{
+  "_note": "Known design-token debt accepted by a human. The build fails on anything not listed here. Regenerate with `npm run design:check -- --update` only after a token-check decision — see scripts/design-detector/check-baseline.mjs.",
+  "total": 11,
+  "entries": [
+    {
+      "file": "src/design-harness/styles/prototypes/navigation-profile.css",
+      "property": "font-size",
+      "value": "10px",
+      "severity": "TOKEN-GAP",
+      "count": 3
+    },
+    {
+      "file": "src/design-harness/styles/prototypes/navigation-profile.css",
+      "property": "font-size",
+      "value": "11px",
+      "severity": "TOKEN-GAP",
+      "count": 2
+    },
+    {
+      "file": "src/design-harness/styles/prototypes/navigation-profile.css",
+      "property": "font-size",
+      "value": "9px",
+      "severity": "TOKEN-GAP",
+      "count": 3
+    },
+    {
+      "file": "src/design-harness/styles/prototypes/navigation-profile.css",
+      "property": "gap",
+      "value": "3px",
+      "severity": "TOKEN-GAP",
+      "count": 1
+    },
+    {
+      "file": "src/design-harness/styles/prototypes/navigation-profile.css",
+      "property": "margin-top",
+      "value": "1px",
+      "severity": "TOKEN-GAP",
+      "count": 2
+    }
+  ]
+}

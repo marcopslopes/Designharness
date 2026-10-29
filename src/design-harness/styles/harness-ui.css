@@ -1,0 +1,434 @@
+/*
+ * Harness interface components (`src/design-harness/ui/`). The frame tints the
+ * kit colour tokens warm (chrome.css `.design-harness-ds.design-harness`), so
+ * these follow light and dark mode without their own theme block.
+ * Never used inside prototypes or product catalog demos.
+ */
+
+.design-harness {
+  --design-harness-focus-ring: 0 0 0 3px color-mix(in srgb, var(--design-harness-accent) 28%, transparent);
+}
+
+/* ——— Button ——— */
+.design-harness-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-03);
+  height: var(--kit-button-height-md);
+  padding: 0 var(--kit-button-padding-x-md);
+  border: 0;
+  border-radius: var(--radius-05);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-button-font-md);
+  font-weight: var(--kit-font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-medium) var(--easing-emphasized),
+    transform var(--duration-fast) var(--easing-emphasized);
+}
+
+.design-harness-button[data-size='sm'] {
+  height: var(--kit-button-height-sm);
+  padding: 0 var(--kit-button-padding-x-sm);
+  font-size: var(--kit-button-font-sm);
+}
+
+.design-harness-button__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.design-harness-button[data-intent='primary'] {
+  background: var(--kit-ink);
+  color: var(--kit-paper);
+}
+
+.design-harness-button[data-intent='primary']:hover:not(:disabled) {
+  background: var(--kit-ink-70);
+}
+
+.design-harness-button[data-intent='secondary'] {
+  background: var(--kit-sunken);
+  color: var(--kit-ink);
+}
+
+.design-harness-button[data-intent='secondary']:hover:not(:disabled) {
+  background: var(--kit-line-strong);
+}
+
+.design-harness-button[data-intent='ghost'] {
+  background: transparent;
+  color: var(--kit-ink);
+}
+
+.design-harness-button[data-intent='ghost']:hover:not(:disabled) {
+  background: var(--kit-sunken);
+}
+
+.design-harness-button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.design-harness-button:disabled {
+  background: var(--kit-sunken);
+  color: var(--kit-ink-30);
+  cursor: not-allowed;
+}
+
+.design-harness-button:focus-visible {
+  outline: none;
+  box-shadow: var(--design-harness-focus-ring);
+}
+
+/* ——— Field ——— */
+.design-harness-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kit-field-gap);
+}
+
+.design-harness-field__label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-03);
+}
+
+.design-harness-field__label {
+  color: var(--kit-ink);
+  font-size: var(--kit-field-label-size);
+  font-weight: var(--kit-font-weight-medium);
+}
+
+.design-harness-field__action {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--design-harness-accent);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-field-hint-size);
+  font-weight: var(--kit-font-weight-medium);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.design-harness-field__action:focus-visible {
+  outline: none;
+  border-radius: var(--radius-01);
+  box-shadow: var(--design-harness-focus-ring);
+}
+
+.design-harness-field__input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--kit-field-min-height);
+  padding: var(--kit-field-padding-y) var(--kit-field-padding-x);
+  border: var(--border-01) solid transparent;
+  border-radius: var(--radius-02);
+  outline: 0;
+  background: var(--design-harness-field-fill);
+  color: var(--kit-ink);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-field-font);
+  line-height: var(--line-height-ui);
+  transition:
+    background-color var(--duration-fast) var(--easing-standard),
+    border-color var(--duration-fast) var(--easing-standard),
+    box-shadow var(--duration-fast) var(--easing-standard);
+}
+
+.design-harness-field__shell {
+  position: relative;
+  display: flex;
+}
+
+.design-harness-field__trailing {
+  position: absolute;
+  top: 50%;
+  right: var(--kit-field-padding-x);
+  display: inline-flex;
+  color: var(--kit-ink-50);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.design-harness-field__shell:has(.design-harness-field__trailing) .design-harness-field__input {
+  padding-right: calc(var(--kit-field-padding-x) + var(--spacing-07));
+}
+
+.design-harness-field__input::placeholder {
+  color: var(--kit-ink-30);
+}
+
+.design-harness-field__input:hover:where(:not(:disabled, :focus)) {
+  background: color-mix(in srgb, var(--design-harness-field-fill) 92%, var(--kit-ink));
+}
+
+/* Thin accent edge while typing — no outer ring (that reads as a stuck a11y mode). */
+.design-harness-field__input:focus {
+  border-color: var(--design-harness-accent);
+  box-shadow: none;
+}
+
+.design-harness-field__hint {
+  color: var(--kit-ink-50);
+  font-size: var(--kit-field-hint-size);
+}
+
+.design-harness-field[data-invalid='true'] .design-harness-field__input {
+  border-color: var(--kit-danger);
+}
+
+.design-harness-field[data-invalid='true'] .design-harness-field__hint {
+  color: var(--kit-danger);
+}
+
+/* ——— Toggle ——— */
+.design-harness-toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--kit-toggle-width-sm);
+  height: var(--kit-toggle-height-sm);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-05);
+  background: var(--kit-ink-15);
+  cursor: pointer;
+  transition: background-color var(--duration-medium) var(--easing-emphasized);
+}
+
+.design-harness-toggle[aria-checked='true'] {
+  background: var(--kit-ink);
+}
+
+.design-harness-toggle__thumb {
+  position: absolute;
+  top: var(--kit-toggle-inset-sm);
+  left: var(--kit-toggle-inset-sm);
+  width: var(--kit-toggle-thumb-sm);
+  height: var(--kit-toggle-thumb-sm);
+  border-radius: var(--radius-05);
+  background: var(--kit-paper);
+  box-shadow: var(--kit-shadow-1);
+  transition: transform var(--duration-medium) var(--easing-emphasized);
+}
+
+.design-harness-toggle[aria-checked='true'] .design-harness-toggle__thumb {
+  transform: translateX(calc(var(--kit-toggle-width-sm) - var(--kit-toggle-thumb-sm) - 2 * var(--kit-toggle-inset-sm)));
+}
+
+.design-harness-toggle:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.design-harness-toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--design-harness-focus-ring);
+}
+
+/* ——— Segmented ——— */
+.design-harness-segmented {
+  display: inline-grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: var(--kit-segment-gap);
+  padding: var(--kit-segment-padding);
+  border-radius: var(--radius-05);
+  background: var(--design-harness-field-fill);
+}
+
+.design-harness-segmented[data-full-width='true'] {
+  display: grid;
+  width: 100%;
+}
+
+.design-harness-segmented__option {
+  height: var(--kit-segment-height);
+  margin: 0;
+  padding: 0 var(--spacing-04);
+  border: 0;
+  border-radius: var(--radius-05);
+  background: transparent;
+  color: var(--kit-ink-50);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-segment-font);
+  font-weight: var(--kit-font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--easing-standard),
+    color var(--duration-fast) var(--easing-standard);
+}
+
+.design-harness-segmented__option:hover:not(:disabled) {
+  color: var(--kit-ink);
+}
+
+.design-harness-segmented__option[aria-checked='true'] {
+  background: var(--kit-paper);
+  color: var(--kit-ink);
+  box-shadow: var(--kit-shadow-border);
+}
+
+.design-harness-segmented__option:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.design-harness-segmented__option:focus-visible {
+  outline: none;
+  box-shadow: var(--design-harness-focus-ring);
+}
+
+/* ——— Badge ——— */
+.design-harness-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--kit-badge-gap);
+  width: fit-content;
+  padding: var(--kit-badge-padding-y) var(--kit-badge-padding-x);
+  border-radius: var(--radius-05);
+  background: var(--kit-sunken);
+  color: var(--kit-ink-70);
+  font-size: var(--kit-badge-font);
+  font-weight: var(--kit-font-weight-medium);
+  line-height: var(--kit-badge-line);
+  white-space: nowrap;
+}
+
+.design-harness-badge[data-tone='positive'] {
+  background: var(--kit-leaf-soft);
+  color: var(--kit-leaf);
+}
+
+.design-harness-badge[data-tone='accent'] {
+  background: color-mix(in srgb, var(--design-harness-accent) 12%, transparent);
+  color: var(--design-harness-accent);
+}
+
+/* ——— Card ——— */
+.design-harness-card {
+  box-sizing: border-box;
+  padding: var(--kit-card-padding);
+  border: var(--border-01) solid var(--kit-line);
+  border-radius: var(--kit-card-radius);
+  background: var(--design-harness-shell-panel);
+  color: var(--kit-ink);
+}
+
+/* ——— Chip ——— */
+.design-harness-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--kit-chip-gap);
+  margin: 0;
+  padding: var(--kit-chip-padding-y) var(--kit-chip-padding-x);
+  border: var(--border-01) solid transparent;
+  border-radius: var(--radius-05);
+  background: var(--design-harness-field-fill);
+  color: var(--kit-ink);
+  font-family: var(--font-family-text);
+  font-size: var(--kit-chip-font);
+  font-weight: var(--kit-font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--duration-medium) var(--easing-emphasized);
+}
+
+.design-harness-chip[data-size='sm'] {
+  padding: var(--spacing-02) var(--spacing-04);
+  font-size: var(--kit-badge-font);
+}
+
+.design-harness-chip:hover:not(:disabled):not([aria-pressed='true']) {
+  background: color-mix(in srgb, var(--design-harness-field-fill) 92%, var(--kit-ink));
+}
+
+.design-harness-chip[aria-pressed='true'] {
+  background: var(--kit-ink);
+  color: var(--kit-paper);
+}
+
+.design-harness-chip:disabled {
+  color: var(--kit-ink-30);
+  cursor: not-allowed;
+}
+
+.design-harness-chip:focus-visible {
+  outline: none;
+  box-shadow: var(--design-harness-focus-ring);
+}
+
+/* ——— Text ——— */
+.design-harness-text {
+  margin: 0;
+  color: var(--kit-ink);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-ui);
+}
+
+.design-harness-text[data-variant='display'] {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.design-harness-text[data-variant='body-large'] {
+  font-size: var(--font-size-body-large);
+  line-height: var(--line-height-body);
+}
+
+.design-harness-text[data-variant='label'] {
+  color: var(--kit-ink-70);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-body);
+}
+
+.design-harness-text[data-variant='muted'] {
+  color: var(--kit-ink-70);
+  font-size: var(--font-size-label);
+  line-height: var(--line-height-body);
+}
+
+/* ——— Callout: danger tone and action slot (base in doc-parts.css) ——— */
+.design-harness-callout[data-tone='danger'] {
+  align-items: center;
+  background: color-mix(in srgb, var(--kit-danger) 10%, var(--design-harness-shell-panel));
+}
+
+.design-harness-callout[data-tone='danger'] .design-harness-callout__icon {
+  padding-top: 0;
+  color: var(--kit-danger);
+}
+
+.design-harness-callout__body {
+  flex: 1;
+}
+
+.design-harness-callout__action {
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .design-harness-button,
+  .design-harness-toggle,
+  .design-harness-toggle__thumb,
+  .design-harness-chip {
+    transition: none;
+  }
+
+  .design-harness-button:active:not(:disabled) {
+    transform: none;
+  }
+}

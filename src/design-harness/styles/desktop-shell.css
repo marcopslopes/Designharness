@@ -1,0 +1,137 @@
+/**
+ * Shared DesktopShell chrome (lab)
+ *
+ * Layer: Design Harness catalog chrome / shared lab chrome
+ * Browser window + pro app web nav for desktop prototypes, via
+ * `src/design-harness/shared/DesktopShell.tsx`. The desktop counterpart to
+ * `phone-shell.css`. Tokens only — do not invent values here.
+ */
+
+.desktop-shell {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--size-layout-content-max);
+  min-height: var(--design-harness-proto-device-frame-height);
+  margin: 0 auto;
+  overflow: hidden;
+  border: var(--border-01) solid var(--kit-line-strong);
+  border-radius: var(--radius-03);
+  background: var(--ds-core-background-primary);
+  box-shadow: var(--shadow-card-strong);
+}
+
+.desktop-shell__titlebar {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: var(--spacing-05);
+  padding: var(--spacing-03) var(--spacing-05);
+  border-bottom: var(--border-01) solid var(--ds-core-border-primary);
+  background: var(--ds-core-background-secondary);
+  color: var(--ds-core-content-tertiary);
+}
+
+.desktop-shell__lights {
+  display: flex;
+  gap: var(--spacing-02);
+}
+
+.desktop-shell__lights span {
+  width: var(--spacing-04);
+  height: var(--spacing-04);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px var(--design-harness-proto-window-button-edge);
+}
+
+.desktop-shell__lights [data-light='close'] {
+  background: var(--design-harness-proto-window-close);
+}
+
+.desktop-shell__lights [data-light='minimize'] {
+  background: var(--design-harness-proto-window-minimize);
+}
+
+.desktop-shell__lights [data-light='zoom'] {
+  background: var(--design-harness-proto-window-zoom);
+}
+
+.desktop-shell__history,
+.desktop-shell__toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-04);
+}
+
+.desktop-shell__url {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-02);
+  justify-self: center;
+  width: 100%;
+  max-width: calc(var(--design-harness-proto-width-phone) * 1.4);
+  padding: var(--spacing-02) var(--spacing-04);
+  border-radius: var(--radius-02);
+  background: var(--ds-core-background-quaternary);
+  color: var(--ds-core-content-secondary);
+  font-size: var(--ds-font-label-s-size);
+  line-height: var(--ds-font-label-s-line);
+}
+
+.desktop-shell__app {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.desktop-shell__nav {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: var(--spacing-01);
+  width: calc(var(--spacing-09) * 4);
+  padding: var(--spacing-05) var(--spacing-03);
+  border-right: var(--border-01) solid var(--ds-core-border-primary);
+  background: var(--ds-core-background-primary);
+}
+
+.desktop-shell__nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-03);
+  padding: var(--spacing-02) var(--spacing-03);
+  border: none;
+  border-radius: var(--radius-02);
+  background: transparent;
+  color: var(--ds-core-content-secondary);
+  font: inherit;
+  font-size: var(--ds-font-label-m-size);
+  line-height: var(--ds-font-label-m-line);
+  text-align: left;
+  cursor: pointer;
+}
+
+.desktop-shell__nav-item:hover {
+  background: var(--ds-core-background-secondary);
+}
+
+.desktop-shell__nav-item[data-active='true'] {
+  background: var(--ds-core-background-secondary);
+  color: var(--ds-core-content-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.desktop-shell__nav-item:focus-visible {
+  outline: var(--border-02) solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.desktop-shell__screen {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  padding: var(--spacing-07);
+  background: var(--ds-primitive-gray-50);
+}
