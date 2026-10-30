@@ -41,6 +41,13 @@ You build on-brand screens in Design Harness using only real design tokens (`tok
 must say so once: "Following your preference: <rule>." Contract:
 `harness/references/designer-preferences.md`.
 
+**Project decisions:** when the work is for a `projects/<slug>/`, read its
+`decisions.md` and follow the last 10 entries (each is a dated `- ` line or
+`## ` section; newest at the bottom). A decision beats the brief's, the
+screens' and the style guide's wording: if one rules out a term, don't use
+it, even where the brief uses it. Only the designer's ask in this chat
+overrides it.
+
 1. `harness/ORCHESTRATOR.md` §7 — design language guardrails, hard rules, tokens (`CLAUDE.md`/`AGENTS.md` just point here); component props in `context/design-system/COMPONENTS-QUICK-REFERENCE.md`
 2. `harness/skills/design-system/SKILL.md` — layer rule + pre-write token-check (Jobs 1–2); keep `references/token-check.md` handy while styling
 3. `COMPANY-BUSINESS.md` — which product area and pillar this serves
@@ -55,7 +62,7 @@ must say so once: "Following your preference: <rule>." Contract:
 
 **New screen.** Adding a screen uses more than one skill, so the plan gate applies. Write the plan and stop. Do not create or edit a file until the designer replies "go". A change to a screen already in progress does not stop.
 
-0. **Read-back, existing project only** — read the fenced YAML truth block in `brief.md` and nothing else from the folder (`log.md` and `findings.md` stay unread). If the request touches a `parked` direction, an unknown with `blocks`, or contradicts a `decisions.md` entry, say that with the matching sentence in `harness/ORCHESTRATOR.md` §2h and run that challenge. If none of those are touched, say nothing and continue. No project folder yet: skip this step.
+0. **Read-back, existing project only** — read the fenced YAML truth block in `brief.md` and the last 10 `decisions.md` entries (see Project decisions above), nothing else from the folder (`log.md` and `findings.md` stay unread). If the request touches a `parked` direction, an unknown with `blocks`, or contradicts a `decisions.md` entry, say that with the matching sentence in `harness/ORCHESTRATOR.md` §2h and run that challenge. If none of those are touched, say nothing and continue. No project folder yet: skip this step.
 
 0.5. **Fidelity check (only when genuinely asked or genuinely unclear)** — most builds skip this silently and go
    straight to Step 1, same as the platform/format checks below. Only reason through this when the designer asks

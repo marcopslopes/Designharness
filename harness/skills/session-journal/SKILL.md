@@ -91,6 +91,13 @@ Rules:
    `none captured`.
 5. **No secrets or third-party gossip.** Names only when the designer
    named them as the source of a decision.
+6. **Lasting project rules go to `decisions.md` too.** An override that
+   holds for the rest of this project, not just this one proposal ("don't
+   use 'check in'", "no modals in this flow"), is also appended to
+   `projects/<slug>/decisions.md` as a dated line with the designer's
+   words, and the entry's **Decisions:** line points to it. A one-off pick
+   stays in the journal only. A rule for every project is the taste log's
+   job (`Save as a preference?`), not this one. No project → journal only.
 
 Show the entry in chat after writing it, with the path.
 
@@ -115,7 +122,8 @@ journal entry, then append one handoff row to `projects/<slug>/log.md`:
   YAML block in `brief.md`, not a search hit). List the **blocking** ones
   first, the entries with a `blocks:` field, each `text` verbatim with
   `(blocks <what>)`, separated by `; `. Then `+N more in the brief` for
-  the rest. No blocking ones → `none blocking; N in the brief`. No
+  the rest: N = every top-level `- ` item under `unknowns:` (plain strings
+  count, not just `text:` entries) minus the blocking ones you listed. No blocking ones → `none blocking; N in the brief`. No
   unknowns → `none recorded`. Don't add questions that aren't in it; if
   the session raised a new one, say so in chat and offer to add it to
   `brief.md`.

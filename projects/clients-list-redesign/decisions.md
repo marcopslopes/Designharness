@@ -5,3 +5,5 @@
 ## 2026-10-10 — Storyboard offer in the harness
 
 Designer chose that the harness offers a storyboard after a new phone screen is built (ui-agent Step 6.5). Rejected: offer only before sharing; keep ask-only.
+
+- 2026-10-29 — No "check in" in this project's copy (titles, body, buttons, tips). Designer: "Don't use 'check in' at all, managers read it as an attendance thing." Picked instead that session: "Send a message". From the journal, 2026-10-29.

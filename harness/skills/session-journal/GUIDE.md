@@ -18,6 +18,7 @@ Agents load the full protocol from
 | Where entries go | `designer-context.local/journal/YYYY-MM-DD-<project>.md` (gitignored) |
 | Length | Under 20 lines per entry |
 | Read back by | The next session on that project (with `decisions.md`), `case-study` |
+| Lasting project rules | An override that holds for the whole project ("don't use 'check in'") is also added to `decisions.md`, which `content` and `ui-agent` read before writing |
 | Routing entry | `harness/ORCHESTRATOR.md` §2 |
 
 ---
