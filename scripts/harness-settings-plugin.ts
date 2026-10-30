@@ -12,6 +12,7 @@ import {
 import path from 'node:path'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import type { Plugin } from 'vite'
+import { slugify, start } from './git-autopilot.mjs'
 
 /**
  * Dev-only settings API for Design Harness (`#/settings`). Reads and writes the two
@@ -28,6 +29,7 @@ import type { Plugin } from 'vite'
  */
 
 const ENDPOINT = '/__harness/settings'
+const NEW_PROJECT = '/__harness/new-project'
 const PROFILE_FILE = 'designer-profile.local.md'
 const CONFIG_FILE = 'harness.config.local.json'
 const UNSET = '<unset — deferred>'
@@ -72,6 +74,7 @@ type HarnessConfig = {
     variantForks: boolean
     tasteCheckpoint: boolean
     handoffNudge: boolean
+    gitAutopilot: boolean
   }
 }
 
@@ -88,6 +91,7 @@ const DEFAULT_CONFIG: HarnessConfig = {
     variantForks: true,
     tasteCheckpoint: true,
     handoffNudge: true,
+    gitAutopilot: true,
   },
 }
 
@@ -97,6 +101,7 @@ const BEHAVIOUR_FLAGS = [
   'variantForks',
   'tasteCheckpoint',
   'handoffNudge',
+  'gitAutopilot',
 ] as const
 
 function readJson(file: string): unknown {
@@ -382,6 +387,16 @@ function writeConfig(
   writeFileSync(path.join(root, CONFIG_FILE), `${JSON.stringify(merged, null, 2)}\n`)
 }
 
+/** "New project" in the app: the same start as the agent's (branch from main), plus the template folder. */
+function newProject(root: string, input: { name?: unknown }) {
+  const name = text(input.name, 'Project name', 60)
+  const slug = slugify(name)
+  if (!slug) throw new Error('Give the project a name with letters or numbers')
+  if (existsSync(path.join(root, 'projects', slug))) throw new Error(`There's already a project called ${slug}.`)
+  const result = start(root, slug, { scaffold: true, title: name })
+  return { slug, route: `playground/${slug}/facts`, branch: result.branch, message: result.message }
+}
+
 function readBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
     let data = ''
@@ -422,6 +437,15 @@ export function harnessSettingsPlugin(): Plugin {
       root = config.root
     },
     configureServer(server) {
+      server.middlewares.use(NEW_PROJECT, async (req, res) => {
+        if (!isSameOrigin(req)) return send(res, 403, { error: 'Same-origin requests only' })
+        if (req.method !== 'POST') return send(res, 405, { error: 'Use POST' })
+        try {
+          return send(res, 200, newProject(root, JSON.parse((await readBody(req)) || '{}')))
+        } catch (error) {
+          return send(res, 400, { error: error instanceof Error ? error.message : 'Could not start the project' })
+        }
+      })
       server.middlewares.use(ENDPOINT, async (req, res) => {
         if (!isSameOrigin(req)) return send(res, 403, { error: 'Same-origin requests only' })
         try {

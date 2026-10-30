@@ -4,6 +4,10 @@ What changed in the harness and Design Harness, newest first. Add an entry when 
 
 Each release is a version in `package.json` and a matching Git tag, such as `v0.1.0`. New entries go under a date heading above the latest version until the next release.
 
+### 30 October 2026
+
+- **Git runs itself.** Starting a project (in chat, or with the new **New project** button on Prototypes) puts it on its own branch, `project/<slug>`, from main, with the line "Working on project/<slug>." "Continue X" switches back to it. "Wrap up" saves only that project's files, with the journal's one-line summary. "Undo the last change" shows the last save and takes it back. "Share this" pushes the branch and gives you the link. Nothing is pushed unless you say share, never to main, never with force; your journal, profile and logs are never committed. Settings → "Handle Git for me" turns it off.
+
 ### 29 October 2026
 
 - An override that holds for the whole project ("don't use 'check in'") now goes to the project's `decisions.md` as well as the journal, and `content` and `ui-agent` read its last 10 entries before writing.

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { tmpdir } from 'node:os'
@@ -29,12 +30,12 @@ function setup() {
   const root = mkdtempSync(path.join(tmpdir(), 'dh-settings-'))
   writeFileSync(path.join(root, 'designer-profile.local.md'), PROFILE)
   const plugin = harnessSettingsPlugin()
-  let handler: Handler | undefined
+  const handlers: Record<string, Handler> = {}
   ;(plugin.configResolved as unknown as (config: { root: string }) => void)({ root })
   ;(plugin.configureServer as unknown as (server: unknown) => void)({
-    middlewares: { use: (_path: string, fn: Handler) => (handler = fn) },
+    middlewares: { use: (mount: string, fn: Handler) => void (handlers[mount] = fn) },
   })
-  const call = (method: string, { url = '/', body, headers = {} }: Request = {}) =>
+  const call = (method: string, { url = '/', body, headers = {} }: Request = {}, endpoint = '/__harness/settings') =>
     new Promise<Reply>((resolve) => {
       const req = Object.assign(Readable.from(body === undefined ? [] : [JSON.stringify(body)]), {
         method,
@@ -48,7 +49,7 @@ function setup() {
           resolve({ status: res.statusCode, body: JSON.parse(data) })
         },
       }
-      handler!(req, res as unknown as ServerResponse)
+      handlers[endpoint](req, res as unknown as ServerResponse)
     })
   const read = (file: string) => readFileSync(path.join(root, file), 'utf8')
   return { root, call, read }
@@ -129,4 +130,28 @@ test('an uploaded design-system file lands in the inbox, whatever path it claims
   assert.equal(reply.status, 200)
   assert.equal(reply.body.file, 'context/design-system/.inbox/tokens.css')
   assert.ok(!existsSync(path.join(root, 'tokens.css')))
+})
+
+test('New project makes the folder from the template and its own branch from main', async () => {
+  const { root, call, read } = setup()
+  const git = (...args: string[]) => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim()
+  mkdirSync(path.join(root, 'projects/_template'), { recursive: true })
+  writeFileSync(path.join(root, 'projects/_template/brief.md'), '# Brief — <task-slug>\n')
+  writeFileSync(path.join(root, '.gitignore'), '*.local.md\n')
+  git('init', '-q', '-b', 'main')
+  git('-c', 'user.email=t@example.com', '-c', 'user.name=T', 'commit', '-q', '--allow-empty', '-m', 'init')
+  const reply = await call('POST', { body: { name: 'Invite friends' }, headers: SAME_ORIGIN }, '/__harness/new-project')
+  assert.equal(reply.status, 200)
+  assert.equal(reply.body.route, 'playground/invite-friends/facts')
+  assert.equal(reply.body.message, 'Working on project/invite-friends.')
+  assert.equal(git('branch', '--show-current'), 'project/invite-friends')
+  assert.equal(read('projects/invite-friends/brief.md'), '# Brief — Invite friends\n')
+  const again = await call('POST', { body: { name: 'Invite friends' }, headers: SAME_ORIGIN }, '/__harness/new-project')
+  assert.equal(again.status, 400)
+  const evil = await call(
+    'POST',
+    { body: { name: 'x' }, headers: { 'sec-fetch-site': 'cross-site' } },
+    '/__harness/new-project',
+  )
+  assert.equal(evil.status, 403)
 })

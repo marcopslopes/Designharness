@@ -18,6 +18,7 @@ the Settings page owns it.
 | `behaviour.variantForks` | `true` | `false`: at `ui-agent` Step 3.5, don't build variants. Ask **one** `AskQuestion` naming the structural choice, then build only the pick. Still log the choice and the rejected option to `decisions.md`. An explicit "show me options" still forks. |
 | `behaviour.tasteCheckpoint` | `true` | `false`: skip `ui-agent` Step 5.5 (mid-build taste checkpoint). An explicit "taste check this" still routes to `taste-feedback`. |
 | `behaviour.handoffNudge` | `true` | `false`: no handoff nudge — the Claude Code status line shows only the context percentage, and Cursor chats skip the turn-count line (`harness/ORCHESTRATOR.md` §5). "Wrap up" and `session-handoff` still run on request. |
+| `behaviour.gitAutopilot` | `true` | Shown as "Handle Git for me". `true`: a branch per project, saved on "wrap up" (`harness/references/git-autopilot.md`). `false`: the harness never switches branches, commits, or pushes; the designer runs Git. |
 | `harness.name`, `harness.tagline`, `harness.defaultTheme` | `Design Harness`, the home line, `dark` | Design Harness app only (home page, rail, first-visit theme). No effect on skills. |
 
 A setting never overrides a hard rule: tokens only, `ds` composition, the plan

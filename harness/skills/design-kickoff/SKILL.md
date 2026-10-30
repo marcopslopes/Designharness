@@ -52,7 +52,7 @@ is not the trigger; *newness* is.
 
 ## Resume — existing folder
 
-When `projects/<slug>/` already exists, read only the fenced YAML truth block in `brief.md` before Step 0 or the gate. Do not read `log.md` or `findings.md` for this check. If this request touches a `parked` direction, an unknown with `blocks`, or contradicts a `decisions.md` entry, say that with the matching sentence in `harness/ORCHESTRATOR.md` §2h and run that challenge. If nothing is touched, say nothing and continue the resume in `harness/references/resume-detection.md`.
+When `projects/<slug>/` already exists, run `node scripts/git-autopilot.mjs resume <slug>` first and say its line if it prints one (`harness/references/git-autopilot.md` § 2). Then read only the fenced YAML truth block in `brief.md` before Step 0 or the gate. Do not read `log.md` or `findings.md` for this check. If this request touches a `parked` direction, an unknown with `blocks`, or contradicts a `decisions.md` entry, say that with the matching sentence in `harness/ORCHESTRATOR.md` §2h and run that challenge. If nothing is touched, say nothing and continue the resume in `harness/references/resume-detection.md`.
 
 ## Step 0 — Frame (2 minutes, max 3 questions)
 
@@ -67,7 +67,9 @@ in addition to them:
 
 Do not interview them about the problem — that's what research is for.
 Open (or reuse) `projects/<slug>/` immediately using the working name as the
-slug, per `harness/ORCHESTRATOR.md` §5.
+slug, per `harness/ORCHESTRATOR.md` §5. A new folder: run
+`node scripts/git-autopilot.mjs start <slug>` first and say its one line
+(`harness/references/git-autopilot.md` § 1). Reusing one: `resume <slug>` (§ 2).
 
 **Do this atomically, per `harness/ORCHESTRATOR.md` §2b.** Creating the folder and
 asking the 3 questions happens in the same turn — never create the folder

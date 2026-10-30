@@ -1,7 +1,9 @@
 # AGENTS.md
 
 This file exists only because Cursor auto-loads it by filename convention.
-It carries one rule of its own, the taste log below.
+It carries two rules of its own, Git and the taste log, below.
+
+**Git — every reply, unless `behaviour.gitAutopilot` is off:** never run `git switch`, `commit`, `revert` or `push` for a designer's project yourself; starting or continuing a project, "wrap up", "undo the last change" and "share this" go through `harness/references/git-autopilot.md`. Never push unless they say share, never to `main`, never force.
 
 **Taste log — every reply, even when you skip the orchestrator:** the trigger is the designer pushing back on output you already gave in this chat, with a rule that would apply next time too ("no borders on cards", "never more than one sentence when I ask to tighten text"). Then apply it and end that reply with exactly `Save as a preference? [Yes / Just this time]`. No pushback, no question: never on a first ask, never because a style guide made you change something. Save to `designer-context.local/preferences.md` only on Yes (`harness/references/designer-preferences.md`); never silently, never to the tool's own memory.
 
