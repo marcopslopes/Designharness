@@ -89,9 +89,8 @@ Form this review's opinion without reading `audit`'s findings first.
 
 ## Load before reviewing
 
-**First, before any other load:** read the `## Figma` section of
-`designer-context.local/preferences.md` if the file exists — that
-section only. If a saved rule there applies to this review, your reply
+**First, before any other load:** read `<repo root>/designer-context.local/preferences.md`
+(next to `CLAUDE.md`, never under `harness/`) with the `Read` tool — never Glob or file search, which skip gitignored files. Use the `## Figma` section only; file not found → carry on. If a saved rule there applies to this review, your reply
 must say so once: "Following your preference: <rule>." It shapes what you write and recommend; it is never a finding against
 the work. Contract:
 `harness/references/designer-preferences.md`.

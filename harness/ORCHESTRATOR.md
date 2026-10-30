@@ -37,7 +37,7 @@ that as drift from this note, not an alternate source of truth.
 
 ## 0. Designer onboarding (check every chat; questions once per clone)
 
-**Check** on every new chat whether `designer-profile.local.md` exists. New chat ≠ new clone.
+**Check** on every new chat whether `designer-profile.local.md` exists: `Read` `<repo root>/designer-profile.local.md` (next to `CLAUDE.md`, never under `harness/`) — never Glob or file search, which skip gitignored files. New chat ≠ new clone.
 
 - **Exists** → skip silently: no MCP gate, no questions, no handoff. Read it and use its answers for §1's platform/stage inference, vague follow-ups ("continue where I left off" → **Active work (auto)**), and §3's plan-gate behaviour. Never re-ask what it answers.
 - **Missing** → the Muse greeting (`harness/designer-onboarding/SKILL.md` § The greeting) is the literal first content of the turn; the profile check is the only tool call allowed before it — never start from the MCP gate. **After the greeting**, read `harness/references/onboarding-gate.md` and `SKILL.md` for the rest, in order: optional tools → one role question → write and verify the profile → workload → handoff, plus the manager path.

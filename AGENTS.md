@@ -10,7 +10,7 @@ It carries one rule of its own, the taste log below.
 live in [`harness/ORCHESTRATOR.md`](harness/ORCHESTRATOR.md). Read that first, always,
 before doing anything else in this repo.**
 
-That includes the mandatory first check for `designer-profile.local.md`
+That includes the mandatory first check: `Read` `<repo root>/designer-profile.local.md` (next to this file, never under `harness/`); never Glob or search for it (gitignored files are skipped)
 (`harness/ORCHESTRATOR.md` §0) — do not skip ahead to the user's request without
 doing that check first.
 

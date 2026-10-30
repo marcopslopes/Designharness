@@ -57,7 +57,7 @@ two candidate sections.
 
 ## Reading
 
-Each reader skill reads **only its own section**, as its **first step**,
+Each reader skill reads `<repo root>/designer-context.local/preferences.md` with the `Read` tool — never Glob or file search, which skip gitignored files, and uses **only its own section**, as its **first step**,
 before any other load. It doesn't read the other sections and doesn't
 load the file for any other skill.
 

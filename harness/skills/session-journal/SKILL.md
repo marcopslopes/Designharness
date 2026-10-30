@@ -102,17 +102,23 @@ Show the entry in chat after writing it, with the path.
 journal entry, then append one handoff row to `projects/<slug>/log.md`:
 
 ```markdown
-| YYYY-MM-DD | wrap up | session-journal | **Handoff.** Done: <what's finished>. Next: <what's not started or partial, as state>. Open: <the `unknowns` from the truth block in `brief.md`, or "none recorded"> | journal/YYYY-MM-DD-<slug>.md |
+| YYYY-MM-DD | wrap up | session-journal | **Handoff.** Done: <what's finished>. Next: <what's not done yet, as state>. Open: <blocking unknowns verbatim>; +N more in the brief | journal/YYYY-MM-DD-<slug>.md |
 ```
 
 - **Done / Next** come from this session's real work and the task folder.
-  State, not commands: "shorter hold line agreed, not in the screen yet",
-  never "apply the hold line".
-- **Open** lists **every** `unknowns` entry in the truth block (read the
-  whole fenced YAML block in `brief.md`, not a search hit), its text
-  verbatim, separated by `; `. Don't shorten, merge, or pick. Don't add
-  questions that aren't in it; if the session raised a new one, say so in
-  chat and offer to add it to `brief.md`.
+  **Next describes state, never a command.** Write what is true now and
+  what's still missing, with no verb aimed at anyone: "hold line agreed;
+  `wallet-home-shared.tsx` still shows the old line", never "apply the
+  hold line" or "update line 123". Reread Next before writing; if it
+  starts with a verb, rewrite it.
+- **Open** comes from `unknowns` in the truth block (read the whole fenced
+  YAML block in `brief.md`, not a search hit). List the **blocking** ones
+  first, the entries with a `blocks:` field, each `text` verbatim with
+  `(blocks <what>)`, separated by `; `. Then `+N more in the brief` for
+  the rest. No blocking ones → `none blocking; N in the brief`. No
+  unknowns → `none recorded`. Don't add questions that aren't in it; if
+  the session raised a new one, say so in chat and offer to add it to
+  `brief.md`.
 - No task folder → journal entry only; say there was no `log.md` to write.
 - Then end with one line: "Wrapped up. Start a new chat and say 'continue
   <slug>'."

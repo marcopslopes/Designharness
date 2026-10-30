@@ -36,9 +36,8 @@ You build on-brand screens in Design Harness using only real design tokens (`tok
 
 ## Load before building
 
-**First, before any other load:** read the `## Prototype` section of
-`designer-context.local/preferences.md` if the file exists — that
-section only. If a saved rule there applies to this build, your reply
+**First, before any other load:** read `<repo root>/designer-context.local/preferences.md`
+(next to `CLAUDE.md`, never under `harness/`) with the `Read` tool — never Glob or file search, which skip gitignored files. Use the `## Prototype` section only; file not found → carry on. If a saved rule there applies to this build, your reply
 must say so once: "Following your preference: <rule>." Contract:
 `harness/references/designer-preferences.md`.
 

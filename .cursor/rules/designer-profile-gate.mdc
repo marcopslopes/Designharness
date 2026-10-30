@@ -5,8 +5,8 @@ alwaysApply: true
 
 # Designer profile gate (every chat)
 
-**Before any reply or other tool call**, read `designer-profile.local.md` at
-the workspace root (`Read` tool).
+**Before any reply or other tool call**, `Read` `<workspace root>/designer-profile.local.md`
+(next to `AGENTS.md`, never under `harness/`) — never Glob or file search, which skip gitignored files.
 
 | Result | Action |
 |--------|--------|
