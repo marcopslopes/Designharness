@@ -141,6 +141,21 @@ const BEHAVIOUR_TOGGLES: {
       note: "Saying 'wrap up' or asking for a handoff always works.",
     },
   },
+  {
+    key: 'gitAutopilot',
+    title: 'Handle Git for me',
+    description: "Each project gets its own branch. 'Wrap up' saves it, 'share this' sends it.",
+    info: {
+      rows: [
+        {
+          label: 'On',
+          text: "Starting a project makes your own branch for it from main. 'Wrap up' saves that project's files, 'undo the last change' takes the last save back, and 'share this' pushes the branch and gives you the link.",
+        },
+        { label: 'Off', text: 'No branches, saves or pushes. You run Git yourself.' },
+      ],
+      note: "It never pushes unless you say share, never to main, and never with force. '- Git autopilot: off' in your designer profile also turns it off.",
+    },
+  },
 ]
 
 function toDraft(snapshot: Snapshot): Draft {

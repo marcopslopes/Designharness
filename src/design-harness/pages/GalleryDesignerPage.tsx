@@ -27,7 +27,7 @@ export function GalleryDesignerPage({ route }: GalleryDesignerPageProps) {
         <DesignHarnessDocPage variant="list" title="Designer not found" toc={false}>
           <Text variant="body" as="p">
             No visible designer matches this page. They may have no visible projects, or this route is out of sync with{' '}
-            <code className="design-harness__code">src/design-harness/galleryData.ts</code>.
+            <code className="design-harness__code">src/design-harness/gallery-designers/</code>.
           </Text>
           <TextLink route="gallery">← By designer</TextLink>
         </DesignHarnessDocPage>
@@ -40,7 +40,7 @@ export function GalleryDesignerPage({ route }: GalleryDesignerPageProps) {
       <DesignHarnessDocPage
         variant="list"
         title={designer.name}
-        lead={designer.title}
+        lead={designer.role}
         actions={<WorkViewToggle active="by-designer" />}
         toc={false}
       >
@@ -68,9 +68,7 @@ export function GalleryDesignerPage({ route }: GalleryDesignerPageProps) {
                 project.line ??
                 (project.projectRoute ? count(project.screenCount ?? 0, 'screen') : project.caseStudy.status)
               }
-              footer={
-                project.line && project.screenCount != null ? count(project.screenCount, 'screen') : undefined
-              }
+              footer={project.line && project.screenCount != null ? count(project.screenCount, 'screen') : undefined}
             />
           ))}
         </div>

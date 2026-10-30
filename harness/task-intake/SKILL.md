@@ -21,7 +21,7 @@ orchestrator read).
 2. **Infer before asking**, in this order:
    - Check `projects/<slug>/` — does a folder already exist for this feature?
      Read `brief.md` and `decisions.md` before assuming anything is unknown.
-   - Check the repo — `src/design-harness/pages/`, `src/design-harness/routes.ts` — does
+   - Check the repo — `projects/*/screens/` — does
      this screen already exist? Don't ask "does this exist?" without
      looking first.
    - Check the request itself for stated or implied answers.
@@ -40,14 +40,14 @@ orchestrator read).
      to list projects.
    - **Gallery card enrichment (proactive, first eligibility):** after
      Ownership is written, if `Designer:` is a real name and
-     `Gallery: visible`, and that designer is **not** yet in
-     `src/design-harness/galleryData.ts`, run
+     `Gallery: visible`, and that designer has **no** card file in
+     `src/design-harness/gallery-designers/` yet, run
      `harness/references/gallery-card-enrichment.md` immediately.
-     - Success → write the enriched `GalleryDesigner` (+ route). The project
-       appears from `brief.md` automatically once its case study lines are
-       filled — never copy it into `galleryData.ts`.
+     - Success → write their card file. The project appears from `brief.md`
+       automatically once its case study lines are filled — never list it
+       in the card.
      - Failure → emit `[GALLERY-ENRICHMENT]` and leave them unlisted; do
-       **not** invent title/focusAreas/avatar and do **not** block intake.
+       **not** invent role/focusAreas/avatar and do **not** block intake.
      Audit Step 3.5 remains the safety net if this pass is skipped.
 5. **Hand off to `harness/ORCHESTRATOR.md` §2** for routing — this skill only
    handles intake, not the routing decision itself.

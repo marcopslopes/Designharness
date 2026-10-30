@@ -2001,7 +2001,11 @@ html:has(.design-harness-ds[data-embed='true']) #root {
 /* A screen that is only a device frame shrinks to that frame, so the frame
    is what sits in the middle. `safe` above keeps the start reachable when
    the frame is taller or wider than the pane. */
-:is(.design-harness-ds__main.design-harness-proto-surface, .design-harness-proto-switch__stage, .design-harness-truth__screen)
+:is(
+    .design-harness-ds__main.design-harness-proto-surface,
+    .design-harness-proto-switch__stage,
+    .design-harness-truth__screen
+  )
   > .design-harness-ds-page:has(> .phone-shell__fit:only-child) {
   width: fit-content;
   max-width: 100%;
@@ -2009,7 +2013,12 @@ html:has(.design-harness-ds[data-embed='true']) #root {
   padding-top: 0;
 }
 
-:is(.design-harness-ds__main.design-harness-proto-surface, .design-harness-proto-switch__stage, .design-harness-truth__screen) > .desktop-shell {
+:is(
+    .design-harness-ds__main.design-harness-proto-surface,
+    .design-harness-proto-switch__stage,
+    .design-harness-truth__screen
+  )
+  > .desktop-shell {
   width: min(100%, var(--size-layout-content-max));
   max-width: 100%;
   flex: none;
@@ -2017,7 +2026,12 @@ html:has(.design-harness-ds[data-embed='true']) #root {
 }
 
 /* Labs already centre the device in their stage; the lab has to fill the pane for that to land in the middle. */
-:is(.design-harness-ds__main.design-harness-proto-surface, .design-harness-proto-switch__stage, .design-harness-truth__screen) > .nav-profile__lab {
+:is(
+    .design-harness-ds__main.design-harness-proto-surface,
+    .design-harness-proto-switch__stage,
+    .design-harness-truth__screen
+  )
+  > .nav-profile__lab {
   flex: 1 1 auto;
   align-self: stretch;
   width: 100%;

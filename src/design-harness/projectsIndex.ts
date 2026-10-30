@@ -7,7 +7,7 @@
  * PRIVACY BOUNDARY: only `about.md`, `brief.md`, `screens/**` and `docs/**`
  * are read. `docs/` holds pages written for people; the agent's working files
  * (`decisions.md`, `findings.md`, `log.md`, `sources.md`, …) stay at the
- * project root and are never globbed — same rule as `galleryData.ts`. The Team
+ * project root and are never globbed — same rule as the Team Gallery. The Team
  * Gallery uses only the brief's Ownership and Case study summary fields.
  * Folders starting with `_` (e.g. `_template`) are skipped.
  *

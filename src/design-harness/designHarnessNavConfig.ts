@@ -128,8 +128,8 @@ import { sentenceCase } from './projectFacts'
 import { skillIcon } from './skillIcons'
 import { PLATFORM_ORDER } from './projectFacts'
 import { resolveProjectRoute, type Project } from './projectsIndex'
-import type { DesignHarnessRoute, PlaygroundDesignHarnessRoute } from './routes'
-import { AGENT_ROUTES, isGalleryDesignerRoute, PLAYGROUND_ROUTES } from './routes'
+import type { DesignHarnessRoute } from './routes'
+import { AGENT_ROUTES, isGalleryDesignerRoute } from './routes'
 
 /** One sidebar link. */
 export type NavItem = {
@@ -148,29 +148,6 @@ export type NavSection = {
   searchable?: boolean
   items: NavItem[]
 }
-
-/**
- * Add labels for your prototypes here.
- * Example:
- * const playgroundLabels: Record<(typeof PLAYGROUND_ROUTES)[number], string> = {
- *   'playground/my-feature': 'My Feature',
- * }
- */
-const playgroundLabels: Record<(typeof PLAYGROUND_ROUTES)[number], string> = {}
-
-export const PLAYGROUND_ROUTE_LABELS = playgroundLabels
-
-/**
- * Groups flat `PLAYGROUND_ROUTES` into categories for the Prototypes page.
- * Order here is render order.
- *
- * Add your own prototypes here.
- * Example:
- * export const PLAYGROUND_CATEGORIES = [
- *   { title: 'My Category', routes: ['playground/my-feature'] },
- * ]
- */
-export const PLAYGROUND_CATEGORIES: { title: string; routes: PlaygroundDesignHarnessRoute[] }[] = []
 
 /**
  * Five places: **Home** (the logo) · **Prototypes** · **Design system** · **Skills** · **Documentation**.

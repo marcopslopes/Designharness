@@ -162,8 +162,10 @@ overrides it.
    or append invented values into Design Harness styles. Also apply Job 1's
    layer rule (real DS vs Design Harness chrome vs per-prototype CSS).
 5. **Prototype in Design Harness** — project screens live in `projects/<slug>/screens/<Name>Page.tsx`, exporting
-   a component named after the file; Design Harness discovers them (`src/design-harness/projectsIndex.ts`), so no route
-   registration. **Screen-level states** (no results, a preselected filter, empty, error) are optional
+   a component named after the file; Design Harness discovers them (`src/design-harness/projectsIndex.ts`), so a new
+   prototype is that one file — never a route list, nav entry or shared registry edit. Never create a prototype
+   anywhere else; with no project yet, start one first (`design-kickoff`, which also starts its branch per
+   `harness/references/git-autopilot.md`). **Screen-level states** (no results, a preselected filter, empty, error) are optional
    **string** props on the screen with today's defaults (`status="paused"`, `initialQuery="Olivia"`,
    `clients="none"`) — never a copy of the screen, and no separate file per state. A link opens a state
    (`![Paused](screens/WalletHomePage.tsx?status=paused)` in markdown, `<route>?status=paused` in a deck), and

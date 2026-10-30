@@ -673,9 +673,9 @@ Design Harness's Team Gallery (`#/gallery`) reads **projects** straight from eac
 committed `projects/<slug>/brief.md` at build time
 (`src/design-harness/projectsIndex.ts` → `galleryData.ts`) — only the Ownership
 and Case study summary fields, never `decisions.md`/`findings.md`/`log.md`.
-**Designer profiles** (title / focusAreas / avatar) are the only gallery data
-written by hand, in `src/design-harness/galleryData.ts`. There is no project
-entry to copy.
+**Designer cards** (role / focusAreas / avatar) are the only gallery data
+written by hand, one file per designer in `src/design-harness/gallery-designers/`.
+There is no project entry to copy.
 
 **Primary enrichment** (title / focusAreas / avatar for a *new* designer)
 should already have run at first eligibility via `task-intake` or
@@ -701,21 +701,18 @@ prototype doesn't belong in the gallery either).
    missing any of them doesn't render in the gallery; say so in the report.
    **Never** read `designer-profile.local.md` for this step — gallery data is
    committed/shared; the local profile is never pushed.
-2. If eligible, check `src/design-harness/galleryData.ts` for a `GalleryDesigner`
+2. If eligible, check `src/design-harness/gallery-designers/` for a card
    whose `name` matches the brief's `Designer:` (case-insensitive — the
    gallery attaches projects by this match):
    - **New designer** (no matching entry) — run
      `harness/references/gallery-card-enrichment.md` **before** writing.
-     - Enrichment OK → add the designer **on this first eligible project**
-       (one project is enough). Include `title`, `focusAreas`, `avatarUrl`
-       (from enrichment), `name` (same spelling as the brief), `slug`,
-       optional `squad` from brief only (never invent from
-       `COMPANY-SQUADS.md`), `projects: []`, and add `gallery/<slug>` to
-       `GALLERY_DESIGNER_ROUTES`.
+     - Enrichment OK → write `gallery-designers/<slug>.ts` **on this first
+       eligible project** (one project is enough): `name` (same spelling as
+       the brief), `role`, `focusAreas`, `avatarUrl`. Nothing else.
      - Enrichment FAIL → emit `[GALLERY-ENRICHMENT]`, **do not** add a blank
        or guessed card, leave unlisted. Note it in the audit report.
      **Never** add empty placeholder designer entries "for layout."
-   - **Existing designer, incomplete card** — if `title` / `focusAreas` /
+   - **Existing designer, incomplete card** — if `role` / `focusAreas` /
      `avatarUrl` are missing, run the same enrichment reference and backfill
      before finishing. On failure, flag `[GALLERY-ENRICHMENT]` and do not
      invent.
@@ -726,12 +723,9 @@ prototype doesn't belong in the gallery either).
    ### Team Gallery
    `city-referral-leaderboard` shows under Jane Doe (from brief.md).
    ```
-   or, if a designer was added: `Added designer Jane Doe — galleryData.ts + routes.ts updated.`
+   or, if a designer was added: `Added designer Jane Doe — gallery-designers/jane-doe.ts.`
    or, if skipped: `Team Gallery: skipped — Gallery: hidden in brief.md.`
    or enrichment fail: `[GALLERY-ENRICHMENT] … Left unlisted.`
-
-`GALLERY_DESIGNER_ROUTES` ↔ `galleryData.ts`'s designer slugs is still kept
-in sync by hand.
 
 ---
 
@@ -744,12 +738,17 @@ This repo has no hosted/shared instance — every designer runs their own local 
 1. Run `git status` to see what changed this session.
 2. If there are uncommitted changes, tell the designer what would be pushed, distinguishing:
    - **Harness/system files** — `projects/<slug>/**`, `harness/logs/routing-log.md`, `CLAUDE.md`, `AGENTS.md`, `harness/skills/**` — these affect every other designer's clone once pushed, so call them out explicitly.
-   - **Prototype/output files** — `src/design-harness/pages/**`, `src/design-harness/galleryData.ts`, `src/design-harness/routes.ts`, `context/design-system/ds/**`, `context/design-system/tokens.css`, `projects/<slug>/artifacts/**` — the actual build output, including any Step 3.5 designer entry.
+   - **Prototype/output files** — `src/design-harness/gallery-designers/**`, `context/design-system/ds/**`, `context/design-system/tokens.css`, `projects/<slug>/artifacts/**` — the actual build output, including any Step 3.5 designer entry.
 3. Ask one direct question: *"Push this to `origin` so other designers get it too? (commit message will be `<skill(s)>: <task slug>`)"*
 4. **Never push without an explicit yes.** If the designer says no or doesn't answer, leave the changes local and move on — this is a nudge, not a gate.
 5. If yes: `git add`, commit with a message naming the skill chain and task slug (e.g. `ui-agent+audit: clients-list-redesign`), then `git push`. Report the result (pushed / conflict / needs pull first).
 
 If `git status` shows nothing to commit, skip this step silently — no need to report "nothing to push."
+
+**Git autopilot on** (`behaviour.gitAutopilot`, default): items 3–5 become one
+question, "Share this? It goes to the team on its own project branch.", and
+a yes runs save then share (`harness/references/git-autopilot.md` §§ 3, 5).
+Never `git push` by hand, never to `main`.
 
 ---
 

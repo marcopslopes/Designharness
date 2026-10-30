@@ -1,14 +1,15 @@
 # Gallery card enrichment (shared)
 
 **Single source of truth** for resolving designer card profile fields
-(`title`, `focusAreas`, `avatarUrl`) before writing a new
-`GalleryDesigner` entry in `src/design-harness/galleryData.ts`.
+(`role`, `focusAreas`, `avatarUrl`) before writing a new designer card,
+`src/design-harness/gallery-designers/<slug>.ts`. One file per designer, so two
+people adding cards at once never edit the same file.
 
 Called by:
 
 1. **Primary (proactive)** — `task-intake` Step 4 and `design-kickoff`
    Step 2, the moment Ownership is written with a real `Designer:` and
-   `Gallery: visible`, *if* that designer is not yet in `galleryData.ts`.
+   `Gallery: visible`, *if* that designer has no card file yet.
 2. **Safety net** — `audit` Step 3.5 on PASS, for anything that slipped
    through or is missing fields on an existing entry.
 
@@ -24,8 +25,8 @@ Run only when **all** of these hold:
 - `brief.md` has `Designer:` resolved to a real name (not `UNKNOWN — flagged`)
 - `Gallery: visible` (not `hidden`)
 - Either:
-  - this designer has **no** `GalleryDesigner` entry yet (first eligibility), or
-  - an existing entry is missing `title` / `focusAreas` / `avatarUrl` (backfill)
+  - this designer has **no** card file yet (first eligibility), or
+  - an existing card is missing `role` / `focusAreas` / `avatarUrl` (backfill)
 
 If the designer is already fully enriched, skip silently.
 
@@ -35,11 +36,10 @@ If the designer is already fully enriched, skip silently.
 
 ### A. Slug
 
-`slug` = lowercase hyphenated name (e.g. `Jane Doe` → `jane-doe`).
-Must match a new or existing entry in `GALLERY_DESIGNER_ROUTES`
-(`src/design-harness/routes.ts`) — add both in the same pass.
+`slug` = lowercase hyphenated name (e.g. `Jane Doe` → `jane-doe`). It is the
+card's file name; the page `#/gallery/<slug>` comes from it. No route list to edit.
 
-### B. Title (required)
+### B. Role (required)
 
 1. Look the designer up in a connected directory that exposes job titles —
    the Atlassian user profile (`lookupJiraAccountId`), the Slack or Teams
@@ -73,31 +73,24 @@ Must match a new or existing entry in `GALLERY_DESIGNER_ROUTES`
 5. Verification fixtures only may omit `avatarUrl` (UI shows initials).
    Real designers: missing avatar after a failed download → **FAIL**.
 
-### E. Squad (optional)
-
-From `brief.md`'s `Squad:` only if it cleanly matches
-`COMPANY-SQUADS.md`. Never invent a squad from the directory just
-to fill the card.
-
 ---
 
 ## Success — write the entry
 
-Write / update `GalleryDesigner` with:
+Write `src/design-harness/gallery-designers/<slug>.ts` — these four fields, nothing else:
 
 ```ts
-{
-  slug,
-  name,           // from brief Designer:
-  title,          // resolved
-  squad?,         // optional, from brief only
-  focusAreas,     // resolved string[]
-  avatarUrl,      // '/design-harness/avatars/<slug>.png'
-  projects: []    // fictional examples only — real projects come from brief.md
-}
+import type { DesignerCard } from '../galleryData'
+
+export default {
+  name: 'Jane Doe', // from brief Designer:
+  role: 'Product Designer', // resolved
+  focusAreas: ['Navigation', 'Design systems'], // resolved
+  avatarUrl: '/design-harness/avatars/jane-doe.png',
+} satisfies DesignerCard
 ```
 
-Also add `gallery/<slug>` to `GALLERY_DESIGNER_ROUTES` if new.
+Nothing from the private profile, no squad, no projects.
 
 Projects are **not** written here. Design Harness attaches each committed
 `brief.md` whose `Designer:` matches `name` (case-insensitive), whose
@@ -111,7 +104,7 @@ brief doesn't render — never add an empty designer “for layout.”
 
 If title, focus areas, or avatar cannot be resolved:
 
-1. **Do not** add or update the `GalleryDesigner` entry with blanks or guesses.
+1. **Do not** write or update the card file with blanks or guesses.
 2. **Do not** list the designer in the gallery until enrichment succeeds.
 3. Flag explicitly in chat (and in the audit report when this is Step 3.5):
 

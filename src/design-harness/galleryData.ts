@@ -16,7 +16,7 @@
  * people, and must stay repo-only, never surfaced in this UI. Better card copy
  * means improving the *brief*, not reaching into raw task notes.
  *
- * **Never** read `designer-profile.local.md` when updating this file — that
+ * **Never** read `designer-profile.local.md` when writing a designer card — that
  * profile is local-only (never pushed). The gallery is shared/deployed and
  * may only reflect committed repo data.
  *
@@ -31,12 +31,10 @@
  * there is no "wait for a second project" threshold and no empty
  * placeholder designer cards.
  *
- * **Designer card profile (required):** `title`, `focusAreas`, and
- * `avatarUrl` — resolved via `harness/references/gallery-card-enrichment.md`.
+ * **Designer card (required):** `role`, `focusAreas`, and
+ * `avatarUrl`, one file per designer in `gallery-designers/` — resolved via `harness/references/gallery-card-enrichment.md`.
  * Never invent; never ship a card with only `name` + projects.
- *
- * `GALLERY_DESIGNER_ROUTES` (`routes.ts`) still lists one route per designer
- * slug by hand.
+
  */
 
 import { truthLine } from './projectFacts'
@@ -102,107 +100,33 @@ export type GalleryProject = {
   gallery: GalleryVisibility
 }
 
-export type GalleryDesigner = {
-  /**
-   * Stable id for this designer's own Team Gallery page
-   * (`#/gallery/<slug>`) — must have a matching entry in
-   * `GALLERY_DESIGNER_ROUTES` (`routes.ts`), kept in sync by hand.
-   */
-  slug: string
+/**
+ * One file per designer in `src/design-harness/gallery-designers/<slug>.ts`, default-exporting
+ * this shape. Public-safe only: nothing from `designer-profile.local.md`.
+ * Recipe: `harness/references/gallery-card-enrichment.md`.
+ */
+export type DesignerCard = {
   name: string
-  /**
-   * Job title — from Atlassian / Confluence via
-   * `harness/references/gallery-card-enrichment.md`. Required.
-   */
-  title: string
-  /** Squad name from brief `Squad:`, if cleanly cross-referenced. */
-  squad?: string
-  /**
-   * 2–4 short public focus labels from Confluence (domain / people pages).
-   * Required. Empty only for explicit verification fixtures.
-   */
+  /** Job title, e.g. "Product Designer". */
+  role: string
+  /** 2–4 short public focus labels. */
   focusAreas: string[]
-  /**
-   * Avatar under `public/` (e.g. `/design-harness/avatars/jane-doe.png`).
-   * Download Atlassian `picture` when enriching; commit the file.
-   * Omit only for verification fixtures (UI shows initials).
-   */
+  /** Avatar under `public/`, e.g. `/design-harness/avatars/jane-doe.png`. Omitted → initials. */
   avatarUrl?: string
-  /**
-   * Fictional example projects only. Real projects are added from briefs by
-   * `getVisibleGalleryDesigners` — don't copy them here.
-   */
+}
+
+export type GalleryDesigner = DesignerCard & {
+  /** From the file name; the designer's page is `#/gallery/<slug>`. */
+  slug: string
+  /** From each project's `brief.md` whose `Designer:` matches `name` — never a hand-kept list. */
   projects: GalleryProject[]
 }
 
-/**
- * EXAMPLE GALLERY DATA — department → person tree.
- *
- * Departments under By Contributor:
- * Creative · Product Design · Product Management.
- * One fictional example name per department so the IA is visible before
- * real team data is enriched. Replace with your designers via
- * `documentation/guides/team-gallery.md`.
- */
-export const GALLERY_DESIGNERS: GalleryDesigner[] = [
-  {
-    slug: 'abigail',
-    name: 'Abigail',
-    title: 'Creative Designer',
-    squad: 'Creative',
-    focusAreas: ['Brand', 'Campaign', 'Motion'],
-    projects: [
-      {
-        slug: 'example-creative',
-        title: 'Example Creative Project',
-        caseStudy: {
-          problem: 'Placeholder — replace with a real creative brief.',
-          goal: 'Placeholder goal.',
-          status: 'Example — Creative department',
-        },
-        gallery: 'visible',
-      },
-    ],
-  },
-  {
-    slug: 'alex',
-    name: 'Alex',
-    title: 'Product Designer',
-    squad: 'Product Design',
-    focusAreas: ['Navigation', 'Design systems', 'Mobile UX'],
-    projects: [
-      {
-        slug: 'example-product-design',
-        title: 'Example Product Design Project',
-        caseStudy: {
-          problem: 'Placeholder — replace with a real product brief.',
-          goal: 'Placeholder goal.',
-          status: 'Example — Product Design department',
-        },
-        gallery: 'visible',
-      },
-    ],
-  },
-  {
-    slug: 'sam',
-    name: 'Sam',
-    title: 'Product Manager',
-    squad: 'Product Management',
-    focusAreas: ['Roadmap', 'Discovery', 'Specs'],
-    projects: [
-      {
-        slug: 'example-product-management',
-        title: 'Example PM Project',
-        caseStudy: {
-          problem: 'Placeholder — replace with a real PM brief.',
-          goal: 'Placeholder goal.',
-          status: 'Example — Product Management department',
-        },
-        gallery: 'visible',
-      },
-    ],
-  },
-]
+const cardFiles = import.meta.glob<DesignerCard>('./gallery-designers/*.ts', { eager: true, import: 'default' })
+
+export const GALLERY_DESIGNERS: GalleryDesigner[] = Object.entries(cardFiles)
+  .map(([file, card]) => ({ ...card, slug: file.replace(/^.*\//, '').replace(/\.ts$/, ''), projects: [] }))
+  .sort((a, b) => a.name.localeCompare(b.name))
 
 /** Projects whose brief doesn't hide them but has no resolved `Designer:` — surfaced as a transparency note, never their raw content. */
 export const GALLERY_UNRESOLVED_OWNERSHIP_SLUGS: string[] = PROJECTS.filter(
@@ -234,7 +158,7 @@ export function getVisibleGalleryDesigners(): GalleryDesigner[] {
   // One visible project is enough — no higher threshold, no empty placeholders.
   return GALLERY_DESIGNERS.map((designer) => ({
     ...designer,
-    projects: [...designer.projects, ...briefProjectsFor(designer)].filter((p) => p.gallery === 'visible'),
+    projects: briefProjectsFor(designer).filter((p) => p.gallery === 'visible'),
   })).filter((designer) => designer.projects.length > 0)
 }
 

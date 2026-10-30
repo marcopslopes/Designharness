@@ -32,7 +32,7 @@ export function TeamGalleryPage() {
                 key={designer.slug}
                 route={`gallery/${designer.slug}`}
                 title={designer.name}
-                detail={[designer.title, count(designer.projects.length, 'project')].filter(Boolean).join(' · ')}
+                detail={[designer.role, count(designer.projects.length, 'project')].filter(Boolean).join(' · ')}
                 media={<DesignerAvatar designer={designer} className="design-harness-gallery__card-avatar" />}
               />
             ))}

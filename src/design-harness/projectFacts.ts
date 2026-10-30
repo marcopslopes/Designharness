@@ -206,10 +206,7 @@ export type TruthUnknown = {
 
 function unquoteYaml(value: string): string {
   const trimmed = value.trim()
-  if (
-    (trimmed.startsWith('"') && trimmed.endsWith('"')) ||
-    (trimmed.startsWith("'") && trimmed.endsWith("'"))
-  ) {
+  if ((trimmed.startsWith('"') && trimmed.endsWith('"')) || (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
     return trimmed.slice(1, -1)
   }
   return trimmed
@@ -309,7 +306,10 @@ export function displayQuestion(text: string): string {
   const parts = text.split(/\s+[—–]\s+/)
   const tail = parts.slice(1).join(' ')
   const kept = parts.length > 1 && TEMPLATE_TAIL.test(tail) ? parts[0] : text
-  return kept.replace(/\bUNKNOWN\b/g, 'unknown').replace(/\s+/g, ' ').trim()
+  return kept
+    .replace(/\bUNKNOWN\b/g, 'unknown')
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 const GALLERY_LINE_MAX = 40
@@ -372,7 +372,10 @@ export function truthLine(brief: string | undefined): string | undefined {
 function statusFromLegacyLine(brief: string): string | undefined {
   const header = brief.split(/^##\s/m)[0] ?? ''
   const text = briefField(header, 'Status') ?? header.match(/^\*\*Status:\s*([^*\n]+)/m)?.[1]
-  const word = text?.trim().split(/[\s—(]/)[0]?.toLowerCase()
+  const word = text
+    ?.trim()
+    .split(/[\s—(]/)[0]
+    ?.toLowerCase()
   return word ? LEGACY_STATUS[word] : undefined
 }
 

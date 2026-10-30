@@ -1,0 +1,6 @@
+# Project logs are append-only and two designers often add to the same one
+# in the same week. Union keeps both sides' new lines instead of stopping
+# the merge on a conflict.
+projects/*/log.md merge=union
+projects/*/findings.md merge=union
+projects/*/sources.md merge=union

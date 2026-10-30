@@ -156,9 +156,14 @@ The harness is a folder in Git, so a team shares it the way it shares code.
 5. To let people browse the app from a link, host a viewing copy on any static
    host. See [Host a viewing copy](documentation/guides/hosting.md).
 
+Branches, protecting `main` on GitHub, parallel projects and harness updates:
+[Using it as a team](documentation/guides/using-it-as-a-team.md).
+
 ### Taking updates
 
-New releases never change your copy on their own.
+New releases never change your copy on their own. Say "update my harness" to
+merge the latest harness into your branch (it keeps your `projects/`), or do it
+by hand:
 
 ```bash
 git remote add upstream https://github.com/marcopslopes/design-harness.git  # once
