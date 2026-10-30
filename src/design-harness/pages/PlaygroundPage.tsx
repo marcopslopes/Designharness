@@ -32,7 +32,9 @@ export function PlaygroundPage() {
           <div className="design-harness-gallery__grid">
             {PROJECTS.map((project) => {
               const line = truthLine(project.brief)
-              const who = [project.ownership.designer, count(project.screens.length, 'screen')].filter(Boolean).join(' · ')
+              const who = [project.ownership.designer, count(project.screens.length, 'screen')]
+                .filter(Boolean)
+                .join(' · ')
               return (
                 <ProjectCard
                   key={project.slug}

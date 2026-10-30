@@ -320,7 +320,10 @@ test('"update my harness" merges the new commit, keeps projects/ and local files
   )
   const result = updateHarness(root, { install: () => '' })
   assert.equal(result.merged, true)
-  assert.match(result.message ?? '', /Updated ana\/demo with 1 harness commit\. Left out 1 change it had for projects\/; yours stay as they were\./)
+  assert.match(
+    result.message ?? '',
+    /Updated ana\/demo with 1 harness commit\. Left out 1 change it had for projects\/; yours stay as they were\./,
+  )
   assert.equal(read('harness/skill.md'), 'one\nnew rule\n')
   assert.equal(read('projects/README.md'), 'readme v2\n')
   assert.equal(read('projects/demo/brief.md'), 'mine\n')

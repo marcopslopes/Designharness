@@ -128,11 +128,7 @@ test('blocking questions lead, and a session note is not a question', () => {
   ].join('\n')
   assert.deepEqual(
     presentedUnknowns(brief).map((item) => item.text),
-    [
-      'Which metric is committed',
-      'Who owns this',
-      'Success metric — baseline and target are both UNKNOWN',
-    ],
+    ['Which metric is committed', 'Who owns this', 'Success metric — baseline and target are both UNKNOWN'],
   )
   assert.equal(displayQuestion('Success metric — baseline and target are both UNKNOWN'), 'Success metric')
   assert.equal(displayQuestion('Success metric — the brief names none'), 'Success metric')
