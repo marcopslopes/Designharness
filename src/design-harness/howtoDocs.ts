@@ -68,6 +68,7 @@ const GUIDE_TOPIC: Record<string, GuideTopic> = {
   'variation-review-board': 'Working with the harness',
   'team-gallery': 'Working with the harness',
   hosting: 'Working with the harness',
+  'using-it-as-a-team': 'Working with the harness',
   'company-sources': 'Working with the harness',
   'designer-context-local': 'Working with the harness',
   'spec-vs-runtime': 'Working with the harness',

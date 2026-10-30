@@ -17,7 +17,7 @@ export type DesignerAvatarProps = {
 }
 
 /**
- * Designer photo (from `galleryData.ts`'s `avatarUrl`) or initials fallback —
+ * Designer photo (the card file's `avatarUrl`) or initials fallback —
  * shared between the Team Gallery directory and any other surface that
  * attributes work to a designer (e.g. the Playground prototype grid).
  */

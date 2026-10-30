@@ -149,11 +149,11 @@ const BEHAVIOUR_TOGGLES: {
       rows: [
         {
           label: 'On',
-          text: "Starting a project makes its own branch from main. 'Wrap up' saves that project's files, 'undo the last change' takes the last save back, and 'share this' pushes the branch and gives you the link.",
+          text: "Starting a project makes your own branch for it from main. 'Wrap up' saves that project's files, 'undo the last change' takes the last save back, and 'share this' pushes the branch and gives you the link.",
         },
         { label: 'Off', text: 'No branches, saves or pushes. You run Git yourself.' },
       ],
-      note: 'It never pushes unless you say share, never to main, and never with force.',
+      note: "It never pushes unless you say share, never to main, and never with force. '- Git autopilot: off' in your designer profile also turns it off.",
     },
   },
 ]

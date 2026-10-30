@@ -116,7 +116,7 @@ Workshop and stakeholder decks are built here directly from the folder.
    light variant and its component gotchas. Template and theme are
    independent choices; state both in the same one-line confirmation.
 5. If the deck needs a live prototype embed, confirm the target route
-   exists in `src/design-harness/pages/` / `routes.ts` — if not, say so and stop
+   exists in `projects/<slug>/screens/` — if not, say so and stop
    short of building a fake mockup.
 6. If the ask doesn't already make it obvious, note (don't necessarily
    `AskQuestion` — a one-line assumption stated up front is enough unless
@@ -223,7 +223,7 @@ deck done.
 
 - `findings.md` — one dated line: deck built, template, path.
 - `log.md` — one line naming what was created.
-- This skill does not edit `galleryData.ts`; gallery projects come from
+- This skill does not edit gallery cards; gallery projects come from
   `brief.md` (see `harness/skills/audit/SKILL.md` Step 3.5).
 
 ---

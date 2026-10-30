@@ -6,22 +6,42 @@
  *
  *   node scripts/git-autopilot.mjs start <slug> [--scaffold]
  *   node scripts/git-autopilot.mjs resume <slug>
- *   node scripts/git-autopilot.mjs save <slug> "<one-line summary>" [src/… paths]
+ *   node scripts/git-autopilot.mjs save <slug> "<one-line summary>" [--keep-harness | --suggest-harness]
  *   node scripts/git-autopilot.mjs undo [--yes]
  *   node scripts/git-autopilot.mjs share
+ *   node scripts/git-autopilot.mjs catch-up
+ *   node scripts/git-autopilot.mjs session      (first reply of a chat; runs with autopilot off too)
+ *   node scripts/git-autopilot.mjs doctor       (runs with autopilot off too)
+ *   node scripts/git-autopilot.mjs update       ("update my harness"; runs with autopilot off too)
+ *   node scripts/git-autopilot.mjs worktree <slug>  (runs with autopilot off too)
  *
  * Every commit it makes carries a `Git-Autopilot: <action>` trailer; undo only
- * touches those. It never pushes unless asked to share, never to main, never with force.
+ * touches those. It pushes only on "share this" or "suggest to the harness",
+ * never to main, never with force.
  */
-import { execFileSync } from 'node:child_process'
-import { cpSync, existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { execFileSync, spawnSync } from 'node:child_process'
+import {
+  cpSync,
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readFileSync,
+  readlinkSync,
+  symlinkSync,
+  unlinkSync,
+  writeFileSync,
+} from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 export const BASE = 'main'
 export const TRAILER = 'Git-Autopilot'
 const REVERTS = 'Git-Autopilot-Reverts'
+/** Where "update my harness" pulls from when the copy has no `upstream` remote yet. */
+export const UPSTREAM_URL = 'https://github.com/marcopslopes/design-harness.git'
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+const DAY_SECONDS = 24 * 60 * 60
+const BEHIND_WARNING = 50
 /** Never committed, even if a .gitignore rule goes missing. */
 export const NEVER = [
   'designer-context.local',
@@ -32,6 +52,19 @@ export const NEVER = [
   'logs',
   'tmp',
 ]
+/** Linked into a new worktree so the second folder knows the same designer. */
+const LOCAL_LINKS = [
+  'designer-profile.local.md',
+  'designer-context.local',
+  'harness.config.local.json',
+  'context/org-pack.local',
+  'node_modules',
+]
+/** Team data outside projects/: saved with the project, never asked about as a harness edit. */
+const TEAM_DATA = ['src/design-harness/gallery-designers/', 'public/design-harness/avatars/']
+const isTeamData = (file) => file.startsWith('projects/') || TEAM_DATA.some((dir) => file.startsWith(dir))
+/** The harness ships these inside projects/; "update my harness" may change them. Everything else there is the team's. */
+const UPSTREAM_PROJECT_FILES = ['projects/_template/', 'projects/README.md']
 
 export function isNever(file) {
   const segments = file.split('/')
@@ -42,8 +75,14 @@ export function isNever(file) {
 }
 
 const literal = (files) => files.map((file) => `:(literal)${file}`)
+const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
+const indent = (lines) => lines.map((line) => `  ${line}`).join('\n')
 
 export class AutopilotError extends Error {}
+
+function run(root, args, options = {}) {
+  return spawnSync('git', args, { cwd: root, encoding: 'utf8', ...options })
+}
 
 function git(root, args) {
   try {
@@ -57,18 +96,31 @@ function git(root, args) {
   }
 }
 
+const succeeds = (root, args) => run(root, args).status === 0
+
+function gitValue(root, args) {
+  const result = run(root, args)
+  return result.status === 0 ? result.stdout.trim() : ''
+}
+
+function readLocal(root, file) {
+  try {
+    return readFileSync(path.join(root, file), 'utf8')
+  } catch {
+    return ''
+  }
+}
+
+/** On unless `behaviour.gitAutopilot` is false or the profile says `- Git autopilot: off`. */
 export function isEnabled(root) {
   try {
-    const config = JSON.parse(readFileSync(path.join(root, 'harness.config.local.json'), 'utf8'))
+    const config = JSON.parse(readLocal(root, 'harness.config.local.json') || '{}')
     if (config?.behaviour?.gitAutopilot === false) return false
   } catch {
-    // no config file: default on
+    // unreadable config: default on
   }
-  try {
-    return git(root, ['rev-parse', '--is-inside-work-tree']) === 'true'
-  } catch {
-    return false
-  }
+  if (/^- Git autopilot:[ \t]*off[ \t]*$/im.test(readLocal(root, 'designer-profile.local.md'))) return false
+  return gitValue(root, ['rev-parse', '--is-inside-work-tree']) === 'true'
 }
 
 export function slugify(name) {
@@ -82,25 +134,38 @@ export function slugify(name) {
     .replace(/-+$/, '')
 }
 
-function checkSlug(slug) {
-  if (!SLUG.test(slug ?? '') || slug.startsWith('_'))
-    throw new AutopilotError(`"${slug}" isn't a project name I can use.`)
-  return `project/${slug}`
+/** The profile's `- Name:`, else `git config user.name` (cloud sessions have no profile). */
+export function designerName(root) {
+  const fromProfile = readLocal(root, 'designer-profile.local.md').match(/^- Name:[ \t]*([^<\n]+?)[ \t]*$/m)?.[1]
+  return fromProfile || gitValue(root, ['config', 'user.name'])
 }
+
+export function designerFirstName(root) {
+  const first = slugify(designerName(root).split(/\s+/)[0] ?? '')
+  if (!first)
+    throw new AutopilotError("I don't know your name yet, so I can't name the branch. Add it to your profile.")
+  return first
+}
+
+function checkSlug(slug) {
+  if (!SLUG.test(slug ?? '') || slug.startsWith('_')) {
+    throw new AutopilotError(`"${slug}" isn't a project name I can use.`)
+  }
+  return slug
+}
+
+/** `<first name>/<slug>`, so two designers on the same project never share a branch. */
+export const branchFor = (root, slug) => `${designerFirstName(root)}/${checkSlug(slug)}`
 
 export const currentBranch = (root) => git(root, ['branch', '--show-current'])
 
-function branchExists(root, branch) {
-  try {
-    git(root, ['rev-parse', '--verify', '--quiet', `refs/heads/${branch}`])
-    return true
-  } catch {
-    return false
-  }
-}
+const branchExists = (root, branch) => succeeds(root, ['rev-parse', '--verify', '--quiet', `refs/heads/${branch}`])
+const revExists = (root, rev) => succeeds(root, ['rev-parse', '--verify', '--quiet', `${rev}^{commit}`])
 
 function changedFiles(root, paths = ['.']) {
-  return git(root, ['status', '--porcelain', '-z', '--no-renames', '--untracked-files=all', '--', ...paths])
+  const status = run(root, ['status', '--porcelain', '-z', '--no-renames', '--untracked-files=all', '--', ...paths])
+  if (status.status !== 0) throw new AutopilotError(`git status failed: ${status.stderr.trim()}`)
+  return status.stdout
     .split('\0')
     .filter(Boolean)
     .map((entry) => entry.slice(3))
@@ -109,25 +174,10 @@ function changedFiles(root, paths = ['.']) {
 
 const isDirty = (root, paths) => changedFiles(root, paths).length > 0
 
-function configured(root, key) {
-  try {
-    return git(root, ['config', key]) !== ''
-  } catch {
-    return false
-  }
-}
-
 /** A designer's clone may have no Git identity; commit as their profile name, without writing Git config. */
 function identity(root) {
-  if (configured(root, 'user.name') && configured(root, 'user.email')) return []
-  let name = 'Designer'
-  try {
-    const profile = readFileSync(path.join(root, 'designer-profile.local.md'), 'utf8')
-    name = profile.match(/^- Name:[ \t]*([^<\n]+?)[ \t]*$/m)?.[1] || name
-  } catch {
-    // no profile yet
-  }
-  return ['-c', `user.name=${name}`, '-c', 'user.email=designer@design-harness.invalid']
+  if (gitValue(root, ['config', 'user.name']) && gitValue(root, ['config', 'user.email'])) return []
+  return ['-c', `user.name=${designerName(root) || 'Designer'}`, '-c', 'user.email=designer@design-harness.invalid']
 }
 
 /** Commits only `paths` (minus NEVER), whatever else is staged. Returns the sha, or null if nothing changed. */
@@ -147,12 +197,60 @@ function commit(root, paths, subject, action, extraTrailers = []) {
   return git(root, ['rev-parse', '--short', 'HEAD'])
 }
 
-/** Uncommitted work belongs to the branch it was made on: commit it there before switching. */
+const normName = (value) =>
+  String(value)
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim()
+
+function samePerson(me, owner) {
+  const [a, b] = [normName(me), normName(owner)]
+  if (!a || !b) return false
+  if (a === b) return true
+  const [mine, theirs] = [a.split(' '), b.split(' ')]
+  if (mine[0] !== theirs[0]) return false
+  return theirs.length === 1 || mine.at(-1) === theirs.at(-1)
+}
+
+/** The brief's `Designer:`, or '' when it's unassigned or a placeholder. */
+function projectOwner(root, slug) {
+  const value =
+    readLocal(root, `projects/${slug}/brief.md`)
+      .match(/\*\*Designer:\*\*[ \t]*(.+)/)?.[1]
+      ?.trim() ?? ''
+  return /[<>]|unknown|unassigned|\bnone\b|\btbd\b/i.test(value) ? '' : value
+}
+
+/** Stops before committing anything inside another designer's project. */
+function assertNoForeign(root) {
+  const me = designerName(root)
+  if (!me) return
+  const foreign = changedFiles(root, ['projects']).filter((file) => {
+    const slug = file.match(/^projects\/([^/_][^/]*)\//)?.[1]
+    const owner = slug ? projectOwner(root, slug) : ''
+    return owner && !samePerson(me, owner)
+  })
+  if (foreign.length) {
+    throw new AutopilotError(
+      `Stopped. Another designer's project has changes:\n${indent(foreign)}\nAsk before continuing.`,
+    )
+  }
+}
+
+/** The project this branch belongs to, from `<first>/<slug>`, or ''. */
+function branchProject(root) {
+  const match = currentBranch(root).match(/^[a-z0-9-]+\/([a-z0-9-]+)$/)
+  return match && !match[1].startsWith('harness-') ? match[1] : ''
+}
+
+/** Before a switch, saves the current project's folder on its own branch. Never commits on main, never other files. */
 function checkpoint(root, reason) {
-  if (!isDirty(root)) return null
-  const branch = currentBranch(root)
-  if (!branch) throw new AutopilotError("You're not on a branch, so I can't save your changes before switching.")
-  return commit(root, ['.'], `Save work in progress before ${reason}`, 'checkpoint')
+  assertNoForeign(root)
+  const slug = branchProject(root)
+  if (!slug || !isDirty(root, [`projects/${slug}`])) return null
+  return commit(root, [`projects/${slug}`], `Save work in progress before ${reason}`, 'checkpoint')
 }
 
 function scaffold(root, slug, title) {
@@ -161,73 +259,209 @@ function scaffold(root, slug, title) {
   cpSync(path.join(root, 'projects', '_template'), dir, { recursive: true })
   const brief = path.join(dir, 'brief.md')
   if (existsSync(brief)) {
-    writeFileSync(brief, readFileSync(brief, 'utf8').replace('<task-slug>', title || slug))
+    writeFileSync(brief, readFileSync(brief, 'utf8').replaceAll('<task-slug>', title || slug))
   }
   return true
 }
 
-/** New project: commit leftovers where they are, then branch `project/<slug>` from main. */
+function switchTo(root, branch) {
+  if (branchExists(root, branch)) return git(root, ['switch', '-q', branch])
+  if (!branchExists(root, BASE)) throw new AutopilotError(`There's no ${BASE} branch to start from.`)
+  git(root, ['switch', '-q', '-c', branch, BASE])
+}
+
+function withCatchUp(root, result) {
+  const caught = catchUp(root)
+  return caught.message ? { ...result, message: [result.message, caught.message].filter(Boolean).join('\n') } : result
+}
+
+/** New project: save the current project where it is, then branch `<first>/<slug>` from main. */
 export function start(root, slug, { scaffold: makeFolder = false, title } = {}) {
-  const branch = checkSlug(slug)
+  checkSlug(slug)
   if (!isEnabled(root)) {
     if (makeFolder) scaffold(root, slug, title)
     return { branch: null, checkpoint: null, message: null }
   }
+  const branch = branchFor(root, slug)
   let saved = null
   if (currentBranch(root) !== branch) {
     saved = checkpoint(root, `starting ${slug}`)
-    if (branchExists(root, branch)) git(root, ['switch', '-q', branch])
-    else {
-      if (!branchExists(root, BASE)) throw new AutopilotError(`There's no ${BASE} branch to start from.`)
-      git(root, ['switch', '-q', '-c', branch, BASE])
-    }
+    switchTo(root, branch)
   }
   if (makeFolder) scaffold(root, slug, title)
-  return { branch, checkpoint: saved, message: `Working on ${branch}.` }
+  return withCatchUp(root, { branch, checkpoint: saved, message: `Working on ${branch}.` })
 }
 
 /** Existing project: switch to its branch if it has one. Silent otherwise. */
 export function resume(root, slug) {
-  const branch = checkSlug(slug)
-  if (!isEnabled(root) || !branchExists(root, branch) || currentBranch(root) === branch) {
-    return { branch: null, checkpoint: null, message: null }
-  }
+  checkSlug(slug)
+  if (!isEnabled(root)) return { branch: null, checkpoint: null, message: null }
+  const branch = branchFor(root, slug)
+  if (!branchExists(root, branch)) return { branch: null, checkpoint: null, message: null }
+  if (currentBranch(root) === branch) return withCatchUp(root, { branch, checkpoint: null, message: null })
   const saved = checkpoint(root, `switching to ${slug}`)
   git(root, ['switch', '-q', branch])
-  return { branch, checkpoint: saved, message: `Working on ${branch}.` }
+  return withCatchUp(root, { branch, checkpoint: saved, message: `Working on ${branch}.` })
 }
 
-function checkExtraPath(slug, file) {
-  const clean = path.posix.normalize(file.replaceAll('\\', '/'))
-  const blocked = isNever(clean)
-  const allowed = clean.startsWith('src/') || clean.startsWith(`projects/${slug}/`)
-  if (clean.startsWith('..') || path.posix.isAbsolute(clean) || blocked || !allowed) {
-    throw new AutopilotError(`I only save projects/${slug}/ and src/ files, not ${file}.`)
+const HARNESS_QUESTION = 'Keep them local, or suggest them to the harness?'
+
+function keepLocalFile(root) {
+  return path.resolve(root, git(root, ['rev-parse', '--git-path', 'design-harness-keep-local']))
+}
+
+function keptLocal(root) {
+  const file = keepLocalFile(root)
+  return new Set(existsSync(file) ? readFileSync(file, 'utf8').split('\n').filter(Boolean) : [])
+}
+
+/** Changes outside `projects/` on a project branch: the harness itself, not the designer's project. */
+function harnessChanges(root) {
+  const kept = keptLocal(root)
+  return changedFiles(root, ['.']).filter((file) => !isTeamData(file) && !kept.has(file))
+}
+
+function snapshotTree(root, files) {
+  return files.map((file) => {
+    const abs = path.join(root, file)
+    if (!existsSync(abs)) return { file, deleted: true }
+    if (lstatSync(abs).isSymbolicLink()) return { file, link: readlinkSync(abs) }
+    return { file, body: readFileSync(abs) }
+  })
+}
+
+function applySnapshot(root, snap) {
+  for (const item of snap) {
+    const abs = path.join(root, item.file)
+    if (item.deleted) {
+      if (existsSync(abs)) unlinkSync(abs)
+      continue
+    }
+    mkdirSync(path.dirname(abs), { recursive: true })
+    if (existsSync(abs)) unlinkSync(abs)
+    if (item.link) symlinkSync(item.link, abs)
+    else writeFileSync(abs, item.body)
   }
-  return clean
 }
 
-/** Wrap up: commit this project's folder plus the src files changed this session. */
-export function save(root, slug, summary, extraPaths = []) {
-  const branch = checkSlug(slug)
+function restoreTree(root, files) {
+  const tracked = files.filter((file) => succeeds(root, ['ls-files', '--error-unmatch', '--', file]))
+  for (const file of files) {
+    if (!tracked.includes(file) && existsSync(path.join(root, file))) unlinkSync(path.join(root, file))
+  }
+  if (tracked.length) git(root, ['restore', '--source=HEAD', '--staged', '--worktree', '--', ...literal(tracked)])
+}
+
+/** `https://github.com/owner/repo` from any GitHub remote URL, or null. */
+export function webUrl(remoteUrl) {
+  const url = String(remoteUrl)
+    .trim()
+    .replace(/^git@([^:]+):/, 'https://$1/')
+    .replace(/^ssh:\/\/git@([^/]+)\//, 'https://$1/')
+    .replace(/\/\/[^@/]+@/, '//')
+    .replace(/\.git$/, '')
+    .replace(/\/$/, '')
+  return /^https?:\/\//.test(url) ? url : null
+}
+
+const githubRepo = (remoteUrl) => webUrl(remoteUrl)?.match(/^https:\/\/github\.com\/([^/]+\/[^/]+)$/)?.[1] ?? null
+
+/** A link that opens the review page for `branch`: GitHub's PR form, or the branch page elsewhere. */
+export function branchLink(remoteUrl, branch, { base = BASE, into } = {}) {
+  const url = webUrl(remoteUrl)
+  if (!url) return null
+  const repo = githubRepo(remoteUrl)
+  if (!repo) return `${url}/tree/${branch}`
+  const target = into ? githubRepo(into) : null
+  const head = target && target !== repo ? `${repo.split('/')[0]}:${branch}` : branch
+  return `https://github.com/${target ?? repo}/compare/${base}...${head}?expand=1`
+}
+
+/** Opens a PR with the GitHub CLI when it's installed and signed in; returns its URL, or null. */
+function openPullRequest(root, { repo, head, title, body }) {
+  if (!repo) return null
+  const args = ['pr', 'create', '--repo', repo, '--base', BASE, '--head', head, '--title', title, '--body', body]
+  const result = spawnSync('gh', args, { cwd: root, encoding: 'utf8', timeout: 30000 })
+  return result.status === 0 ? (result.stdout.match(/https:\/\/\S+/)?.[0] ?? null) : null
+}
+
+/** Moves harness edits to `<first>/harness-<slug>` from main, pushes it and opens a PR to the upstream harness. */
+function suggestToHarness(root, slug, files, { openPr = openPullRequest } = {}) {
+  const projectBranch = currentBranch(root)
+  const snap = snapshotTree(root, files)
+  restoreTree(root, files)
+  const first = designerFirstName(root)
+  let branch = `${first}/harness-${slug}`
+  for (let n = 2; branchExists(root, branch); n += 1) branch = `${first}/harness-${slug}-${n}`
+  try {
+    git(root, ['switch', '-q', '-c', branch, BASE])
+  } catch (error) {
+    applySnapshot(root, snap)
+    throw error
+  }
+  const subject = `Suggest harness change from ${slug}`
+  let message = `Moved the harness change to ${branch}.`
+  try {
+    applySnapshot(root, snap)
+    commit(root, files, subject, 'suggest')
+    const origin = gitValue(root, ['remote', 'get-url', 'origin'])
+    if (!origin) {
+      message += ' This copy has no remote, so nothing was pushed.'
+    } else {
+      git(root, ['push', '-u', 'origin', `${branch}:${branch}`])
+      const upstream = remoteUrl(root, upstreamRemote(root)) || UPSTREAM_URL
+      const [from, into] = [githubRepo(origin), githubRepo(upstream)]
+      const head = from === into ? branch : `${from?.split('/')[0]}:${branch}`
+      const body = `Suggested from a project branch (${projectBranch}).\n\nFiles:\n${files.map((f) => `- ${f}`).join('\n')}`
+      const pr = from && into ? openPr(root, { repo: into, head, title: subject, body }) : null
+      const link = pr ?? branchLink(origin, branch, { into: upstream })
+      message += pr ? ` Pull request: ${pr}` : link ? ` Open the pull request: ${link}` : ` Pushed ${branch}.`
+    }
+  } finally {
+    git(root, ['switch', '-q', projectBranch])
+  }
+  return { branch, message }
+}
+
+/**
+ * Wrap up: commit this project's folder. Anything changed outside `projects/` is a harness
+ * edit: stop and ask, then `harness: 'keep'` leaves it local or `'suggest'` sends it upstream.
+ */
+export function save(root, slug, summary, { harness, openPr } = {}) {
+  checkSlug(slug)
   if (!isEnabled(root)) return { sha: null, message: null }
   const subject = String(summary ?? '').trim()
   if (!subject || /[\r\n]/.test(subject)) throw new AutopilotError('The save needs a one-line summary.')
+  assertNoForeign(root)
+  const branch = branchFor(root, slug)
   const current = currentBranch(root)
   if (current !== branch) {
     if (branchExists(root, branch)) {
       throw new AutopilotError(`You're on ${current || 'no branch'}, not ${branch}. Say "continue ${slug}" first.`)
     }
-    git(root, ['switch', '-q', '-c', branch])
+    checkpoint(root, `saving ${slug}`)
+    switchTo(root, branch)
   }
-  const paths = [`projects/${slug}`, ...extraPaths.map((file) => checkExtraPath(slug, file))]
-  const sha = commit(root, paths, subject, 'save')
-  return { sha, message: sha ? `Saved on ${branch}: ${subject}` : 'Nothing new to save.' }
+  const edits = harnessChanges(root)
+  if (edits.length && harness !== 'keep' && harness !== 'suggest') {
+    throw new AutopilotError(
+      `These harness files changed on your project branch:\n${indent(edits)}\n${HARNESS_QUESTION}`,
+    )
+  }
+  const cards = changedFiles(root, TEAM_DATA)
+  const sha = commit(root, [`projects/${slug}`, ...cards], subject, 'save')
+  const lines = [sha ? `Saved on ${branch}: ${subject}` : 'Nothing new to save.']
+  if (edits.length && harness === 'suggest') lines.push(suggestToHarness(root, slug, edits, { openPr }).message)
+  if (edits.length && harness === 'keep') {
+    writeFileSync(keepLocalFile(root), [...new Set([...keptLocal(root), ...edits])].join('\n') + '\n')
+    lines.push(`Kept ${plural(edits.length, 'harness file')} local; I won't ask about them again.`)
+  }
+  return { sha, message: lines.join('\n') }
 }
 
 function lastUndoable(root) {
   const branch = currentBranch(root)
-  if (!branch.startsWith('project/')) throw new AutopilotError('Undo works on a project branch only.')
+  if (!branch || branch === BASE) throw new AutopilotError('Undo works on a project branch only.')
   const format = `%H%x1f%s%x1f%(trailers:key=${TRAILER},valueonly,separator=)%x1f%(trailers:key=${REVERTS},valueonly,separator=)%x1e`
   const log = git(root, ['log', `--format=${format}`, `${BASE}..HEAD`])
   const commits = log
@@ -255,11 +489,7 @@ export function undo(root, { confirm = false } = {}) {
   try {
     git(root, [...identity(root), 'revert', '--no-commit', target.sha])
   } catch (error) {
-    try {
-      git(root, ['revert', '--abort'])
-    } catch {
-      // nothing to abort
-    }
+    run(root, ['revert', '--abort'])
     throw error
   }
   git(root, [
@@ -274,32 +504,259 @@ export function undo(root, { confirm = false } = {}) {
   return { target, files, message: `Undid "${target.subject}"` }
 }
 
-export function branchLink(remoteUrl, branch) {
-  const url = remoteUrl
-    .trim()
-    .replace(/^git@([^:]+):/, 'https://$1/')
-    .replace(/^ssh:\/\/git@([^/]+)\//, 'https://$1/')
-    .replace(/\/\/[^@/]+@/, '//')
-    .replace(/\.git$/, '')
-  if (!/^https?:\/\//.test(url)) return null
-  return url.includes('gitlab') ? `${url}/-/tree/${branch}` : `${url}/tree/${branch}`
-}
-
 /** Pushes the current project branch. Only on "share this"; never main, never force. */
 export function share(root) {
   if (!isEnabled(root)) return { link: null, message: null }
   const branch = currentBranch(root)
-  if (!branch.startsWith('project/'))
+  if (!branch || branch === BASE) {
     throw new AutopilotError(`Share works from a project branch, not ${branch || 'no branch'}.`)
-  let remote
-  try {
-    remote = git(root, ['remote', 'get-url', 'origin'])
-  } catch {
-    throw new AutopilotError('This copy has no remote to share to yet.')
   }
+  const remote = gitValue(root, ['remote', 'get-url', 'origin'])
+  if (!remote) throw new AutopilotError('This copy has no remote to share to yet.')
   git(root, ['push', '-u', 'origin', `${branch}:${branch}`])
   const link = branchLink(remote, branch)
   return { link, message: link ? `Shared: ${link}` : `Shared ${branch} to ${remote}.` }
+}
+
+/** Fetches one branch with a short timeout and no password prompt. Tests pass their own. */
+export function fetchBranch(root, remote, branch = BASE, timeout = 15000) {
+  if (!remote || !gitValue(root, ['remote', 'get-url', remote])) return { ok: false, detail: `no ${remote} remote` }
+  const result = run(root, ['fetch', '-q', remote, branch], {
+    timeout,
+    env: {
+      ...process.env,
+      GIT_TERMINAL_PROMPT: '0',
+      GIT_SSH_COMMAND: process.env.GIT_SSH_COMMAND || 'ssh -o ConnectTimeout=10 -o BatchMode=yes',
+    },
+  })
+  if (result.status === 0) return { ok: true, detail: '' }
+  const detail = `${result.stderr || result.error?.message || 'the remote did not answer'}`.trim().split('\n').pop()
+  return { ok: false, detail }
+}
+
+const count = (root, range) => Number(gitValue(root, ['rev-list', '--count', range])) || 0
+
+/** Days since the oldest commit `ref` has that HEAD lacks. */
+function behindDays(root, ref) {
+  const oldest = gitValue(root, ['rev-list', '--reverse', `HEAD..${ref}`]).split('\n')[0]
+  if (!oldest) return null
+  const at = Number(gitValue(root, ['log', '-1', '--format=%ct', oldest]))
+  return Number.isFinite(at) ? Math.floor((Date.now() / 1000 - at) / DAY_SECONDS) : null
+}
+
+const mainRef = (root) => (revExists(root, `origin/${BASE}`) ? `origin/${BASE}` : BASE)
+
+/**
+ * Merges main into a project branch that has been behind for more than a day.
+ * A conflict stops the merge and lists the files; nothing is resolved.
+ */
+export function catchUp(root) {
+  const none = { merged: false, conflicts: [], message: null }
+  const branch = currentBranch(root)
+  if (!isEnabled(root) || !branch || branch === BASE) return none
+  const ref = mainRef(root)
+  if (!revExists(root, ref)) return none
+  const days = behindDays(root, ref)
+  if (days === null || days < 1) return none
+  const behind = count(root, `HEAD..${ref}`)
+  if (isDirty(root, ['.'])) {
+    return {
+      ...none,
+      message: `${branch} is ${plural(behind, 'commit')} behind ${ref}. Uncommitted changes are in the way, so it wasn't merged.`,
+    }
+  }
+  const merged = run(root, [...identity(root), 'merge', '-q', '--no-edit', ref])
+  if (merged.status === 0)
+    return { ...none, merged: true, message: `Merged ${ref} into ${branch} (${plural(behind, 'commit')}).` }
+  const conflicts = gitValue(root, ['diff', '--name-only', '--diff-filter=U']).split('\n').filter(Boolean)
+  run(root, ['merge', '--abort'])
+  const list = conflicts.length ? conflicts : [`${merged.stderr || merged.stdout}`.trim().split('\n').pop()]
+  return {
+    ...none,
+    conflicts,
+    message: `Stopped. Merging ${ref} into ${branch} conflicts:\n${indent(list)}\nNothing was merged. Ask before resolving.`,
+  }
+}
+
+/**
+ * First reply of a chat. One warning line when on main or 50+ commits behind
+ * origin/main, plus catch-up when autopilot is on. Empty when all is well.
+ */
+export function sessionLine(root, { fetchMain = () => fetchBranch(root, 'origin', BASE, 8000) } = {}) {
+  if (gitValue(root, ['rev-parse', '--is-inside-work-tree']) !== 'true') return ''
+  const fetched = fetchMain()
+  const branch = currentBranch(root)
+  const behind =
+    fetched.ok && revExists(root, `origin/${BASE}`) ? count(root, `${branch || 'HEAD'}..origin/${BASE}`) : 0
+  const lines = []
+  if (!branch || branch === BASE) {
+    lines.push(
+      behind >= BEHIND_WARNING
+        ? `On main, ${behind} commits behind origin/main. Project work belongs on your own branch.`
+        : 'On main. Project work belongs on your own branch.',
+    )
+  } else if (behind >= BEHIND_WARNING) {
+    lines.push(`This branch is ${behind} commits behind origin/main.`)
+  }
+  const caught = catchUp(root).message
+  if (caught) lines.push(caught)
+  return lines.join('\n')
+}
+
+const remoteUrl = (root, name) => (name ? gitValue(root, ['remote', 'get-url', name]) : '')
+
+/** The remote that points at the harness: `upstream`, else any remote with the harness URL, else ''. */
+function upstreamRemote(root) {
+  if (remoteUrl(root, 'upstream')) return 'upstream'
+  const target = githubRepo(UPSTREAM_URL)
+  const names = gitValue(root, ['remote']).split('\n').filter(Boolean)
+  return names.find((name) => githubRepo(remoteUrl(root, name)) === target) ?? ''
+}
+
+function projectFileFromUpstream(file) {
+  return !file.startsWith('projects/') || UPSTREAM_PROJECT_FILES.some((keep) => file === keep || file.startsWith(keep))
+}
+
+function installIfNeeded(root, before) {
+  const changed = gitValue(root, ['diff', '--name-only', before, 'HEAD', '--', 'package.json', 'package-lock.json'])
+  if (!changed) return ''
+  const result = spawnSync('npm', ['install', '--no-audit', '--no-fund'], { cwd: root, encoding: 'utf8' })
+  return result.status === 0 ? ' Ran npm install.' : ' Dependencies changed; run npm install.'
+}
+
+/**
+ * "Update my harness": merge the harness's main into this branch. The team's
+ * `projects/` and every `*.local` file stay as they are; a real conflict stops
+ * the merge and lists the files. Runs with autopilot off.
+ */
+export function updateHarness(root, { fetch = fetchBranch, install = installIfNeeded } = {}) {
+  if (isDirty(root, ['.'])) throw new AutopilotError('Uncommitted changes are in the way. Wrap up first, then update.')
+  let remote = upstreamRemote(root)
+  let added = ''
+  if (!remote) {
+    git(root, ['remote', 'add', 'upstream', UPSTREAM_URL])
+    remote = 'upstream'
+    added = `Added the harness as "upstream" (${UPSTREAM_URL}). `
+  }
+  const fetched = fetch(root, remote, BASE)
+  if (!fetched.ok) throw new AutopilotError(`${added}Couldn't reach the harness: ${fetched.detail}`)
+  const ref = `${remote}/${BASE}`
+  const branch = currentBranch(root) || 'HEAD'
+  const incoming = count(root, `HEAD..${ref}`)
+  if (!incoming) return { merged: false, conflicts: [], message: `${added}${branch} already has the latest harness.` }
+  const before = git(root, ['rev-parse', 'HEAD'])
+  const merged = run(root, [...identity(root), 'merge', '-q', '--no-ff', '--no-commit', ref])
+  if (merged.status !== 0 && !existsSync(path.resolve(root, git(root, ['rev-parse', '--git-path', 'MERGE_HEAD'])))) {
+    const detail = `${merged.stderr || merged.stdout}`.trim().split('\n').pop()
+    throw new AutopilotError(`${added}Couldn't merge the harness: ${detail}`)
+  }
+  const base = gitValue(root, ['merge-base', 'HEAD', 'MERGE_HEAD'])
+  const touched = base ? gitValue(root, ['diff', '--name-only', base, 'MERGE_HEAD', '--', 'projects']) : ''
+  const conflicted = gitValue(root, ['diff', '--name-only', '--diff-filter=U'])
+  const team = [...new Set([...touched.split('\n'), ...conflicted.split('\n')])].filter(
+    (file) => file && !projectFileFromUpstream(file),
+  )
+  for (const file of team) {
+    if (succeeds(root, ['cat-file', '-e', `HEAD:${file}`])) git(root, ['checkout', 'HEAD', '--', ...literal([file])])
+    else git(root, ['rm', '-q', '-f', '--ignore-unmatch', '--', ...literal([file])])
+  }
+  const real = gitValue(root, ['diff', '--name-only', '--diff-filter=U']).split('\n').filter(Boolean)
+  if (real.length) {
+    run(root, ['merge', '--abort'])
+    return {
+      merged: false,
+      conflicts: real,
+      message: `${added}Stopped. The harness update conflicts with changes on ${branch}:\n${indent(real)}\nNothing was merged. Ask before resolving.`,
+    }
+  }
+  git(root, [...identity(root), 'commit', '-q', '-m', `Update harness from ${ref}`, '-m', `${TRAILER}: update`])
+  const kept = team.length
+    ? ` Left out ${plural(team.length, 'change')} it had for projects/; yours stay as they were.`
+    : ''
+  return {
+    merged: true,
+    conflicts: [],
+    message: `${added}Updated ${branch} with ${plural(incoming, 'harness commit')}.${kept}${install(root, before)}`,
+  }
+}
+
+function mainWorktree(root) {
+  const line = git(root, ['worktree', 'list', '--porcelain'])
+    .split('\n')
+    .find((row) => row.startsWith('worktree '))
+  if (!line) throw new AutopilotError('Could not find the main working copy.')
+  return line.slice('worktree '.length)
+}
+
+function linkLocal(fromRoot, destRoot, name) {
+  const source = path.join(fromRoot, name)
+  const dest = path.join(destRoot, name)
+  if (!existsSync(source) || existsSync(dest)) return false
+  mkdirSync(path.dirname(dest), { recursive: true })
+  symlinkSync(path.relative(path.dirname(dest), source), dest)
+  return true
+}
+
+/**
+ * "Work on another project in parallel": a second folder on `<first>/<slug>`, with
+ * this designer's profile, context and settings linked in. Runs with autopilot off.
+ */
+export function addWorktree(root, slug) {
+  const branch = branchFor(root, slug)
+  if (currentBranch(root) === branch) throw new AutopilotError(`${slug} is already open in this folder.`)
+  const main = mainWorktree(root)
+  const dest = path.resolve(path.dirname(main), `${path.basename(main)}-${slug}`)
+  if (existsSync(dest)) throw new AutopilotError(`${dest} already exists. Open that folder instead.`)
+  if (branchExists(root, branch)) git(root, ['worktree', 'add', '-q', dest, branch])
+  else git(root, ['worktree', 'add', '-q', '-b', branch, dest, BASE])
+  const linked = LOCAL_LINKS.filter((name) => linkLocal(main, dest, name))
+  return {
+    dest,
+    branch,
+    linked,
+    message: `Second working copy: ${dest}\nOpen that folder in its own window. Branch ${branch}.`,
+  }
+}
+
+function likelyBranch(root, file) {
+  const here = currentBranch(root)
+  const slug = file.match(/^projects\/([^/_][^/]*)\//)?.[1]
+  if (!slug) return here === BASE ? 'a harness change (main)' : `a harness change, not ${here}`
+  const branches = gitValue(root, ['for-each-ref', '--format=%(refname:short)', 'refs/heads'])
+    .split('\n')
+    .filter((name) => name.endsWith(`/${slug}`))
+  if (!branches.length) return `project ${slug}, no branch yet`
+  return branches.includes(here) ? here : `${branches.join(', ')} (not this branch)`
+}
+
+/** Dirty files and where they belong, branches behind main, whether origin and the harness answer. */
+export function doctor(root, { fetch = fetchBranch } = {}) {
+  const here = currentBranch(root) || '(no branch)'
+  const dirty = changedFiles(root, ['.'])
+  const origin = fetch(root, 'origin', BASE)
+  const upstream = upstreamRemote(root)
+  const harness = upstream ? fetch(root, upstream, BASE) : null
+  const ref = mainRef(root)
+  const behind = gitValue(root, ['for-each-ref', '--format=%(refname:short)', 'refs/heads'])
+    .split('\n')
+    .filter((name) => name && name !== BASE)
+    .map((name) => [name, count(root, `${name}..${ref}`)])
+    .filter(([, n]) => n > 0)
+    .map(([name, n]) => `${name}  ${plural(n, 'commit')} behind ${ref}`)
+  const harnessLine = !upstream
+    ? 'Harness: no upstream remote yet ("update my harness" adds it).'
+    : harness.ok
+      ? `Harness (${upstream}): reachable, ${plural(count(root, `HEAD..${upstream}/${BASE}`), 'new commit')}.`
+      : `Harness (${upstream}): not reachable (${harness.detail}).`
+  return [
+    `On ${here}. Git autopilot is ${isEnabled(root) ? 'on' : 'off'}.`,
+    'Uncommitted files:',
+    indent(dirty.length ? dirty.map((file) => `${file} — ${likelyBranch(root, file)}`) : ['none']),
+    origin.ok ? 'origin: reachable.' : `origin: not reachable (${origin.detail}).`,
+    `Branches behind ${ref}:`,
+    indent(behind.length ? behind : ['none']),
+    harnessLine,
+  ].join('\n')
 }
 
 function cli(argv) {
@@ -307,23 +764,34 @@ function cli(argv) {
   const [command, ...rest] = argv
   const flags = new Set(rest.filter((a) => a.startsWith('--')))
   const args = rest.filter((a) => !a.startsWith('--'))
+  if (command === 'session') return sessionLine(root)
+  if (command === 'doctor') return doctor(root)
+  if (command === 'update') return updateHarness(root).message
+  if (command === 'worktree') return addWorktree(root, args[0]).message
   if (!isEnabled(root)) return 'Git autopilot is off.'
   switch (command) {
     case 'start':
       return start(root, args[0], { scaffold: flags.has('--scaffold') }).message
     case 'resume':
       return resume(root, args[0]).message ?? ''
-    case 'save':
-      return save(root, args[0], args[1], args.slice(2)).message
+    case 'save': {
+      if (flags.has('--keep-harness') && flags.has('--suggest-harness')) {
+        throw new AutopilotError('Pick one: keep the harness change local, or suggest it.')
+      }
+      const harness = flags.has('--keep-harness') ? 'keep' : flags.has('--suggest-harness') ? 'suggest' : undefined
+      return save(root, args[0], args[1], { harness }).message
+    }
     case 'undo': {
       const result = undo(root, { confirm: flags.has('--yes') })
-      const list = result.files.map((line) => `  ${line}`).join('\n')
-      return list ? `${result.message}\n${list}` : result.message
+      const list = indent(result.files)
+      return result.files.length ? `${result.message}\n${list}` : result.message
     }
     case 'share':
       return share(root).message
+    case 'catch-up':
+      return catchUp(root).message ?? ''
     default:
-      throw new AutopilotError('Use start, resume, save, undo or share.')
+      throw new AutopilotError('Use start, resume, save, undo, share, catch-up, session, doctor, update or worktree.')
   }
 }
 

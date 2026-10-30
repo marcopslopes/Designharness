@@ -5,8 +5,9 @@ design work grouped by person. It only ever shows data that is **committed
 in the repo** — never anything from a designer’s local-only profile.
 
 This is the human guide. Projects come straight from each committed
-`brief.md` — nothing is copied by hand. Designer profiles are enriched into
-`src/design-harness/galleryData.ts` via
+`brief.md` — nothing is copied by hand. Each designer has one small card file,
+`src/design-harness/gallery-designers/<slug>.ts` (name, role, focus areas,
+avatar), written via
 `harness/references/gallery-card-enrichment.md` (proactive at first
 eligibility), with `harness/skills/audit/SKILL.md` Step 3.5 as the safety net.
 
@@ -18,8 +19,7 @@ eligibility), with `harness/skills/audit/SKILL.md` Step 3.5 as the safety net.
 |------|------|
 | Live UI | `#/gallery` (and `#/gallery/<designer-slug>`) |
 | Projects (read at build time) | `projects/<slug>/brief.md` — Ownership + Case study summary only |
-| Designer profiles | `src/design-harness/galleryData.ts` |
-| Designer routes (must stay in sync) | `GALLERY_DESIGNER_ROUTES` in `src/design-harness/routes.ts` |
+| Designer cards (one file each; the page comes from the file name) | `src/design-harness/gallery-designers/<slug>.ts` |
 | Card profile enrichment | `harness/references/gallery-card-enrichment.md` |
 | When enrichment runs (primary) | `task-intake` / `design-kickoff` at first eligibility |
 | Safety-net check | `audit` Step 3.5 (on PASS) |
@@ -33,10 +33,10 @@ eligibility), with `harness/skills/audit/SKILL.md` Step 3.5 as the safety net.
 A designer’s card appears in `#/gallery` as soon as they have **at least one
 committed `brief.md`** with:
 
-- a resolved **`Designer:`** name matching their `galleryData.ts` entry, and
+- a resolved **`Designer:`** name matching the `name` in their card file, and
 - **`Gallery: visible`**, and
 - all three **Case study summary** lines filled, and
-- a **fully enriched** card profile (`title`, `focusAreas`, `avatarUrl`)
+- a **fully enriched** card (`role`, `focusAreas`, `avatarUrl`)
 
 **One project is enough.** There is no “wait until a second project” rule,
 and no empty “no projects yet” placeholder card. Incomplete enrichment →
@@ -56,7 +56,7 @@ and no empty “no projects yet” placeholder card. Incomplete enrichment →
 
 **From Atlassian / Confluence (designer profile, via enrichment):**
 
-- Job **title**
+- Job **role**
 - **Focus areas** (2–4 public labels)
 - **Avatar** (committed under `public/design-harness/avatars/`)
 
@@ -84,7 +84,7 @@ appear. Stand-ups and 1:1 notes are not enrichment sources.
 2. Ownership: Designer: <real name>   Gallery: visible
 3. Case study summary: Problem / Goal / Status (short, clean)
 4. First eligibility → gallery-card-enrichment.md
-   - OK → write GalleryDesigner (title/focus/avatar) + route
+   - OK → write `gallery-designers/<slug>.ts` (name/role/focus/avatar)
    - FAIL → [GALLERY-ENRICHMENT] flag, leave unlisted
 5. The project shows automatically — Design Harness reads the brief
 6. Build / iterate → audit PASSes; Step 3.5 backfills a missing designer card
@@ -99,7 +99,7 @@ appear. Stand-ups and 1:1 notes are not enrichment sources.
 2. [ ] **`Gallery: visible`**  
 3. [ ] Case study **Problem / Goal / Status** filled  
 4. [ ] Card enrichment succeeded (or fix Atlassian/Confluence profile)  
-5. [ ] `brief.md` (+ `galleryData.ts`, `routes.ts`, avatar if the designer is new) **committed and pushed**
+5. [ ] `brief.md` (+ the card file and avatar if the designer is new) **committed and pushed**
 
 ---
 
@@ -114,7 +114,8 @@ appear. Stand-ups and 1:1 notes are not enrichment sources.
 
 | File | Role |
 |------|------|
-| `src/design-harness/galleryData.ts` | Designer profiles; attaches brief projects |
+| `src/design-harness/gallery-designers/` | One card per designer, public-safe fields only |
+| `src/design-harness/galleryData.ts` | Reads the cards; attaches brief projects |
 | `src/design-harness/projectsIndex.ts` | Reads `brief.md` Ownership + Case study |
 | `harness/references/gallery-card-enrichment.md` | Shared lookup |
 | `harness/task-intake/SKILL.md` | Primary trigger |

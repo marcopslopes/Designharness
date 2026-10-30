@@ -272,12 +272,12 @@ Step 0-2 actually completed, versus a folder still at `exploring`. Rules:
 
 **Gallery card enrichment (proactive, first eligibility):** once the
 structured Ownership block in `brief.md` has a real `Designer:` and
-`Gallery: visible`, and that designer is **not** yet in
-`src/design-harness/galleryData.ts`, run
-`harness/references/gallery-card-enrichment.md` in the same turn (title +
-focusAreas + avatar). Success → write the enriched designer entry (+ route);
-the project itself appears from `brief.md` automatically once its case study
-lines are filled — never copy it into `galleryData.ts`. Failure → `[GALLERY-ENRICHMENT]`
+`Gallery: visible`, and that designer has **no** card file in
+`src/design-harness/gallery-designers/` yet, run
+`harness/references/gallery-card-enrichment.md` in the same turn (role +
+focusAreas + avatar). Success → write their card file; the project itself
+appears from `brief.md` automatically once its case study lines are filled —
+never list it in the card. Failure → `[GALLERY-ENRICHMENT]`
 flag, leave unlisted, never invent, never block the kickoff gate. Audit
 Step 3.5 is the safety net.
 

@@ -158,9 +158,8 @@ inputs:
     - none                 # builds locally, no MCP needed
     
 outputs:
-  primary: studio_os_prototype             # .tsx + .css in src/design-harness/pages/
+  primary: studio_os_prototype             # projects/<slug>/screens/<Name>Page.tsx (+ .css), discovered — no route edit
   side_effects:
-    - routes.ts_update                   # register new screen
     - log.md_append
     - decisions.md_append                # if major pattern choices made
   

@@ -26,7 +26,7 @@ import {
 
 const ROOT = new URL('..', import.meta.url).pathname
 const PROJECTS_DIR = join(ROOT, 'projects')
-const GALLERY_DATA = join(ROOT, 'src/design-harness/galleryData.ts')
+const GALLERY_CARDS = join(ROOT, 'src/design-harness/gallery-designers')
 
 const args = process.argv.slice(2)
 const asJson = args.includes('--json')
@@ -53,8 +53,9 @@ function projectSlugs() {
 }
 
 const galleryDesignerNames = (() => {
-  const source = existsSync(GALLERY_DATA) ? readFileSync(GALLERY_DATA, 'utf8') : ''
-  return new Set([...source.matchAll(/^\s+name:\s*'([^']+)'/gm)].map((m) => m[1].trim().toLowerCase()))
+  const files = existsSync(GALLERY_CARDS) ? readdirSync(GALLERY_CARDS).filter((f) => f.endsWith('.ts')) : []
+  const names = files.map((f) => readFileSync(join(GALLERY_CARDS, f), 'utf8').match(/^\s+name:\s*'([^']+)'/m)?.[1])
+  return new Set(names.filter(Boolean).map((name) => name.trim().toLowerCase()))
 })()
 
 function factsFor(slug) {
@@ -91,7 +92,7 @@ function factsFor(slug) {
     galleryBlocker(ownership, caseStudy) ??
     (galleryDesignerNames.has(ownership.designer.trim().toLowerCase())
       ? undefined
-      : `no designer card for "${ownership.designer}" in galleryData.ts (run gallery-card-enrichment)`)
+      : `no designer card for "${ownership.designer}" in src/design-harness/gallery-designers/ (run gallery-card-enrichment)`)
 
   return {
     slug,

@@ -5,17 +5,6 @@ import { HOWTO_ROUTES, isHowtoDocRoute, skillGuideRedirect, type HowtoDocRoute }
 import { BUTTON_ROUTES, EXTRACTED_COMPONENT_ROUTES } from './componentRoutes'
 import { resolveProjectRoute } from './projectsIndex'
 
-/**
- * Example prototypes — add your own work here.
- * Each route here must have a corresponding page component in `src/design-harness/pages/`.
- *
- * Example:
- * export const PLAYGROUND_ROUTES = [
- *   'playground/my-feature',
- * ] as const
- */
-export const PLAYGROUND_ROUTES = [] as const
-
 export const AGENT_ROUTES = [
   'agents/ui-agent',
   'agents/content-agent',
@@ -27,21 +16,18 @@ export const AGENT_ROUTES = [
 export const SKILLS_ROUTES = ['skills', 'skills/graph', 'skills/assistant', 'skills/usage'] as const
 
 /**
- * One route per designer in `src/design-harness/galleryData.ts` — hand-maintained in
- * sync with that file's `GALLERY_DESIGNERS[].slug`, same convention as
- * `PLAYGROUND_ROUTES` staying in sync with `src/design-harness/pages/`. Each opens
- * that designer's own Team Gallery page instead of everything being inlined
- * on the `gallery` index, same relationship `playground` has to
- * `playground/<slug>`.
+ * One Team Gallery page per designer card file, `src/design-harness/gallery-designers/<slug>.ts`.
+ * Discovered from the file names, so two designers adding their cards never edit the same file.
  */
-export const GALLERY_DESIGNER_ROUTES = ['gallery/abigail', 'gallery/alex', 'gallery/sam'] as const
+const GALLERY_DESIGNER_ROUTE_SET = new Set(
+  Object.keys(import.meta.glob('./gallery-designers/*.ts')).map(
+    (file) => `gallery/${file.replace(/^.*\//, '').replace(/\.ts$/, '')}`,
+  ),
+)
 
-export type PlaygroundDesignHarnessRoute = (typeof PLAYGROUND_ROUTES)[number]
 export type AgentDesignHarnessRoute = (typeof AGENT_ROUTES)[number]
 export type SkillsDesignHarnessRoute = (typeof SKILLS_ROUTES)[number]
-export type GalleryDesignerDesignHarnessRoute = (typeof GALLERY_DESIGNER_ROUTES)[number]
-
-const GALLERY_DESIGNER_ROUTE_SET = new Set<string>(GALLERY_DESIGNER_ROUTES)
+export type GalleryDesignerDesignHarnessRoute = `gallery/${string}`
 
 export function isGalleryDesignerRoute(route: string): route is GalleryDesignerDesignHarnessRoute {
   return GALLERY_DESIGNER_ROUTE_SET.has(route)
@@ -76,7 +62,6 @@ export const LEGACY_ROUTE_MAP: Record<string, string> = {
 export const STUDIO_OS_ROUTES = [
   'overview',
   'gallery',
-  ...GALLERY_DESIGNER_ROUTES,
   'blueprints',
   'design-system/systems',
   'design-system/foundations',
@@ -97,7 +82,6 @@ export const STUDIO_OS_ROUTES = [
   ...SKILLS_ROUTES,
   ...HOWTO_ROUTES,
   'playground',
-  ...PLAYGROUND_ROUTES,
   'board',
   'settings',
 ] as const
@@ -108,6 +92,7 @@ export type ProjectRoute = `playground/${string}`
 export type DesignHarnessRoute =
   | (typeof STUDIO_OS_ROUTES)[number]
   | ProjectRoute
+  | GalleryDesignerDesignHarnessRoute
   | FoundationDocRoute
   | HowtoDocRoute
   | ContextDocRoute
@@ -139,6 +124,7 @@ export function parseDesignHarnessHash(): DesignHarnessRoute {
   const raw = normalizeHashKey(window.location.hash) || 'overview'
   if (ROUTE_SET.has(raw)) return raw as DesignHarnessRoute
   if (isDiscoveredDocRoute(raw)) return raw
+  if (isGalleryDesignerRoute(raw)) return raw
   if (isProjectRoute(raw)) {
     const project = resolveProjectRoute(raw)!.project
     const embedded = getDesignHarnessHashQuery().get('embed') === '1'
