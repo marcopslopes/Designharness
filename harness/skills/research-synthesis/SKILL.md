@@ -9,12 +9,19 @@ description: >-
   do I synthesize these interviews", "affinity diagram this data", "find
   patterns in these transcripts", "synthesis is taking too long", "I have
   all this data now what", "tag these transcripts", "cluster these
-  findings". Produces patterns and clusters, not finished insights — hand
+  findings", "here's an interview", "anything interesting?" on a
+  transcript, interview notes, or survey data. The paste already being
+  in the chat is not an exemption: read this skill before answering.
+  Produces patterns and clusters, not finished insights — hand
   the output to `insight-writer` for the key-learning/why/consequence
   writeup.
 ---
 
 # Research Synthesis
+
+A pasted transcript, interview notes, survey data, or "anything interesting?"
+on that material is this skill. Read this file before writing the answer.
+Do not summarize the paste first.
 
 Turns raw session data into tagged clusters and pattern candidates —
 either fast (a 30-minute debrief right after each session) or full (tag →

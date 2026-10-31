@@ -10,6 +10,7 @@ Each release is a version in `package.json` and a matching Git tag, such as `v0.
 - **The PRD check is only for a new product bet.** "Let's start working on…" and "let's explore payouts" still stop to ask if the brief is good enough. A question, a lookup, an iteration, a critique, copy, or an import does not.
 - **Two old skills no longer catch phrases.** Workload questions go to the workload skill, and a critique of existing work goes to the pattern critique. The old files stay so existing links still open.
 - **A screen edit waits until the prototype skill is open.** Claude Code blocks a write under `projects/*/screens/` or a `.tsx` file under `src/` until this chat has read the prototype skill. The message is "Load ui-agent first." Cursor runs the same check, but a known Cursor bug can let the write through (see `KNOWN-ISSUES.md`).
+- **A pasted interview is a synthesis, even when the text is already in the chat.** "Anything interesting?" on a transcript, interview notes, or survey opens the research synthesis skill before the answer.
 
 ### 30 October 2026
 
