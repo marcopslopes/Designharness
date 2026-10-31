@@ -109,7 +109,7 @@ on explicit approval.
 | 91 | "Go with next payout first, build that." (after a variant fork; `decisions.md` now has a **Chosen:** entry, no `case-study.md`) | `ui-agent` → `case-study` after-build mode | Added 2026-10-15. The build's plan lists the case study; it writes `case-study.md` as a DRAFT without waiting on the outline, then offers slides / prose / stop. Fail if it writes one before any decision exists, rewrites an existing `case-study.md`, or builds a deck. |
 | 92 | "Add the empty state to the clients list — a manager with no clients yet." | `ui-agent` (+ `content` for the copy) | Added 2026-10-16 when states stopped being files. Adds an optional string prop with today's default (e.g. `clients="none"`) and links it as `screens/…Page.tsx?clients=none`. Fail if it writes a `screens/states/` file or copies the screen. |
 | 93 | "Grill me on the payout-hold plan until we agree." (plan already in the task folder) | `ux-pattern` (grill mode) | Added 2026-10-18. One question at a time. Fail if it runs debate (#53), a criteria table (#28), critique findings, or a full kickoff. |
-| 94 | "Wayfind the payouts work — map the decisions, plan don't build." | `design-kickoff` (wayfinding mode) | Added 2026-10-18. Writes `wayfinding.md` only. Fail if it starts the PRD sequence (#1), drafts `brief.md`, or builds screens. |
+| 94 | "Wayfind the payouts work — map the decisions, plan don't build." | `design-kickoff` (wayfinding mode) | Added 2026-10-18. Writes the map into `decisions.md` only. Fail if it starts the PRD sequence (#1), drafts `brief.md`, writes `wayfinding.md`, or builds screens. |
 | 95 | "Let's explore payouts." | `design-kickoff` (full sequence) | Added 2026-10-18 as the pair to #94. Vague explore stays the front door. Fail if it runs wayfinding mode. |
 | 96 | "Is the settings sheet a persuade surface or an operate surface?" | `taste-feedback` | Added 2026-10-18. Names Operate/Read and stays inside tokens. Fail if it invents a palette (`design-system` token invention) or runs a full critique. |
 | 97 | "Does the system already animate this sheet, or do we need custom motion?" | `motion-choreography` | Added 2026-10-18. Already-covered gate: sheet recipe wins when it covers the purpose. Fail if it specs a new curve before checking the catalog. |
@@ -128,6 +128,16 @@ on explicit approval.
 | 110 | "Any thoughts on the wallet home?" (screens already built) | `ux-pattern` | Added 2026-10-31. A critique is not a new bet. Fail if it opens `design-kickoff` or stops at the PRD gate. |
 | 111 | "Rewrite the wallet home empty-state line." | `content` | Added 2026-10-31. Copy is not a new bet. Fail if it opens `design-kickoff` or stops at the PRD gate. |
 | 112 | "Import this Figma frame into the wallet project." (screens already exist) | `ui-agent` | Added 2026-10-31. An import is not a new bet. Fail if it opens `design-kickoff` or stops at the PRD gate. |
+| 113 | "Where should I focus?" | `diagnostic` | Added 2026-10-31. Triage across layers. Fail if it opens `design-kickoff` or starts a build. |
+| 114 | "Define the objects and map how they relate before we draw screens." | `conceptual-model` | Added 2026-10-31. Product object model, after kickoff language and before screens. Fail if it opens domain-mapping mode or `ui-agent`. |
+| 115 | "Build our org-pack from the company docs." | `org-pack-builder` | Added 2026-10-31. Company-pack setup. Fail if it drafts a project brief. |
+| 116 | "Build an opportunity solution tree for payouts." | `product-strategy` | Added 2026-10-31. OST, not a ranked roadmap. Fail if it opens `roadmap-prioritization` or `design-kickoff`. |
+| 117 | "Publish this project." | `publish-project` | Added 2026-10-31. A deployed site, after an `audit` PASS. Fail if it runs Git autopilot share or `git push`. |
+| 118 | "Sync tokens from Figma into tokens.css." | `figma-token-sync` | Added 2026-10-31. Variable drift. Fail if it exports icons or maps Code Connect. |
+| 119 | "Download the icons from Figma." | `figma-asset-sync` | Added 2026-10-31. Asset pipeline. Fail if it syncs tokens or audits libraries. |
+| 120 | "Map these Figma components to code with Code Connect." | `figma-code-sync` | Added 2026-10-31. Code Connect. Fail if it syncs tokens or downloads assets. |
+| 121 | "What shader effects do we have?" | `figma-effects-catalog` | Added 2026-10-31. Shader catalog. Fail if it runs `figma-library-manager`. |
+| 122 | "What libraries do we have in Figma?" | `figma-library-manager` | Added 2026-10-31. Library search before a new component. Fail if it catalogs shaders. |
 ---
 
 ## Known ambiguous pairs (worth re-checking after any related edit)
