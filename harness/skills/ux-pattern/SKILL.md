@@ -70,7 +70,7 @@ This used to be an always-on Cursor rule. It runs only when this skill is the cr
 3. A Figma or FigJam link: AskQuestion first — written findings, canvas annotations, or both (`harness/skills/figma-ux-audit/references/offer-questions.md` § A). Do not annotate on silence. An explicit "annotate this" goes straight to `figma-ux-audit`.
 4. Written critique: this skill, plus `content` when copy or CTAs are in scope. Load each skill's context before reviewing.
 5. More than one skill: show the plan and wait. A critique plus a code pre-share `audit` on the same deliverable uses `harness/references/critique-isolation.md` — two passes, combined at the end.
-6. Write **First look**, then itemized findings. Append to `projects/<slug>/findings.md` and a line in that project's `log.md`.
+6. Write **First look**, then itemized findings. Append the detail to `projects/<slug>/findings.md` and a line in that project's `log.md`. The brief's truth block stays the index: link the evidence row at the finding (`harness/references/project-files.md`).
 7. After a written critique, if annotations were not already chosen, offer `figma-ux-audit`. On yes, run that row. Do not auto-run it.
 
 "Prep me for critique" is `critique-prep`. That skill never critiques the work. Do not send a code pre-share sweep to this skill unless they also asked for one. Do not use a lab tone on confirmed live production.

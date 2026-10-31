@@ -6,6 +6,8 @@ every time — see `harness/ORCHESTRATOR.md` for the full intake/routing protoco
 that creates and reads these. (Renamed from `tasks/` — same schema, same
 rules, just the folder and the word.)
 
+What each file is the source of truth for: `harness/references/project-files.md`.
+
 ## Schema
 
 ```

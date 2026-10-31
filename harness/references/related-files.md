@@ -22,6 +22,7 @@ not on every request.
 | `harness/harness-audit/SKILL.md` | Weekly self-improvement — reads the logs, proposes fixes. Also runs a **mandatory prospective routing eval** (`references/eval-prompts.md`) — no exceptions, same turn — after a §2/skill-description edit or any live-miss fix — see `documentation/maintainers/evals.md` |
 | `harness/harness-audit/references/benchmark.md` | Cost benchmark: six fixed tasks run as fresh Claude Code chats (`npm run benchmark`), recording steps, tokens, cost, time, and whether the right skill loaded. `--routing` runs the eval prompts the same way |
 | `projects/_template/` | Per-task folder schema (`brief.md`, `sources.md`, `findings.md`, `decisions.md`, `log.md`) |
+| `harness/references/project-files.md` | Which project file owns which fact. No `wayfinding.md`. |
 | `harness/skills/design-system/SKILL.md` | Pre-write token check + three-layer stylesheet rule; owns DS structural debt in `KNOWN-ISSUES.md` — not a substitute for `audit` |
 | `harness/skills/audit/SKILL.md` | Mandatory final gate; also owns the post-PASS remote-sync prompt (§6). Checks 6–7: object failure modes + surface-vs-deeper (advisory). Shared table: `harness/references/ooux-failure-modes.md` |
 | `harness/skills/` | Full content for every real skill in this repo — see `harness/logs/routing-standards.md`'s table for the current count. §2 routes most skills directly (`research-agent` is nested inside `design-kickoff` Step 1b) |

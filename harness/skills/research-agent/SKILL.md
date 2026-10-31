@@ -93,7 +93,9 @@ PRD's "how will we know it worked?" has a real success metric, this
 skill is who plans and reports the validation study that answers it.
 Copy `references/test-plan-template.md` into `projects/<slug>/testing/
 test-plan.md` when a study is actually planned or run — not before, and
-not as a permanent placeholder. See `harness/agents/researcher.md`.
+not as a permanent placeholder. Raw results go in
+`testing/<id>/results.md`. Summarise them into the brief's truth block
+(`harness/references/project-files.md`). See `harness/agents/researcher.md`.
 
 **Always check `harness/skills/workload-agent/references/roadmap-boards.md`** before the tracker leg of any topic that could span multiple product domains — it maps every known roadmap board across teams (Jira Product Discovery projects, Linear projects, a Notion roadmap database, or GitHub Projects), so the search isn't limited to whichever project the designer happened to name. (Canonical copy lives under `workload-agent/`, not here — see `references/roadmap-boards.md` in this folder for the pointer.)
 
@@ -191,14 +193,13 @@ verdict to.
    **Verdict:** worked / partially worked / didn't work / inconclusive
    **Recommended next iteration:** [one concrete next step]
    ```
-4. **If `projects/<slug>/testing/test-plan.md` already exists** for this
-   question, append this as a new dated entry under its own `## Results`
-   section — reuse that file's existing verdict shape, don't create a
-   second parallel record.
-5. **If no formal test plan exists** (the common ad-hoc case), append
-   directly to `findings.md` with the same shape — this does not force a
-   `testing/test-plan.md` into existence retroactively just to hold one
-   verdict.
+4. Write the raw result to `projects/<slug>/testing/<id>/results.md`.
+   `<id>` is the study name, or `ad-hoc` when there is no plan. Do not
+   put the raw result under `test-plan.md`.
+5. Summarise it into the brief's truth block as an evidence row that
+   links the results file (`harness/references/project-files.md`). Name
+   the same verdict in `findings.md`. The results file is not the only
+   copy, and a missing plan does not get created just to hold one verdict.
 
 **Never** invents a quantitative signal to make a verdict feel more
 conclusive than the evidence supports — an honest "inconclusive, thin

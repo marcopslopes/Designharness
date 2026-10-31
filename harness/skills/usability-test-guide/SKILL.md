@@ -208,7 +208,9 @@ If run against an approved `projects/<slug>/` task: save the guide under
 `projects/<slug>/testing/` (create `test-plan.md` from
 `harness/skills/research-agent/references/test-plan-template.md` if one
 doesn't exist yet, set Method + Success criteria from this guide's goals),
-and append a dated entry to `findings.md` naming this skill. If there's no
+and append a dated entry to `findings.md` naming this skill. Raw results
+are `testing/<id>/results.md`, summarised into the brief's truth block
+(`harness/references/project-files.md`) — not this guide. If there's no
 task folder, return the guide in chat only — this skill never creates a
 `projects/<slug>/` folder on its own.
 

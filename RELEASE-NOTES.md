@@ -6,6 +6,8 @@ Each release is a version in `package.json` and a matching Git tag, such as `v0.
 
 ### 31 October 2026
 
+- **Old review files stay as pointers.** A critique still goes to the pattern skill. The old review file no longer contains a second playbook. The public skill count leaves those two pointers out.
+- **One owner per project file.** The brief's truth block is status, assumptions, unknowns, and evidence. Findings are the detail behind evidence. Decisions, including a wayfinding map, live in `decisions.md`. Raw test results live under `testing/`, and a short version goes in the truth block. A personal journal is never a project source.
 - **A critique loads its rule with the critique.** The Figma critique instructions sit in the pattern skill, and load when you ask for a critique. They are not in every chat.
 - **Long rules load only when the turn needs them.** Intake, the plan gate, a missed route, project state, and the design-system rules are separate files. A screen edit still waits for the prototype skill. The design-thinking model loads for discovery, strategy, kickoff, and critique.
 - **A critique files the small findings itself.** Non-blocking critique findings go on the project's debt register, with the line "Logged the non-blocking findings in the project debt register." A question appears only when a finding is blocking. The pre-share audit still asks what to do with its advisories.

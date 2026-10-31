@@ -27,7 +27,7 @@ description: >-
   Also runs a **wayfinding mode** — explicit phrases only: "wayfind
   this", "map the decisions", "this is too big for one session",
   "plan, don't build", "the way isn't clear yet". Charts named
-  decisions in `projects/<slug>/wayfinding.md` and stops. Does not
+  decisions in `projects/<slug>/decisions.md` and stops. Does not
   draft a PRD and does not build. Vague "explore X" / "let's start on
   X" is still the full sequence below, not this mode. See § Wayfinding
   mode.
@@ -88,7 +88,9 @@ started" — it must not survive past the turn that created it.
 
 Step 1 has **two legs** — run both every time, in parallel where possible.
 Append each leg's raw output to `projects/<slug>/findings.md` (dated, named
-after the skill) as it comes in. **Never skip Leg A** — it catches
+after the skill) as it comes in. That file is the detail; the brief's
+truth block only keeps the index (`harness/references/project-files.md`).
+**Never skip Leg A** — it catches
 in-flight roadmap and designer ownership that Leg B's deep discovery can
 miss (proven: Live Activity owned by Tom Becker on `PROJ-154` while
 `DES` showed nothing).
@@ -229,7 +231,9 @@ Write the PRD into **`projects/<slug>/brief.md`**, using the structure in
 `brief.md` template for kickoff-gated tasks; it's the same file, richer
 content. Set the truth block `status` to `draft` as part of this write —
 this is what lets a future resume (per `harness/ORCHESTRATOR.md` §2b) know
-Step 0-2 actually completed, versus a folder still at `exploring`. Rules:
+Step 0-2 actually completed, versus a folder still at `exploring`.
+The truth block is the index; findings stay the detail behind evidence
+(`harness/references/project-files.md`). Rules:
 
 - Every claim carries a source link + date. No source = goes in the truth
   block's assumptions or unknowns, never in "What we know".
@@ -394,11 +398,12 @@ do not build screens.
    to lock, or a change to make once the way is clear. The name shapes
    every decision under it.
 2. Open `projects/<slug>/` if it exists. If it does not, create the
-   folder and write `wayfinding.md` only. Do not create `brief.md`.
+   folder and write `decisions.md` only. Do not create `brief.md`.
    A missing brief is what keeps the build skills from starting.
-3. Write the map. It is an index. When a decision actually settles,
-   write the text once in `decisions.md` under that name, and gist it
-   on the map. Refer to every decision by its name.
+   There is no `wayfinding.md` (`harness/references/project-files.md`).
+3. Write the map as a `# Wayfinding` section at the top of
+   `decisions.md`. It is an index. When a decision settles, add the
+   dated entry in that same file and gist it on the map by name.
 4. The next reply works the frontier — one open decision — then
    updates the map. The pull to just build means the map is done.
    Hand off to the full sequence when no approved PRD exists, or to
@@ -411,7 +416,7 @@ do not build screens.
 **Status:** mapping | clear
 
 ## Decisions so far
-- **[Name]** — one-line gist. Detail lives in decisions.md under this name.
+- **[Name]** — one-line gist. The dated entry is in this same file.
 
 ## Open
 - **[Name]** — the question. A decision, not a build task.
