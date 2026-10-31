@@ -2,7 +2,7 @@
 // Runs the harness benchmark: each task as a fresh Claude Code chat in a
 // throwaway worktree. See harness/harness-audit/references/benchmark.md.
 import { spawn, execFileSync } from 'node:child_process'
-import { appendFileSync, copyFileSync, existsSync, mkdtempSync, readFileSync, symlinkSync } from 'node:fs'
+import { appendFileSync, copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync, symlinkSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 
@@ -64,6 +64,12 @@ const TASKS = [
     expect: 'ui-agent',
     prompt: () => `${project} we're working on the wallet home screen. Make the balance label 2px larger.`,
   },
+  {
+    id: 'fresh-clone',
+    expect: 'ui-agent',
+    fresh: true,
+    prompt: () => `${project} swap the order of the two header buttons on the wallet home screen.`,
+  },
 ]
 
 const ALLOWED = [
@@ -117,21 +123,24 @@ function routingCases() {
   return cases
 }
 
-function makeWorktree(opts) {
+/** A throwaway clone, so its branch ref can't move this repo's `main`. */
+function makeWorktree(task, opts) {
   const dir = mkdtempSync(join(tmpdir(), 'dh-bench-'))
-  execFileSync('git', ['worktree', 'add', '--detach', '--force', dir, 'HEAD'], { cwd: ROOT, stdio: 'ignore' })
+  execFileSync('git', ['clone', '--shared', '-q', ROOT, dir])
+  execFileSync('git', ['checkout', '-q', '-B', task.fresh ? 'main' : 'bench/run', 'HEAD'], { cwd: dir })
   if (opts.dirty) {
     const diff = execFileSync('git', ['diff', 'HEAD'], { cwd: ROOT })
     if (diff.length) execFileSync('git', ['apply'], { cwd: dir, input: diff })
   }
-  const profile = join(ROOT, 'designer-profile.local.md')
-  if (existsSync(profile)) copyFileSync(profile, join(dir, 'designer-profile.local.md'))
+  if (!task.fresh) {
+    copyFileSync(join(BENCH, 'designer-profile.fixture.md'), join(dir, 'designer-profile.local.md'))
+  }
   if (existsSync(join(ROOT, 'node_modules'))) symlinkSync(join(ROOT, 'node_modules'), join(dir, 'node_modules'))
   return dir
 }
 
 function removeWorktree(dir) {
-  execFileSync('git', ['worktree', 'remove', '--force', dir], { cwd: ROOT, stdio: 'ignore' })
+  rmSync(dir, { recursive: true, force: true })
 }
 
 function runTask(task, opts, cwd) {
@@ -243,7 +252,7 @@ const rows = []
 for (let run = 1; run <= opts.runs; run++) {
   for (const task of selected) {
     process.stdout.write(`${opts.label ? opts.label + ' ' : ''}${run}/${opts.runs} ${task.id} … `)
-    const dir = makeWorktree(opts)
+      const dir = makeWorktree(task, opts)
     try {
       const row = summarize(task, opts, await runTask(task, opts, dir), commit)
       row.run = run

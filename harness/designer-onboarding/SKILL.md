@@ -53,13 +53,14 @@ designer profile..." — nothing about what happens after. See
   the user's task. **Forbidden:** onboarding greeting, MCP status table,
   profile `AskQuestion`, squad `AskQuestion`, handoff workload tables,
   handoff menu `AskQuestion`.
-- **File missing** → **before calling any tool**, output the greeting
-  from § The greeting below (verbatim, or close to it) as the first
-  content of your response. Then run all numbered steps below (starting
-  with the MCP probe), then handle the designer's request in the same
-  turn. **The greeting is Step 0a of the numbered list below, not
-  optional scene-setting** — see § The greeting and § Steps for why this
-  needs to be stated this bluntly.
+- **File missing, and nobody can answer** (headless, background, one-shot) →
+  no greeting, no question, no profile file. Role focus is `product`. Do
+  the request.
+- **File missing, and a person is here** → at most the role question, then
+  do their request in the same turn. Do not wait, and do not run the tool
+  probe, workload, or handoff first. Write the profile only after they
+  answer. A bare "hi" with no request is the only time the full greeting
+  in § The greeting is the whole reply.
 - **Designer explicitly says "skip this" / "don't ask me setup questions"**
   → write the file anyway with `Status: SKIPPED` (see template) so this
   never fires again for this clone. Respect the opt-out.
@@ -190,9 +191,8 @@ consistently afterward everywhere this persona speaks in its own voice
 **Design Harness** (the design-system catalog app this repo also ships — a
 product name, not the agent).
 
-Open with this on the **first turn** when the tool setup is not yet complete.
-**Do not** run the role-focus `AskQuestion` in the same turn unless all
-selected MCPs are already connected (or designer chose "None of these").
+Open with this on a bare "hi", when there is no other request.
+When there is a request, ask the role once and do the request in the same turn. Do not wait for the tools to be connected first.
 **No narrating preamble before it** — never a sentence like "Now let me
 output the greeting" or "Here's the greeting" ahead of the text below. The
 greeting text **is** the first content of the turn, not something announced

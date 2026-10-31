@@ -4,6 +4,10 @@ What changed in the harness and Design Harness, newest first. Add an entry when 
 
 Each release is a version in `package.json` and a matching Git tag, such as `v0.1.0`. New entries go under a date heading above the latest version until the next release.
 
+### 31 October 2026
+
+- **A first message with no profile still gets done.** The agent asks your role once, then does the request in the same turn. A run with nobody to answer uses product design and writes no profile. The "you're on main" line is one sentence and never a question.
+
 ### 30 October 2026
 
 - **Git runs itself, on by default.** Starting a project (in chat, or with the new **New project** button on Prototypes) puts it on your own branch, `<your first name>/<slug>`, from main, with the line "Working on ana/<slug>." "Continue X" switches back to it and merges in main once it's a day behind; a conflict stops and lists the files. "Wrap up" saves only that project's folder, with the journal's one-line summary. "Undo the last change" shows the last save and takes it back. "Share this" pushes the branch and gives you the pull request link. Nothing is pushed unless you say share, never to main, never with force; your journal, profile and logs are never committed. Settings → "Handle Git for me", or `- Git autopilot: off` in your profile, turns it off.

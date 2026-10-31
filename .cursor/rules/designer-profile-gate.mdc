@@ -11,8 +11,8 @@ alwaysApply: true
 | Result | Action |
 |--------|--------|
 | **File exists** (`Status: ACTIVE` or `SKIPPED`) | **Stop.** Do not run onboarding, MCP gate, profile `AskQuestion`, squad questions, handoff tables, or handoff menu. Use the profile silently. Handle the user's message. |
-| **File not found, cloud or background agent** (no designer at the keyboard) | No onboarding. Use `git config user.name` as the designer's name and defaults for the rest; handle the message. |
-| **File not found** | **Output the Muse greeting first** (`harness/designer-onboarding/SKILL.md` § The greeting — both plain-text blocks, no preamble) as the literal first content of your response, **before any other tool call** (only the gate-check `Read` above may precede it). Then run the rest of `SKILL.md` per `harness/ORCHESTRATOR.md` §0. **Forbidden:** future-tense narration instead of the greeting ("I'll greet you, then…"); MCP probe or other tools before the greeting text is already in this response. |
+| **File not found, and nobody can answer** (headless, background, one-shot) | No greeting, no question, no profile file. Role focus is `product`. Do their request. |
+| **File not found, and a person is here** | At most one question, the role (`harness/designer-onboarding/references/onboarding-questions.md`). Then do their request in the same turn. Do not wait for the answer, and do not run the tool probe, workload, or handoff before it. Write the profile only after they answer. |
 
 **Never** infer "profile missing" from memory, a new chat, or prior turns.
 **Never** run onboarding because the user typed a short message (`df`, `hi`).

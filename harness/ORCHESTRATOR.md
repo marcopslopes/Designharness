@@ -40,8 +40,8 @@ that as drift from this note, not an alternate source of truth.
 **Check** on every new chat whether `designer-profile.local.md` exists: `Read` `<repo root>/designer-profile.local.md` (next to `CLAUDE.md`, never under `harness/`) — never Glob or file search, which skip gitignored files. New chat ≠ new clone.
 
 - **Exists** → skip silently: no MCP gate, no questions, no handoff. Read it and use its answers for §1's platform/stage inference, vague follow-ups ("continue where I left off" → **Active work (auto)**), and §3's plan-gate behaviour. Never re-ask what it answers.
-- **Missing in a cloud or background session** (no designer at the keyboard, e.g. a cloud agent run) → no onboarding: use `git config user.name` as the designer's name and the defaults everywhere else.
-- **Missing** → the Muse greeting (`harness/designer-onboarding/SKILL.md` § The greeting) is the literal first content of the turn; the profile check is the only tool call allowed before it — never start from the MCP gate. **After the greeting**, read `harness/references/onboarding-gate.md` and `SKILL.md` for the rest, in order: optional tools → one role question → write and verify the profile → workload → handoff, plus the manager path.
+- **Missing, and nobody can answer** (headless, background, or a one-shot run) → no greeting, no question, and no profile file. Role focus is `product`. Name comes from `git config user.name` when that is set. Do the request.
+- **Missing, and a person is here** → at most one question, the role. Then do the request in the same turn. Do not wait for the answer, and do not run the tool probe, workload, or handoff before it. Write the profile only after they answer (`harness/designer-onboarding/SKILL.md`).
 
 **Optional personal context:** `designer-context.local/` (gitignored) holds extra notes and private link catalogs. Read its `README.md` first, then what the task needs; never paste it into committed files without the designer's OK (`harness/designer-onboarding/references/designer-context-local.md`).
 

@@ -25,8 +25,9 @@ Needs the Claude Code CLI, signed in (`claude` once, then `/login`).
 | `stakeholder-message` | Fast lane, writing | "Write the kickoff meeting message to align stakeholders, from these notes." plus [the notes](../benchmark/stakeholder-notes.md) | none — no skill, no web search |
 | `reply` | Fast lane, answer | "Reply to this question." plus [the question](../benchmark/pasted-question.md) | none — no skill, no web search |
 | `tweak` | Fast lane, prototype | "In the mobile-banking-dashboard project, we're working on the wallet home screen. Make the balance label 2px larger." | `ui-agent` only, no web search |
+| `fresh-clone` | First message | The same wallet-button swap, with no profile, on `main` | `ui-agent` |
 
-All material is fictional, so the benchmark can stay in the public repo.
+Normal tasks copy `benchmark/designer-profile.fixture.md` into the throwaway clone and run on branch `bench/run`. `fresh-clone` copies no profile and checks out `main` at the same commit. All material is fictional, so the benchmark can stay in the public repo.
 
 ## What each run records
 
