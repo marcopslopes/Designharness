@@ -6,9 +6,10 @@ description: >-
   or overrode the agent (in their words), decisions taken, and screenshot
   links — to `designer-context.local/journal/YYYY-MM-DD-<project>.md`.
   Triggers on: "wrap up", "journal this", "add this to my journal", "log
-  this session to my journal", and runs inside `session-handoff`. "Wrap
-  up" also appends a handoff note (done, next, open questions from the
-  truth block) to the project's `log.md`. Read
+  this session to my journal", and runs inside `session-handoff`. Every
+  phrase runs the same wrap-up: the entry, a handoff note (done, next,
+  open questions from the truth block) in the project's `log.md`, and the
+  save. Read
   back on resume with `decisions.md`, and by `case-study`. Not a
   transcript, not a handoff (`session-handoff` writes `handoff.md`), not a
   retrospective (`design-retrospective`), not taste rules
@@ -40,8 +41,7 @@ session, in a private file per day per project.
 
 | Trigger | What gets written |
 |---|---|
-| "journal this" | The journal entry |
-| "wrap up" | The journal entry, then the handoff note (§ Wrap up) |
+| "wrap up", "journal this", or any other trigger above | The journal entry, then the handoff note and the save (§ Wrap up). One flow, whichever phrase. |
 | `session-handoff` runs | The journal entry, alongside `handoff.md` |
 
 Never on its own. No trigger, no entry.
@@ -105,8 +105,9 @@ Show the entry in chat after writing it, with the path.
 
 ## Wrap up
 
-"Wrap up" ends a session so the next chat can start clean. Write the
-journal entry, then append one handoff row to `projects/<slug>/log.md`:
+"Wrap up" (or "journal this") ends a session so the next chat can start
+clean. Write the journal entry, then append one handoff row to
+`projects/<slug>/log.md`:
 
 ```markdown
 | YYYY-MM-DD | wrap up | session-journal | **Handoff.** Done: <what's finished>. Next: <what's not done yet, as state>. Open: <blocking unknowns verbatim>; +N more in the brief | journal/YYYY-MM-DD-<slug>.md |

@@ -1,9 +1,13 @@
 # Session journal — how it works
 
-Say **"journal this"** or **"wrap up"** and the agent writes a short
-entry about your judgment in this session: what you asked, what got
+Say **"wrap up"** ("journal this" does the same) and the agent writes a
+short entry about your judgment in this session: what you asked, what got
 built, where you changed direction or overrode it (quoted in your words),
-what you decided, and links to any screenshots it saved.
+what you decided, and links to any screenshots it saved. It then adds a
+handoff note to the project's `log.md` and saves the project.
+
+If the chat is full and you want a fresh one to pick up mid-task, say
+**"context is full, write a handoff"** instead (`session-handoff`).
 
 Agents load the full protocol from
 [`harness/skills/session-journal/SKILL.md`](SKILL.md).
