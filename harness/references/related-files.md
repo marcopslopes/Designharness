@@ -109,6 +109,6 @@ not on every request.
 | `harness/references/fallback.md` | §4 fallback — no routing row matched |
 | `harness/references/state-rules.md` | §5 state — a project folder is in play |
 | `harness/references/design-system-rules.md` | §7 design-system rules — loaded by `ui-agent` and `design-system` |
-| `CLAUDE.md` | Thin pointer — Claude Code auto-loads it, it defers here |
-| `AGENTS.md` | Thin pointer — Cursor auto-loads it, it defers here |
+| `CLAUDE.md` | Claude Code auto-loads it. It points at `AGENTS.md` and does not repeat it. |
+| `AGENTS.md` | Cursor auto-loads it. Git, the taste log, and the pointer into the orchestrator. |
 | `context/design-system/tokens.css`, `context/design-system/ds/` | Design tokens and component implementations — source of truth behind §7 |

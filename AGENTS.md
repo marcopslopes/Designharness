@@ -38,4 +38,4 @@ doing that check first.
   enforcement layer is `harness/skills/design-system` and
   `harness/skills/audit` calling `scripts/design-detector` directly.
 
-See also [`CLAUDE.md`](CLAUDE.md) — the same pointer, for Claude Code.
+Claude Code loads [`CLAUDE.md`](CLAUDE.md), which points here. The rules above are the one copy.
