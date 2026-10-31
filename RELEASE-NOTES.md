@@ -6,6 +6,7 @@ Each release is a version in `package.json` and a matching Git tag, such as `v0.
 
 ### 31 October 2026
 
+- **Long rules load only when the turn needs them.** Intake, the plan gate, a missed route, project state, and the design-system rules are separate files. A screen edit still waits for the prototype skill. The design-thinking model loads for discovery, strategy, kickoff, and critique.
 - **A critique files the small findings itself.** Non-blocking critique findings go on the project's debt register, with the line "Logged the non-blocking findings in the project debt register." A question appears only when a finding is blocking. The pre-share audit still asks what to do with its advisories.
 - **Company projects stay off the public repo.** With "This repo is public" on (the default), a project started from Slack, Jira, Confluence, Notion, or Drive is saved under `projects.local/`, which Git does not track, and the line is "Saved locally, since this repo is public." Tracked projects stay the fictional examples. Turn the setting off on a private copy.
 - **No Git remote, no warning.** With `origin` removed, the opening line, catch-up, and the origin check stay quiet instead of reporting an error.

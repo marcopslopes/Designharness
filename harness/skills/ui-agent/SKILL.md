@@ -50,7 +50,7 @@ screens' and the style guide's wording: if one rules out a term, don't use
 it, even where the brief uses it. Only the designer's ask in this chat
 overrides it.
 
-**Then:** `harness/skills/design-system/SKILL.md` before any CSS. Look up the one variable you are about to write. Do not read `tokens.css` end to end.
+**Then:** `harness/references/design-system-rules.md` (orchestrator §7) and `harness/skills/design-system/SKILL.md` before any CSS. Look up the one variable you are about to write. Do not read `tokens.css` end to end.
 
 **And** the screen you are changing, or the nearest existing screen in that project. Open a file it imports only to check one value.
 
@@ -318,7 +318,7 @@ Primary `tone="sea"` = DS Sea aquamarine (`--ds-additional-background-sea`), mat
   success screen teaches nothing about how the real flow handles a 5/7 partial match)
 - Never build prototype dark mode — the company production has no dark theme. Design Harness chrome may be dark; product
   UI must stay light. Rely on `.design-harness-proto-surface` + `data-theme="light"` (DesignHarnessApp + PhoneShell; see
-  `harness/ORCHESTRATOR.md` §7.1 rule 7); do not invent dark screens
+  `harness/references/design-system-rules.md` §7.1 rule 7); do not invent dark screens
   or theme toggles inside prototypes
 - Never silently build a stated instruction when it contradicts a documented `findings.md`/`decisions.md` entry or a
   named `COMPANY-PATTERNS.md`/`COMPANY-ARCHETYPES.md` pattern for this exact task — surface the conflict once via

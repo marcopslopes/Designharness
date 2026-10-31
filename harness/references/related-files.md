@@ -104,6 +104,11 @@ not on every request.
 | `harness/designer-onboarding/references/post-onboarding-handoff.md` | Personalized headline (not a recap table) + workload tables after snapshot; next-step menu strictly after the tables |
 | `harness/designer-onboarding/references/handoff-menu-question.md` | `AskQuestion` menu — not chat prose |
 | `.cursor/hooks.json` / `.cursor/hooks/designer-onboarding-check.sh` | The `sessionStart` hook that actually enforces §0 — fires before any message is handled |
+| `harness/references/intake.md` | §1 intake — a new design task with open gaps |
+| `harness/references/plan-gate.md` | §3 plan gate — more than one skill |
+| `harness/references/fallback.md` | §4 fallback — no routing row matched |
+| `harness/references/state-rules.md` | §5 state — a project folder is in play |
+| `harness/references/design-system-rules.md` | §7 design-system rules — loaded by `ui-agent` and `design-system` |
 | `CLAUDE.md` | Thin pointer — Claude Code auto-loads it, it defers here |
 | `AGENTS.md` | Thin pointer — Cursor auto-loads it, it defers here |
 | `context/design-system/tokens.css`, `context/design-system/ds/` | Design tokens and component implementations — source of truth behind §7 |

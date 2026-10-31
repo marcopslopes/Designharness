@@ -25,6 +25,9 @@ load automatically from `ui-agent` before any CSS value is written.
 — when it runs, the three layers, token-check examples, and how it differs
 from `audit`.
 
+**Load with this skill:** `harness/references/design-system-rules.md`
+(orchestrator §7) before composing.
+
 ---
 
 ## Job 1 — the layer rule (enforce)

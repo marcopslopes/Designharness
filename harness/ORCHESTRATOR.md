@@ -15,12 +15,17 @@ set today — is `documentation/guides/spec-vs-runtime.md`. Do not write
 “enforced” / “can’t skip” in designer-facing copy for specified gates.
 
 `CLAUDE.md` and `AGENTS.md` exist only because Claude Code and Cursor
-auto-load those exact filenames — they are thin pointers with no rules of
-their own. Every real rule (routing, gates, hard rules on tokens/DS
-composition/accessibility, the skill roster, state rules) lives here. Read
-this file first, always, whichever pointer file got you here. §§0–6 decide
-*what* to build and *which skill(s)* to run; §7 supplies the design
-language and hard rules that govern *how* anything gets built.
+auto-load those exact filenames. Read this file first, always. It is the
+routing core. Load the other files only when the request needs them:
+
+- Discovery, strategy, kickoff, or critique → `harness/references/design-thinking-model.md`
+- A new design task with open gaps → `harness/references/intake.md`
+- More than one skill → `harness/references/plan-gate.md`
+- No row matches → `harness/references/fallback.md`
+- A project folder is in play → `harness/references/state-rules.md`
+- `ui-agent` or `design-system` → `harness/references/design-system-rules.md`
+
+**Never edit a screen without `ui-agent`.** A write under `projects/<slug>/screens/` or a `.tsx` file under `src/` waits until this chat has read `harness/skills/ui-agent/SKILL.md`.
 
 **Naming note:** this repo now has two distinct names that are easy to
 conflate — **Muse** is the conversational persona a designer talks to in
@@ -96,47 +101,14 @@ The routing table says which skill runs. That file says how to reason about the 
 
 ## 1. Intake protocol
 
-On any new design task request, extract:
-
-- **Feature/surface** — what screen, flow, or component
-- **Platform** — iOS / Android / web (infer from existing prototypes if not stated)
-- **Stage** — discovery / existing design / pre-handoff
-- **Available sources** — Figma link? A ticket? nothing?
-
-**Infer before asking.** Check, in order:
-1. The task folder (`projects/<slug>/`) — if one exists for this feature, the answer may already be in `brief.md`, `sources.md`, or `decisions.md`.
-2. The actual repo — `projects/*/screens/` — does this screen already exist? (This caught a real duplicate-build attempt on the Clients screen — always check before asking "does this exist?")
-3. The message itself — platform, stage, and scope are often stated or implied.
-4. `designer-profile.local.md` (Step 0) — if the request doesn't state a platform, default to this designer's usual platform instead of asking, **if the profile has one set** — platform is deferred by default post-onboarding-shortening, so most profiles won't yet. If unset, ask normally per this section and write the answer back into the profile so it's asked at most once, ever (see `harness/designer-onboarding/SKILL.md` § Deferred and opt-in fields). For vague follow-ups ("continue where I left off"), check **Active work (auto)** in the profile and `projects/` for a matching slug before asking what the designer means — a hint, not proof of an active task (see `harness/designer-onboarding/SKILL.md`).
-
-**If gaps remain, ask at most 3 clarifying questions, in one batch, in one
-message.** Never interrogate one at a time. Never ask something already
-answered or inferable.
-
-**UI:** batch fixed-choice intake questions in **one native Cursor
-`AskQuestion` tool call** (clickable buttons — not chat prose). Up to
-three `questions[]` entries in that single call. Contract:
-`harness/references/ask-question-ui.md`. Pure paste requests (e.g. a
-Figma URL with no sensible option set) may be one chat line only.
-
-- Good: `AskQuestion` with options like "Starting from zero" / "I have a
-  Figma link (I'll paste it)" / "Not sure yet"
-- Forbidden: "What would you like me to do?" / anything answerable from
-  context you didn't check first / numbered option lists in chat
-
-**Source links:** when citing ticket keys, docs pages, Figma/Miro URLs,
-Slack threads, or other fetched sources in chat or markdown output, use
-markdown links per `harness/references/source-links.md` — never bare ticket
-keys in tables when the source is connected.
-
----
+On a new design task, read `harness/references/intake.md` before asking anything. A fast-lane answer, a tweak to the screen already in progress, or a request that already names the surface and the platform does not need it.
 
 ## Fast lanes
 
 Check these before the routing table. A match skips the table and the routing log. Only the prototype lane skips the plan gate.
 
 - **Answer-first.** A pasted transcript, interview notes, survey data, or "anything interesting?" on that material is `research-synthesis`. Read that skill before answering. Do not summarize the paste first. Drafts, replies, messages, and other simple questions, when the material is already in this chat, are answered directly. No skill, no research, no routing log.
-- **Prototype.** A change to the screen already being worked on, not a new screen. Load `ui-agent`'s `SKILL.md` first, always, before any `.tsx` edit. The lane skips the routing table and the plan gate, not the skill. Adding a screen stays on the routing table and stops at the plan gate.
+- **Prototype.** A change to the screen already being worked on, not a new screen. Never edit a screen without `ui-agent`: load its `SKILL.md` first, always, before any `.tsx` edit. The lane skips the routing table and the plan gate, not the skill. Adding a screen stays on the routing table and stops at the plan gate.
 - **Critique.** "Critique", "review", "any thoughts", or "gut check" on work already made. Load `ux-pattern`'s `SKILL.md` first, always, before writing the critique. A Figma link still asks written, canvas, or both. "Prep me for critique" stays `critique-prep`.
 - **Confusable pairs.** "kickoff meeting", "align stakeholders", and "prep a meeting" mean write the doc or message, never `design-kickoff`. `design-kickoff` is only for starting a new feature or project.
 
@@ -360,130 +332,15 @@ Do not ask about that same gap again unless that item later changes. Writing the
 ---
 ## 3. Plan-then-execute gate
 
-Before running anything with **more than one skill**, output a plan block and wait for approval.
-
-**Net-new (design-kickoff fires):** the plan itself is just the kickoff sequence — there's nothing to approve upfront beyond starting it, since Step 3's PRD gate *is* the approval checkpoint:
-
-```
-PLAN — [task name] (net-new — design-kickoff)
-1. design-kickoff Step 0 → 3 routing questions (name, known material, PM)
-2. design-kickoff Step 1a → workload-agent (roadmap + design board ownership cross-ref)
-3. design-kickoff Step 1b → research-agent sweep (docs + tracker + chat + linked Figma/Miro)
-4. design-kickoff Step 1c → assumption-mapper (known vs believed from 1a/1b)
-5. design-kickoff Step 2 → PRD + job stories into projects/<slug>/brief.md
-6. design-kickoff Step 3 → THE GATE — presented for approval before any design work
-7. (post-gate) Step 4 — if jobs/objects/strategy missing, AskQuestion; else ui-agent → icon-usage → audit
-Starting with Step 0.
-```
-
-**Iterating (design-kickoff does not fire):**
-
-```
-PLAN — [task name]
-1. ui-agent → builds [screen] from context/design-system/ds + tokens
-2. icon-usage → sources icons via Icon primitive
-3. audit → design system + a11y + copy check before done
-Estimated: ~X min. Reply "go", or edit the plan.
-```
-
-**Figma / design critique (iterating board or screen review — §2d):**
-
-```
-PLAN — [task name] (design critique)
-1. ux-pattern → structure / archetype / the company patterns against the linked node or screen
-2. content → CTA / banner / notification copy (omit only if no product copy)
-3. (after complete) AskQuestion → optional figma-ux-audit canvas annotations
-Estimated: ~X min. Reply "go", or edit the plan.
-```
-
-**Figma canvas annotations (`figma-ux-audit` — standalone or post-critique):**
-
-```
-PLAN — [task name] (figma-ux-audit)
-1. Load ux-pattern (+ content if copy) context — reuse findings.md when present
-2. figma-ux-audit → place labelled annotation cards on the linked node(s)
-Estimated: ~X min. Reply "go", or edit the plan.
-```
-
-**Single-skill plans skip the gate** if the designer has stated a standing "just do it" preference (log this preference in `projects/<slug>/decisions.md` the first time it's stated) **or** if `designer-profile.local.md` (Step 0) already records interaction style as "just do it for simple asks". **Multi-skill chains always show the plan** — no exceptions, even with a standing preference or profile setting. **The kickoff PRD gate (Step 3) runs only for a new product bet.** A question, a lookup, an iteration, a critique, copy, or an import never reaches it. On a bet, a standing "just do it" preference does not skip it — that stop is **specified**, not mechanical (`documentation/guides/spec-vs-runtime.md`).
-
-Never execute before approval on a multi-skill chain.
-
-### 3a. Autonomy dial (optional, per-task, offered only inside a plan block)
-
-When a multi-skill plan block fires, offer one `AskQuestion` on how hands-on to be (just build + summarize / confirm each step / default), scoped to this task. Never skips the first plan approval or the kickoff PRD gate. Read `harness/references/autonomy-dial.md` before offering it.
-
----
+When the matched chain is more than one skill, read `harness/references/plan-gate.md`, show the plan, and wait. One skill does not.
 
 ## 4. Fallback protocol
 
-When **no** row in the routing table matches — or confidence is too low
-to pick one without guessing:
-
-### Required script (loud miss — never silent freestyle)
-
-1. **Say so plainly in the first sentence**, using this shape (adapt
-   names, keep the honesty):
-
-   > This doesn't match an existing skill — closest is **[skill/row]**.
-   > Want me to run that, or freestyle **without** harness context?
-
-2. **Do not** produce a normal design/product answer in the same turn as
-   if a skill had run. No "helpful" freestyle first, confirm later.
-
-3. Ask via **`AskQuestion`** when available, with options at least:
-   - Run closest: `[skill/row]`
-   - Freestyle without harness (explicit opt-in — no skill files, still logged)
-   - Other…
-
-   If `AskQuestion` is missing from the session tool list, **plain-text
-   degrade** per `harness/references/ask-question-ui.md` — same options in
-   chat, wait for a typed reply. **Do not** tell the designer to switch
-   models. Still **do not** freestyle the substance while waiting.
-
-4. **Log before or as you ask** — one line in
-   `harness/logs/routing-log.md`:
-
-   `YYYY-MM-DD | <intent paraphrase> | FALLBACK | closest=<skill or —> | asked user | Task: <slug or —>`
-
-5. Only after the designer picks:
-   - **Run closest** → load that skill and proceed (plan gate if multi-skill).
-   - **Freestyle without harness** → answer, but prefix the answer with
-     `Freestyle (no harness skill)` and keep the FALLBACK log line.
-   - **Other** → one clarifying follow-up, still no silent skill claim.
-
-### Also forbidden
-
-- Pretending a skill ran when it didn't ("I ran ux-pattern…" without
-  having read the skill file).
-- Using §4 as a shortcut for design critique, ideation on approved work,
-  micro-edits, or harness-ops asks — those have §2 rows now; re-check
-  before declaring no match.
-- Skipping the `FALLBACK` line because there is no task folder.
-
-Every fallback is food for `harness/harness-audit/SKILL.md`.
-
----
+When no row matches, or confidence is too low to pick one, read `harness/references/fallback.md`. Do not answer as if a skill ran.
 
 ## 5. State rules
 
-Every task gets a folder at `projects/<task-slug>/` (schema: `projects/README.md`). A project created from Slack, Jira, Confluence, Notion, or Google Drive while `publicRepo` is on (the default) is `projects.local/<task-slug>/` instead, gitignored, and the one line is `Saved locally, since this repo is public.` Tracked `projects/` holds fictional examples. Autopilot never commits `projects.local/`. Contract: `harness/references/git-autopilot.md` § 1. Rules:
-
-- **Check the task folder before asking the designer anything** — the answer may already be there (`brief.md`, `sources.md`, `decisions.md`, `findings.md`).
-- Skills **append, never overwrite** `findings.md`, `decisions.md`, and **`sources.md`**. Every `findings`/`decisions` entry is dated and names the skill that produced it. Every `sources.md` row is dated in the Indexed column.
-- **Project link catalog:** when the designer pastes an article, Doc, competitor page, or other durable URL **for this project**, append a row to `projects/<slug>/sources.md` in the same turn (create the file from `projects/_template/sources.md` if a legacy folder lacks it). Still cite and synthesise in `findings.md` when a skill runs. Team-wide links → `COMPANY-SOURCES.md`. Personal-only → `designer-context.local/`. See `documentation/guides/company-sources.md`.
-- **Project inbox (2026-10-11):** when the designer pastes or attaches raw material for a project (transcript, thread text, doc text, a file), save it verbatim to `projects.local/<slug>/inbox/YYYY-MM-DD-<what>.md` with a short header **before** summarizing it — always the gitignored side, never edited afterwards, never loaded unless a claim needs checking. Links the source still holds stay `sources.md` rows. Rules: `harness/references/project-inbox.md`.
-- **`ui-agent` variant forks** (`harness/skills/ui-agent/references/variant-fork.md`) log the chosen layout/structure **and rejected alternatives** to `decisions.md` after the designer picks via `AskQuestion` — this is the record for "gates are permission, not taste."
-- **Taste log (2026-10-29):** when the designer corrects your output with a reusable rule ("no borders on cards"), apply it, then ask once — "Save as a preference? [Yes / Just this time]" — and append to `designer-context.local/preferences.md` only on Yes. Never save silently. An answer-first draft of a Slack message, reply, or email reads its `## Slack/docs` section first, only if that section has rules. Contract: `harness/references/designer-preferences.md`.
-- **Routing records:** plain matches are recorded automatically by the skill-usage hook (`harness/logs/skill-usage.jsonl`). The agent writes to **`harness/logs/routing-log.md`** only for exceptions: a `FALLBACK`, a `MISROUTE`, or an approved §3 plan, including fallbacks that never get a task folder. Task-scoped work still gets a line in that task's own `log.md`.
-- **Git autopilot (2026-10-30; on by default, off when `behaviour.gitAutopilot` is `false` or the profile says `- Git autopilot: off`):** a new project starts on its own branch, `<first name>/<slug>`, from `main`; "continue X" switches to it and catches up with `main`; "wrap up" saves only that project's folder, and asks keep local / suggest to the harness about anything changed outside `projects/`; "undo the last change" and "share this" follow the same script. A chat's first reply passes on the `session` warning (on `main`, or 50+ behind). Say its one line, never Git words. No `origin` remote: that warning and catch-up say nothing. Contract: `harness/references/git-autopilot.md`; team setup: `documentation/guides/using-it-as-a-team.md`.
-- This is what makes work resumable: *"continue the clients list redesign task"* should first switch to its branch (`git-autopilot.md` § 2), then read the folder (with `decisions.md` and the latest `designer-context.local/journal/*-<slug>.md` entry — `session-journal` § Read-back), summarize state, and propose the next step — asking nothing already answered.
-- **Project stage line (2026-10-11):** on the first task-scoped reply in a session, on every "continue X" ask, and when the work moves a project to a new stage, show one line — `Project <slug> · stage <stage> (<evidence>) · <what runs now>` — worked out from which project files have real content (`kickoff` → `framed` → `modelling` → `building` → `reviewing` → `handoff` → `testing` → `closed`). Derived each time, never stored; a disclosure, never a gate; the designer's ask outranks it. Rules: `harness/references/project-stage.md`.
-- **Release notes (2026-10-11):** when a change to the harness or Design Harness alters what a designer sees or does, add a bullet under today's date at the top of `RELEASE-NOTES.md` (repo root, shown at `#/how-to/release-notes`) in the same turn the change lands. Counts: a skill added, renamed, removed, or with changed behaviour; a §2 routing row or gate changed; a default or `harness.config` setting changed; a new Design Harness page or feature; a new check, script, or hook. Skip: refactors with no visible change, typo/link fixes, log-only edits, and work inside a single `projects/<slug>/` (that goes in the project's own `log.md`). Write for designers, in plain language — no company names, people, or outside sources (this file is public). The pre-commit hook prints a reminder when `harness/` or `src/design-harness/` changed without this file.
-- **Harness settings (2026-10-10):** before auto-running `audit`, building a storyboard or writing the case study after a build, building variant forks, firing the mid-build taste checkpoint, or adding the handoff nudge below, read `harness.config.local.json` (written from Design Harness → Settings). Missing file or key = today's behaviour. Contract: `harness/references/harness-settings.md`.
-- **Handoff nudge (2026-10-29; off when `behaviour.handoffNudge` is `false`):** in Claude Code the status line (`scripts/claude-statusline.mjs`) shows context use, warns at 50%, and from 60% says "Good moment for a handoff. Say 'wrap up' and start a new chat." Cursor can't read context use (`KNOWN-ISSUES.md`), so there, after **~15–20 turns on one task**, add that same line once the next time you reply; repeat at most once per ~10 more turns. A suggestion only — "wrap up" (`session-journal`) and `session-handoff` never auto-fire.
-
----
+When this turn reads or writes `projects/<slug>/` or `projects.local/<slug>/`, read `harness/references/state-rules.md`.
 
 ## 6. Remote sync (no shared/hosted instance — yet)
 
@@ -491,151 +348,9 @@ Each designer runs a local clone; the team's Git remote is the only sync and not
 
 ---
 
-## 7. Design system rules — the design language brain
+## 7. Design system rules
 
-This section is the single home for the design rules (see "One source for
-hard rules" at the end of this section). It supplies *how* to build once
-§§0–4 have decided *what* to build. Load it before composing anything.
-
-### 7.0 What this product is
-
-This section resolves to your company's own product framing — read
-`COMPANY-BUSINESS.md` (via `context/org-pack.local/` if it exists on this
-machine, else the public `context/org-pack/` example) for the real facts:
-what the product is, who it's for, the strategic pillars, and the brand
-colour. Never hardcode a specific company's product description here in
-the shared orchestrator — that keeps this file portable across clones.
-
-The **design system** below (Design Harness kit) is genuinely generic — it ships
-with this harness and isn't tied to any one company's product framing.
-
-**Lab DS brand (2026-08-11):** Design Harness kit authority —
-**teal** (`#007078` → `--color-surface-brand` / `--kit-brand`), **plum**
-premium (`#4f3791`), warm paper canvas (`#fafaf7`). Type is **Inter** +
-**JetBrains Mono**. Token *names* are stable; values follow
-`STUDIO-OS-KIT-NOTES.md`.
-
-### 7.1 Hard rules — never break these
-
-1. **Tokens only, no raw values.** Every colour, spacing step, radius, and
-   border width must come from a CSS variable in
-   `context/design-system/tokens.css`. Never write `#rrggbb`, `px`, or
-   `rem` literals in component styles. If a token is missing, add it to
-   `tokens.css` first (extend it to match Figma — don't invent a one-off
-   value instead).
-2. **Compose from `context/design-system/ds`, not ad-hoc markup.** Import
-   from the `context/design-system/ds` barrel (index) in app code so
-   `ds.css` always loads. Available primitives: `Button`, `Card`, `Text`,
-   `Stack`, `Badge`, `TextField`, `Toast`, `Icon`. Build screens from
-   **Design Harness** (`npm run dev`) using these primitives before ad-hoc
-   markup.
-3. **Never invent components or brand marks. Never hand-draw icon SVGs.**
-   If a component doesn't exist in `context/design-system/ds`, build it
-   from existing primitives or request it explicitly. Do not hallucinate
-   custom SVG logos or illustration assets — use text labels or assets
-   the team provides. All icons come from
-   [Tabler Icons](https://tabler.io/icons) (`@tabler/icons-react`) via
-   the `Icon` primitive — see `harness/skills/icon-usage/GUIDE.md`.
-4. **Brand teal is `--color-surface-brand` / `--kit-brand` (`#007078`).**
-   Premium / plum is `--kit-premium` (`#4f3791`). Legacy token name “sea”
-   (`--ds-additional-*-sea*`) keeps the name — value is the **same teal**.
-   Prefer kit `Button` `intent="primary"` (ink fill) or `intent="tinted"`
-   (teal soft). Secondary uses sunken fill; outline uses paper + line.
-   Kit sizes: `xl`/`lg`/`md`/`sm`; radii 16px (sm 12px).
-5. **Preserve accessibility.** Keep `:focus-visible` on every interactive
-   element — never remove focus styles. Use semantic HTML (real
-   `<button>`, labelled `<input>`, heading hierarchy) so elements are
-   keyboard reachable.
-6. **Documentation is the contract.** When extending tokens or components,
-   cross-check `context/design-system/FIGMA-FOUNDATIONS-COLOUR.md`,
-   `FIGMA-FOUNDATIONS-SPACING.md`, `FIGMA-FOUNDATIONS-RADIUS.md`,
-   `FIGMA-FOUNDATIONS-BORDER.md`, `FIGMA-FOUNDATIONS-SIZE.md`, and
-   typography/scaling docs so names and values stay consistent with Figma.
-   For **Buttons**, use `context/design-system/FIGMA-DESIGN-SYSTEM-BUTTONS.md`
-   and your Figma library's Buttons frame (recorded in your `COMPANY-BUSINESS.md`
-   § Design system row — not hardcoded here).
-   For **Toast**, use `context/design-system/FIGMA-DESIGN-SYSTEM-TOAST.md`
-   and your Figma library's Alerts & Toast frame (same row).
-7. **Dark mode is a real DS layer; prototypes stay light (updated
-   2026-10-09).** `context/design-system/tokens.css` ships paired light/dark
-   values for the Design Harness kit (`--kit-*`) — light on `:root` and
-   `[data-theme='light']`, dark on `:root[data-theme='dark']`. The Design Harness
-   theme toggle sets the root attribute, so catalog chrome and DS pages
-   follow it. **Product prototypes do not:** playground routes and
-   `PhoneShell` set `data-theme="light"` on `.design-harness-proto-surface`,
-   because the product has no dark theme. A prototype follows the toggle
-   only once its design system declares dark support (future, per-system).
-   Still don't invent a *third*, one-off dark theme outside these tokens.
-   See `context/design-system/STUDIO-OS-KIT-NOTES.md` for what's migrated
-   vs. still pending (segment, sheets, headers — tracked in
-   `KNOWN-ISSUES.md`).
-
-### 7.2 Design sources
-
-| What | Where |
-|---|---|
-| **Design Harness kit** (2026-08-11 — current colour/type/depth + button authority, light **and** dark) | `context/design-system/source/design-harness-kit/` → `tokens.css` (`--kit-*`); see `STUDIO-OS-KIT-NOTES.md` |
-| **Foundations** — spacing, radius, border, type ramp *(geometry scales; colour superseded)* | Exported `FIGMA-FOUNDATIONS-*.md` — trust `tokens.css` for live hex |
-| **Legacy component specs** — pending further kit migration | `FIGMA-DESIGN-SYSTEM-*.md` |
-| **Systems** (2026-10-11) — Mobile (default), Desktop, Brand, Studio: what each has, what's missing, its rules; a project's brief **Platform** line picks one | `context/design-system/systems/*.md` → Design Harness `#/design-system/systems`; protocol in `harness/skills/design-system/SKILL.md` § Which system |
-
-### 7.3 Design tokens reference
-
-**Brand colour** (Design Harness — teal + plum + warm paper)
-
-| Role | Token | Value | Notes |
-|------|-------|-------|-------|
-| Primary brand | `--color-surface-brand` / `--kit-brand` | `#007078` | Accents, tinted CTAs, links |
-| Brand hover / deep | `--color-surface-brand-hover` / `--kit-brand-deep` | `#086c72` | Hover / deep |
-| Dark brand panel | `--color-bg-brand-dark` | `#02282b` | Footer, hero dark sections |
-| Premium | `--kit-premium` | `#4f3791` | Plum / premium intents |
-| Primary button fill | `--kit-ink` | `#14161a` | Ink primary (ButtonShowcase) |
-| Legacy “sea” (same teal) | `--ds-additional-background-sea` (+ aliases) | `#007078` | Name kept; value = brand |
-
-Typography, spacing, radius, border-width and the most-used semantic
-tokens: `context/design-system/TOKENS-QUICK-REFERENCE.md` (summary) and
-`context/design-system/tokens.css` (source of truth). Use
-`<Text variant="display|body-large|body|label|muted">` from
-`context/design-system/ds` — never raw `<p>`/`<span>` with inline type styles.
-
-### 7.4 Components — API quick reference
-
-Prop and import cheat sheet for `Button`, `Text`, `Stack`, `Card`, `Badge`,
-`TextField`, `Toast` and `Icon`: `context/design-system/COMPONENTS-QUICK-REFERENCE.md`.
-New call sites use `Button`'s `intent` + `size` (`variant`/`tone` are deprecated).
-Icons come only from `@tabler/icons-react` via `Icon` — never hand-drawn `<svg>`.
-
-### 7.5 Stack and commands
-
-Vite + React + TypeScript. No MUI, Tailwind, or other UI kit in this
-MVP — the point is to prove **token-first** primitives. If production
-later standardises on a kit, mirror these tokens into that kit's theme
-rather than bypassing tokens.
-
-| Command | Purpose |
-|---------|---------|
-| `npm run dev` | Run the lab locally (Design Harness MVP) |
-| `npm run build` | Typecheck and production build |
-| `npm run lint` | ESLint |
-
-### 7.6 What this is not
-
-- Do not use MUI, Tailwind, or any third-party component library output —
-  this system is token-first and uses only `context/design-system/ds`
-  primitives.
-- Do not approximate the company with generic design system patterns. If a
-  required component or token is missing, flag it rather than inventing a
-  substitute.
-- Do not generate placeholder logos, wordmarks, or illustration SVGs. Use
-  text labels or assets the team provides.
-
-### One source for hard rules
-
-If you find a hard rule stated differently anywhere else in this repo,
-that's a bug — fix it here and make the other location a pointer, not a
-second copy.
-
----
+When the chain includes `ui-agent` or `design-system`, read `harness/references/design-system-rules.md` before composing. Those two skills load it themselves. Rule numbers (§7.1, §7.3) live in that file.
 
 ## 8. Handoff Anti-Patterns
 
