@@ -80,25 +80,17 @@ ways to add one: `harness/references/org-pack-extra-files.md`.
 
 ---
 
-## 0.5. Design thinking model (load on every session)
+## 0.5. Design thinking model (discovery, strategy, kickoff, critique)
 
-**After the profile gate (§0), before intake (§1)** — read
-`harness/references/design-thinking-model.md` to understand how to reason about
-design work, not just which skills to route to.
+Read `harness/references/design-thinking-model.md` when the request is
+discovery, strategy, a kickoff, or a critique. Do not read it on other turns.
 
-This teaches you:
-- The three modes of design work (discovery, validation, iteration)
-- When to use which fidelity (talk-through, Design Harness prototype, coded spike)
-- How design decisions compound (reversible vs. load-bearing)
-- What "good enough" means at each stage
-- Design intent vs. user outcome (the gap that matters)
+- **Discovery** — a new question, research, "what do we know", assumptions, which method to use.
+- **Strategy** — bets, goals, prioritization, "where should I focus".
+- **Kickoff** — a new product bet, or wayfinding.
+- **Critique** — critique, review, gut check, or "any thoughts" on work already made.
 
-**Why this exists:** You need to understand what discovery vs.
-iteration means, not just route "kick off X" → design-kickoff.
-
-Load this once per session, same as you load ORCHESTRATOR.md itself. The
-routing table (§2) tells you WHAT to execute; the design thinking model tells
-you HOW to reason about design decisions.
+The routing table says which skill runs. That file says how to reason about the decision.
 
 ---
 

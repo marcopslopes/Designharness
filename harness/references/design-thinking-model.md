@@ -1,8 +1,8 @@
 # Design thinking model — how to reason about design work
 
-**Load this on every session** — via `harness/ORCHESTRATOR.md` §0.5, after the
-designer profile gate but before intake. This teaches the agent *how to think
-about design work*, not just which skills to route to.
+**Load this for discovery, strategy, kickoff, and critique** — via
+`harness/ORCHESTRATOR.md` §0.5. Not on other turns. This teaches the agent
+*how to think about design work*, not just which skills to route to.
 
 This is your mental model for understanding designer intent, proposing
 fidelity, judging "good enough," and knowing when a decision is reversible vs.
