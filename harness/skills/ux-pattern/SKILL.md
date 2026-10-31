@@ -95,13 +95,16 @@ must say so once: "Following your preference: <rule>." It shapes what you write 
 the work. Contract:
 `harness/references/designer-preferences.md`.
 
+Read each of these once. Do not re-read a file already open this review, and do not preload `harness/ORCHESTRATOR.md`, `design-thinking-model.md`, `design-critique.md`, `COMPANY-ARCHETYPES.md`, `COMPANY-BUSINESS.md`, or the project `log.md`.
+
 1. `COMPANY-PATTERNS.md` — modal/sheet rules, copy feedback, button hierarchy, nav, anti-patterns
-2. `COMPANY-ARCHETYPES.md` — how full the book is × tech comfort
-3. `COMPANY-BUSINESS.md` — the three product pillars
+2. The screen file, once. Open a file it imports only to check one claim.
+3. `harness/references/artifact-type-critique.md` when the source is not already a project screen
 4. `COMPANY-SOURCES.md` — **when** quarter priority / initiative fit / a named global source is in scope: read the index and open matching rows (do not invent strategy from memory)
-5. `projects/<slug>/sources.md` — **when** a task folder is active: read the project link catalog; open matching rows; append any new durable URLs the designer pastes or the review cites (create from `projects/_template/sources.md` if missing)
-6. Relevant Design Harness playground prototype for the flow (e.g. `#/playground/referral-modal`) — when one exists
-7. **If the source is Figma/FigJam:** fetch the linked node(s) via Figma MCP (`get_metadata` + screenshots / `get_design_context` on key frames) before writing the review. Do not critique from memory of a prior freestyle pass.
+5. `projects/<slug>/sources.md` — **when** a task folder is active and a finding cites a link: read the project link catalog; append any new durable URL
+6. **If the source is Figma/FigJam:** fetch the linked node(s) via Figma MCP (`get_metadata` + screenshots / `get_design_context` on key frames) before writing the review. Do not critique from memory of a prior freestyle pass.
+
+Open `COMPANY-ARCHETYPES.md` or `COMPANY-BUSINESS.md` only when a finding depends on that archetype or pillar.
 
 Cite on demand, don't preload as checklists: named cognitive laws from
 `harness/references/interaction-laws.md`; named visual craft (hierarchy,
@@ -115,13 +118,13 @@ both apply.
 
 Before calling a provider flow done, answer:
 
-1. **Which archetype(s)?** Name it — use the archetype names in `COMPANY-ARCHETYPES.md`.
-2. **What does that archetype need?** Pull from the archetype table — not generic "more bookings"
+1. **Which archetype(s)?** Name it from the brief or the screen. Open `COMPANY-ARCHETYPES.md` only when neither says.
+2. **What does that archetype need?** Use what that file says when you opened it — not generic "more bookings"
 3. **Provider or client mental model?** Never reskin client-app patterns for the provider app
 4. **Modal vs push?** × close for dismissible overlays; ‹ back for multi-step push
 5. **Feedback pattern?** Copy-to-clipboard uses `role="status"` + 2s timeout; toasts for global confirmations
 6. **Known anti-patterns?** Check the documented anti-patterns in `COMPANY-PATTERNS.md`
-7. **Object failure modes?** Load `harness/references/ooux-failure-modes.md`. Same object, different forms (shapeshifter)? Two types that look identical (masked)? Attributes scattered (broken)? No visible relationship (isolated)? Always advisory — if it's an object problem, say so and point at `conceptual-model` instead of a visual tweak.
+7. **Object failure modes?** Only when the problem is the object, not the layout. Then load `harness/references/ooux-failure-modes.md`. Same object, different forms (shapeshifter)? Two types that look identical (masked)? Attributes scattered (broken)? No visible relationship (isolated)? Always advisory — if it's an object problem, say so and point at `conceptual-model` instead of a visual tweak. Do not load that file on a routine screen critique.
 8. **Surface vs deeper?** For each finding, tag `[Layer: surface | interaction | objects | jobs | strategy | unknown]`. Non-surface findings name the next skill (`conceptual-model`, `research-artifacts` Mode 5, `product-strategy`, `diagnostic`) as the primary action.
 9. **Nudging toward a business-favorable choice the user might not want?** Only when a default opt-in, pre-checked upsell, or friction asymmetry (easy signup, hard cancel) is actually present — load `harness/references/ethical-design-check.md`. Skip silently otherwise; don't force this onto routine reviews.
 

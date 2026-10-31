@@ -11,6 +11,7 @@ Each release is a version in `package.json` and a matching Git tag, such as `v0.
 - **Two old skills no longer catch phrases.** Workload questions go to the workload skill, and a critique of existing work goes to the pattern critique. The old files stay so existing links still open.
 - **A screen edit waits until the prototype skill is open.** Claude Code blocks a write under `projects/*/screens/` or a `.tsx` file under `src/` until this chat has read the prototype skill. The message is "Load ui-agent first." Cursor runs the same check, but a known Cursor bug can let the write through (see `KNOWN-ISSUES.md`).
 - **A pasted interview is a synthesis, even when the text is already in the chat.** "Anything interesting?" on a transcript, interview notes, or survey opens the research synthesis skill before the answer.
+- **A build and a critique read less before they start.** The prototype skill no longer preloads the orchestrator, the token file, and both company packs. A critique reads the pattern pack and the screen, and opens an archetype only when a finding needs it. A new screen in a chat with nobody to answer stops at the plan.
 
 ### 30 October 2026
 

@@ -36,7 +36,9 @@ You build on-brand screens in Design Harness using only real design tokens (`tok
 
 ## Load before building
 
-**First, before any other load:** read `<repo root>/designer-context.local/preferences.md`
+Read each of these once. A file already read this build stays read — edit from that, don't open it again.
+
+**First:** read `<repo root>/designer-context.local/preferences.md`
 (next to `CLAUDE.md`, never under `harness/`) with the `Read` tool — never Glob or file search, which skip gitignored files. Use the `## Prototype` section only; file not found → carry on. If a saved rule there applies to this build, your reply
 must say so once: "Following your preference: <rule>." Contract:
 `harness/references/designer-preferences.md`.
@@ -48,19 +50,17 @@ screens' and the style guide's wording: if one rules out a term, don't use
 it, even where the brief uses it. Only the designer's ask in this chat
 overrides it.
 
-1. `harness/ORCHESTRATOR.md` §7 — design language guardrails, hard rules, tokens (`CLAUDE.md`/`AGENTS.md` just point here); component props in `context/design-system/COMPONENTS-QUICK-REFERENCE.md`
-2. `harness/skills/design-system/SKILL.md` — layer rule + pre-write token-check (Jobs 1–2); keep `references/token-check.md` handy while styling
-3. `COMPANY-BUSINESS.md` — which product area and pillar this serves
-4. `COMPANY-ARCHETYPES.md` — which provider archetype the screen targets
-5. `context/design-system/ds/index.ts` — available primitives: `Button`, `Chip`, `Toggle`, `Checkbox`, `Radio`, `Card`, `Text`, `Stack`, `Badge`, `TextField`, `Toast`, `Icon` (+ other Controls)
-6. `context/design-system/tokens.css` — all CSS variables
-7. The matching platform interaction-pattern doc once platform is known — see "Platform fidelity" below
+**Then:** `harness/skills/design-system/SKILL.md` before any CSS. Look up the one variable you are about to write. Do not read `tokens.css` end to end.
+
+**And** the screen you are changing, or the nearest existing screen in that project. Open a file it imports only to check one value.
+
+Do not preload `harness/ORCHESTRATOR.md`, `COMPANY-BUSINESS.md`, `COMPANY-ARCHETYPES.md`, `context/design-system/ds/index.ts`, or a platform pattern doc. The orchestrator is already in force. Name the product area from the brief. Open one platform doc only when the new screen's behavior depends on it, and only that platform.
 
 ---
 
 ## Workflow
 
-**New screen.** Adding a screen uses more than one skill, so the plan gate applies. Write the plan and stop. Do not create or edit a file until the designer replies "go". A change to a screen already in progress does not stop.
+**New screen.** Adding a screen uses more than one skill, so the plan gate applies. Write the plan and stop. Do not create or edit a file until the designer replies "go". Nobody to answer (headless, one-shot): the plan is the whole reply. Do not build the screen, the storyboard, or the case study in that turn. A change to a screen already in progress does not stop.
 
 0. **Read-back, existing project only** — read the fenced YAML truth block in `brief.md` and the last 10 `decisions.md` entries (see Project decisions above), nothing else from the folder (`log.md` and `findings.md` stay unread). If the request touches a `parked` direction, an unknown with `blocks`, or contradicts a `decisions.md` entry, say that with the matching sentence in `harness/ORCHESTRATOR.md` §2h and run that challenge. If none of those are touched, say nothing and continue. No project folder yet: skip this step.
 
@@ -191,7 +191,7 @@ overrides it.
    sheet vs. page, hover, focus order) — never touches tokens, `context/design-system/ds` component APIs, or
    `COMPANY-VOICE.md` copy rules.
 6.5. **Build a storyboard (new phone screens only)** — once a new `PhoneShell` screen under `projects/<slug>/screens/`
-   renders, build its storyboard per `harness/skills/mobile-shell/SKILL.md` § Storyboard, without asking. List it
+   renders, build its storyboard from `harness/skills/mobile-shell/SKILL.md` § Storyboard only. Do not read the rest of that skill, and do not open both platform pattern docs for it. List it
    in the build's plan so the go covers it. Skip when the screen already has a `.storyboard.ts`, when only a state
    prop or an edit to an existing screen was made, or when the designer said no storyboard for this screen. When
    `behaviour.storyboardOffer` is `false` in `harness.config.local.json`, ask once via `AskQuestion` instead
