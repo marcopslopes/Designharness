@@ -232,7 +232,7 @@ function LocalSettings() {
     [snapshot, draft],
   )
 
-  const update = <K extends keyof Draft>(group: K, patch: Partial<Draft[K]>) => {
+  const update = <K extends 'profile' | 'harness' | 'behaviour'>(group: K, patch: Partial<Draft[K]>) => {
     setSaved(false)
     setDraft((current) => (current ? { ...current, [group]: { ...current[group], ...patch } } : current))
   }

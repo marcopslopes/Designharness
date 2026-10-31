@@ -2,7 +2,9 @@ export const BASE: string
 export const TRAILER: string
 export const UPSTREAM_URL: string
 export const NEVER: string[]
+export const LOCAL_NOTICE: string
 export class AutopilotError extends Error {}
+export function isPublicRepo(root: string): boolean
 export function isEnabled(root: string): boolean
 export function isNever(file: string): boolean
 export function slugify(name: string): string
@@ -11,7 +13,11 @@ export function designerFirstName(root: string): string
 export function branchFor(root: string, slug: string): string
 export function currentBranch(root: string): string
 type Switch = { branch: string | null; checkpoint: string | null; message: string | null }
-export function start(root: string, slug: string, options?: { scaffold?: boolean; title?: string }): Switch
+export function start(
+  root: string,
+  slug: string,
+  options?: { scaffold?: boolean; title?: string; local?: boolean },
+): Switch
 export function resume(root: string, slug: string): Switch
 type OpenPr = (root: string, pr: { repo: string; head: string; title: string; body: string }) => string | null
 export function save(
