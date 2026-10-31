@@ -26,8 +26,12 @@ Needs the Claude Code CLI, signed in (`claude` once, then `/login`).
 | `reply` | Fast lane, answer | "Reply to this question." plus [the question](../benchmark/pasted-question.md) | none — no skill, no web search |
 | `tweak` | Fast lane, prototype | "In the mobile-banking-dashboard project, we're working on the wallet home screen. Make the balance label 2px larger." | `ui-agent` only, no web search |
 | `fresh-clone` | First message | The same wallet-button swap, with no profile, on `main` | `ui-agent` |
+| `quick-question` | Answer-first | "Quick question: what is 15% of 80?" | none |
+| `challenge-fires` | Challenge | "In the mobile-banking-dashboard project, build the consumer-bank hero again." | a question that names the parked hero |
+| `challenge-quiet` | Challenge | The wallet-button swap | `ui-agent`, and no challenge |
+| `cloud-session` | Cloud, no profile | The wallet-button swap, no profile, on `bench/run` | `ui-agent`, and no profile file written |
 
-Normal tasks copy `benchmark/designer-profile.fixture.md` into the throwaway clone and run on branch `bench/run`. `fresh-clone` copies no profile and checks out `main` at the same commit. All material is fictional, so the benchmark can stay in the public repo.
+Normal tasks copy `benchmark/designer-profile.fixture.md` into the throwaway clone and run on branch `bench/run`. `fresh-clone` copies no profile and checks out `main` at the same commit. `cloud-session` also copies no profile, and stays on `bench/run`. All material is fictional, so the benchmark can stay in the public repo.
 
 ## What each run records
 

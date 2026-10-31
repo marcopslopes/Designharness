@@ -70,6 +70,27 @@ const TASKS = [
     fresh: true,
     prompt: () => `${project} swap the order of the two header buttons on the wallet home screen.`,
   },
+  {
+    id: 'quick-question',
+    expect: 'none',
+    prompt: () => 'Quick question: what is 15% of 80?',
+  },
+  {
+    id: 'challenge-fires',
+    expect: 'challenge',
+    prompt: () => `${project} build the consumer-bank hero again.`,
+  },
+  {
+    id: 'challenge-quiet',
+    expect: 'quiet',
+    prompt: () => `${project} swap the order of the two header buttons on the wallet home screen.`,
+  },
+  {
+    id: 'cloud-session',
+    expect: 'ui-agent',
+    cloud: true,
+    prompt: () => `${project} swap the order of the two header buttons on the wallet home screen.`,
+  },
 ]
 
 const ALLOWED = [
@@ -132,7 +153,7 @@ function makeWorktree(task, opts) {
     const diff = execFileSync('git', ['diff', 'HEAD'], { cwd: ROOT })
     if (diff.length) execFileSync('git', ['apply'], { cwd: dir, input: diff })
   }
-  if (!task.fresh) {
+  if (!task.fresh && !task.cloud) {
     copyFileSync(join(BENCH, 'designer-profile.fixture.md'), join(dir, 'designer-profile.local.md'))
   }
   if (existsSync(join(ROOT, 'node_modules'))) symlinkSync(join(ROOT, 'node_modules'), join(dir, 'node_modules'))
@@ -182,7 +203,7 @@ function runTask(task, opts, cwd) {
         }
         if (event.type === 'assistant') {
           for (const part of event.message?.content ?? []) {
-            if (part.type === 'text') record.lastText = part.text
+            if (part.type === 'text') record.lastText += part.text + '\n'
             if (part.type !== 'tool_use') continue
             record.steps++
             record.tools[part.name] = (record.tools[part.name] ?? 0) + 1
@@ -207,7 +228,12 @@ function webSearches(record) {
 
 function skillHit(task, record) {
   const searches = webSearches(record)
+  const asked = /\?\s*$/.test(record.lastText.trim()) || Boolean(record.tools.AskUserQuestion)
   if (task.expect === 'none') return record.skills.length === 0 && searches === 0
+  if (task.expect === 'challenge') return /parked/i.test(record.lastText)
+  if (task.expect === 'quiet') {
+    return record.skills.includes('ui-agent') && !/parked/i.test(record.lastText)
+  }
   const found = record.skills.includes(task.expect)
   if (task.id === 'tweak') return found && record.skills.every((name) => name === 'ui-agent') && searches === 0
   return found
@@ -255,6 +281,7 @@ for (let run = 1; run <= opts.runs; run++) {
       const dir = makeWorktree(task, opts)
     try {
       const row = summarize(task, opts, await runTask(task, opts, dir), commit)
+      if (task.cloud && existsSync(join(dir, 'designer-profile.local.md'))) row.hit = false
       row.run = run
       appendFileSync(RESULTS, JSON.stringify(row) + '\n')
       rows.push(row)
