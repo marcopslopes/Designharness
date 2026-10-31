@@ -277,7 +277,7 @@ Keep proposed alternatives brief. If you want to offer a variant, label it clear
 
 ## Design-critique chain — debt register
 
-When this skill runs as part of **design-critique** (`ux-pattern` → `content`), tag copy advisories **Major** / **Minor** / **Note** (advisories only). After output is appended to `findings.md`, deferred advisories follow `harness/references/project-debt-register.md` — same fix-or-log prompt and `projects/<slug>/debt.md` as `audit`. Never use `KNOWN-ISSUES.md` for project critique debt.
+When this skill runs as part of **design-critique** (`ux-pattern` → `content`), tag copy advisories **Major** / **Minor** / **Note** (advisories only). After output is appended to `findings.md`, those non-blocking rows are written to the project's `debt.md` in the same turn (`harness/references/project-debt-register.md`). No question. The one line is `Logged the non-blocking findings in the project debt register.` Ask only for a blocking finding. `audit`'s fix-or-log prompt stays in `audit`. Never use `KNOWN-ISSUES.md` for project critique debt.
 
 ---
 

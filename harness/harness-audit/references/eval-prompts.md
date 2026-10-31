@@ -179,7 +179,7 @@ sides of a pair whenever either row changes:
 | #44 `roadmap-prioritization` vs #1/#2 `design-kickoff`/iterating | Kickoff decides *what* to build on net-new, unscoped work; `roadmap-prioritization` only ranks items that are already named/scoped, never picks new ones. |
 | #45 `okr-goal-setting` vs #44 `roadmap-prioritization` | Goal-setting produces the objective/KRs; prioritization *consumes* a stated goal as one ranking axis. A request naming both ("set the goal, then rank these against it") runs goal-setting first. |
 | #46 `stakeholder-alignment` vs #40 `design-rationale` | Alignment maps stakeholders and drafts asks *before* agreement is reached; rationale documents the pick *after* it's final. Sequential — alignment first, rationale once resolved. |
-| #47 `design-debt-tracker` vs `audit` Step 3.25 | Audit/critique *write* rows via fix-or-log; debt-tracker *reviews/triages* the register standalone. |
+| #47 `design-debt-tracker` vs `audit` Step 3.25 | `audit` writes rows via fix-or-log. Critique writes non-blocking rows itself and asks only for a blocker. Debt-tracker *reviews/triages* the register standalone. "Any thoughts" stays #7 / #110 `ux-pattern`, not this skill. |
 | #48 `taste-feedback` vs # design-critique `ux-pattern` | Taste is mid-build density/weight checkpoints; critique is full structure/heuristic review after (or instead). |
 | #50 `synthetic-user-testing` vs # usability-test-guide | Synthetic is lab empathy walkthrough; UT guide plans real sessions with participants. |
 | #52 `inspiration-scouting` vs `competitor-scan` / `benchmark` | Inspiration = feel + take/leave; competitor-scan = named product facts; benchmark = scored the company gaps. |

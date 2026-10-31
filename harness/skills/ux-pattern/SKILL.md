@@ -202,12 +202,13 @@ Skip silently on routine pattern/archetype reviews that don’t need it.
 
 ## Design-critique close — project debt register
 
-After appending to `projects/<slug>/findings.md` and logging routing, if there are **open advisories** (labelled findings not fixed this session):
+After appending to the project's `findings.md` and logging routing, follow `harness/references/project-debt-register.md`:
 
-1. Follow `harness/references/project-debt-register.md` — **AskQuestion** once: fix now, log to `projects/<slug>/debt.md`, or not worth tracking (`Accepted` with rationale).
-2. Do not silently drop minors. Do not route to `KNOWN-ISSUES.md`.
-3. When `content` ran in the same chain, deferred **content** advisories use the same register (`Source: content`).
-4. Deferred Check 5b / heuristic-pass findings use the same register (`Source: ux-pattern` or `audit`).
+1. Append every **non-blocking** finding (Major, Minor, Note) to that project's `debt.md` in the same turn. No question. Say exactly: `Logged the non-blocking findings in the project debt register.`
+2. Ask only when a finding is blocking (`BLOCKING`, `[DS-*]`, `[A11Y-*]`): fix now, or not in this pass. Do not ask about the others.
+3. Do not silently drop findings. Do not route them to `KNOWN-ISSUES.md`.
+4. When `content` ran in the same chain, its non-blocking advisories go in the same append (`Source: content`).
+5. Deferred Check 5b / heuristic-pass findings are non-blocking and use the same append (`Source: ux-pattern`).
 
 ---
 

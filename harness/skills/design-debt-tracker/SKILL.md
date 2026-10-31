@@ -5,11 +5,11 @@ description: >-
   (`projects/<slug>/debt.md`). Triggers on: "show me the design debt",
   "what did we defer", "triage the debt register", "escalate this debt",
   "what open advisories do we still owe", "clean up debt.md". Owns review /
-  escalate / resolve flows. Does not replace the fix-or-log AskQuestion that
-  `audit` / design-critique already run via
-  `harness/references/project-debt-register.md` — that protocol still writes
-  rows; this skill reads and manages them. Never routes project critique
-  debt into `KNOWN-ISSUES.md` (DS structural only).
+  escalate / resolve flows. Does not replace the fix-or-log question
+  `audit` still asks. Design-critique logs non-blocking findings itself
+  (`harness/references/project-debt-register.md`); this skill reads and
+  manages rows. Never routes project critique debt into `KNOWN-ISSUES.md`
+  (DS structural only).
 ---
 
 # Design debt tracker
@@ -27,10 +27,11 @@ chat history.
 
 - **Fires on:** reviewing, triaging, escalating, or resolving rows in an
   existing (or just-created) `projects/<slug>/debt.md`.
-- **Does not fire on:** the post-`audit` / post-critique **fix-or-log**
-  prompt itself — that stays inside `audit` / `ux-pattern` / `content` via
+- **Does not fire on:** `audit`'s fix-or-log question, or a critique
+  writing its non-blocking rows — both stay in those skills via
   `harness/references/project-debt-register.md`. This skill is the
-  *standalone* follow-up.
+  *standalone* follow-up. "Any thoughts" on a screen is a critique
+  (`ux-pattern`), not this skill.
 - **Does not fire on:** DS / harness structural debt → `KNOWN-ISSUES.md`
   + `design-system` skill.
 - **Composes with:** `roadmap-prioritization` (debt items can become
@@ -123,7 +124,7 @@ acknowledgement before **Accepted** — never quiet-accept a11y debt.
 
 | File | Role |
 |------|------|
-| `harness/references/project-debt-register.md` | Format + fix-or-log AskQuestion |
+| `harness/references/project-debt-register.md` | Format. `audit` asks fix-or-log; critique logs non-blocking rows |
 | `harness/skills/audit/SKILL.md` Step 3.25 | Writes rows after PASS |
 | `harness/skills/ux-pattern/SKILL.md` | Writes rows after design-critique |
 | `harness/skills/roadmap-prioritization/SKILL.md` | Can rank named debt items as backlog |

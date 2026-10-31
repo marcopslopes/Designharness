@@ -76,10 +76,10 @@ finding:
 ```
 
 Same severity vocabulary as everywhere else in this harness — Major /
-Minor / Note — and it goes through the same
-`harness/references/project-debt-register.md` fix-or-log flow as any
-other advisory finding. Never silently escalate it to BLOCKING, and
-never silently drop it either.
+Minor / Note. On a critique those rows are logged with the other
+non-blocking findings (`harness/references/project-debt-register.md`).
+`audit` still asks its fix-or-log question. Never silently escalate an
+ethical finding to BLOCKING, and never silently drop it either.
 
 ---
 
