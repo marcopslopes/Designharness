@@ -56,7 +56,7 @@ known:
 - Desktop/web uses `DesktopShell` (`src/design-harness/shared/DesktopShell.tsx`) — browser window + the same pro-app
   tabs as the web nav. Its behavior doc lives at `harness/skills/ui-agent/references/desktop-web-patterns.md`.
 
-These docs never override `harness/ORCHESTRATOR.md` §7's tokens/component/voice rules — they sit strictly under
+These docs never override `harness/references/design-system-rules.md` §7's tokens/component/voice rules — they sit strictly under
 them, same as this skill's own chrome does.
 
 ---

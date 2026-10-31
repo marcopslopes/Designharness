@@ -5,7 +5,7 @@ Curated, not exhaustive. Behavior and layout-convention layer only — **not a v
 bar) because phones share one hardware form factor worth mimicking; desktop/web has no equivalent single "device"
 to frame — a browser window isn't a bezel to draw. This doc is rules for laying out and behaving inside the company's
 actual desktop/web provider surfaces (Biz web app), applied by `ui-agent` (Step 6) once platform is known as
-desktop/web, strictly under `harness/ORCHESTRATOR.md` §7's hard rules. Never overrides a token, a
+desktop/web, strictly under `harness/references/design-system-rules.md` §7's hard rules. Never overrides a token, a
 `context/design-system/ds` component API, or `COMPANY-VOICE.md`.
 
 **Desktop screens go in `DesktopShell`** (`src/design-harness/shared/DesktopShell.tsx`, CSS in
@@ -89,7 +89,7 @@ either never fires or fires unreliably (sticks after tap on some browsers).
 
 ## Keyboard navigation and focus order
 
-`harness/ORCHESTRATOR.md` §7.1 rule 5 already makes this a hard rule (`:focus-visible` never removed, semantic
+`harness/references/design-system-rules.md` §7.1 rule 5 already makes this a hard rule (`:focus-visible` never removed, semantic
 HTML). This section is the desktop-specific behavior that rule implies in practice:
 
 - **Tab order must match visual/reading order.** Don't rely on `tabindex` values other than `0` or `-1` to
@@ -134,4 +134,4 @@ HTML). This section is the desktop-specific behavior that rule implies in practi
 | `harness/skills/mobile-shell/SKILL.md` | The mobile-only visual-chrome counterpart — explicitly not what this doc does |
 | `context/design-system/tokens.css` | `--size-layout-content-max` and spacing tokens this doc cites |
 | `COMPANY-PATTERNS.md` | § "Responsive device frames" — the existing mobile+desktop rule this doc fills in with concrete numbers |
-| `harness/ORCHESTRATOR.md` §7.1 rule 5 | The accessibility hard rule this doc's keyboard-nav section expands on |
+| `harness/references/design-system-rules.md` §7.1 rule 5 | The accessibility hard rule this doc's keyboard-nav section expands on |

@@ -23,7 +23,7 @@ waitlist one-offs, etc.) live in
 — not in this folder. Promote into `tokens.css` only when Figma-backed.
 
 Moved here from `src/ds` + `src/tokens.css` + `docs/FIGMA-*.md` by the IA
-migration (`!4`) — see `harness/ORCHESTRATOR.md` §7's migration note for the
+migration (`!4`) — see `harness/references/design-system-rules.md` §7's migration note for the
 before/after path map.
 
 ## How agents enforce this

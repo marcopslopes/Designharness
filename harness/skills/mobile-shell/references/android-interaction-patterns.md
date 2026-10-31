@@ -1,7 +1,7 @@
 # Android Interaction Patterns — Reference
 
 Curated, not exhaustive. Behavior layer only — how things *behave* on Android, not how they look. Applied by
-`ui-agent` (Step 6) once platform is known as Android, strictly under `harness/ORCHESTRATOR.md` §7's hard rules and
+`ui-agent` (Step 6) once platform is known as Android, strictly under `harness/references/design-system-rules.md` §7's hard rules and
 `COMPANY-PATTERNS.md`. Never overrides a token, a `context/design-system/ds` component API, or
 `COMPANY-VOICE.md` — if this doc's guidance would require that, flag the conflict instead of resolving it
 silently.
@@ -88,7 +88,7 @@ Android's touch feedback and layering language:
 Elevation and ripple are **behavior/motion conventions, not new tokens.** Depth must still come from
 `context/design-system/tokens.css`'s existing shadow/border tokens and `Card`'s `elevated` prop — never a new
 hard-coded `box-shadow` value invented per-platform. If the token set doesn't have enough elevation steps to
-express Android's convention faithfully, flag that as a token gap (per `harness/ORCHESTRATOR.md` §7.1 rule 1) —
+express Android's convention faithfully, flag that as a token gap (per `harness/references/design-system-rules.md` §7.1 rule 1) —
 don't hand-roll a one-off shadow to compensate.
 
 ---

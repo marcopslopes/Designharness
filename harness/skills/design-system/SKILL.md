@@ -26,7 +26,7 @@ load automatically from `ui-agent` before any CSS value is written.
 from `audit`.
 
 **Load with this skill:** `harness/references/design-system-rules.md`
-(orchestrator §7) before composing.
+before composing.
 
 ---
 

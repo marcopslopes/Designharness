@@ -1,7 +1,7 @@
 # iOS Interaction Patterns — Reference
 
 Curated, not exhaustive. Behavior layer only — how things *behave* on iOS, not how they look. Applied by
-`ui-agent` (Step 6) once platform is known as iOS, strictly under `harness/ORCHESTRATOR.md` §7's hard rules and
+`ui-agent` (Step 6) once platform is known as iOS, strictly under `harness/references/design-system-rules.md` §7's hard rules and
 `COMPANY-PATTERNS.md`. Never overrides a token, a `context/design-system/ds` component API, or
 `COMPANY-VOICE.md` — if this doc's guidance would require that, flag the conflict instead of resolving it
 silently.

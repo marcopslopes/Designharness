@@ -140,7 +140,7 @@ there's nothing to apologize for or push someone toward.
   (Same rule `benchmark` inherits when it calls this skill.)
 - **Never hand-draw or recreate their logo, icon set, or brand marks** —
   irrelevant to what this skill is answering, and this repo's hard rule
-  against invented/duplicated brand assets (`harness/ORCHESTRATOR.md` §7.1)
+  against invented/duplicated brand assets (`harness/references/design-system-rules.md` §7.1)
   applies here too.
 - **Never present the summary as a build spec.** This is reference
   material for a human designer's own judgment, not a copy-this-exactly
@@ -205,5 +205,5 @@ use `benchmark` instead.
 | `harness/skills/live-page-review/SKILL.md` | When the ask includes a competitor **URL**, captures the live page first then hands facts here |
 | `harness/skills/research-agent/SKILL.md` | The right tool for an open-ended, no-named-competitor discovery sweep |
 | `harness/references/source-links.md` | Citation format for any web URL used as a fallback source |
-| `harness/ORCHESTRATOR.md` §7.1 | Hard rule against invented/reproduced brand assets — extends to competitor assets here |
+| `harness/references/design-system-rules.md` §7.1 | Hard rule against invented/reproduced brand assets — extends to competitor assets here |
 | `documentation/setup/mcp-setup.md` § Optional MCPs | Notes Mobbin as an optional, opt-in MCP for this skill and `benchmark` — deliberately not part of the mandatory onboarding gate |

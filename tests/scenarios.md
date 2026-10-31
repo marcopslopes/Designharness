@@ -1353,7 +1353,7 @@ else for this callout?"*
    pre-share sweep) and not a freestyle answer.
 2. Checks `context/design-system/tokens.css` / `FIGMA-FOUNDATIONS-RADIUS.md`
    directly rather than guessing; correctly identifies `--radius-025`
-   (12px) as the real in-between token per `harness/ORCHESTRATOR.md` §7.3.
+   (12px) as the real in-between token per `harness/references/design-system-rules.md` §7.3.
 3. If a value genuinely has no matching token, says so and proposes
    adding it to `tokens.css` rather than inventing a raw literal.
 4. Logged if tied to an active build.

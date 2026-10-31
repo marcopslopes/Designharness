@@ -132,7 +132,7 @@ Write a contract `ui-agent` (or eng) can implement.
 
 Append to `projects/<slug>/findings.md` (or `decisions.md` if choosing
 between motion directions). Hand implementation to `ui-agent` — do not
-freestyle CSS motion outside `ORCHESTRATOR.md` §7 / DS tokens.
+freestyle CSS motion outside `design-system-rules.md` §7 / DS tokens.
 
 ---
 

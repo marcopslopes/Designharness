@@ -50,7 +50,7 @@ screens' and the style guide's wording: if one rules out a term, don't use
 it, even where the brief uses it. Only the designer's ask in this chat
 overrides it.
 
-**Then:** `harness/references/design-system-rules.md` (orchestrator §7) before any CSS. Look up the one variable you are about to write. Do not read `tokens.css` end to end. Open `harness/skills/design-system/SKILL.md` when the question is which layer a value belongs in, not when the screen already uses a token and one value is changing.
+**Then:** `harness/references/design-system-rules.md` before any CSS. Look up the one variable you are about to write. Do not read `tokens.css` end to end. Open `harness/skills/design-system/SKILL.md` when the question is which layer a value belongs in, not when the screen already uses a token and one value is changing.
 
 **And** the screen you are changing, or the nearest existing screen in that project. Open a file it imports only to check one value.
 

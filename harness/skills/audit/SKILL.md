@@ -182,7 +182,7 @@ Flag any hand-drawn inline `<svg>` icon markup, or any icon imported from a sour
 
 ### Prototype dark mode
 
-Production apps here have no dark mode (see `harness/ORCHESTRATOR.md` §7.1 / `COMPANY-BUSINESS.md` for your org's actual policy). Flag any prototype screen that invents a dark theme, dark-only product chrome, or a theme toggle inside product UI. Design Harness lab chrome may be dark; playground prototypes must render light Foundations/DS tokens via `.design-harness-proto-surface`.
+Production apps here have no dark mode (see `harness/references/design-system-rules.md` §7.1 / `COMPANY-BUSINESS.md` for your org's actual policy). Flag any prototype screen that invents a dark theme, dark-only product chrome, or a theme toggle inside product UI. Design Harness lab chrome may be dark; playground prototypes must render light Foundations/DS tokens via `.design-harness-proto-surface`.
 
 **Flag as:** `[DS-PROTO-THEME]` — remove dark product UI; keep light mode only.
 

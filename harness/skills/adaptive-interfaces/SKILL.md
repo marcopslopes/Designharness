@@ -7,7 +7,7 @@ description: >-
   "high contrast mode", "does this respect system text size", "density
   preference", "prefers-contrast". Complements `motion-choreography`
   (motion specs) and `accessibility` (blocking checks). Forbidden: shipping
-  or prototyping product dark mode (this harness's products have none — ORCHESTRATOR §7.1).
+  or prototyping product dark mode (this harness's products have none — design-system-rules.md §7.1).
 ---
 
 # Adaptive interfaces
@@ -33,7 +33,7 @@ and text size", "high contrast pass"
 
 Do **not** add `prefers-color-scheme: dark` product UI, dark prototype
 themes, or theme toggles inside Design Harness product surfaces. Design Harness chrome
-may be dark; prototypes stay Foundations light (`ORCHESTRATOR.md` §7.1
+may be dark; prototypes stay Foundations light (`design-system-rules.md` §7.1
 rule 7). If the designer asks for dark mode, decline and explain.
 
 ---
@@ -125,5 +125,5 @@ Append to `projects/<slug>/findings.md`.
 | `harness/skills/motion-choreography/SKILL.md` | Motion alternatives |
 | `harness/skills/responsive-patterns/SKILL.md` | Reflow / zoom |
 | `harness/skills/accessibility/SKILL.md` | Blocking a11y |
-| `harness/ORCHESTRATOR.md` §7.1 rule 7 | Light-mode prototypes |
+| `harness/references/design-system-rules.md` §7.1 rule 7 | Light-mode prototypes |
 | `harness/skills/adaptive-interfaces/GUIDE.md` | Designer guide |

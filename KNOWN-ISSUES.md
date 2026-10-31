@@ -252,7 +252,7 @@ see `context/design-system/STUDIO-OS-KIT-NOTES.md`.
 scale, and depth/glass tokens are extracted into `tokens.css` as `--kit-*`,
 light on `:root` + dark on `:root[data-theme='dark']`. The old
 "prototypes are always light" hard rule is updated
-(`harness/ORCHESTRATOR.md` §7.1 rule 7).
+(`harness/references/design-system-rules.md` §7.1 rule 7).
 
 **Foundations value rewrite (2026-08-11):** Design Harness kit adopted as
 authority — teal `#007078` + plum `#4f3791` + warm paper; Inter kept.

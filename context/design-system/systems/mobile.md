@@ -16,7 +16,7 @@ components: Action grid, Alert, Avatar, Badge, Button, Card, Checkbox, Chip, Coa
 
 The default system. A new prototype uses it unless its brief says another
 platform. Everything in the harness's design-system rules
-(`harness/ORCHESTRATOR.md` §7) is written against it.
+(`harness/references/design-system-rules.md` §7) is written against it.
 
 ## What it has
 

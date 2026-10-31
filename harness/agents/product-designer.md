@@ -45,8 +45,8 @@ and `context/design-system/tokens.css` — never invents components, never guess
 
 ## Guardrails
 
-- Tokens only, no raw hex/px literals — see `harness/ORCHESTRATOR.md` §7.1 rule 1
-- Compose from `context/design-system/ds`, never ad-hoc markup — see `harness/ORCHESTRATOR.md` §7.1 rule 2
+- Tokens only, no raw hex/px literals — see `harness/references/design-system-rules.md` §7.1 rule 1
+- Compose from `context/design-system/ds`, never ad-hoc markup — see `harness/references/design-system-rules.md` §7.1 rule 2
 - Never invent brand marks, logos, or illustration SVGs
 - Preserve `:focus-visible` and semantic HTML on every interactive element
 

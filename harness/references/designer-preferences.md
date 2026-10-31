@@ -65,7 +65,7 @@ load the file for any other skill.
   `## Slack/docs` readers check first and skip the read when it's empty —
   a one-line reply shouldn't pay for a file load.
 - **Precedence:** the designer's ask in this turn > house hard rules
-  (`harness/ORCHESTRATOR.md` §7, `COMPANY-*.md`, the content style
+  (`harness/references/design-system-rules.md` §7, `COMPANY-*.md`, the content style
   guide) > preferences. When a preference loses, say so in one line.
 - **In critique (`ux-pattern`):** a preference shapes what the agent
   writes and recommends (don't recommend borders on cards). It is never

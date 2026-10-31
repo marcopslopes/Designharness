@@ -53,11 +53,11 @@ Treat the Design Harness component pages as **the contract** for how components 
 
 ---
 
-## 5. Guardrails (this repo: `harness/ORCHESTRATOR.md` §7, not `cloud.md`)
+## 5. Guardrails (this repo: `harness/references/design-system-rules.md` §7, not `cloud.md`)
 
 Some workflows use a file named `cloud.md`. Here the equivalent is **`harness/ORCHESTRATOR.md`** §7: **non-negotiables**, Figma file keys, token rules, and commands. `AGENTS.md` (and `CLAUDE.md`) are thin, auto-loaded pointer files that exist only because Cursor/Claude Code require those exact filenames, at the repo root where those tools look — they defer to `harness/ORCHESTRATOR.md` for everything real.
 
-When the model drifts (random hex, inline magic numbers, new components that skip `context/design-system/ds`), **edit `harness/ORCHESTRATOR.md` §7** with a short, testable rule: *what to use*, *what never to do*, *where to look*.
+When the model drifts (random hex, inline magic numbers, new components that skip `context/design-system/ds`), **edit `harness/references/design-system-rules.md` §7** with a short, testable rule: *what to use*, *what never to do*, *where to look*.
 
 ---
 
@@ -97,8 +97,8 @@ Both stay; neither replaces the other.
 | Guided prompt | Clear chat goals + `harness/ORCHESTRATOR.md` context |
 | Visual data | Figma URLs + `context/design-system/FIGMA-FOUNDATIONS-*.md` + screenshots when useful |
 | Catalog + Sandbox | `npm run dev`, `src/design-harness/` (see `DesignHarnessApp.tsx` re-export) |
-| Guardrails | `harness/ORCHESTRATOR.md` §7 |
-| Trim rules | Periodic edit pass on `harness/ORCHESTRATOR.md` §7 |
+| Guardrails | `harness/references/design-system-rules.md` §7 |
+| Trim rules | Periodic edit pass on `harness/references/design-system-rules.md` §7 |
 | Audits | ESLint, build, optional custom scripts / Cursor skills |
 
 ---

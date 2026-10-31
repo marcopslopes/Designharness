@@ -65,5 +65,5 @@ See `src/design-harness/pages/NavigationProfilePrototypePage.tsx` for a full wor
 | `context/design-system/ds/ds.css` | `.ds-icon` size-scale styles |
 | `context/design-system/tokens.css` | `--size-00`…`--size-12` scale |
 | `context/design-system/FIGMA-FOUNDATIONS-SIZE.md` | Source spec for the size scale |
-| `harness/ORCHESTRATOR.md` §7 | Component API quick reference (includes `Icon`) |
+| `harness/references/design-system-rules.md` §7 | Component API quick reference (includes `Icon`) |
 | `harness/ORCHESTRATOR.md` | The routing table that triggers this skill |

@@ -36,7 +36,7 @@ retrospective *output-quality* mining instead.
 skill's *output quality* (not routing correctness) is trending up or
 down across many runs — e.g., is `ui-agent`'s token-compliance rate
 improving after a `design-system` tightening, or did a recent
-`ORCHESTRATOR.md` §7 edit quietly make things worse three tasks later?
+`design-system-rules.md` §7 edit quietly make things worse three tasks later?
 
 ## Proposed shape (now live)
 

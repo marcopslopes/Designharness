@@ -23,7 +23,7 @@ Canonical sources, in order of preference:
   `context/design-system/tokens.css` (dark presentation mode — this is
   intentionally the one place in the repo a dark skin is allowed outside
   Design Harness chrome itself, since these are export artifacts, not product
-  UI — see `harness/ORCHESTRATOR.md` §7.1 rule 7 for why product
+  UI — see `harness/references/design-system-rules.md` §7.1 rule 7 for why product
   prototypes themselves must stay light).
 - `.deck` / `.slide` / `.slide.active` — absolute-positioned slides,
   opacity-fade transition, one slide visible at a time.
