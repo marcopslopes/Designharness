@@ -10,7 +10,7 @@
  *   node scripts/git-autopilot.mjs undo [--yes]
  *   node scripts/git-autopilot.mjs share
  *   node scripts/git-autopilot.mjs catch-up
- *   node scripts/git-autopilot.mjs session      (first reply of a chat; runs with autopilot off too)
+ *   node scripts/git-autopilot.mjs session      (Claude Code session hook; runs with autopilot off too)
  *   node scripts/git-autopilot.mjs doctor       (runs with autopilot off too)
  *   node scripts/git-autopilot.mjs update       ("update my harness"; runs with autopilot off too)
  *   node scripts/git-autopilot.mjs worktree <slug>  (runs with autopilot off too)
@@ -292,11 +292,6 @@ function switchTo(root, branch) {
   git(root, ['switch', '-q', '-c', branch, BASE])
 }
 
-function withCatchUp(root, result) {
-  const caught = catchUp(root)
-  return caught.message ? { ...result, message: [result.message, caught.message].filter(Boolean).join('\n') } : result
-}
-
 /** New project: save the current project where it is, then branch `<first>/<slug>` from main. */
 export function start(root, slug, { scaffold: makeFolder = false, title, local = false } = {}) {
   checkSlug(slug)
@@ -312,11 +307,11 @@ export function start(root, slug, { scaffold: makeFolder = false, title, local =
     switchTo(root, branch)
   }
   const made = makeFolder ? scaffold(root, slug, title, local) : false
-  return withCatchUp(root, {
+  return {
     branch,
     checkpoint: saved,
     message: [`Working on ${branch}.`, noticeFor(made)].filter(Boolean).join('\n'),
-  })
+  }
 }
 
 /** Existing project: switch to its branch if it has one. Silent otherwise. */
@@ -325,10 +320,10 @@ export function resume(root, slug) {
   if (!isEnabled(root)) return { branch: null, checkpoint: null, message: null }
   const branch = branchFor(root, slug)
   if (!branchExists(root, branch)) return { branch: null, checkpoint: null, message: null }
-  if (currentBranch(root) === branch) return withCatchUp(root, { branch, checkpoint: null, message: null })
+  if (currentBranch(root) === branch) return { branch, checkpoint: null, message: null }
   const saved = checkpoint(root, `switching to ${slug}`)
   git(root, ['switch', '-q', branch])
-  return withCatchUp(root, { branch, checkpoint: saved, message: `Working on ${branch}.` })
+  return { branch, checkpoint: saved, message: `Working on ${branch}.` }
 }
 
 const HARNESS_QUESTION = 'Keep them local, or suggest them to the harness?'
@@ -609,8 +604,8 @@ export function catchUp(root) {
 }
 
 /**
- * First reply of a chat. One warning line when on main or 50+ commits behind
- * origin/main, plus catch-up when autopilot is on. Empty when all is well.
+ * Claude Code session start. One warning line when on main or 50+ commits
+ * behind origin/main. Empty when all is well. Catch-up runs only on request.
  */
 export function sessionLine(root, { fetchMain = () => fetchBranch(root, 'origin', BASE, 8000) } = {}) {
   if (gitValue(root, ['rev-parse', '--is-inside-work-tree']) !== 'true') return ''
@@ -629,8 +624,6 @@ export function sessionLine(root, { fetchMain = () => fetchBranch(root, 'origin'
   } else if (behind >= BEHIND_WARNING) {
     lines.push(`This branch is ${behind} commits behind origin/main.`)
   }
-  const caught = catchUp(root).message
-  if (caught) lines.push(caught)
   return lines.join('\n')
 }
 

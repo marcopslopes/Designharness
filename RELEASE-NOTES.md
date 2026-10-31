@@ -6,6 +6,7 @@ Each release is a version in `package.json` and a matching Git tag, such as `v0.
 
 ### 31 October 2026
 
+- **Git does less on its own.** A new project still gets its branch, "wrap up" still saves, and "share this" still pushes. Bringing in main, undo, harness updates, a parallel folder, and the Git check-up run only when you ask. Cursor no longer runs a Git check at the start of every chat.
 - **Old review files stay as pointers.** A critique still goes to the pattern skill. The old review file no longer contains a second playbook. The public skill count leaves those two pointers out.
 - **One owner per project file.** The brief's truth block is status, assumptions, unknowns, and evidence. Findings are the detail behind evidence. Decisions, including a wayfinding map, live in `decisions.md`. Raw test results live under `testing/`, and a short version goes in the truth block. A personal journal is never a project source.
 - **A critique loads its rule with the critique.** The Figma critique instructions sit in the pattern skill, and load when you ask for a critique. They are not in every chat.

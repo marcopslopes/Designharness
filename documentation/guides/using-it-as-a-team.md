@@ -46,9 +46,9 @@ conflicts. The three files people append to most, `projects/*/log.md`,
 `findings.md` and `sources.md`, merge by keeping both sides' new lines
 (`.gitattributes`), so they don't conflict either.
 
-Each chat starts with a warning when the folder is on `main` or 50 or more
-commits behind `origin/main`, and a project branch catches up with `main` on
-its own once it's a day behind. A real conflict stops and lists the files;
+In Claude Code, each chat starts with a warning when the folder is on `main`
+or 50 or more commits behind `origin/main`. Say **"bring in the latest main"** to bring
+`main` into your project branch. A real conflict stops and lists the files;
 nothing is resolved without asking.
 
 ## Taking harness updates

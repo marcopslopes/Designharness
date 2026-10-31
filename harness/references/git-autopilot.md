@@ -14,7 +14,7 @@ node scripts/git-autopilot.mjs undo            # preview
 node scripts/git-autopilot.mjs undo --yes      # after the designer agrees
 node scripts/git-autopilot.mjs share
 node scripts/git-autopilot.mjs catch-up
-node scripts/git-autopilot.mjs session         # first reply of a chat
+node scripts/git-autopilot.mjs session         # Claude Code session hook only
 node scripts/git-autopilot.mjs doctor          # "something's off with Git"
 node scripts/git-autopilot.mjs update          # "update my harness"
 node scripts/git-autopilot.mjs worktree <slug> # "work on another project in parallel"
@@ -23,6 +23,12 @@ node scripts/git-autopilot.mjs worktree <slug> # "work on another project in par
 Say the script's line as it is. Say nothing when it prints nothing. Never run
 `git switch`, `git commit`, `git merge`, `git reset`, `git revert` or
 `git push` yourself for these steps.
+
+**What runs without being asked:** the branch on a new project (§ 1), the
+switch on "continue X" (§ 2), the save on "wrap up" (§ 3), and the push on
+"share this" (§ 5). Everything else — catch-up, undo, update, parallel
+folders, doctor — runs only when the designer names it. Never offer it and
+never run it as a side effect.
 
 **On by default.** Two ways to turn it off, either one wins:
 `behaviour.gitAutopilot: false` in `harness.config.local.json` (Settings,
@@ -37,18 +43,10 @@ Cloud sessions have no profile; there it uses `git config user.name`. Neither
 
 ## 0. Session start
 
-On a chat's first reply, pass on any line `session` printed. Claude Code
-runs it as a SessionStart hook (`.claude/settings.json`); in Cursor, run it
-yourself on the first reply. It prints nothing when all is well, and warns
-when:
-
-- the folder is on `main`: `On main. Project work belongs on your own branch.`
-- the branch is 50 or more commits behind `origin/main`.
-
-It also runs catch-up (step 2a) when autopilot is on. The fetch gives up after
-a few seconds and never asks for a password, so an offline laptop just gets
-no warning. With no `origin` remote, `session` and `catch-up` print nothing,
-and `doctor` leaves the origin line out instead of reporting an error.
+Claude Code runs `session` as a SessionStart hook (`.claude/settings.json`).
+If it printed a line, pass it on. In Cursor, do not run it. It warns when
+the folder is on `main`, or the branch is 50 or more commits behind
+`origin/main`. With no `origin` remote it prints nothing.
 
 ## 1. Start — a new project
 
@@ -84,13 +82,12 @@ branch exists, saving the current project's folder first, and prints
 `Working on ana/<slug>.` Say it. No branch (a project from before
 autopilot, or someone else's) → it prints nothing; carry on where you are.
 
-### 2a. Catch-up
+### 2a. Catch-up — on request only
 
-`start`, `resume` and `session` merge `main` (`origin/main` when it's been
-fetched) into the project branch once the branch is more than a day behind.
-Say the line it adds. Uncommitted changes → it skips the merge and says so.
-A conflict → it stops, lists the files and merges nothing. Pass the list on
-and ask before resolving anything. `catch-up` runs it on its own.
+"Bring in the latest main" → `catch-up`. Not "catch me up on X", which is `research-agent`. It merges `main`
+(`origin/main` when fetched) into the project branch. Uncommitted changes →
+it skips and says so. A conflict → it stops, lists the files and merges
+nothing. Pass the list on and ask before resolving anything.
 
 ## 3. Save — "wrap up"
 
@@ -131,7 +128,7 @@ Ask once (`AskQuestion`):
   pull request form. Give the link. The project branch no longer has the
   change.
 
-## 4. Undo — "undo the last change"
+## 4. Undo — "undo the last change" (on request only)
 
 1. Run `undo` (no flag). It names the last autopilot save on this branch and
    lists its files. Show that, in plain words, and ask once
@@ -165,7 +162,7 @@ current branch. No remote → it says so. Pass it on. A rejected push
 "Publish this project / give me a share URL" is `publish-project` (a
 deployed site), not this.
 
-## 6. Update my harness
+## 6. Update my harness (on request only)
 
 "Update my harness" / "get the latest harness" → `update`. It:
 
@@ -182,7 +179,7 @@ deployed site), not this.
 5. on a real conflict, merges nothing and lists the files. Pass the list on
    and ask before resolving.
 
-## 7. Work on another project in parallel
+## 7. Work on another project in parallel (on request only)
 
 "Work on another project in parallel" / "open <slug> in a second window" →
 `worktree <slug>`. It makes a second folder next to this one
@@ -192,7 +189,7 @@ so the second window knows the same designer and skips onboarding. Give the
 folder path and say to open it in its own window. Each folder has its own
 branch, so the two never step on each other.
 
-## 8. Doctor — "something's off with Git"
+## 8. Doctor — "something's off with Git" (on request only)
 
 `doctor` lists uncommitted files and the branch each likely belongs to,
 branches behind `main`, and whether `origin` and the harness answer. Summarise

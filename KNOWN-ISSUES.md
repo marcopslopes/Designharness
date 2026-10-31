@@ -205,10 +205,9 @@ the designer a line.
 **What:** Claude Code runs `node scripts/git-autopilot.mjs session` as a
 SessionStart hook (`.claude/settings.json`), and its line reaches the chat.
 Cursor's `sessionStart` hook can't add context reliably (the same bug as the
-onboarding hook above), so in Cursor the always-on Git line in `AGENTS.md`
-tells the agent to run it on a chat's first reply. If the agent skips that,
-the designer gets no "you're on main" warning; catch-up still runs on the
-next "continue X".
+onboarding hook above), so Cursor shows no "you're on main" warning. The
+agent no longer runs the check on every first reply; that cost a step in
+every chat.
 
 Remove this entry once Cursor's `sessionStart` hook can add a line to the
 chat.
