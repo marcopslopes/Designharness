@@ -121,7 +121,7 @@ wording that has to land close enough for §2 to route there.
 | `figma-library-manager` | Phrase | — | "manage our Figma library" | |
 | `figma-effects-catalog` | Phrase | — | "catalog our Figma effects" | Lowest use; that's fine. |
 | `harness-audit` | Phrase | Prospective after §2 edit (self-trigger, often skipped) | "audit the harness itself" | This run. |
-| `designer-workload` | **Dead** | — | — | No §2 row; phrases absorbed by `workload-agent`. Safe to delete. |
+| `designer-workload` | **Kept, no triggers** | — | — | No §2 row. Phrases live on `workload-agent`. Not deleted: nav, the skill package, and docs still name it. |
 
 **Rough counts (primary):** Composed ~10 · Offered ~8 · Phrase ~45 · Dead 1 · Claimed-not-wired 2.
 
@@ -135,7 +135,7 @@ Load-bearing discovery layer is **wired** (2026-08-31). Remaining is
 optional, not a kickoff hole:
 
 - Phrase-only on purpose: Figma sync suite, decks, tickets, coaching, motion spec.
-- `designer-workload` stub still dead — delete when confirmed unused.
+- `designer-workload` stays, with no trigger phrases. Workload questions go to `workload-agent`.
 
 ## Coverage audit #2 against an external reference (2026-08-31)
 

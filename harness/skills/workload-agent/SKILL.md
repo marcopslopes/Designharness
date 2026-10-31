@@ -281,7 +281,7 @@ this leg's raw data.
 | `harness/skills/design-kickoff/` | Net-new kickoffs — auto-invokes this agent at Step 1a before research-agent |
 | `harness/skills/workload-agent/GUIDE.md` | Human-readable guide to this agent |
 | `harness/skills/research-agent/` | Discovery briefings — different job, may share roadmap refs; runs at kickoff Step 1b |
-| `harness/skills/designer-workload/SKILL.md` | **Superseded** by this agent's execution leg — kept for backward-compatible triggers |
+| `harness/skills/designer-workload/SKILL.md` | **Superseded** by this agent's execution leg — kept so older links resolve; it has no trigger phrases |
 | `harness/references/source-links.md` | Repo-wide — markdown links for cited tickets, pages, etc. in output |
 | `harness/ORCHESTRATOR.md` | Routing table entry for this agent |
 | `harness/designer-onboarding/SKILL.md` § Manager role focus | Where `role: manager` and `Reports:` come from |

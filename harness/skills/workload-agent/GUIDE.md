@@ -24,7 +24,7 @@ This doc is the human-readable reference. Agents load the full protocol from
 | Routing entry | `harness/ORCHESTRATOR.md` §2 |
 | Auto-invoked at net-new kickoff | `harness/skills/design-kickoff/SKILL.md` Step 1a |
 | PRD section fed by kickoff run | `harness/skills/design-kickoff/references/prd-template.md` §1 |
-| Superseded skill (backward-compatible triggers) | `harness/skills/designer-workload/SKILL.md` |
+| Superseded skill (no trigger phrases; older links still resolve) | `harness/skills/designer-workload/SKILL.md` |
 
 ---
 

@@ -17,19 +17,8 @@ Personal workload view - your queue, priorities, blockers.
 
 ## When to Use
 
-Use `designer-workload` when you want to:
-- See your current work
-- Check priorities
-- Find blockers
-- Review recent progress
-
-### Trigger Phrases
-```
-"What am I working on?"
-"Show my queue"
-"What's blocking me?"
-"My workload"
-```
+This page is kept for old links. It has no trigger phrases. Workload and
+roadmap questions go to `workload-agent`.
 
 ---
 

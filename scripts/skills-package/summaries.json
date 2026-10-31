@@ -64,7 +64,7 @@
   "ticket-create": "Draft a ticket and file it in Jira, Linear, or GitHub Issues once you say go.",
   "ui-agent": "Build a screen using your product’s design tokens and shared components.",
   "usability-test-guide": "Prepare the tasks, questions, and measures for a usability test.",
-  "ux-review": "Run a five-persona UX review on a URL, HTML file, screenshot, or Figma frame and get one scored report.",
+  "ux-review": "Kept for old links. A critique of existing work goes to ux-pattern.",
   "ux-pattern": "Review a flow’s structure against how your product works, not just how it looks.",
   "workload-agent": "Check the live product roadmap and design workload from connected boards.",
   "workshop-whiteboard": "Run a timed research-scoping board with your team, from problem to plan.",

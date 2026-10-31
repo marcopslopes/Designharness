@@ -20,17 +20,9 @@ pattern gap analysis, a priority matrix, and the top 5 fixes.
 
 ## When to Use
 
-Use `ux-review` when you want a broad outside-in read of a page and you name
-the skill directly:
-
-```
-"Run ux-review on https://example.com/pricing"
-"ux-review ./prototype.html"
-```
-
-It is not in the routing table yet, so plain requests like "review this
-flow" go to `ux-pattern`, and "review this live page" goes to
-`live-page-review`. See [KNOWN-ISSUES.md](../../KNOWN-ISSUES.md).
+This page is kept for old links. It has no trigger phrases. A critique of
+existing work goes to `ux-pattern`. A click-through of a live page goes to
+`live-page-review`.
 
 | Use instead | When |
 |---|---|

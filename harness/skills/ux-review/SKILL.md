@@ -1,12 +1,8 @@
 ---
 name: ux-review
 description: >
-  Run a multi-persona UX review on any URL, local HTML file, screenshot image, or Figma frame.
-  Five parallel sub-agents (configurable user, mobile low-tech user, NNG heuristic expert,
-  UI quality & brand reviewer, JTBD reviewer) evaluate the page and produce a unified report
-  with UX health score, cognitive walkthrough, design pattern gap analysis, priority matrix,
-  and top 5 fixes. Use when the user says "ux review", "review this page", "review this site",
-  "ux audit", or provides a URL/file path/Figma link and asks for UX feedback.
+  Kept so older links still resolve. Do not route here. A critique of
+  existing work goes to ux-pattern. This file has no trigger phrases.
 ---
 
 # UX Review Skill

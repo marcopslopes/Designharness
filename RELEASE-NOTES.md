@@ -8,6 +8,7 @@ Each release is a version in `package.json` and a matching Git tag, such as `v0.
 
 - **A first message with no profile still gets done.** The agent asks your role once, then does the request in the same turn. A run with nobody to answer uses product design and writes no profile. The "you're on main" line is one sentence and never a question.
 - **The PRD check is only for a new product bet.** "Let's start working on…" and "let's explore payouts" still stop to ask if the brief is good enough. A question, a lookup, an iteration, a critique, copy, or an import does not.
+- **Two old skills no longer catch phrases.** Workload questions go to the workload skill, and a critique of existing work goes to the pattern critique. The old files stay so existing links still open.
 
 ### 30 October 2026
 
