@@ -232,6 +232,7 @@ test('autopilot is on by default; the setting or the profile line turns it off',
 
 test('catch-up merges main after a day behind, and stops on a conflict without merging', () => {
   const { root, git, write } = repo()
+  git('remote', 'add', 'origin', 'https://example.invalid/harness.git')
   start(root, 'demo')
   write('projects/demo/brief.md', 'mine\n')
   save(root, 'demo', 'Mine.')
@@ -262,6 +263,8 @@ test('catch-up merges main after a day behind, and stops on a conflict without m
 test('session start warns on main and when 50+ commits behind origin/main', () => {
   const { root, git, write } = repo()
   const fetched = () => ({ ok: true, detail: '' })
+  assert.equal(sessionLine(root, { fetchMain: offline }), '')
+  git('remote', 'add', 'origin', 'https://example.invalid/harness.git')
   assert.equal(sessionLine(root, { fetchMain: offline }), 'On main. Project work belongs on your own branch.')
   start(root, 'demo')
   assert.equal(sessionLine(root, { fetchMain: fetched }), '')
@@ -378,8 +381,27 @@ test('doctor lists uncommitted files with where they belong, and what it could r
   assert.match(report, /^On ana\/demo\. Git autopilot is on\./)
   assert.match(report, /projects\/demo\/brief.md — ana\/demo/)
   assert.match(report, /harness\/skill.md — a harness change, not ana\/demo/)
-  assert.match(report, /origin: not reachable/)
+  assert.doesNotMatch(report, /origin/)
   assert.match(report, /Harness: no upstream remote yet/)
+})
+
+test('with no origin remote, catch-up and the session warning do nothing', () => {
+  const { root, git, write } = repo()
+  start(root, 'demo')
+  git('switch', '-q', 'main')
+  write('harness/new.md', 'from main\n')
+  git('add', '-A')
+  git('commit', '-q', '-m', 'main moved')
+  git('switch', '-q', 'ana/demo')
+  assert.equal(catchUp(root).message, null)
+  assert.equal(catchUp(root).merged, false)
+  assert.equal(sessionLine(root), '')
+})
+
+test('doctor still reports an origin it cannot reach', () => {
+  const { root, git } = repo()
+  git('remote', 'add', 'origin', 'https://example.invalid/harness.git')
+  assert.match(doctor(root, { fetch: offline }), /origin: not reachable/)
 })
 
 test('project names become safe branch names', () => {

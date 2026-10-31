@@ -544,6 +544,8 @@ function behindDays(root, ref) {
   return Number.isFinite(at) ? Math.floor((Date.now() / 1000 - at) / DAY_SECONDS) : null
 }
 
+const hasRemote = (root, name) => Boolean(gitValue(root, ['remote', 'get-url', name]))
+
 const mainRef = (root) => (revExists(root, `origin/${BASE}`) ? `origin/${BASE}` : BASE)
 
 /**
@@ -552,6 +554,7 @@ const mainRef = (root) => (revExists(root, `origin/${BASE}`) ? `origin/${BASE}` 
  */
 export function catchUp(root) {
   const none = { merged: false, conflicts: [], message: null }
+  if (!hasRemote(root, 'origin')) return none
   const branch = currentBranch(root)
   if (!isEnabled(root) || !branch || branch === BASE) return none
   const ref = mainRef(root)
@@ -584,6 +587,7 @@ export function catchUp(root) {
  */
 export function sessionLine(root, { fetchMain = () => fetchBranch(root, 'origin', BASE, 8000) } = {}) {
   if (gitValue(root, ['rev-parse', '--is-inside-work-tree']) !== 'true') return ''
+  if (!hasRemote(root, 'origin')) return ''
   const fetched = fetchMain()
   const branch = currentBranch(root)
   const behind =
@@ -733,7 +737,8 @@ function likelyBranch(root, file) {
 export function doctor(root, { fetch = fetchBranch } = {}) {
   const here = currentBranch(root) || '(no branch)'
   const dirty = changedFiles(root, ['.'])
-  const origin = fetch(root, 'origin', BASE)
+  const originRemote = hasRemote(root, 'origin')
+  const origin = originRemote ? fetch(root, 'origin', BASE) : null
   const upstream = upstreamRemote(root)
   const harness = upstream ? fetch(root, upstream, BASE) : null
   const ref = mainRef(root)
@@ -752,7 +757,7 @@ export function doctor(root, { fetch = fetchBranch } = {}) {
     `On ${here}. Git autopilot is ${isEnabled(root) ? 'on' : 'off'}.`,
     'Uncommitted files:',
     indent(dirty.length ? dirty.map((file) => `${file} — ${likelyBranch(root, file)}`) : ['none']),
-    origin.ok ? 'origin: reachable.' : `origin: not reachable (${origin.detail}).`,
+    ...(origin ? [origin.ok ? 'origin: reachable.' : `origin: not reachable (${origin.detail}).`] : []),
     `Branches behind ${ref}:`,
     indent(behind.length ? behind : ['none']),
     harnessLine,

@@ -47,7 +47,8 @@ when:
 
 It also runs catch-up (step 2a) when autopilot is on. The fetch gives up after
 a few seconds and never asks for a password, so an offline laptop just gets
-no warning.
+no warning. With no `origin` remote, `session` and `catch-up` print nothing,
+and `doctor` leaves the origin line out instead of reporting an error.
 
 ## 1. Start — a new project
 
@@ -184,7 +185,8 @@ branch, so the two never step on each other.
 
 `doctor` lists uncommitted files and the branch each likely belongs to,
 branches behind `main`, and whether `origin` and the harness answer. Summarise
-it in plain words; suggest the step that fixes the first problem.
+it in plain words; suggest the step that fixes the first problem. With no
+`origin` remote, it skips that line.
 
 ## Failure lines
 
