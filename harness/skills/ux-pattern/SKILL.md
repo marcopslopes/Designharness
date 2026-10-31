@@ -61,6 +61,22 @@ Keep flows consistent with how the company works — not just how it looks. Use 
 
 **Invoke in Cursor:** `Use the UX pattern agent skill` or `/ux`
 
+## Critique gate
+
+This used to be an always-on Cursor rule. It runs only when this skill is the critique.
+
+1. Match the design-critique row. Do not answer from opinion or a Figma fetch alone.
+2. Classify the artifact (`harness/references/artifact-type-critique.md`). A competitor is a mismatch, not a critique of our work. Ambiguous → AskQuestion.
+3. A Figma or FigJam link: AskQuestion first — written findings, canvas annotations, or both (`harness/skills/figma-ux-audit/references/offer-questions.md` § A). Do not annotate on silence. An explicit "annotate this" goes straight to `figma-ux-audit`.
+4. Written critique: this skill, plus `content` when copy or CTAs are in scope. Load each skill's context before reviewing.
+5. More than one skill: show the plan and wait. A critique plus a code pre-share `audit` on the same deliverable uses `harness/references/critique-isolation.md` — two passes, combined at the end.
+6. Write **First look**, then itemized findings. Append to `projects/<slug>/findings.md` and a line in that project's `log.md`.
+7. After a written critique, if annotations were not already chosen, offer `figma-ux-audit`. On yes, run that row. Do not auto-run it.
+
+"Prep me for critique" is `critique-prep`. That skill never critiques the work. Do not send a code pre-share sweep to this skill unless they also asked for one. Do not use a lab tone on confirmed live production.
+
+Live miss 2026-07-24: a Figma plus "any thoughts?" was answered without this skill.
+
 ---
 
 ## Artifact type + framing (required for critiques)

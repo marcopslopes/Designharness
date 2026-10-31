@@ -15,7 +15,7 @@ only at the end, catch what either pass alone — or a contaminated
 combined pass — would miss or rationalize away.
 
 **When this applies:** specifically the combined case —
-`.cursor/rules/figma-critique-harness.mdc`'s "do they also want a code
+`harness/skills/ux-pattern/SKILL.md`'s Critique gate ("do they also want a code
 pre-share sweep on `src/design-harness/pages/...`" branch, or any task that
 explicitly asks for both a written critique and an `audit` pass on the
 same deliverable. A routine `/audit` run on its own (one skill, one

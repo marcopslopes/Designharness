@@ -8,7 +8,7 @@ Reference for the harness routing and skills that turn “audit this / any thoug
 
 The system exists so designers and PMs can drop **Figma boards, Design Harness prototypes, live production screenshots, or competitor references** and get a critique that is **not freestyle chat**.
 
-**Debt scope:** Project-level critique/audit advisories deferred after a pass → **`projects/<slug>/debt.md`** (per-project, committed). Repo / DS / structural debt → **`KNOWN-ISSUES.md`**. Do not conflate the two (`harness/references/project-debt-register.md`). The orchestrator classifies what was dropped, routes to the right skill chain, applies a **two-layer** labeling convention (industry craft vs house rules), optionally places **Figma canvas annotation cards**, and **logs** every match to `harness/logs/routing-log.md` and the active task’s `findings.md` / `log.md`. Entry point: `harness/ORCHESTRATOR.md` §2 (design-critique, `audit`, `figma-ux-audit` rows) and §2d; enforced in Cursor via `.cursor/rules/orchestrator-gate.mdc` and `.cursor/rules/figma-critique-harness.mdc` (instruction-following only — see [Known limitations](#8-known-limitations)).
+**Debt scope:** Project-level critique/audit advisories deferred after a pass → **`projects/<slug>/debt.md`** (per-project, committed). Repo / DS / structural debt → **`KNOWN-ISSUES.md`**. Do not conflate the two (`harness/references/project-debt-register.md`). The orchestrator classifies what was dropped, routes to the right skill chain, applies a **two-layer** labeling convention (industry craft vs house rules), optionally places **Figma canvas annotation cards**, and **logs** every match to `harness/logs/routing-log.md` and the active task’s `findings.md` / `log.md`. Entry point: `harness/ORCHESTRATOR.md` §2 (design-critique, `audit`, `figma-ux-audit` rows) and §2d; the critique gate lives in `harness/skills/ux-pattern/SKILL.md`, with `.cursor/rules/orchestrator-gate.mdc` still always on (instruction-following only — see [Known limitations](#8-known-limitations)).
 
 ---
 
@@ -183,7 +183,7 @@ Every turn should also **classify and log first** (ORCHESTRATOR §2e) before sub
 | AskQuestion contract + gaps | `harness/references/ask-question-ui.md`, `KNOWN-ISSUES.md` |
 | Verification log | `harness/logs/routing-log.md` (sections 2026-07-25) |
 | Task findings + VERIFY block | `projects/invite-friends/findings.md` |
-| Cursor always-on critique rules | `.cursor/rules/figma-critique-harness.mdc`, `.cursor/rules/orchestrator-gate.mdc` |
+| Critique gate | `harness/skills/ux-pattern/SKILL.md` (loaded on a critique, not every turn). `.cursor/rules/orchestrator-gate.mdc` stays always on. |
 
 ---
 

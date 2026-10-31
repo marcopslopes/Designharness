@@ -27,7 +27,7 @@ on explicit approval.
 | 4 | "Which icon should I use for share?" | `icon-usage` | Standalone if asked alone; usually rides inside a `ui-agent` chain otherwise. |
 | 5 | "Does this screen's phone frame match navigation-profile's?" | `mobile-shell` | Device-chrome consistency only — not full `ui-agent` layout work. |
 | 6 | "Does this flow match how the company normally structures onboarding?" | `ux-pattern` | Structure review, no build step. |
-| 7 | "Any thoughts on this Figma?" (Figma URL pasted) | `ux-pattern` (+ drop-time `AskQuestion` first per §2d) | Design critique on existing work — never freestyle chat opinion. See `.cursor/rules/figma-critique-harness.mdc`. |
+| 7 | "Any thoughts on this Figma?" (Figma URL pasted) | `ux-pattern` (+ drop-time `AskQuestion` first per §2d) | Design critique on existing work — never freestyle chat opinion. The critique gate is in `harness/skills/ux-pattern/SKILL.md`. |
 | 8 | "Add annotations to this Figma with your feedback." | `figma-ux-audit` | Explicit canvas-annotation ask — different row from #7 even though both are critique-shaped. |
 | 9 | "Give me ideas for the leaderboard's empty state." (task has an approved PRD) | `ux-pattern` (→ `research-agent` only if fresh discovery explicitly wanted) | Approved-task remainder — net-new "ideas for X" with no PRD would instead hit `design-kickoff` (#1). |
 | 10 | "Does this button label sound right?" | `content` | Standalone or tail-end of a build chain. |

@@ -32,5 +32,5 @@ prototype code:
 
 ## Related
 
-- Design critiques: `.cursor/rules/figma-critique-harness.mdc` + §2d
+- Design critiques: `harness/skills/ux-pattern/SKILL.md` (Critique gate) + §2d
 - Full rules: `harness/ORCHESTRATOR.md` §2e, §4, §5
