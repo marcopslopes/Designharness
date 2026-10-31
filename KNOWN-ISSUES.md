@@ -145,6 +145,28 @@ this hook's guessed schema is independently confirmed correct.
 
 ---
 
+### The ui-agent edit gate cannot be enforced in Cursor
+
+**Found:** 2026-10-31, while blocking screen edits until `ui-agent` is read.
+
+**What:** Claude Code blocks `Edit` and `Write` on `projects/*/screens/**`
+and `src/**/*.tsx` until this session's `harness/logs/skill-usage.jsonl`
+contains a read of `harness/skills/ui-agent/SKILL.md`. The message is
+"Load ui-agent first." The same check is registered for Cursor
+(`preToolUse`, matcher `Write|StrReplace`, `scripts/ui-agent-gate.mjs`).
+
+**Why Cursor still can't enforce it:** the same `preToolUse` race above
+can drop a deny, so the write proceeds. Cursor also does not publish a
+session id on the hook payload. When `CURSOR_SESSION_ID` is missing, the
+gate can only match a recent log line for this folder, and a dropped deny
+still lets the edit through. Claude Code's `session_id` makes the same
+script a real block.
+
+Remove this entry once Cursor keeps a deny response and sends a stable
+session id on `preToolUse`.
+
+---
+
 ### Cursor can't warn at 50% context — the handoff nudge counts turns instead
 
 **Found:** 2026-10-29, while adding the context-window handoff nudge.

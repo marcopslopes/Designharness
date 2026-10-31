@@ -12,6 +12,11 @@
         "command": ".cursor/hooks/design-detector-preblock.mjs",
         "matcher": "Write|StrReplace",
         "failClosed": false
+      },
+      {
+        "command": "node scripts/ui-agent-gate.mjs --host cursor",
+        "matcher": "Write|StrReplace",
+        "failClosed": false
       }
     ],
     "postToolUse": [

@@ -75,12 +75,17 @@ function getDesignerName() {
 /**
  * Log skill usage event
  */
-function logUsage(skillName) {
+function sessionOf(data) {
+  return data.session_id || data.conversation_id || process.env.CURSOR_SESSION_ID || process.env.CLAUDE_SESSION_ID || 'unknown'
+}
+
+function logUsage(skillName, data) {
   const event = {
     timestamp: new Date().toISOString(),
     skill: skillName,
     designer: getDesignerName(),
-    session: process.env.CURSOR_SESSION_ID || 'unknown'
+    session: sessionOf(data),
+    cwd: data.cwd || process.cwd()
   };
   
   // Append to JSONL log
@@ -173,7 +178,9 @@ ${sortedSkills
 readStdin()
   .then((raw) => {
     const skillName = skillFromPayload(raw)
-    if (skillName) logUsage(skillName)
+    let data = {}
+    try { data = JSON.parse(raw) } catch { /* a bad payload still must not throw */ }
+    if (skillName) logUsage(skillName, data)
     console.log(JSON.stringify({}))
   })
   .catch((err) => {
