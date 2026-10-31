@@ -1,13 +1,5 @@
 # Conceptual Model Skill
 
-<!-- generated-from-skill: do not edit -->
-
-Defines the product's objects, relationships, states, and vocabulary independently of any interface — the most load-bearing design layer.
-
-**Triggers:** "define the objects" · "what are the entities" · "map the relationships" · "object model" · "what states can this be in" · "define the vocabulary" · "ubiquitous language" · "what does this thing mean" · "data model vs conceptual model" · "map this domain" · "what concepts exist in this domain" · "terminology audit" · "how does the domain talk about this before our product" · "domain event storming" · "bounded context for X"
-
-<!-- /generated-from-skill -->
-
 **Status:** Active
 **Created:** 2026-08-28
 

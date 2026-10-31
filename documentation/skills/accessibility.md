@@ -1,13 +1,5 @@
 # accessibility
 
-<!-- generated-from-skill: do not edit -->
-
-Blocking pre-share checks for focus order, semantics, contrast, and ARIA.
-
-**Triggers:** "check a11y" · "focus order" · "aria labels" · "contrast" · "keyboard navigation"
-
-<!-- /generated-from-skill -->
-
 Deep WCAG compliance review - beyond what audit checks.
 
 ## What It Does

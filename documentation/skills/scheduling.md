@@ -1,13 +1,5 @@
 # scheduling
 
-<!-- generated-from-skill: do not edit -->
-
-Standalone, on-demand meeting-scheduling capability — finds a slot, proposes it, and books only on explicit confirmation, **and** pulls real, sourced context (`projects/<slug>/`, a named ticket, the current conversation) into whatever gets drafted or booked, framed as things to cover rather than invented filler.
-
-**Triggers:** "book a meeting with [name]" · "find time with [name] tomorrow afternoon" · "schedule a sync with [name]" · "when are we both free" · "propose a time for [meeting]"
-
-<!-- /generated-from-skill -->
-
 Coordinates research sessions - availability, calendar invites, reminders.
 
 ## What It Does

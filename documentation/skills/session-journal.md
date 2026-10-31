@@ -1,13 +1,5 @@
 # session-journal
 
-<!-- generated-from-skill: do not edit -->
-
-Appends a short journal entry about the designer's judgment in this session — what they asked, what got built, where they changed direction or overrode the agent (in their words), decisions taken, and screenshot links — to `designer-context.local/journal/YYYY-MM-DD-<project>.md`.
-
-**Triggers:** "wrap up" · "journal this" · "add this to my journal" · "log this session to my journal" · "Wrap up"
-
-<!-- /generated-from-skill -->
-
 A short, private record of your judgment in each session — what you
 asked, what got built, where you overrode the agent, what you decided.
 

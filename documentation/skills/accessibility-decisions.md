@@ -1,13 +1,5 @@
 # accessibility-decisions
 
-<!-- generated-from-skill: do not edit -->
-
-Documents accessibility decisions, tradeoffs, and engineering handoff specs so inclusive choices survive redesigns and staff changes.
-
-**Triggers:** "accessibility decision" · "document this a11y tradeoff" · "a11y ADR" · "accessibility handoff for eng" · "why is a11y like this" · "we can't do both for accessibility" · "accessibility decision record" · "who do we exclude if we ship this"
-
-<!-- /generated-from-skill -->
-
 Documents trade-offs when full accessibility is difficult - transparent choices.
 
 ## What It Does

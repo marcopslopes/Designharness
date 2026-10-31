@@ -1,13 +1,5 @@
 # taste-feedback
 
-<!-- generated-from-skill: do not edit -->
-
-Mid-build aesthetic checkpoints on a Design Harness / Figma prototype — catches density, weight, emphasis, and hierarchy mismatches early, before a full critique.
-
-**Triggers:** "taste check this" · "is this heading in the right direction visually" · "mid-build visual check" · "does this density feel right" · "is this a persuade or an operate surface" · "scale the ambition to the surface" · "should this be quieter"
-
-<!-- /generated-from-skill -->
-
 Subjective design review - polish, craft, aesthetic quality.
 
 ## What It Does

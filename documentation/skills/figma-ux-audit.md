@@ -1,13 +1,5 @@
 # figma-ux-audit
 
-<!-- generated-from-skill: do not edit -->
-
-Runs a structured UX audit on a Figma page and places colour-coded annotation cards directly next to each screen, connected by dotted lines.
-
-**Triggers:** "annotate this Figma" · "add annotations to this Figma" · "audit this Figma with notes on the canvas" · "put feedback on the canvas" · "Figma canvas annotations" · "annotation cards on the board"
-
-<!-- /generated-from-skill -->
-
 Adds annotation cards directly to Figma canvas - visual UX review with notes.
 
 ## What It Does

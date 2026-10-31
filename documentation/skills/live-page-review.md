@@ -1,13 +1,5 @@
 # live-page-review
 
-<!-- generated-from-skill: do not edit -->
-
-Front door for reviewing a fetchable live or local URL: capture screenshot + DOM + accessibility tree (optional click-through in one browser session), classify the artifact, then hand off to the existing review skill.
-
-**Triggers:** "review this live page" · "review this local URL" · "review localhost" · "click through this flow on this URL" · "capture this page and review it"
-
-<!-- /generated-from-skill -->
-
 Reviews live production pages - quality check on shipped work.
 
 ## What It Does

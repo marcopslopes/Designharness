@@ -1,13 +1,5 @@
 # research-artifacts
 
-<!-- generated-from-skill: do not edit -->
-
-Turns synthesized research into a shareable understanding artifact — a persona (composite archetype with goals/frustrations/behaviors), an empathy map (Says/Thinks/Does/Feels for one user or segment), a journey map (one persona's end-to-end stages, touchpoints, emotions, pain points), an ability-spectrum map (where a feature breaks across vision/hearing/motor/cognitive ability — permanent, temporary, and situational), job stories (situation → motivation → outcome, plus functional/emotional/social jobs), or a service blueprint (frontstage/ backstage/support-process lanes behind a journey map's touchpoints).
-
-**Triggers:** "build a persona from this research" · "make an empathy map" · "map this user's journey" · "journey map for [flow]" · "who are we designing for" · "empathy map for this segment" · "persona for [archetype]" · "visualize the user journey" · "ability spectrum" · "who can and can't use this" · "situational impairment" · "inclusive persona" · "accessibility coverage for this feature" · "job stories" · "JTBD" · "job to be done" · "what job is the user hiring this for" · "when I want to so I can" · "service blueprint" · "what's happening behind the scenes" · "backstage of this flow" · "why does this handoff keep breaking"
-
-<!-- /generated-from-skill -->
-
 Turns synthesized research (or a named company archetype) into a
 shareable understanding artifact. Six modes, one skill — same rule:
 sourced data only, never invented.

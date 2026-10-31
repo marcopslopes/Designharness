@@ -1,13 +1,5 @@
 # adaptive-interfaces
 
-<!-- generated-from-skill: do not edit -->
-
-Specs how a surface respects user/system preferences — reduced motion, contrast, text sizing, transparency, density — without inventing product dark mode.
-
-**Triggers:** "adaptive interfaces" · "prefers-reduced-motion" · "high contrast mode" · "does this respect system text size" · "density preference" · "prefers-contrast"
-
-<!-- /generated-from-skill -->
-
 Context-aware design - interfaces that adapt to user, device, environment.
 
 ## What It Does

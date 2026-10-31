@@ -1,13 +1,5 @@
 # ticket-create
 
-<!-- generated-from-skill: do not edit -->
-
-On-demand ticket drafting and creation in the team's tracker (Jira, Linear, or GitHub Issues).
-
-**Triggers:** "create a ticket" · "file a Jira" · "open a Linear issue" · "file a GitHub issue" · "open a DES / ENG for this" · "make a design + eng ticket pair"
-
-<!-- /generated-from-skill -->
-
 Creates well-structured tickets from design work in Jira, Linear, or GitHub Issues - ready for handoff.
 
 ## What It Does

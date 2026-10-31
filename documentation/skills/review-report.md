@@ -1,13 +1,5 @@
 # review-report
 
-<!-- generated-from-skill: do not edit -->
-
-Turns an existing design critique into a scrollable HTML report (not slides, not a case-study story).
-
-**Triggers:** "turn this critique into a report" · "HTML report of this review" · "proper report of these findings" · "write this up as a review report"
-
-<!-- /generated-from-skill -->
-
 Comprehensive design review - all checks in one report.
 
 ## What It Does

@@ -1,13 +1,5 @@
 # harness-setup
 
-<!-- generated-from-skill: do not edit -->
-
-Guides the designer through customizing the harness with their existing design system, brand guidelines, and company context.
-
-**Triggers:** see the routing table
-
-<!-- /generated-from-skill -->
-
 One-time customization - import your design system, voice, and company context.
 
 ## What It Does

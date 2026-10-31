@@ -1,13 +1,5 @@
 # docs-brief
 
-<!-- generated-from-skill: do not edit -->
-
-On-demand page drafting and creation in the team's docs tool (Confluence, Notion, or Google Docs) for a lean status/decision brief — NOT a research pass, NOT a PRD.
-
-**Triggers:** "create a page" · "add a wiki page under this folder" · "put this in Notion" · "put this in Confluence" · "write this up as a Google Doc" · "document this for the team" · "Confluence brief"
-
-<!-- /generated-from-skill -->
-
 Writes a short status or decision page in your team's docs tool —
 Confluence, Notion, or Google Docs. Formerly `confluence-brief`.
 

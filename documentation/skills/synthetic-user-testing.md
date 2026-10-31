@@ -1,13 +1,5 @@
 # synthetic-user-testing
 
-<!-- generated-from-skill: do not edit -->
-
-Walks a prototype through key tasks *as* named personas / the company archetypes to surface friction before a real usability test.
-
-**Triggers:** "synthetic user test" · "walk through this as [persona]" · "persona walkthrough" · "stress-test this flow as a busy provider" · "simulate how [archetype] would use this"
-
-<!-- /generated-from-skill -->
-
 AI-simulated user testing - fast feedback before real users.
 
 ## What It Does

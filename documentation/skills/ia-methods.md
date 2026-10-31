@@ -1,13 +1,5 @@
 # ia-methods
 
-<!-- generated-from-skill: do not edit -->
-
-Plans, runs, and analyzes card sorting (how users mentally categorize content) and tree testing (whether users can find content in a given navigation structure) — the two evaluative/generative methods for information architecture and navigation decisions.
-
-**Triggers:** "card sort" · "card sorting" · "tree test" · "tree testing" · "information architecture research" · "IA research" · "navigation testing" · "findability" · "how do users categorize this" · "can users find things in this nav" · "site map research" · "rainbow chart" · "directness score"
-
-<!-- /generated-from-skill -->
-
 Information architecture research - card sorting, tree testing, navigation analysis.
 
 ## What It Does

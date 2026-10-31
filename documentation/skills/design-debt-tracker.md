@@ -1,13 +1,5 @@
 # design-debt-tracker
 
-<!-- generated-from-skill: do not edit -->
-
-Standalone triage and review of the per-project design debt register (`projects/<slug>/debt.md`).
-
-**Triggers:** "show me the design debt" · "what did we defer" · "triage the debt register" · "escalate this debt" · "what open advisories do we still owe" · "clean up debt.md"
-
-<!-- /generated-from-skill -->
-
 Tracks design debt - deferred issues, inconsistencies, technical debt.
 
 ## What It Does

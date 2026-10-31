@@ -1,13 +1,5 @@
 # workload-agent
 
-<!-- generated-from-skill: do not edit -->
-
-Autonomous planning & workload agent for a design team.
-
-**Triggers:** "workload agent" · "what's on the roadmap" · "payment initiatives this quarter" · "who's working on what" · "check the project board" · "design team capacity" · "is anyone on referrals already" · "do we have bandwidth for X" · "what initiatives are active" · "roadmap" · "is anyone on Live Activity" · "what's my team working on"
-
-<!-- /generated-from-skill -->
-
 Live snapshot of your team's roadmap and current work - always fresh, never cached.
 
 ## What It Does

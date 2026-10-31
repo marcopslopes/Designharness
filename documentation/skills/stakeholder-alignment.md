@@ -1,13 +1,5 @@
 # stakeholder-alignment
 
-<!-- generated-from-skill: do not edit -->
-
-Maps who needs to agree with a design direction, what each of them actually cares about, where the real disagreement is, and drafts the specific ask/message that would move each one to yes — for any designer (IC or manager) who needs cross-functional buy-in on a direction, not just a status update.
-
-**Triggers:** "how do I get buy-in on this" · "PM and eng disagree on this direction" · "how do I convince [stakeholder] this is the right call" · "I need alignment before I can ship this" · "who do I need on board for this" · "this keeps stalling in review"
-
-<!-- /generated-from-skill -->
-
 Maps stakeholders, identifies concerns, plans communication.
 
 ## What It Does

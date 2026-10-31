@@ -1,13 +1,5 @@
 # critique-prep
 
-<!-- generated-from-skill: do not edit -->
-
-Turns Figma (+ brief/BRD/docs page) into a short presenter script for a group design critique — frame, walk order, feedback ask, lenses to invite, blank capture sheet.
-
-**Triggers:** "prep me for critique" · "critique presenter script" · "help me present this in UX review" · "frame this for design critique" · "walkthrough script for critique"
-
-<!-- /generated-from-skill -->
-
 Presenter script for a group design critique — not a critique of the work.
 
 ## What it does

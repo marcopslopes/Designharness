@@ -1,13 +1,5 @@
 # mobile-shell
 
-<!-- generated-from-skill: do not edit -->
-
-Wraps every mobile/phone-frame Design Harness prototype in the shared PhoneShell component (hardware bezel, notch, iOS status bar, floating pill tab bar, home indicator, 16px screen padding) instead of one-off chrome per file.
-
-**Triggers:** "build a mobile screen" · "phone prototype" · "does this match the navigation-profile frame" · "why do the prototypes look different" · "align the phone frames"
-
-<!-- /generated-from-skill -->
-
 Wraps your screens in realistic phone frames for presentations and prototyping.
 
 ## What It Does

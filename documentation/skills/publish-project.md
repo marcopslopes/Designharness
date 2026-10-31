@@ -1,13 +1,5 @@
 # publish-project
 
-<!-- generated-from-skill: do not edit -->
-
-On-demand publishing of a project's share pages to a public deploy URL — NOT the default behavior of any build/export step.
-
-**Triggers:** "publish this project" · "deploy this / make it public" · "give me a share URL for [project]" · "put this online"
-
-<!-- /generated-from-skill -->
-
 Final handoff package - everything needed to ship, all in one place.
 
 ## What It Does

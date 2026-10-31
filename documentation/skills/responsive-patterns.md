@@ -1,13 +1,5 @@
 # responsive-patterns
 
-<!-- generated-from-skill: do not edit -->
-
-Content-driven breakpoint strategy, reflow, priority shifting, and 200% zoom / WCAG 1.4.10 discipline for multi-width layouts.
-
-**Triggers:** "responsive patterns" · "breakpoint strategy" · "does this reflow" · "200% zoom check" · "mobile and desktop layout for this" · "container queries" · "what collapses at narrow widths"
-
-<!-- /generated-from-skill -->
-
 Multi-device layouts - phone, tablet, desktop, all from one design system.
 
 ## What It Does

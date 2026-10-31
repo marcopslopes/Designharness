@@ -1,13 +1,5 @@
 # figma-effects-catalog
 
-<!-- generated-from-skill: do not edit -->
-
-Documentation and cataloging of custom Figma shader effects and fills.
-
-**Triggers:** "document custom effects" · "what shader effects do we have" · "catalog Figma shaders" · "custom fill documentation" · "effects library audit"
-
-<!-- /generated-from-skill -->
-
 Catalogs Figma effects (shadows, blurs) and maps to CSS.
 
 ## What It Does

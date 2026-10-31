@@ -1,13 +1,5 @@
 # design-system
 
-<!-- generated-from-skill: do not edit -->
-
-Governs where style values live and whether a value already exists in `tokens.css` before anything is written.
-
-**Triggers:** "check this token" · "where should this style live" · "is this a real Foundations token" · "design-system skill"
-
-<!-- /generated-from-skill -->
-
 Validates all styles against your design tokens - the enforcer of consistency.
 
 ## What It Does

@@ -1,13 +1,5 @@
 # usability-test-guide
 
-<!-- generated-from-skill: do not edit -->
-
-Builds a usability test discussion guide, task script, or session plan — quantitative (metrics: task success, time on task, SEQ, SUS) or qualitative (TEDW-based screen-by-screen feedback on a mid-fidelity design).
-
-**Triggers:** "write a usability test script" · "help me plan a usability test" · "create tasks for usability testing" · "I need to test this prototype with users" · "build a UT plan" · "we're doing usability testing next week"
-
-<!-- /generated-from-skill -->
-
 Creates comprehensive test plans - participants, tasks, scripts, success metrics.
 
 ## What It Does

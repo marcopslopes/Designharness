@@ -1,13 +1,5 @@
 # audit
 
-<!-- generated-from-skill: do not edit -->
-
-The mandatory final gate before sharing any prototype or component — scans design-system violations, accessibility failures, off-brand copy, house pattern conformance, and global UX craft quality across every file touched this session, then (on PASS) prompts to push changes to the shared GitHub remote so other designers' clones stay in sync.
-
-**Triggers:** "run the audit" · "check before sharing" · "is this ready to share"
-
-<!-- /generated-from-skill -->
-
 The mandatory quality gate - checks design system, accessibility, and content before anything gets shared.
 
 ## What It Does

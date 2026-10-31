@@ -1,13 +1,5 @@
 # design-retrospective
 
-<!-- generated-from-skill: do not edit -->
-
-Structured post-ship (or milestone) reflection — what worked, what didn't, what to carry forward.
-
-**Triggers:** "design retrospective" · "retro this project" · "what did we learn from [slug]" · "reflect on this launch" · "close out this project"
-
-<!-- /generated-from-skill -->
-
 Post-launch review - what worked, what didn't, lessons learned.
 
 ## What It Does

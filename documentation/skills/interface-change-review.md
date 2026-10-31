@@ -1,13 +1,5 @@
 # interface-change-review
 
-<!-- generated-from-skill: do not edit -->
-
-Change-scoped UI craft review of uncommitted work, the current branch, or a named commit range — classifies findings as introduced, regression, or pre-existing.
-
-**Triggers:** "review my branch for UI" · "interface review on this diff" · "craft review my uncommitted changes" · "design regression check on this PR" · "review UI changes before I push" · "did this branch hurt the interface"
-
-<!-- /generated-from-skill -->
-
 Reviews code changes for design system compliance before merging.
 
 ## What It Does

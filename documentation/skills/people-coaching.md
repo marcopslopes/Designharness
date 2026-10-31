@@ -1,13 +1,5 @@
 # people-coaching
 
-<!-- generated-from-skill: do not edit -->
-
-Manager-gated coaching prep for one named report: feedback delivery (SBI), difficult-conversation prep, or a co-created growth plan.
-
-**Triggers:** "help me give feedback to [name]" · "SBI for [name]" · "prep a difficult conversation with [name]" · "hard conversation with [name]" · "growth plan for [name]" · "development plan for [name]" · "help me coach [name]"
-
-<!-- /generated-from-skill -->
-
 Career development guidance for design managers - coaching, growth plans, feedback.
 
 ## What It Does

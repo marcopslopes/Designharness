@@ -1,13 +1,5 @@
 # decision-first-research
 
-<!-- generated-from-skill: do not edit -->
-
-Scopes and frames a research request around the actual decision it needs to unblock, instead of a method or a vague ask — names the decision, the risk if wrong, what's already known, the one blocking unknown, and the smallest study that answers it within the deadline.
-
-**Triggers:** "we have a week for research" · "stakeholder asked for a survey" · "how do I scope this study" · "decision brief" · "my research isn't getting used" · "our research sits on a shelf" · "I have one week to do research" · "how do I say no to a vague research request"
-
-<!-- /generated-from-skill -->
-
 Research designed to answer specific decisions - not exploratory.
 
 ## What It Does

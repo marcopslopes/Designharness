@@ -1,11 +1,5 @@
 # designer-workload
 
-<!-- generated-from-skill: do not edit -->
-
-Kept so older links still resolve.
-
-<!-- /generated-from-skill -->
-
 Personal workload view - your queue, priorities, blockers.
 
 ## What It Does

@@ -1,13 +1,5 @@
 # inspiration-scouting
 
-<!-- generated-from-skill: do not edit -->
-
-Curates aesthetic and interaction references — including cross-domain — with explicit "what to take / what to leave" for each.
-
-**Triggers:** "show me inspiration for X" · "mood board for this" · "aesthetic references" · "what could this feel like" · "cross-domain inspiration"
-
-<!-- /generated-from-skill -->
-
 Discovers design inspiration - patterns, trends, best-in-class examples.
 
 ## What It Does

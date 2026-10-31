@@ -1,13 +1,5 @@
 # benchmark
 
-<!-- generated-from-skill: do not edit -->
-
-Scored gap analysis comparing the company's own existing implementation of a flow against best-in-class examples — a judgment call, not a reference pull.
-
-**Triggers:** "how does our X compare" · "benchmark our Y" · "is our Z any good compared to what's out there"
-
-<!-- /generated-from-skill -->
-
 Quantitative comparison - measure your product against metrics and goals.
 
 ## What It Does

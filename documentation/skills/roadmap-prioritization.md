@@ -1,13 +1,5 @@
 # roadmap-prioritization
 
-<!-- generated-from-skill: do not edit -->
-
-Turns a flat list of design tickets/tasks into a ranked order, using explicit evidence (research, usage, business goal) and honest effort ("appetite") instead of gut feel or whoever asked loudest.
-
-**Triggers:** "help me prioritize this backlog" · "which of these should I do first" · "rank these tickets" · "what should I work on next" · "we have 5 things and no time, which matters most" · "is this actually more important than that"
-
-<!-- /generated-from-skill -->
-
 Prioritizes design work - what to do first, based on impact and effort.
 
 ## What It Does

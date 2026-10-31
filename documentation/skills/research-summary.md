@@ -1,13 +1,5 @@
 # research-summary
 
-<!-- generated-from-skill: do not edit -->
-
-Writes scannable research summaries at two altitudes — a post-session summary of one interview/UT (quotes, themes, cross-session notes), or an executive topline / one-pager for a finished study (3–5 consequence-focused insights with evidence + recommendation).
-
-**Triggers:** "write a session summary" · "summarize this interview" · "usability test summary" · "post-session notes" · "write a topline" · "executive summary for this research" · "one-pager for leadership" · "key takeaways slide"
-
-<!-- /generated-from-skill -->
-
 Quick research overview - TL;DR for stakeholders.
 
 ## What It Does
