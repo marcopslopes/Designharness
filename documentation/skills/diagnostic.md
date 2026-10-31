@@ -1,5 +1,13 @@
 # Diagnostic Skill
 
+<!-- generated-from-skill: do not edit -->
+
+Rapid audit across all design layers to identify bottlenecks and recommend where to focus next.
+
+**Triggers:** "where should I focus" · "what's the most important thing to do" · "where do I start" · "diagnostic" · "what's the bottleneck" · "which layer is weak" · "where are the gaps"
+
+<!-- /generated-from-skill -->
+
 **Status:** Active
 **Created:** 2026-08-28
 

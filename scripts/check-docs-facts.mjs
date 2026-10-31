@@ -17,6 +17,11 @@ const git = (...args) => execFileSync('git', ['-C', repo, ...args], { stdio: ['i
 const skills = readdirSync(path.join(repo, 'harness/skills')).filter((name) =>
   existsSync(path.join(repo, 'harness/skills', name, 'SKILL.md')),
 )
+const counted = skills.filter((name) => {
+  const text = read(`harness/skills/${name}/SKILL.md`)
+  const fm = text.match(/^---\n([\s\S]*?)\n---/)
+  return !/do not route here/i.test(fm?.[1] || '')
+})
 const skillPages = new Set(readdirSync(path.join(repo, 'documentation/skills')).map((f) => f.replace(/\.md$/, '')))
 const port = read('vite.config.ts').match(/port:\s*(\d+)/)?.[1]
 
@@ -38,8 +43,8 @@ for (const file of files) {
     .split('\n')
     .forEach((line, i) => {
       for (const [, n] of line.matchAll(countClaim)) {
-        if (Number(n) >= 20 && Number(n) !== skills.length) {
-          problems.push(`${file}:${i + 1} says ${n} skills; harness/skills has ${skills.length}`)
+        if (Number(n) >= 20 && Number(n) !== counted.length) {
+          problems.push(`${file}:${i + 1} says ${n} skills; ${counted.length} route (${skills.length} on disk, pointers omitted)`)
         }
       }
       for (const [, p] of line.matchAll(localhost)) {
@@ -124,4 +129,4 @@ if (problems.length) {
   for (const p of problems) console.error(`  ${p}`)
   process.exit(1)
 }
-console.log(`docs:check — ${skills.length} skills, port ${port}, every Markdown link resolves.`)
+console.log(`docs:check — ${counted.length} skills (${skills.length} on disk), port ${port}, every Markdown link resolves.`)

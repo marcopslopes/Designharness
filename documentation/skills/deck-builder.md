@@ -1,5 +1,13 @@
 # deck-builder
 
+<!-- generated-from-skill: do not edit -->
+
+Builds self-contained HTML presentation decks (case study, workshop / options review, stakeholder update) from an existing `projects/<slug>/` task folder or a pasted PRD/brief.
+
+**Triggers:** "build me a presentation / deck / slides about this project" · "case study deck" · "put this PRD into slides" · "make a deck for the workshop / for leadership"
+
+<!-- /generated-from-skill -->
+
 Builds self-contained HTML slide decks from your project folder — dark presentation skin, keyboard navigation, live prototypes embedded on the slides.
 
 ## What It Does

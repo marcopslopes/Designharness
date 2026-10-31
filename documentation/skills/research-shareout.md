@@ -1,5 +1,13 @@
 # research-shareout
 
+<!-- generated-from-skill: do not edit -->
+
+Designs how to share research findings so stakeholders engage and act — audience-first presentation structure (TL;DR → findings → recommendations → next steps), compelling insight framing, and when useful a creative/workshop format (bingo, insight auction, remote gallery, etc.).
+
+**Triggers:** "how do I share these findings" · "research shareout" · "research presentation" · "stakeholders aren't acting on research" · "make this readout engaging" · "share research with leadership" · "usability bingo" · "insight auction"
+
+<!-- /generated-from-skill -->
+
 Presents research findings to stakeholders - clear, actionable, persuasive.
 
 ## What It Does

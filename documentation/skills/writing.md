@@ -1,5 +1,13 @@
 # writing
 
+<!-- generated-from-skill: do not edit -->
+
+Long-form prose writing assistant — articles, essays, case-study writeups, LinkedIn/blog posts, "how I work" pieces.
+
+**Triggers:** "write an article" · "write a blog post" · "turn this into an essay" · "write up how we got here" · "draft a LinkedIn post" · "write a case-study writeup" · "run anti-slop on this" · "use the writing skill on this article" · "how will this read after the anti-ai pass"
+
+<!-- /generated-from-skill -->
+
 Long-form prose — articles, essays, case-study writeups, short posts —
 with a mechanical anti-slop pass. Always a **DRAFT**.
 

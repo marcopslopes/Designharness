@@ -369,9 +369,15 @@ owner (`accessibility`, `content`) and hand off.
 1. Add a row to **`harness/ORCHESTRATOR.md` §2** with trigger phrases — not a
    paraphrase of the topic — and one short line of notes. The full notes go in
    the same row of **`harness/references/routing-notes.md`**
-2. Add a row to the skills table in **`README.md`**
-3. If it chains with existing skills, say so in both the orchestrator row and your
+2. Add one case to **`harness/harness-audit/references/eval-prompts.md`**
+3. Run `node scripts/generate-skill-surfaces.mjs`. It refreshes the skill-page
+   description, the roster, the how-to map, and the public skill count from
+   the new description. Do not hand-edit those.
+4. If it chains with existing skills, say so in the orchestrator row and your
    skill's "Related files"
+
+Those three files — the skill, the §2 row, the eval case — are the hand edits.
+The script owns the copies.
 
 No `.cursor/skills/` file is needed in this repo — routing lives in the orchestrator.
 
@@ -391,7 +397,7 @@ designer-ask use-cases catalog the HOWTO’s “What you say” section links to
 ### 9. Commit and share
 
 ```bash
-git add harness/skills/<name>/ harness/ORCHESTRATOR.md README.md
+git add harness/skills/<name>/ harness/ORCHESTRATOR.md harness/harness-audit/references/eval-prompts.md documentation/ public/how-to/system-map-agents-skills.html README.md
 git commit -m "feat: add <name> skill for …"
 ```
 
@@ -521,7 +527,8 @@ ui-agent → design-system (auto, before CSS) → mobile-shell (if phone) → ic
 - [ ] If the skill both builds and reviews: review format lives in `references/review-output.md` + a two-line **Reporting** pointer
 - [ ] **Common Mistakes** table (usual sloppy path) in addition to **Never do this** (hard forbidden)
 - [ ] Row added to `harness/ORCHESTRATOR.md` §2
-- [ ] Row added to `README.md` skills table
+- [ ] One case added to `harness/harness-audit/references/eval-prompts.md`
+- [ ] `node scripts/generate-skill-surfaces.mjs` run (page header, roster, how-to map, skill count)
 - [ ] **Designer guide** — `harness/skills/<skill-name>/GUIDE.md` in the
       same shape as [`ticket-create`](../../harness/skills/ticket-create/GUIDE.md) /
       [`writing`](../../harness/skills/writing/GUIDE.md) (quick reference, what it

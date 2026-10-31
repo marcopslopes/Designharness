@@ -1,5 +1,13 @@
 # figma-asset-sync
 
+<!-- generated-from-skill: do not edit -->
+
+Automated asset pipeline between Figma and codebase.
+
+**Triggers:** "download assets from Figma" · "export icons from Figma" · "sync Figma assets" · "upload assets to Figma" · "generate icon bundle" · "update design assets"
+
+<!-- /generated-from-skill -->
+
 Syncs design assets between Figma and codebase - icons, images, illustrations.
 
 ## What It Does

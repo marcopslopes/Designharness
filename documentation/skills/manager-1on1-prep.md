@@ -1,5 +1,13 @@
 # manager-1on1-prep
 
+<!-- generated-from-skill: do not edit -->
+
+Prep-doc generator for 1:1s and status checks with a direct report.
+
+**Triggers:** "help me prep for a 1:1 with [name]" · "what's [name] working on" · "prep me for my 1:1 with [name]" · "status check on [name]" · "quick rundown before my sync with [name]" · "quick check-in with [name]"
+
+<!-- /generated-from-skill -->
+
 Prepares context-rich 1:1 agendas with your reports - saves hours of prep.
 
 ## What It Does

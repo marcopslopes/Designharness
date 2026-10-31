@@ -1,5 +1,13 @@
 # research-synthesis
 
+<!-- generated-from-skill: do not edit -->
+
+Turns raw interview/UT recordings and transcripts into tagged data, affinity clusters, and pattern candidates — either as a per-session 30-minute debrief run right after each interview, or a full tagging + affinity-diagramming pass across a completed study.
+
+**Triggers:** "run a research debrief" · "post-session debrief" · "lightning synthesis" · "how do I synthesize these interviews" · "affinity diagram this data" · "find patterns in these transcripts" · "synthesis is taking too long" · "I have all this data now what" · "tag these transcripts" · "cluster these findings" · "here's an interview" · "anything interesting?"
+
+<!-- /generated-from-skill -->
+
 Analyzes qualitative research - turns notes into insights and recommendations.
 
 ## What It Does

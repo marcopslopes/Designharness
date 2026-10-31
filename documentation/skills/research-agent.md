@@ -1,5 +1,13 @@
 # research-agent
 
+<!-- generated-from-skill: do not edit -->
+
+Design discovery kickoff PRD scaffold for product designers.
+
+**Triggers:** "tell me everything about X" · "kick off discovery on X" · "PRD starter for X" · "catch me up on X" · "research X for a new project" · "what do we know about X" · "give me ideas for X" · "check Slack [channel/thread] for X" · "what should I reply to this thread" · "read this Slack thread and summarize" · "does this Google Doc/Drive file add anything new to X" · "here's a meeting transcript, capture the decisions" · "Lightweight gap-fill mode"
+
+<!-- /generated-from-skill -->
+
 Deep cross-tool discovery - searches your docs tool, tracker, chat, Figma, and Miro for existing context. Works with Confluence, Notion, or Google Docs; Jira, Linear, or GitHub Issues; Slack or Teams.
 
 ## What It Does

@@ -1,5 +1,13 @@
 # motion-choreography
 
+<!-- generated-from-skill: do not edit -->
+
+Specs, reviews, and plans purposeful animation for Design Harness / handoff — with frequency gating and mandatory reduced-motion alternatives.
+
+**Triggers:** "motion spec for X" · "animate this transition" · "prototype this micro-interaction" · "reduced motion for this" · "choreograph the loading state" · "how should this celebrate completion" · "review these animations" · "motion review" · "what could be animated here" · "find animation opportunities" · "audit the motion" · "improve the animations" · "motion plan for X" · "what's it called when [motion feel]" · "animation vocabulary" · "list the motions" · "what motions do we have" · "scan this for motion" · "apply the sheet motion" · "apply the menu" · "apply the pill" · "add the right motion here" · "does the system already animate this" · "custom motion only if the platform doesn't"
+
+<!-- /generated-from-skill -->
+
 Complex animation sequences - coordinated motion across multiple elements.
 
 ## What It Does

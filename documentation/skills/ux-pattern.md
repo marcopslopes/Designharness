@@ -1,5 +1,13 @@
 # ux-pattern
 
+<!-- generated-from-skill: do not edit -->
+
+Reviews a flow's structure against how the company actually works, not just how it looks.
+
+**Triggers:** "structure this flow" · "does this match how the company works" · "which archetype" · "modal vs bottom sheet" · "audit this Figma" · "critique this design" · "review this board" · "any thoughts on this work" · "what do you think of this screen" · "quick gut check" · "help me think through" · "brainstorm" · "give me ideas"
+
+<!-- /generated-from-skill -->
+
 Reviews flow structure against your product's UX patterns and best practices.
 
 ## What It Does

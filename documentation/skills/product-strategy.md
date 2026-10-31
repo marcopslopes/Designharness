@@ -1,5 +1,13 @@
 # Product Strategy Skill
 
+<!-- generated-from-skill: do not edit -->
+
+Connects user opportunities to business outcomes and solution bets using Opportunity Solution Trees and other strategy frameworks.
+
+**Triggers:** "build an OST" · "opportunity solution tree" · "connect needs to outcomes" · "what bets should we make" · "strategy tree" · "which opportunities to pursue" · "prioritize opportunities" · "test assumptions cheaply"
+
+<!-- /generated-from-skill -->
+
 **Status:** Active
 **Created:** 2026-08-29
 

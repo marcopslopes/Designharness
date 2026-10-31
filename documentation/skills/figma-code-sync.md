@@ -1,5 +1,13 @@
 # figma-code-sync
 
+<!-- generated-from-skill: do not edit -->
+
+Automated Code Connect mapping between Figma components and codebase components.
+
+**Triggers:** "map Figma components to code" · "Code Connect setup" · "link design system to Figma" · "connect components" · "bulk Code Connect mapping"
+
+<!-- /generated-from-skill -->
+
 Syncs component props between Figma and code - keeps them aligned.
 
 ## What It Does

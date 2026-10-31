@@ -1,5 +1,13 @@
 # case-study
 
+<!-- generated-from-skill: do not edit -->
+
+Writes a project's case study once, as content — the eight-chapter story (opening, problem, evidence, options, decision, live prototype, outcome, sources) — into `projects/<slug>/case-study.md`, sourced only from that task folder's `brief.md`, `findings.md` and `decisions.md`, plus the designer's journal entries for the project.
+
+**Triggers:** "case study for this project" · "build the case study" · "tell the story of this project" · "write up how we got here" · "case study of <slug>" · "turn this project into a case study"
+
+<!-- /generated-from-skill -->
+
 Writes your project's story once — eight chapters, every line traced to the project folder — so slides and articles all tell the same story.
 
 ## What It Does

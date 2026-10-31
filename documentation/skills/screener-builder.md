@@ -1,5 +1,13 @@
 # screener-builder
 
+<!-- generated-from-skill: do not edit -->
+
+Builds a recruitment screener survey that filters for the right participants by behavior, not demographics — criteria list, 5–10 questions with knockout logic, ordered so unqualified people are screened out early.
+
+**Triggers:** "write me a screener" · "help me recruit participants" · "screener survey" · "screener questions" · "participant criteria" · "who should I recruit" · "build a recruitment screener"
+
+<!-- /generated-from-skill -->
+
 Creates participant screeners for research - recruiting surveys that qualify the right users.
 
 ## What It Does

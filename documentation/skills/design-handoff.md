@@ -1,5 +1,13 @@
 # design-handoff
 
+<!-- generated-from-skill: do not edit -->
+
+Composes one developer-ready spec sheet from a design that is ready for engineering.
+
+**Triggers:** "design handoff this design" · "handoff spec" · "developer-ready specifications" · "eng spec from this design" · "handoff this to developers"
+
+<!-- /generated-from-skill -->
+
 One developer-ready spec sheet from a design that is ready for
 engineering — not a ticket, not a chat compact, not a critique.
 

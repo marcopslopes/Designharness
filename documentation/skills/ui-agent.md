@@ -1,5 +1,13 @@
 # ui-agent
 
+<!-- generated-from-skill: do not edit -->
+
+Build on-brand screens using only real design tokens and `context/design-system/ds` primitives.
+
+**Triggers:** "build a screen" · "assemble this layout" · "which component should I use" · "does this match the design system" · "fix / tweak / make X taller / add a badge / adjust spacing"
+
+<!-- /generated-from-skill -->
+
 Builds on-brand screens using your design system tokens - never invented colors or spacing.
 
 ## What It Does

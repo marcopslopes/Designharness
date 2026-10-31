@@ -1,5 +1,13 @@
 # insight-writer
 
+<!-- generated-from-skill: do not edit -->
+
+Writes and pressure-tests user research insights using the key learning + why + consequence framework, distinguishes real insights from findings/observations/bugs/opinions, and runs a stakeholder "so-what" check on a draft insight or full report before it ships.
+
+**Triggers:** "write insights from this data" · "is this an insight or a finding" · "my insights feel shallow" · "so-what check this report" · "will this land with stakeholders" · "pressure test my findings" · "is this actionable" · "review before presenting" · "insight formula"
+
+<!-- /generated-from-skill -->
+
 Transforms observations into insights - the "so what?" layer.
 
 ## What It Does

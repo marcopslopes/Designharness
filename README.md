@@ -71,7 +71,7 @@ the same playbooks, without routing, gates, or the app.
 
 ## What you get
 
-- **70 skills** for building, critique, research, accessibility, content,
+- **68 skills** for building, critique, research, accessibility, content,
   handoff, strategy, and team process. Browse them in
   [documentation/skills/](documentation/skills/).
 - **A token-first design system** in `context/design-system/`, with

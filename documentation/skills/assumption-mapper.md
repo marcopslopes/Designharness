@@ -1,5 +1,13 @@
 # assumption-mapper
 
+<!-- generated-from-skill: do not edit -->
+
+Surfaces and organizes team/stakeholder assumptions before research or a build begins — separating what's actually known (sourced) from what's believed (unsourced), so the work is designed to learn rather than confirm a decision already made.
+
+**Triggers:** "what are our assumptions" · "map our assumptions" · "assumption workshop" · "we think we know what users want" · "before we start, what should we document" · "how do I challenge this stakeholder's assumption" · "hypothesis vs assumption" · "assumption audit"
+
+<!-- /generated-from-skill -->
+
 Identifies risky assumptions in your design - what needs validating?
 
 ## What It Does

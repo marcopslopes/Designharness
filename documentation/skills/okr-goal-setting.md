@@ -1,5 +1,13 @@
 # okr-goal-setting
 
+<!-- generated-from-skill: do not edit -->
+
+Writes a measurable design goal (an OKR-shaped objective + key results, or a single north-star-style metric) tied to a real business outcome — so design work has something concrete to be judged against instead of "this feels better."
+
+**Triggers:** "help me write an OKR for this" · "what should our goal be for X" · "set a goal for this project" · "what metric should we track" · "how do we know if this design worked" · "north star metric for X"
+
+<!-- /generated-from-skill -->
+
 Drafts OKRs for design work - objectives, key results, measurable goals.
 
 ## What It Does

@@ -1,5 +1,13 @@
 # org-pack-builder
 
+<!-- generated-from-skill: do not edit -->
+
+Systematically builds `context/org-pack.local/` files (company context, domain vocabulary, voice, patterns, squads, archetypes) through three modes: MCP extraction (auto-populate from the team's tracker, docs tool, chat, and Figma), guided interview, or file upload.
+
+**Triggers:** see the routing table
+
+<!-- /generated-from-skill -->
+
 **Auto-extract company context from your tools**
 
 Builds `context/org-pack.local/` (your company's real context — business info, domain vocabulary, voice rules, UX patterns, team structure, user types) automatically from whichever docs tool, tracker, Figma, and chat you have connected. No more filling out forms manually.

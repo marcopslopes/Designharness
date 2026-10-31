@@ -1,5 +1,13 @@
 # competitor-scan
 
+<!-- generated-from-skill: do not edit -->
+
+Targeted reference pull on what one named competitor does for one specific feature or flow.
+
+**Triggers:** "what does Airbnb do for waitlist" · "how does Dropbox handle referrals" · "how does [competitor] handle [flow]" · "compare this to [named competitor]"
+
+<!-- /generated-from-skill -->
+
 Research how competitors solve similar problems - with screenshots and analysis.
 
 ## What It Does

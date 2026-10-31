@@ -1,5 +1,13 @@
 # design-rationale
 
+<!-- generated-from-skill: do not edit -->
+
+Writes down why a design decision was made — the options considered, the evidence behind the pick, and the trade-offs accepted — so it survives being questioned weeks or months later.
+
+**Triggers:** "write the rationale for this decision" · "why did we choose this" · "document why we went with [X]" · "defend this decision in writing" · "explain the trade-offs on this choice" · "this will get questioned later, write it down"
+
+<!-- /generated-from-skill -->
+
 Documents WHY you made specific design choices - for stakeholders and future you.
 
 ## What It Does

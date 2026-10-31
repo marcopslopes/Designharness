@@ -1,5 +1,13 @@
 # design-kickoff
 
+<!-- generated-from-skill: do not edit -->
+
+The mandatory front door for ANY new project, feature, initiative, or design request in this repo, no matter how vague.
+
+**Triggers:** see the routing table
+
+<!-- /generated-from-skill -->
+
 Research-first discovery process for net-new projects - enforces evidence before building.
 
 ## What It Does

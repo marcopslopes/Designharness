@@ -1,5 +1,13 @@
 # session-handoff
 
+<!-- generated-from-skill: do not edit -->
+
+Compacts the current chat into a durable handoff so a fresh agent session can continue without re-asking, re-discovering, or repeating mistakes.
+
+**Triggers:** "handoff this session" · "session handoff" · "compact this chat for a new session" · "context is full, write a handoff" · "continue in a fresh chat" · "write a handoff for the next agent"
+
+<!-- /generated-from-skill -->
+
 Seamless continuity when switching chats - never start from scratch again.
 
 ## What It Does

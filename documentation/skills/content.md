@@ -1,5 +1,13 @@
 # content
 
+<!-- generated-from-skill: do not edit -->
+
+Content design assistant for writing and reviewing product screen copy.
+
+**Triggers:** see the routing table
+
+<!-- /generated-from-skill -->
+
 Reviews copy, microcopy, and messaging against your brand voice guidelines.
 
 ## What It Does

@@ -1,5 +1,13 @@
 # interaction-design
 
+<!-- generated-from-skill: do not edit -->
+
+Specs interactive component/flow states and feedback timing — default, hover, focus, active, disabled, error, loading, success — across visual, screen reader, keyboard, and touch.
+
+**Triggers:** "interaction design" · "map the states for this" · "state matrix" · "loading and error feedback" · "what happens on disabled" · "interaction spec for this control" · "should this be a confirm dialog or undo" · "destructive action pattern"
+
+<!-- /generated-from-skill -->
+
 Microinteractions, transitions, and feedback patterns - the details that delight.
 
 ## What It Does

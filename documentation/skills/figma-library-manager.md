@@ -1,5 +1,13 @@
 # figma-library-manager
 
+<!-- generated-from-skill: do not edit -->
+
+Design system library management using get_libraries and search_design_system.
+
+**Triggers:** "search Figma design system" · "find [component] in libraries" · "what libraries do we have" · "check before creating component" · "prevent duplicate components" · "library audit"
+
+<!-- /generated-from-skill -->
+
 Manages Figma component libraries - organization, documentation, updates.
 
 ## What It Does

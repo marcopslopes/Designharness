@@ -1,5 +1,13 @@
 # figma-token-sync
 
+<!-- generated-from-skill: do not edit -->
+
+Bidirectional sync between Figma design variables and context/design-system/tokens.css.
+
+**Triggers:** "sync tokens from Figma" · "update tokens.css from Figma" · "check token drift" · "Figma variables to CSS" · "tokens out of sync" · "update Figma variables from code"
+
+<!-- /generated-from-skill -->
+
 Syncs design tokens between Figma variables and CSS tokens.
 
 ## What It Does

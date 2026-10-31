@@ -1,5 +1,13 @@
 # icon-usage
 
+<!-- generated-from-skill: do not edit -->
+
+Sources every icon through the `Icon` primitive in `context/design-system/ds` (wrapping Tabler Icons) — never hand-drawn SVG.
+
+**Triggers:** "add an icon" · "which icon library"
+
+<!-- /generated-from-skill -->
+
 Sources icons from Tabler Icons library - consistent, accessible, on-brand.
 
 ## What It Does

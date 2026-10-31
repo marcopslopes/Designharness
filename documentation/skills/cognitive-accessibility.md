@@ -1,5 +1,13 @@
 # cognitive-accessibility
 
+<!-- generated-from-skill: do not edit -->
+
+Evaluates mental load, wayfinding, working-memory demand, and decision complexity — COGA-style cognitive accessibility, not just contrast/ARIA.
+
+**Triggers:** "cognitive accessibility" · "cognitive load check" · "is this too much to process" · "wayfinding check" · "mental load on this flow" · "COGA review" · "can a stressed provider finish this"
+
+<!-- /generated-from-skill -->
+
 Cognitive load review - clear language, simple flows, reduced complexity.
 
 ## What It Does

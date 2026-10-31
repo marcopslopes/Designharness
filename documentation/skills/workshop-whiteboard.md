@@ -1,5 +1,13 @@
 # workshop-whiteboard
 
+<!-- generated-from-skill: do not edit -->
+
+Runs a timed research-scoping whiteboard in a design workshop (or practice run) — given a vague prompt, maps problem → business impact → goals → method → recruitment → sample questions → synthesis → outcomes → timeline → next steps on a board the room can scan.
+
+**Triggers:** "whiteboard this research ask" · "workshop research plan on a board" · "scope this study live with the team" · "research planning workshop" · "practice a research whiteboard" · "30-minute research framing exercise"
+
+<!-- /generated-from-skill -->
+
 Facilitates design workshops - ideation, alignment, collaboration.
 
 ## What It Does

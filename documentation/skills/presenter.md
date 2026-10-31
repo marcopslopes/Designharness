@@ -1,5 +1,13 @@
 # presenter
 
+<!-- generated-from-skill: do not edit -->
+
+Picks how to show a project's built screens to someone, from who's looking and what the designer wants back, then writes the small config file beside the screens that turns them into that view: Variants (one screen, a control panel to switch states, platforms and options), Compare (2–4 live frames side by side, numbered, with the chosen one marked), Stage (the prototype alone for research, with a hidden facilitator drawer) or Ideas (an index of independent ideas, one live at a time, with notes).
+
+**Triggers:** "how should I show this" · "present this to <PM / eng / leadership>" · "let them play with the options" · "put these side by side" · "compare these directions live" · "show the states for review" · "let them flip through every state" · "set the prototype up for a research session" · "give me a participant view" · "show the team every idea we had"
+
+<!-- /generated-from-skill -->
+
 Picks the best way to show screens you've already built, from who's looking and what you want back, and sets it up in one small file.
 
 ## What It Does
