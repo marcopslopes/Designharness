@@ -226,31 +226,13 @@ Before matching any other row, check in order:
    language ("wayfind", "map the decisions", "plan, don't build", "too big
    for one session", "the way isn't clear") runs **wayfinding mode** and
    does not start the PRD sequence. Vague "explore / let's start" still
-   runs the full sequence. `design-kickoff`'s Step 1 runs **both**
-   `workload-agent` (Step 1a) and `research-agent` (Step 1b), plus the PRD
-   and the human-approval gate. Full sequence in
-   `harness/skills/design-kickoff/SKILL.md`.
-
-`design-kickoff`'s own Step 0 (name, known material, PM — max 3 questions)
-**replaces** this file's §1 intake questions for the request that triggers
-it — never run both, that's up to 6 questions on one ask.
-
-If mandatory legs (docs tool, tracker, chat) fail during `design-kickoff`'s
-Step 1 sweeps, it marks findings as partial and still waits at the gate —
-it does not invent specs, and `ui-agent` never starts before gate approval.
-The workload leg (Step 1a) requires the tracker only; if it fails,
-note partial ownership data in the PRD §1.
-
-Chains compose after the gate. Example: *"build the clients list screen and
-check it against the archetypes"* → `ui-agent` → `icon-usage` →
-`ux-pattern` (explicit archetype check requested) → `audit` — **no**
-`design-kickoff` because `ClientsListPrototypePage.tsx` already exists.
-
-Full skill docs live in `harness/skills/<name>/SKILL.md` — read the matched one(s) in full before executing.
+   runs the full sequence. The step list, the failed-leg rule, and the
+   worked chain live in `harness/references/routing-notes.md` under
+   "Kickoff, after the row matches".
 
 ### 2b. Resume detection — a task folder is not proof that kickoff happened
 
-Never treat a `projects/<slug>/` folder as already kicked off because it exists. **Before using the iterating row on an existing folder, read `harness/references/resume-detection.md`**: the truth block `status` in `brief.md` decides (`exploring` = no folder, `draft` = resume at the gate, `approved` = iterating). Old words still map: STUB → exploring, EXAMPLE or DRAFT → draft, APPROVED → approved. A dated approval in `decisions.md` wins a disagreement (fix the truth block to match and log the correction), and never end a turn with a folder left at `exploring`.
+A folder is not proof of kickoff. Before the iterating row on an existing folder, read `harness/references/resume-detection.md`. `draft` resumes at the gate; `approved` iterates.
 
 ### 2c. Direct team/people lookup — no skill chain
 

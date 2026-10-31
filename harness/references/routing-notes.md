@@ -6,6 +6,22 @@ notes: boundaries, modes, and the dated misses behind each rule. Read the
 matched row here before running its skill. When a row changes, change both
 files in the same edit.
 
+## Kickoff, after the row matches
+
+`design-kickoff`'s own Step 0 (name, known material, PM — max 3 questions)
+replaces §1 intake for the request that triggers it — never run both.
+
+If mandatory legs (docs tool, tracker, chat) fail during Step 1, mark the
+findings partial and still wait at the gate. Do not invent specs, and
+`ui-agent` does not start before gate approval. The workload leg needs the
+tracker only; if it fails, note partial ownership in the PRD.
+
+Chains compose after the gate. Example: "build the clients list screen and
+check it against the archetypes" → `ui-agent` → `icon-usage` → `ux-pattern`
+→ `audit`, and not `design-kickoff`, because that screen already exists.
+
+Read the matched `harness/skills/<name>/SKILL.md` in full before executing.
+
 | Intent signal | Chain | Notes |
 |---|---|---|
 | **A new product bet** — "start working on / kick off / explore / design / build" a feature that does not exist yet, even a one-liner like "city by city leaderboard" or "let's explore payouts" | **`design-kickoff`** (which internally runs `workload-agent` + `research-agent` in Step 1 → PRD → human gate → then routes onward) | **The front door for a new bet — checked first.** A question, a lookup, an iteration, a critique, copy, or an import never reaches Step 3. Vague "explore / let's start" still runs the full sequence. Explicit wayfinding phrases match the next row. See §2a. |
