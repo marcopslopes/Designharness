@@ -311,6 +311,10 @@ input — not as a reason to skip Step 3 or check the page for a reaction.
 
 ## Step 3 — THE GATE (hard stop, chat-only, regardless of the docs copy)
 
+This step runs only when the ask is a new product bet ("let's start working
+on…", "let's explore payouts"). A question, a lookup, an iteration, a
+critique, copy, or an import never reaches this step.
+
 The approval conversation always happens here, in chat — whether or not a
 docs copy exists from Step 2.5 makes no difference to this step.
 

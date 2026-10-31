@@ -8,9 +8,9 @@ description: >-
   Google Docs), tracker (Jira, Linear, or GitHub Issues), and chat in full
   depth — plus linked Figma and Miro boards — then writes a structured draft
   page to the docs tool and returns a short executive summary
-  with confidence rating. Most net-new research requests should route through
-  design-kickoff first, which owns the PRD gate — this skill is typically
-  invoked from within that flow (Step 1b), not called directly.
+  with confidence rating. A question or lookup runs this skill directly,
+  with no PRD gate. A new product bet goes to design-kickoff first; this
+  skill is Step 1b of that flow.
 
   Also runs standalone, in a lighter **single-source gap-fill mode**, on an
   already-approved `projects/<slug>/` task (no PRD, no docs draft) —
@@ -111,7 +111,7 @@ not as a permanent placeholder. See `harness/agents/researcher.md`.
 - *what do we know about [topic]*
 - *what is [topic] / is there a project on [topic]* — plain lookup phrasing is **not** an exemption from routing; see below
 
-**These all reach this skill through `design-kickoff`'s front door (`harness/ORCHESTRATOR.md` §2a — "net-new, no exceptions"), as Step 1b — never as a standalone bypass that skips the PRD/gate chain.** A designer asking "what is X" on a topic with no approved `projects/<slug>/` task is exactly as net-new as "let's build X"; both hit `design-kickoff` first. The distinction that actually matters is **gap-fill/verdict modes below** (approved task already exists) vs. **everything else** (net-new → `design-kickoff` → this skill's Step 1b). **Never** answer a net-new "what is X" from local repo files alone (`projects/*`, `src/design-harness/pages/*`) — those are this designer's own in-flight work, not verified ground truth about what the company actually has. Only a live sweep of the team's docs, tracker, and chat (this skill's Step 1b, reached via `design-kickoff`) answers "is this real" / "is there a project on it."
+**A question or a lookup reaches this skill directly. It does not open `design-kickoff` and it does not stop at the PRD gate.** A new product bet still does: "let's start working on X" or "let's explore X" opens `design-kickoff`, which calls this skill as Step 1b and then stops at Step 3. **Never** answer "what is X" from local repo files alone (`projects/*`, `src/design-harness/pages/*`) — those are this designer's own in-flight work, not verified ground truth. A live sweep of the team's docs, tracker, and chat answers "is this real" / "is there a project on it."
 
 **Lightweight gap-fill mode** (one named source, on an already-approved `projects/<slug>/` task — see § below):
 - *check Slack [channel/thread] for [topic]*

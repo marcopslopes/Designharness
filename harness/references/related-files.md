@@ -8,7 +8,7 @@ not on every request.
 | File | Role |
 |---|---|
 | `harness/skills/workload-agent/SKILL.md` | Live roadmap + designer execution boards — autonomous workload snapshot |
-| `harness/skills/design-kickoff/SKILL.md` | The front door for any net-new project — mandatory workload + research + PRD + human gate before design work |
+| `harness/skills/design-kickoff/SKILL.md` | The front door for a new product bet — workload + research + PRD + human gate before design work. Questions, lookups, iterations, critiques, copy, and imports do not reach the gate |
 | `harness/logs/routing-standards.md` | How skill descriptions must be written so routing works; live roster audit (count source of truth — do not hardcode a number here) |
 | `harness/logs/routing-log.md` | Global exceptions log — fallbacks, wrong matches, and approved plans, including ones with no task folder. Plain matches are in `skill-usage.jsonl` |
 | `harness/logs/skill-benchmarking.md` | Append-only per-run PASS/BLOCKED + issue log from `audit` Step 3.4 — passive data for skill-output benchmarking, no auto rollup. Not `harness/skills/benchmark/SKILL.md` (competitor comparison) |

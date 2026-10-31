@@ -159,7 +159,8 @@ each rule live there. Trigger phrases stay here; the evals read this table.
 
 | Intent signal | Chain | Notes |
 |---|---|---|
-| **Any new project/feature signal** — "start working on / kick off / explore / look into / design / build" **or** a plain lookup/informational ask about a topic with **no approved `projects/<slug>/` task yet** — "what is X" / "is there a project on X" / "tell me everything about X" / "catch me up on X" / "what do we know about X" — even a specific-sounding one-liner like "city by city leaderboard" | **`design-kickoff`** (which internally runs `workload-agent` + `research-agent` in Step 1 → PRD → human gate → then routes onward) | Front door, checked first. Newness is the trigger; a question is not an exemption. Never answer a net-new lookup from local files alone. Explicit wayfinding phrases go to the next row. §2a. |
+| **A new product bet** — "start working on / kick off / explore / design / build" a feature that does not exist yet, even a one-liner like "city by city leaderboard" or "let's explore payouts" | **`design-kickoff`** (which internally runs `workload-agent` + `research-agent` in Step 1 → PRD → human gate → then routes onward) | Front door for a new bet only. A question, lookup, iteration, critique, copy edit, or import never reaches Step 3. Explicit wayfinding phrases go to the next row. §2a. |
+| **"what is X" / "is there a project on X" / "tell me everything about X" / "catch me up on X" / "what do we know about X" / "look into X"** | **`research-agent`** | A question or lookup. No PRD gate. Do not answer from local project files alone. |
 | **"wayfind this" / "map the decisions" / "this is too big for one session" / "plan, don't build" / "the way isn't clear yet"** | **`design-kickoff`** (wayfinding mode) | Decision map in `wayfinding.md`; no PRD, no build until the way is clear. |
 | **"where should I focus / what's the most important thing / where do I start / diagnostic / what's the bottleneck / which layer is weak / where are the gaps"** — triage across any situation (new, stuck, redesign, checking foundations) | **`diagnostic`** | Rates each design layer and names the bottleneck; recommends the next skill. |
 | **"build org-pack" / "map our domain" / "extract company context" / "build vocabulary" / "refresh company context" / "update org-pack" / "add this to the company pack" / "the harness should know this doc"** — setup/maintenance of company knowledge foundation | **`org-pack-builder`** | Builds or extends `context/org-pack.local/`; "add this…" + one doc → § Add a file. |
@@ -254,16 +255,16 @@ Before matching any other row, check in order:
    `projects/<slug>/decisions.md` already logs a kickoff-gate approval, **or**
    the designer explicitly opts out of the gate for this task → skip
    `design-kickoff`, use the **iterating** row.
-2. **Net-new** — none of the above → **`design-kickoff` fires, no
-   exceptions.** Explicit wayfinding language ("wayfind", "map the
-   decisions", "plan, don't build", "too big for one session", "the way
-   isn't clear") runs **wayfinding mode** inside this skill and does not
-   start the PRD sequence. Vague "explore / let's start" still runs the
-   full sequence. This absorbed the earlier "prepend `research-agent` on
-   net-new builds" rule — `design-kickoff`'s Step 1 runs **both**
-   `workload-agent` (Step 1a — roadmap + design board ownership) and
-   `research-agent` (Step 1b — deep discovery), plus the PRD and
-   human-approval gate this repo was missing. Full sequence in
+2. **New product bet** — "let's start", "kick off", "explore", "design",
+   or "build" something with no task yet → **`design-kickoff`**, including
+   Step 3. A question, a lookup, an iteration, a critique, copy, or an
+   import is not a bet and never reaches Step 3. Explicit wayfinding
+   language ("wayfind", "map the decisions", "plan, don't build", "too big
+   for one session", "the way isn't clear") runs **wayfinding mode** and
+   does not start the PRD sequence. Vague "explore / let's start" still
+   runs the full sequence. `design-kickoff`'s Step 1 runs **both**
+   `workload-agent` (Step 1a) and `research-agent` (Step 1b), plus the PRD
+   and the human-approval gate. Full sequence in
    `harness/skills/design-kickoff/SKILL.md`.
 
 `design-kickoff`'s own Step 0 (name, known material, PM — max 3 questions)
@@ -412,7 +413,7 @@ PLAN — [task name] (figma-ux-audit)
 Estimated: ~X min. Reply "go", or edit the plan.
 ```
 
-**Single-skill plans skip the gate** if the designer has stated a standing "just do it" preference (log this preference in `projects/<slug>/decisions.md` the first time it's stated) **or** if `designer-profile.local.md` (Step 0) already records interaction style as "just do it for simple asks". **Multi-skill chains always show the plan** — no exceptions, even with a standing preference or profile setting. **The kickoff PRD gate (Step 3) is never skippable this way** — a standing "just do it" preference covers the plan-block formality, not the human-approval checkpoint on unverified specs. That “never skippable” is **specified** (you must stop), not mechanical — see `documentation/guides/spec-vs-runtime.md`.
+**Single-skill plans skip the gate** if the designer has stated a standing "just do it" preference (log this preference in `projects/<slug>/decisions.md` the first time it's stated) **or** if `designer-profile.local.md` (Step 0) already records interaction style as "just do it for simple asks". **Multi-skill chains always show the plan** — no exceptions, even with a standing preference or profile setting. **The kickoff PRD gate (Step 3) runs only for a new product bet.** A question, a lookup, an iteration, a critique, copy, or an import never reaches it. On a bet, a standing "just do it" preference does not skip it — that stop is **specified**, not mechanical (`documentation/guides/spec-vs-runtime.md`).
 
 Never execute before approval on a multi-skill chain.
 

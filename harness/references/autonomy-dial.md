@@ -30,5 +30,5 @@ How hands-on do you want to be on this one?
 the *first* plan-gate approval itself — §3's "never execute before
 approval on a multi-skill chain" stays a hard rule; this only changes
 what happens *after* that first "go." **Never** fires on single-skill
-auto-runs or the kickoff PRD gate (Step 3 there is never skippable in-spec, per
+auto-runs or the kickoff PRD gate (Step 3 applies only to a new product bet, and a dial does not skip it there, per
 §3 above).
