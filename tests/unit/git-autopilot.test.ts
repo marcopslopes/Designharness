@@ -15,6 +15,8 @@ import {
   sessionLine,
   share,
   slugify,
+  isNever,
+  LOCAL_NOTICE,
   start,
   undo,
   updateHarness,
@@ -63,6 +65,29 @@ test('starting a project branches <first name>/<slug> from main and makes the fo
   assert.equal(result.message, 'Working on ana/invite-friends.')
   assert.equal(git('branch', '--show-current'), 'ana/invite-friends')
   assert.equal(read('projects/invite-friends/brief.md'), '# Brief — Invite friends\n')
+})
+
+test('a company project on a public repo is saved locally and never committed', () => {
+  const { root, git, read } = repo()
+  const result = start(root, 'payouts', { scaffold: true, title: 'Payouts', local: true })
+  assert.equal(result.message, `Working on ana/payouts.\n${LOCAL_NOTICE}`)
+  assert.equal(read('projects.local/payouts/brief.md'), '# Brief — Payouts\n')
+  assert.equal(existsSync(path.join(root, 'projects/payouts')), false)
+  assert.equal(isNever('projects.local/payouts/brief.md'), true)
+  git('add', '-f', 'projects.local/payouts/brief.md')
+  const saved = save(root, 'payouts', 'Leave the local folder alone.')
+  assert.equal(saved.sha, null)
+  assert.equal(git('diff', '--cached', '--name-only'), '')
+  assert.equal(git('ls-files', 'projects.local'), '')
+})
+
+test('publicRepo off keeps a company project in tracked projects', () => {
+  const { root, read, write } = repo()
+  write('harness.config.local.json', JSON.stringify({ publicRepo: false }))
+  const result = start(root, 'payouts', { scaffold: true, title: 'Payouts', local: true })
+  assert.equal(result.message, 'Working on ana/payouts.')
+  assert.equal(read('projects/payouts/brief.md'), '# Brief — Payouts\n')
+  assert.equal(existsSync(path.join(root, 'projects.local/payouts')), false)
 })
 
 test('with no profile (a cloud session), the branch uses the git config name', () => {

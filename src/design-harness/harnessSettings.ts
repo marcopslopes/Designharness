@@ -7,6 +7,8 @@ export type HarnessTheme = 'dark' | 'light'
 export type AuditMode = 'after-builds' | 'on-share'
 
 export type HarnessConfig = {
+  /** On unless set false. Company-sourced projects then stay in gitignored `projects.local/`. */
+  publicRepo: boolean
   harness: { name: string; tagline: string; defaultTheme: HarnessTheme }
   behaviour: {
     audit: AuditMode
@@ -20,6 +22,7 @@ export type HarnessConfig = {
 }
 
 export const DEFAULT_HARNESS_CONFIG: HarnessConfig = {
+  publicRepo: true,
   harness: {
     name: 'Design Harness',
     tagline: 'Prototypes, the design system, and the docs, in one place.',
@@ -45,6 +48,7 @@ const local = Object.values(
 const identity = local?.harness ?? local?.studio ?? {}
 
 export const HARNESS_CONFIG: HarnessConfig = {
+  publicRepo: local?.publicRepo !== false,
   harness: { ...DEFAULT_HARNESS_CONFIG.harness, ...identity },
   behaviour: { ...DEFAULT_HARNESS_CONFIG.behaviour, ...(local?.behaviour ?? {}) },
 }

@@ -134,21 +134,17 @@ Design-system catalog pages (`Button*`, `Text*`, `Badge`, `Card`, `Stack`,
 `Foundation*`) are a separate thing entirely — they're Design Harness's viewer
 for `context/design-system/`, not project prototypes, and don't move.
 
-## Real work stays local (`projects.local/`)
+## Real company work stays local (`projects.local/`)
 
-This folder ships tracked and public with just `_template/` and this
-`README.md` — no real project history. Actual project folders (brief,
-findings, decisions, log, sources, artifacts, notes, testing) belong in
-`projects.local/<project-slug>/` instead, which is gitignored (see
-`.gitignore`), same pattern as `context/org-pack.local/` and
-`designer-profile.local.md`.
+Tracked `projects/` holds fictional examples (and `_template/`). When
+`publicRepo` is on — the default in this repo — a project created from
+Slack, Jira, Confluence, Notion, or Google Drive is created entirely at
+`projects.local/<project-slug>/`, which is gitignored (see `.gitignore`).
+That includes the brief, findings, decisions, and screens. The one line is
+`Saved locally, since this repo is public.` Autopilot never commits that
+folder. The public playground only lists tracked `projects/`, so a local
+project's screens stay off the public index.
 
-**Exception — `screens/` stays under `projects/<slug>/screens/` even for
-real work**, because Design Harness's routing (`src/design-harness/pages/*.tsx`)
-directly imports live prototype code from it via re-export shims. Code
-that the running app depends on has to stay resolvable on a fresh clone;
-only the surrounding project-management paperwork is local-only. So a
-real project with a built screen ends up split: `projects/<slug>/screens/`
-(tracked, public, reskinned to be brand-neutral) +
-`projects.local/<slug>/` (gitignored — brief/findings/decisions/etc., and
-`artifacts/` if any).
+A project with no company source, and the **New project** button, still
+use `projects/<slug>/`. Set `publicRepo` to `false` on a private copy
+(`harness/references/harness-settings.md`) and company projects go there too.

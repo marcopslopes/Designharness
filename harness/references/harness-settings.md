@@ -5,7 +5,14 @@ The designer sets these in Design Harness → **Settings** (`#/settings`, only w
 repo root. The file is gitignored and personal to each clone, like
 `designer-profile.local.md`.
 
-**Read the file before deciding any behaviour below.** If the file or a key is
+**Read the file before deciding any behaviour below.** `publicRepo` sits beside
+`harness` and `behaviour`, not inside `behaviour`. Missing means `true`.
+
+| Key | Default | Effect |
+| --- | --- | --- |
+| `publicRepo` | `true` | Shown as "This repo is public". On: a project created from Slack, Jira, Confluence, Notion, or Google Drive is created at `projects.local/<slug>/` (gitignored). Say `Saved locally, since this repo is public.` Tracked `projects/` stays fictional examples. Autopilot never commits `projects.local/`. Off (`false`): those projects go in `projects/<slug>/`. |
+
+If the file or a key is
 missing, use the default, which is how the harness behaved before settings
 existed. Never create or edit the file from a skill unless the designer asks;
 the Settings page owns it.

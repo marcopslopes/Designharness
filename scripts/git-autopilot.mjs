@@ -4,7 +4,7 @@
  * Contract: `harness/references/git-autopilot.md`. Used by the agent (CLI below)
  * and by the app's "New project" button (`scripts/harness-settings-plugin.ts`).
  *
- *   node scripts/git-autopilot.mjs start <slug> [--scaffold]
+ *   node scripts/git-autopilot.mjs start <slug> [--scaffold] [--local]
  *   node scripts/git-autopilot.mjs resume <slug>
  *   node scripts/git-autopilot.mjs save <slug> "<one-line summary>" [--keep-harness | --suggest-harness]
  *   node scripts/git-autopilot.mjs undo [--yes]
@@ -48,10 +48,13 @@ export const NEVER = [
   'designer-profile.local.md',
   'harness.config.local.json',
   'context/org-pack.local',
+  'projects.local',
   'harness/logs',
   'logs',
   'tmp',
 ]
+/** Said once when a company-sourced project is created outside git. */
+export const LOCAL_NOTICE = 'Saved locally, since this repo is public.'
 /** Linked into a new worktree so the second folder knows the same designer. */
 const LOCAL_LINKS = [
   'designer-profile.local.md',
@@ -108,6 +111,16 @@ function readLocal(root, file) {
     return readFileSync(path.join(root, file), 'utf8')
   } catch {
     return ''
+  }
+}
+
+/** On unless `publicRepo` is exactly false. A missing file or key stays on, so this public repo is the default. */
+export function isPublicRepo(root) {
+  try {
+    const config = JSON.parse(readLocal(root, 'harness.config.local.json') || '{}')
+    return config?.publicRepo !== false
+  } catch {
+    return true
   }
 }
 
@@ -180,8 +193,15 @@ function identity(root) {
   return ['-c', `user.name=${designerName(root) || 'Designer'}`, '-c', 'user.email=designer@design-harness.invalid']
 }
 
+/** Drops staged files autopilot must never commit, even if they were staged by hand. */
+function unstageNever(root) {
+  const staged = git(root, ['diff', '--cached', '--name-only', '-z']).split('\0').filter(isNever)
+  if (staged.length) git(root, ['reset', '-q', '--', ...literal(staged)])
+}
+
 /** Commits only `paths` (minus NEVER), whatever else is staged. Returns the sha, or null if nothing changed. */
 function commit(root, paths, subject, action, extraTrailers = []) {
+  unstageNever(root)
   paths = paths.filter((p) => existsSync(path.join(root, p)) || git(root, ['ls-files', '--', p]) !== '')
   if (!paths.length) return null
   git(root, ['add', '-A', '--', ...paths])
@@ -253,9 +273,11 @@ function checkpoint(root, reason) {
   return commit(root, [`projects/${slug}`], `Save work in progress before ${reason}`, 'checkpoint')
 }
 
-function scaffold(root, slug, title) {
-  const dir = path.join(root, 'projects', slug)
+function scaffold(root, slug, title, local = false) {
+  const folder = local && isPublicRepo(root) ? 'projects.local' : 'projects'
+  const dir = path.join(root, folder, slug)
   if (existsSync(dir)) return false
+  mkdirSync(path.join(root, folder), { recursive: true })
   cpSync(path.join(root, 'projects', '_template'), dir, { recursive: true })
   const brief = path.join(dir, 'brief.md')
   if (existsSync(brief)) {
@@ -276,11 +298,12 @@ function withCatchUp(root, result) {
 }
 
 /** New project: save the current project where it is, then branch `<first>/<slug>` from main. */
-export function start(root, slug, { scaffold: makeFolder = false, title } = {}) {
+export function start(root, slug, { scaffold: makeFolder = false, title, local = false } = {}) {
   checkSlug(slug)
+  const noticeFor = (made) => (local && isPublicRepo(root) && made ? LOCAL_NOTICE : null)
   if (!isEnabled(root)) {
-    if (makeFolder) scaffold(root, slug, title)
-    return { branch: null, checkpoint: null, message: null }
+    const made = makeFolder ? scaffold(root, slug, title, local) : false
+    return { branch: null, checkpoint: null, message: noticeFor(made) }
   }
   const branch = branchFor(root, slug)
   let saved = null
@@ -288,8 +311,12 @@ export function start(root, slug, { scaffold: makeFolder = false, title } = {}) 
     saved = checkpoint(root, `starting ${slug}`)
     switchTo(root, branch)
   }
-  if (makeFolder) scaffold(root, slug, title)
-  return withCatchUp(root, { branch, checkpoint: saved, message: `Working on ${branch}.` })
+  const made = makeFolder ? scaffold(root, slug, title, local) : false
+  return withCatchUp(root, {
+    branch,
+    checkpoint: saved,
+    message: [`Working on ${branch}.`, noticeFor(made)].filter(Boolean).join('\n'),
+  })
 }
 
 /** Existing project: switch to its branch if it has one. Silent otherwise. */
@@ -776,7 +803,7 @@ function cli(argv) {
   if (!isEnabled(root)) return 'Git autopilot is off.'
   switch (command) {
     case 'start':
-      return start(root, args[0], { scaffold: flags.has('--scaffold') }).message
+      return start(root, args[0], { scaffold: flags.has('--scaffold'), local: flags.has('--local') }).message
     case 'resume':
       return resume(root, args[0]).message ?? ''
     case 'save': {

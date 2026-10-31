@@ -475,7 +475,7 @@ Every fallback is food for `harness/harness-audit/SKILL.md`.
 
 ## 5. State rules
 
-Every task gets a folder at `projects/<task-slug>/` (schema: `projects/README.md`). Rules:
+Every task gets a folder at `projects/<task-slug>/` (schema: `projects/README.md`). A project created from Slack, Jira, Confluence, Notion, or Google Drive while `publicRepo` is on (the default) is `projects.local/<task-slug>/` instead, gitignored, and the one line is `Saved locally, since this repo is public.` Tracked `projects/` holds fictional examples. Autopilot never commits `projects.local/`. Contract: `harness/references/git-autopilot.md` § 1. Rules:
 
 - **Check the task folder before asking the designer anything** — the answer may already be there (`brief.md`, `sources.md`, `decisions.md`, `findings.md`).
 - Skills **append, never overwrite** `findings.md`, `decisions.md`, and **`sources.md`**. Every `findings`/`decisions` entry is dated and names the skill that produced it. Every `sources.md` row is dated in the Indexed column.

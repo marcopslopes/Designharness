@@ -66,6 +66,7 @@ const AUDIT_MODES = ['after-builds', 'on-share']
 const THEMES = ['dark', 'light']
 
 type HarnessConfig = {
+  publicRepo: boolean
   harness: { name: string; tagline: string; defaultTheme: string }
   behaviour: {
     audit: string
@@ -79,6 +80,7 @@ type HarnessConfig = {
 }
 
 const DEFAULT_CONFIG: HarnessConfig = {
+  publicRepo: true,
   harness: {
     name: 'Design Harness',
     tagline: 'Prototypes, the design system, and the docs, in one place.',
@@ -120,6 +122,7 @@ function readConfig(root: string): HarnessConfig {
     | undefined
   const identity = raw?.harness ?? raw?.studio ?? {}
   return {
+    publicRepo: raw?.publicRepo !== false,
     harness: { ...DEFAULT_CONFIG.harness, ...identity },
     behaviour: { ...DEFAULT_CONFIG.behaviour, ...(raw?.behaviour ?? {}) },
   }
@@ -363,9 +366,14 @@ function writeProfile(root: string, next: Partial<Profile>) {
 
 function writeConfig(
   root: string,
-  next: { harness?: Partial<HarnessConfig['harness']>; behaviour?: Partial<HarnessConfig['behaviour']> },
+  next: {
+    harness?: Partial<HarnessConfig['harness']>
+    behaviour?: Partial<HarnessConfig['behaviour']>
+    publicRepo?: boolean
+  },
 ) {
   const merged = readConfig(root)
+  if (typeof next.publicRepo === 'boolean') merged.publicRepo = next.publicRepo
   if (next.harness) {
     const s = next.harness
     if (s.name !== undefined) {
@@ -459,6 +467,7 @@ export function harnessSettingsPlugin(): Plugin {
             harness?: Partial<HarnessConfig['harness']>
             studio?: Partial<HarnessConfig['harness']> // old key — still accepted
             behaviour?: Partial<HarnessConfig['behaviour']>
+            publicRepo?: boolean
             packFile?: PackFileInput
             replacePackFile?: ReplaceInput
             systemSource?: { name?: unknown; content?: unknown }
@@ -468,7 +477,9 @@ export function harnessSettingsPlugin(): Plugin {
           if (body.packFile) addPackFile(root, body.packFile)
           if (body.profile) writeProfile(root, body.profile)
           const identity = body.harness ?? body.studio
-          if (identity || body.behaviour) writeConfig(root, { harness: identity, behaviour: body.behaviour })
+          if (identity || body.behaviour || typeof body.publicRepo === 'boolean') {
+            writeConfig(root, { harness: identity, behaviour: body.behaviour, publicRepo: body.publicRepo })
+          }
           return send(res, 200, snapshot(root))
         } catch (error) {
           return send(res, 400, { error: error instanceof Error ? error.message : 'Could not save settings' })

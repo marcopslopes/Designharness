@@ -163,7 +163,9 @@ Do not preload `harness/ORCHESTRATOR.md`, `COMPANY-BUSINESS.md`, `COMPANY-ARCHET
    layer rule (real DS vs Design Harness chrome vs per-prototype CSS).
 5. **Prototype in Design Harness** — project screens live in `projects/<slug>/screens/<Name>Page.tsx`, exporting
    a component named after the file; Design Harness discovers them (`src/design-harness/projectsIndex.ts`), so a new
-   prototype is that one file — never a route list, nav entry or shared registry edit. Never create a prototype
+   prototype is that one file — never a route list, nav entry or shared registry edit. A project saved locally
+   (`projects.local/<slug>/`, company tools on a public repo) keeps its screen in that folder too; the public
+   playground only lists tracked `projects/`. Never create a prototype
    anywhere else; with no project yet, start one first (`design-kickoff`, which also starts its branch per
    `harness/references/git-autopilot.md`). **Screen-level states** (no results, a preselected filter, empty, error) are optional
    **string** props on the screen with today's defaults (`status="paused"`, `initialQuery="Olivia"`,

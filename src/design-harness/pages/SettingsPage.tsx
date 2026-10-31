@@ -30,7 +30,12 @@ type Snapshot = {
   checks: { tokensPath: string; targetDirs: string[]; extensions: string[]; acceptedDebt: number }
 }
 
-type Draft = { profile: Profile; harness: HarnessConfig['harness']; behaviour: HarnessConfig['behaviour'] }
+type Draft = {
+  profile: Profile
+  publicRepo: boolean
+  harness: HarnessConfig['harness']
+  behaviour: HarnessConfig['behaviour']
+}
 
 const ENDPOINT = '/__harness/settings'
 const PACK_FORM_ID = 'design-harness-pack-add'
@@ -161,6 +166,7 @@ const BEHAVIOUR_TOGGLES: {
 function toDraft(snapshot: Snapshot): Draft {
   return {
     profile: { ...snapshot.designer.profile },
+    publicRepo: snapshot.config.publicRepo,
     harness: { ...snapshot.config.harness },
     behaviour: { ...snapshot.config.behaviour },
   }
@@ -240,7 +246,11 @@ function LocalSettings() {
       const response = await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(snapshot.designer.exists ? draft : { harness: draft.harness, behaviour: draft.behaviour }),
+        body: JSON.stringify(
+          snapshot.designer.exists
+            ? draft
+            : { harness: draft.harness, behaviour: draft.behaviour, publicRepo: draft.publicRepo },
+        ),
       })
       const body = await response.json()
       if (!response.ok) throw new Error(body.error ?? 'Could not save settings')
@@ -333,6 +343,25 @@ function LocalSettings() {
             title="Harness behaviour"
             description={`When skills stop to ask, check, or offer something. Saved to ${snapshot.files.config}.`}
           >
+            <ToggleRow
+              title="This repo is public"
+              description="Projects started from Slack, Jira, Confluence, Notion, or Drive stay on this computer."
+              info={{
+                rows: [
+                  {
+                    label: 'On',
+                    text: 'A project created from those tools is saved under projects.local, which Git does not track. The fictional examples in projects stay tracked.',
+                  },
+                  { label: 'Off', text: 'For a private copy. Those projects go in projects, with the examples.' },
+                ],
+                note: 'On is the default when the setting is missing. Turning it off is for a private copy of this repo.',
+              }}
+              checked={draft.publicRepo}
+              onChange={(on) => {
+                setSaved(false)
+                setDraft((current) => (current ? { ...current, publicRepo: on } : current))
+              }}
+            />
             <SettingRow
               title="Run the audit"
               info={AUDIT_INFO}

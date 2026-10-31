@@ -132,6 +132,16 @@ test('an uploaded design-system file lands in the inbox, whatever path it claims
   assert.ok(!existsSync(path.join(root, 'tokens.css')))
 })
 
+test('a public repo is the default, and turning it off sticks', async () => {
+  const { call, read } = setup()
+  const first = await call('GET', { headers: SAME_ORIGIN })
+  assert.equal((first.body.config as { publicRepo: boolean }).publicRepo, true)
+  const saved = await call('POST', { body: { publicRepo: false }, headers: SAME_ORIGIN })
+  assert.equal(saved.status, 200)
+  assert.equal((saved.body.config as { publicRepo: boolean }).publicRepo, false)
+  assert.match(read('harness.config.local.json'), /"publicRepo": false/)
+})
+
 test('New project makes the folder from the template and its own branch from main', async () => {
   const { root, call, read } = setup()
   const git = (...args: string[]) => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim()

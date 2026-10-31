@@ -6,6 +6,7 @@ Each release is a version in `package.json` and a matching Git tag, such as `v0.
 
 ### 31 October 2026
 
+- **Company projects stay off the public repo.** With "This repo is public" on (the default), a project started from Slack, Jira, Confluence, Notion, or Drive is saved under `projects.local/`, which Git does not track, and the line is "Saved locally, since this repo is public." Tracked projects stay the fictional examples. Turn the setting off on a private copy.
 - **No Git remote, no warning.** With `origin` removed, the opening line, catch-up, and the origin check stay quiet instead of reporting an error.
 - **A first message with no profile still gets done.** The agent asks your role once, then does the request in the same turn. A run with nobody to answer uses product design and writes no profile. The "you're on main" line is one sentence and never a question.
 - **The PRD check is only for a new product bet.** "Let's start working on…" and "let's explore payouts" still stop to ask if the brief is good enough. A question, a lookup, an iteration, a critique, copy, or an import does not.

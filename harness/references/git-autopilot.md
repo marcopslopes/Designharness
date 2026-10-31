@@ -7,7 +7,7 @@ this" pushes it. Every step runs one script, which does the Git and prints
 the one line to say:
 
 ```
-node scripts/git-autopilot.mjs start <slug>
+node scripts/git-autopilot.mjs start <slug> [--scaffold] [--local]
 node scripts/git-autopilot.mjs resume <slug>
 node scripts/git-autopilot.mjs save <slug> "<one-line summary>" [--keep-harness | --suggest-harness]
 node scripts/git-autopilot.mjs undo            # preview
@@ -52,18 +52,29 @@ and `doctor` leaves the origin line out instead of reporting an error.
 
 ## 1. Start — a new project
 
-When `design-kickoff` opens a **new** `projects/<slug>/` folder (any new
-project signal, including "start a project called X"), run `start <slug>`
-**before** creating the folder, then say its line: `Working on ana/<slug>.`
+When `design-kickoff` opens a **new** folder (any new project signal,
+including "start a project called X"), run `start <slug>` **before** creating
+the folder, then say its line: `Working on ana/<slug>.`
 
 - It branches from `main`, never from another project's branch.
 - The current project's folder is saved on its own branch first
   (`Save work in progress before starting <slug>`). Nothing is ever
   committed on `main`.
 - If the branch already exists, it switches to it.
+- Tracked `projects/` holds fictional examples only. A project created from
+  Slack, Jira, Confluence, Notion, or Google Drive, while `publicRepo` is on
+  (the default — `harness/references/harness-settings.md`), is
+  `projects.local/<slug>/`. Run `start <slug> --scaffold --local`. Say both
+  lines, including `Saved locally, since this repo is public.` Every later
+  file for that project, screens included, goes in that folder. Autopilot
+  never commits `projects.local/`. `publicRepo: false` ignores `--local` and
+  uses `projects/<slug>/`. With autopilot off, create
+  `projects.local/<slug>/` from `projects/_template/` yourself and say the
+  same line. A project with no company source stays `projects/<slug>/`.
 
-The app's **New project** button (Prototypes page) runs the same start, also
-copies `projects/_template/`, and opens the brief.
+The app's **New project** button (Prototypes page) runs the same start
+without `--local`, copies `projects/_template/` into tracked `projects/`,
+and opens the brief.
 
 ## 2. Resume — an existing project
 
