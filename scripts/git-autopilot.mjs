@@ -124,16 +124,16 @@ export function isPublicRepo(root) {
   }
 }
 
-/** On unless `behaviour.gitAutopilot` is false or the profile says `- Git autopilot: off`. */
+/** Off unless `behaviour.gitAutopilot` is true or the profile says `- Git autopilot: on`. Wrap-up save and share still run when it's off. */
 export function isEnabled(root) {
+  if (gitValue(root, ['rev-parse', '--is-inside-work-tree']) !== 'true') return false
   try {
     const config = JSON.parse(readLocal(root, 'harness.config.local.json') || '{}')
-    if (config?.behaviour?.gitAutopilot === false) return false
+    if (config?.behaviour?.gitAutopilot === true) return true
   } catch {
-    // unreadable config: default on
+    // unreadable config: default off
   }
-  if (/^- Git autopilot:[ \t]*off[ \t]*$/im.test(readLocal(root, 'designer-profile.local.md'))) return false
-  return gitValue(root, ['rev-parse', '--is-inside-work-tree']) === 'true'
+  return /^- Git autopilot:[ \t]*on[ \t]*$/im.test(readLocal(root, 'designer-profile.local.md'))
 }
 
 export function slugify(name) {
@@ -451,7 +451,6 @@ function suggestToHarness(root, slug, files, { openPr = openPullRequest } = {}) 
  */
 export function save(root, slug, summary, { harness, openPr } = {}) {
   checkSlug(slug)
-  if (!isEnabled(root)) return { sha: null, message: null }
   const subject = String(summary ?? '').trim()
   if (!subject || /[\r\n]/.test(subject)) throw new AutopilotError('The save needs a one-line summary.')
   assertNoForeign(root)
@@ -500,6 +499,7 @@ function lastUndoable(root) {
 
 /** Shows what the last autopilot commit on this branch changed; with `confirm`, reverts it. */
 export function undo(root, { confirm = false } = {}) {
+  if (!isEnabled(root)) return { target: null, files: [], message: 'Git autopilot is off.' }
   const target = lastUndoable(root)
   if (!target) return { target: null, files: [], message: 'Nothing to undo on this branch.' }
   const files = git(root, ['show', '--name-status', '--format=', target.sha]).split('\n').filter(Boolean)
@@ -528,7 +528,6 @@ export function undo(root, { confirm = false } = {}) {
 
 /** Pushes the current project branch. Only on "share this"; never main, never force. */
 export function share(root) {
-  if (!isEnabled(root)) return { link: null, message: null }
   const branch = currentBranch(root)
   if (!branch || branch === BASE) {
     throw new AutopilotError(`Share works from a project branch, not ${branch || 'no branch'}.`)
@@ -651,9 +650,10 @@ function installIfNeeded(root, before) {
 /**
  * "Update my harness": merge the harness's main into this branch. The team's
  * `projects/` and every `*.local` file stay as they are; a real conflict stops
- * the merge and lists the files. Runs with autopilot off.
+ * the merge and lists the files. Only when gitAutopilot is on.
  */
 export function updateHarness(root, { fetch = fetchBranch, install = installIfNeeded } = {}) {
+  if (!isEnabled(root)) return { message: 'Git autopilot is off.' }
   if (isDirty(root, ['.'])) throw new AutopilotError('Uncommitted changes are in the way. Wrap up first, then update.')
   let remote = upstreamRemote(root)
   let added = ''
@@ -723,9 +723,10 @@ function linkLocal(fromRoot, destRoot, name) {
 
 /**
  * "Work on another project in parallel": a second folder on `<first>/<slug>`, with
- * this designer's profile, context and settings linked in. Runs with autopilot off.
+ * this designer's profile, context and settings linked in. Only when gitAutopilot is on.
  */
 export function addWorktree(root, slug) {
+  if (!isEnabled(root)) return { dest: null, branch: null, linked: [], message: 'Git autopilot is off.' }
   const branch = branchFor(root, slug)
   if (currentBranch(root) === branch) throw new AutopilotError(`${slug} is already open in this folder.`)
   const main = mainWorktree(root)
@@ -791,9 +792,9 @@ function cli(argv) {
   const args = rest.filter((a) => !a.startsWith('--'))
   if (command === 'session') return sessionLine(root)
   if (command === 'doctor') return doctor(root)
+  if (!isEnabled(root) && command !== 'save' && command !== 'share') return 'Git autopilot is off.'
   if (command === 'update') return updateHarness(root).message
   if (command === 'worktree') return addWorktree(root, args[0]).message
-  if (!isEnabled(root)) return 'Git autopilot is off.'
   switch (command) {
     case 'start':
       return start(root, args[0], { scaffold: flags.has('--scaffold'), local: flags.has('--local') }).message

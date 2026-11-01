@@ -6,6 +6,7 @@ Each release is a version in `package.json` and a matching Git tag, such as `v0.
 
 ### 31 October 2026
 
+- **Handle Git for me starts off.** "Wrap up" still saves the project, and "share this" still pushes it. A branch per project, continue, undo, update, and a second folder stay off until you turn the setting on.
 - **One way to end a session.** "Wrap up" and "journal this" do the same thing: the journal entry, a handoff note in the project log, and a save. "Context is full, write a handoff" is only for picking up mid-task in a fresh chat.
 - **Git does less on its own.** A new project still gets its branch, "wrap up" still saves, and "share this" still pushes. Bringing in main, undo, harness updates, a parallel folder, and the Git check-up run only when you ask. Cursor no longer runs a Git check at the start of every chat.
 - **Old review files stay as pointers.** A critique still goes to the pattern skill. The old review file no longer contains a second playbook. The public skill count leaves those two pointers out.

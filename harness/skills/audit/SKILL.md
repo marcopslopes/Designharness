@@ -745,7 +745,7 @@ This repo has no hosted/shared instance — every designer runs their own local 
 
 If `git status` shows nothing to commit, skip this step silently — no need to report "nothing to push."
 
-**Git autopilot on** (`behaviour.gitAutopilot`, default): items 3–5 become one
+**Git autopilot** (`behaviour.gitAutopilot`, off by default): items 3–5 become one
 question, "Share this? It goes to the team on its own project branch.", and
 a yes runs save then share (`harness/references/git-autopilot.md` §§ 3, 5).
 Never `git push` by hand, never to `main`.

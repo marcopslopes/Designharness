@@ -35,7 +35,7 @@ export const DEFAULT_HARNESS_CONFIG: HarnessConfig = {
     variantForks: true,
     tasteCheckpoint: true,
     handoffNudge: true,
-    gitAutopilot: true,
+    gitAutopilot: false,
   },
 }
 

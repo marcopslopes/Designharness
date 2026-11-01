@@ -93,7 +93,7 @@ const DEFAULT_CONFIG: HarnessConfig = {
     variantForks: true,
     tasteCheckpoint: true,
     handoffNudge: true,
-    gitAutopilot: true,
+    gitAutopilot: false,
   },
 }
 

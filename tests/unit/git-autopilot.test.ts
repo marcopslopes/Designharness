@@ -31,7 +31,10 @@ function gitIn(cwd: string, env?: Record<string, string>) {
 }
 
 /** A tiny repo on `main` with the project template and a designer profile, like a fresh clone. */
-function repo({ profile = '- Name: Ana Silva\n' }: { profile?: string | null } = {}) {
+function repo({
+  profile = '- Name: Ana Silva\n',
+  autopilot = true,
+}: { profile?: string | null; autopilot?: boolean } = {}) {
   const root = mkdtempSync(path.join(tmpdir(), 'dh-autopilot-'))
   const git = gitIn(root)
   git('init', '-q', '-b', 'main')
@@ -49,6 +52,7 @@ function repo({ profile = '- Name: Ana Silva\n' }: { profile?: string | null } =
   git('add', '-A')
   git('commit', '-q', '-m', 'init')
   if (profile !== null) write('designer-profile.local.md', profile)
+  if (autopilot) write('harness.config.local.json', JSON.stringify({ behaviour: { gitAutopilot: true } }))
   const log = (ref = 'HEAD') => git('log', '--format=%s', '-n', '20', ref).split('\n')
   return { root, git, write, log, read: (file: string) => readFileSync(path.join(root, file), 'utf8') }
 }
@@ -83,7 +87,7 @@ test('a company project on a public repo is saved locally and never committed', 
 
 test('publicRepo off keeps a company project in tracked projects', () => {
   const { root, read, write } = repo()
-  write('harness.config.local.json', JSON.stringify({ publicRepo: false }))
+  write('harness.config.local.json', JSON.stringify({ publicRepo: false, behaviour: { gitAutopilot: true } }))
   const result = start(root, 'payouts', { scaffold: true, title: 'Payouts', local: true })
   assert.equal(result.message, 'Working on ana/payouts.')
   assert.equal(read('projects/payouts/brief.md'), '# Brief — Payouts\n')
@@ -244,15 +248,15 @@ test('share pushes the project branch and links to the PR form, never main', () 
   )
 })
 
-test('autopilot is on by default; the setting or the profile line turns it off', () => {
-  const off = repo({ profile: '- Name: Ana Silva\n- Git autopilot: off\n' })
+test('autopilot is off by default; wrap up and share still run', () => {
+  const off = repo({ autopilot: false })
   assert.equal(start(off.root, 'demo', { scaffold: true }).message, null)
   assert.equal(off.git('branch', '--show-current'), 'main')
   assert.ok(existsSync(path.join(off.root, 'projects/demo/brief.md')))
-  const config = repo()
-  config.write('harness.config.local.json', JSON.stringify({ behaviour: { gitAutopilot: false } }))
-  assert.equal(start(config.root, 'demo').message, null)
-  assert.equal(save(config.root, 'demo', 'x').message, null)
+  off.write('projects/demo/brief.md', 'mine\n')
+  assert.match(save(off.root, 'demo', 'Mine.').message ?? '', /Saved on ana\/demo/)
+  const on = repo({ profile: '- Name: Ana Silva\n- Git autopilot: on\n', autopilot: false })
+  assert.match(start(on.root, 'demo', { scaffold: true }).message ?? '', /Working on ana\/demo/)
 })
 
 test('catch-up merges main after a day behind, and stops on a conflict without merging', () => {

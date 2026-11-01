@@ -24,18 +24,15 @@ Say the script's line as it is. Say nothing when it prints nothing. Never run
 `git switch`, `git commit`, `git merge`, `git reset`, `git revert` or
 `git push` yourself for these steps.
 
-**What runs without being asked:** the branch on a new project (§ 1), the
-switch on "continue X" (§ 2), the save on "wrap up" (§ 3), and the push on
-"share this" (§ 5). Everything else — catch-up, undo, update, parallel
-folders, doctor — runs only when the designer names it. Never offer it and
-never run it as a side effect.
+**What always runs:** the save on "wrap up" (§ 3) and the push on "share
+this" (§ 5).
 
-**On by default.** Two ways to turn it off, either one wins:
-`behaviour.gitAutopilot: false` in `harness.config.local.json` (Settings,
-"Handle Git for me"), or `- Git autopilot: off` in `designer-profile.local.md`.
-Off → the script prints `Git autopilot is off.` and touches nothing. Skip
-steps 1–5 and 7, say nothing about Git, and let the designer run it. `session`,
-`doctor`, `update` and `worktree` still work when it's off.
+**Off by default.** Start, continue, undo, update, and a parallel folder
+run only when `behaviour.gitAutopilot` is `true` in
+`harness.config.local.json` (Settings, "Handle Git for me"), or the
+profile says `- Git autopilot: on`. Off → those commands print
+`Git autopilot is off.` and touch nothing. Catch-up and doctor still run
+only when named.
 
 **Whose name.** The branch uses the first name from the profile's `- Name:`.
 Cloud sessions have no profile; there it uses `git config user.name`. Neither

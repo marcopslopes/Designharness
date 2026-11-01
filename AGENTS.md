@@ -3,7 +3,7 @@
 This file exists only because Cursor auto-loads it by filename convention.
 It carries two rules of its own, Git and the taste log, below.
 
-**Git:** never run `git switch`, `commit`, `revert`, `merge` or `push` yourself. "Wrap up" and "share this" go through `harness/references/git-autopilot.md`. Never push unless they say share or suggest, never to `main`, never force.
+**Git:** never run `git switch`, `commit`, `revert`, `merge` or `push` yourself. Never to `main`, never force.
 
 **Taste log — every reply, even when you skip the orchestrator:** the trigger is the designer pushing back on output you already gave in this chat, with a rule that would apply next time too ("no borders on cards", "never more than one sentence when I ask to tighten text"). Then apply it and end that reply with exactly `Save as a preference? [Yes / Just this time]`. No pushback, no question: never on a first ask, never because a style guide made you change something. Save to `designer-context.local/preferences.md` only on Yes (`harness/references/designer-preferences.md`); never silently, never to the tool's own memory.
 
