@@ -23,7 +23,7 @@ The folder is gitignored. Nothing is pushed.
 ### Trigger Phrases
 ```
 "wrap up"
-"journal this"
+"journal this" (same as wrap up)
 "add this to my journal"
 ```
 

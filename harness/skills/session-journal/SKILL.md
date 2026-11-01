@@ -22,7 +22,7 @@ A record of **the designer's judgment**, not the AI's output: what they
 asked for, where they steered, what they decided. One short entry per
 session, in a private file per day per project.
 
-**Invoke in Cursor:** "journal this", "wrap up"
+**Invoke in Cursor:** "wrap up" ("journal this" is the same)
 
 ---
 
