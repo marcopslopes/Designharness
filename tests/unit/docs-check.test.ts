@@ -69,7 +69,7 @@ test('links inside code are not checked', () => {
 
 test('a wrong skill count or port in the docs fails the check', () => {
   const skills = check({ 'README.md': 'Ships with 40 skills.\n' })
-  assert.match(skills.output, /says 40 skills; harness\/skills has 1/)
+  assert.match(skills.output, /says 40 skills; 1 route \(1 on disk, pointers omitted\)/)
   const port = check({ 'INSTALL.md': 'Open http://localhost:3005.\n' })
   assert.match(port.output, /says localhost:3005; vite.config.ts serves 3002/)
 })

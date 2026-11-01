@@ -33,7 +33,7 @@ export function undo(
 ): { target: Undoable | null; files: string[]; message: string }
 export function webUrl(remoteUrl: string): string | null
 export function branchLink(remoteUrl: string, branch: string, options?: { base?: string; into?: string }): string | null
-export function share(root: string): { link: string | null; message: string | null }
+export function share(root: string): { link: string | null; message: string }
 type Fetched = { ok: boolean; detail: string }
 type Fetch = (root: string, remote: string, branch?: string) => Fetched
 export function fetchBranch(root: string, remote: string, branch?: string, timeout?: number): Fetched

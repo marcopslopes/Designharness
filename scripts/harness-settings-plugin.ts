@@ -398,7 +398,7 @@ function writeConfig(
   writeFileSync(path.join(root, CONFIG_FILE), `${JSON.stringify(merged, null, 2)}\n`)
 }
 
-/** "New project" in the app: the same start as the agent's (branch from main), plus the template folder. */
+/** "New project" in the app: the template folder. A branch only when Git autopilot is on. */
 function newProject(root: string, input: { name?: unknown }) {
   const name = text(input.name, 'Project name', 60)
   const slug = slugify(name)

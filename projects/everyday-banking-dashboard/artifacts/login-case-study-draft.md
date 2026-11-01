@@ -37,11 +37,11 @@ Source: decisions.md 2026-11-01; brief.md (Scope)
 
 ## 6. Live prototype
 
-![Login](screens/LoginPage.tsx)
+![Login](../screens/LoginPage.tsx)
 
 The name is Nora Hale, and it is made up. Leave the password empty and Log in asks you to enter one. Type a password and Log in stays on this screen. Forgot does nothing yet.
 
-- [Login storyboard](screens/Login.storyboard.ts): why the name is on the screen, and why Log in does not leave it.
+- [Login storyboard](../screens/Login.storyboard.ts): why the name is on the screen, and why Log in does not leave it.
 
 Source: findings.md 2026-11-01; screens/LoginPage.tsx
 
@@ -57,9 +57,9 @@ Source: brief.md (How we'd know, unknowns, Scope)
 
 ## 8. Sources
 
-- [Project brief](brief.md)
-- [Mobbin references](sources.md) — N26 for the password-only screen. bunq, Chime, and Revolut were the parked directions. No ticket.
-- [Login](screens/LoginPage.tsx)
+- [Project brief](../brief.md)
+- [Mobbin references](../sources.md) — N26 for the password-only screen. bunq, Chime, and Revolut were the parked directions. No ticket.
+- [Login](../screens/LoginPage.tsx)
 
 Source: brief.md (Sources); sources.md
 
