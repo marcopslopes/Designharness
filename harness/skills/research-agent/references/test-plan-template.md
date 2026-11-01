@@ -3,8 +3,8 @@
 Copy this into `projects/<task-slug>/testing/test-plan.md` when a validation
 study is actually planned or run — not before. This closes the PRD's
 "how will we know it worked?" question with real evidence instead of
-leaving it as a permanent UNKNOWN. Owned by the `researcher` role (see
-`harness/agents/researcher.md`); same discipline as `findings.md` — sourced,
+leaving it as a permanent UNKNOWN. Owned by `research-agent`; same
+discipline as `findings.md` — sourced,
 dated, honest about sample size and confidence.
 
 **Status:** PLANNED / RUNNING / COMPLETE

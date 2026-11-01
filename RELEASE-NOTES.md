@@ -4,6 +4,13 @@ What changed in the harness and Design Harness, newest first. Add an entry when 
 
 Each release is a version in `package.json` and a matching Git tag, such as `v0.1.0`. New entries go under a date heading above the latest version until the next release.
 
+### 1 November 2026
+
+- **Decisions on the project page.** Each project lists **Decisions** under Project facts, and on its board: every dated entry in `decisions.md`, with what was chosen, what was rejected, and why. Findings, sources, the log, and raw notes stay off the page.
+- **Raw notes stay next to the project.** Pasted transcripts and threads save to the project's `raw/` folder, which is never committed. Settings → "Share raw notes with the team" commits the ones that name no one. Every file gets a line in `sources.md`, which agents read first.
+- **The docs reminder waits for wrap up.** A normal reply no longer ends with "docs freshness still due." Say "wrap up" and it appears once, if that session changed routing or a skill and the log has no line for today.
+- **Kickoff is one file.** A new or ambiguous request reads the profile and existing briefs, finds three references, and asks one why question before it writes anything. A small tweak skips that and just does the change. Name, requester, and hands-on level are not questions. A new screen lists what is on it and two options before the build. Deleting or overwriting waits for a yes. A project branch starts only when Git autopilot is on. Wayfinding and "which research method" are their own routes, not kickoff. The brief includes a guessed "How we'd know" line.
+
 ### 31 October 2026
 
 - **Share this only pushes a project branch.** On `simplify` or `main` it stops. The agent runs one command and passes the line back; it does not read the script.

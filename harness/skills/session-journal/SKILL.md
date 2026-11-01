@@ -133,6 +133,7 @@ clean. Write the journal entry, then append one handoff row to
   `node scripts/git-autopilot.mjs save <slug> "<the entry's heading, without the time>"`
   and say its line. Do not open the script. If it lists harness files, ask
   Keep it local / Suggest it to the harness — no Other.
+- Docs freshness, once, and only here: if this session changed a §2 row, a skill description, or added a skill, and `harness/logs/docs-freshness.md` has no line dated today for that change, say: "Docs freshness still due — run the checklist in `documentation/maintainers/docs-freshness.md` and append to `harness/logs/docs-freshness.md`." Never on any other reply.
 - Then end with one line: "Wrapped up. Start a new chat and say 'continue
   <slug>'."
 

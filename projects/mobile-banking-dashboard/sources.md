@@ -29,3 +29,11 @@ Notes if a link goes bad).
 | Monzo account detail (Mobbin) | Competitor | Transactions grouped by day with daily totals | https://mobbin.com/screens/6c2bac17-2f8f-468d-bc8f-c77b4cf7ea5b | 2026-10-15 |
 | Monzo payments calendar (Mobbin) | Competitor | Future money: still to pay, next due date | https://mobbin.com/screens/fc38868c-15e2-4acd-9a7f-df9a83ecbf9b | 2026-10-15 |
 | Quartz (design.how) | Other | Dense desktop system: status words, stats strip, hairline frames. Reference for missing Desktop pieces, not a palette swap | https://design.how/systems/quartz | 2026-10-17 |
+
+## Files
+
+| File | What it is | Supports | Indexed |
+|------|------------|----------|---------|
+| `docs/how-this-project-ran.md` | Walkthrough of how the project ran, with screenshots | The case study and the process story | 2026-11-01 |
+
+<!-- One row per file in raw/ or docs/. Gitignored files still get a row, so the index says they exist. -->

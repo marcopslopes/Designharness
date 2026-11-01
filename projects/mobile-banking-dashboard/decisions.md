@@ -111,3 +111,9 @@ Quartz (design.how) is a cold, dense system for agent tools. The wallet desktop 
 
 **Chosen:** use Quartz's shape when Desktop gains a table, filter bar, status word, and stats strip. Also on the Harness frame: sentence case, one primary action per view, status as a word. Leave Quartz's frost palette and type. Nothing rebuilt yet.
 **Made by:** designer.
+
+### 2026-11-01 — Autonomy on the profile screen
+
+**Chosen:** Confirm each step.
+**Rationale:** Hands-on dial for this screen only. Does not skip the plan approval.
+**Made by:** designer, via AskQuestion.

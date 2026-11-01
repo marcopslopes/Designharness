@@ -8,7 +8,7 @@ not on every request.
 | File | Role |
 |---|---|
 | `harness/skills/workload-agent/SKILL.md` | Live roadmap + designer execution boards — autonomous workload snapshot |
-| `harness/skills/design-kickoff/SKILL.md` | The front door for a new product bet — workload + research + PRD + human gate before design work. Questions, lookups, iterations, critiques, copy, and imports do not reach the gate |
+| `harness/skills/design-kickoff/SKILL.md` | Kickoff. The only copy of those rules. |
 | `harness/logs/routing-standards.md` | How skill descriptions must be written so routing works; live roster audit (count source of truth — do not hardcode a number here) |
 | `harness/logs/routing-log.md` | Global exceptions log — fallbacks, wrong matches, and approved plans, including ones with no task folder. Plain matches are in `skill-usage.jsonl` |
 | `harness/logs/skill-benchmarking.md` | Append-only per-run PASS/BLOCKED + issue log from `audit` Step 3.4 — passive data for skill-output benchmarking, no auto rollup. Not `harness/skills/benchmark/SKILL.md` (competitor comparison) |
@@ -25,7 +25,7 @@ not on every request.
 | `harness/references/project-files.md` | Which project file owns which fact. No `wayfinding.md`. |
 | `harness/skills/design-system/SKILL.md` | Pre-write token check + three-layer stylesheet rule; owns DS structural debt in `KNOWN-ISSUES.md` — not a substitute for `audit` |
 | `harness/skills/audit/SKILL.md` | Mandatory final gate; also owns the post-PASS remote-sync prompt (§6). Checks 6–7: object failure modes + surface-vs-deeper (advisory). Shared table: `harness/references/ooux-failure-modes.md` |
-| `harness/skills/` | Full content for every real skill in this repo — see `harness/logs/routing-standards.md`'s table for the current count. §2 routes most skills directly (`research-agent` is nested inside `design-kickoff` Step 1b) |
+| `harness/skills/` | Full content for every real skill in this repo — see `harness/logs/routing-standards.md`'s table for the current count. §2 routes most skills directly. Kickoff is only `design-kickoff`. |
 | `harness/skills/manager-1on1-prep/SKILL.md` | Gated to `role: manager` profiles — 1:1 prep docs for one named report, sourced from `workload-agent` manager mode + `projects/` task folders. Never queries Slack DMs/private channels; human guide `harness/skills/manager-1on1-prep/GUIDE.md` |
 | `harness/skills/people-coaching/SKILL.md` | Gated to `role: manager` — feedback (SBI) / difficult conversation / growth plan; human guide `harness/skills/people-coaching/GUIDE.md` |
 | `harness/skills/scheduling/SKILL.md` | Standalone, on-demand find/propose/book capability, plus grounded context in what it drafts/writes — never a gate, never mandatory, not manager-specific. Same "own skill, composed by others" shape as `workload-agent`. Free/busy signal only, never event content. Reachable from general chat or composed by `manager-1on1-prep` |
@@ -37,7 +37,7 @@ not on every request.
 | `harness/skills/publish-project/SKILL.md` | On-demand only — copies a picked `artifacts/decks/` file into `public/projects/<slug>/`, the only folder actually served publicly. Requires a prior `audit` PASS; never auto-fires after a build, export, or audit |
 | `harness/skills/writing/SKILL.md` | On-demand long-form prose (essay / case-study / short-form) from task-folder evidence — anti-slop pass, optional voice DNA, structure gate, always DRAFT; human guide `harness/skills/writing/GUIDE.md` |
 | `harness/skills/session-handoff/SKILL.md` | On-demand chat compact for a fresh agent session — state-first; saves to `projects/<slug>/handoff.md`; human guide `harness/skills/session-handoff/GUIDE.md` |
-| `harness/skills/assumption-mapper/SKILL.md` | Separates sourced "known" from unsourced "believed" before research/a build starts — composed into `design-kickoff` Step 0/1, feeds Step 1.5; human guide `harness/skills/assumption-mapper/GUIDE.md` |
+| `harness/skills/assumption-mapper/SKILL.md` | Separates sourced "known" from unsourced "believed" before research/a build starts. Not part of kickoff. Human guide `harness/skills/assumption-mapper/GUIDE.md` |
 | `harness/skills/research-question-sharpener/SKILL.md` | Rewrites vague stakeholder research questions into TEDW story-based ones; flags what qual research can't answer. Feeds `usability-test-guide`; human guide `harness/skills/research-question-sharpener/GUIDE.md` |
 | `harness/skills/usability-test-guide/SKILL.md` | Quant or qual usability test guide for an existing prototype — fires from `design-kickoff` Step 1.5 or standalone; human guide `harness/skills/usability-test-guide/GUIDE.md` |
 | `harness/skills/research-synthesis/SKILL.md` | Debrief/lightning synthesis/full tag+affinity — turns raw session data into pattern candidates, feeds `insight-writer`; human guide `harness/skills/research-synthesis/GUIDE.md` |
@@ -79,7 +79,6 @@ not on every request.
 | `harness/skills/competitor-scan/SKILL.md` | Targeted, factual reference pull on one named competitor's shipped pattern for one feature/flow — Mobbin if a designer already has it connected (optional), web fallback otherwise. Never judges the company's own screens |
 | `harness/skills/benchmark/SKILL.md` | Explicit, requested scored gap analysis of a real the company screen against 2-3 best-in-class examples — calls `competitor-scan` for named competitors, cross-checks every gap against `COMPANY-PATTERNS.md`/`COMPANY-ARCHETYPES.md` before flagging it |
 | `harness/skills/mobile-shell/references/ios-interaction-patterns.md`, `.../android-interaction-patterns.md`, `harness/skills/ui-agent/references/desktop-web-patterns.md` | Platform interaction/behavior layer (gestures, sheets, hover, focus order) — applied by `ui-agent` under §7's tokens/component/voice rules, never overriding them |
-| `harness/agents/` | Thin, per-role files (`researcher`, `product-designer`, `content-designer`, `craft-reviewer`, `design-ops`) stating who owns/composes which skills — doesn't change how any skill routes or executes |
 | `INSTALL.md` § Use it with a team | How a team shares one copy through its own Git remote (§6) |
 | `harness/designer-onboarding/SKILL.md` | One-time per-clone setup (§0) |
 | `COMPANY-SQUADS.md` | Canonical domain and squad map — onboarding + research |
@@ -89,13 +88,15 @@ not on every request.
 | `harness/references/ask-question-ui.md` | Repo-wide `AskQuestion` contract — all fixed-choice designer questions |
 | `harness/references/onboarding-gate.md` | §0 in full — onboarding order (greeting first), manager path, and the `sessionStart` hook note; read only when the profile is missing |
 | `harness/references/resume-detection.md` | §2b in full — `brief.md` `Status:` decides whether an existing folder is kicked off; the no-STUB-at-end-of-turn rule |
-| `harness/references/challenge.md` | §2h in full — when the one-sentence challenge fires, and what Build anyway writes |
+| `harness/references/challenge.md` | §2h templates and buttons, how to fill the blanks, and what each button writes |
+| `harness/references/routes.md` | The long tail of §2, grouped by phase. Opened only when a §2 group row matches |
+| `harness/references/routing-notes.md` | Full notes for every §2 row. Grep the skill name after a row matches |
 | `harness/references/people-lookup.md` | §2c in full — direct "who works on X" lookup from the profile and `COMPANY-SQUADS.md`; the honesty rule |
 | `harness/references/design-critique.md` | §2d in full — artifact type, drop-time `AskQuestion`, written chain, follow-up offers, carve-outs |
 | `harness/references/autonomy-dial.md` | §3a in full — the per-task "how hands-on" question inside a plan block |
 | `harness/references/remote-sync.md` | §6 in full — Git remote as the only sync; `audit`'s push prompt and gallery check |
 | `harness/references/handoff-patterns.md` | §8 and §8a in full — handoff anti-patterns and handoff types, for `harness-audit` |
-| `harness/references/project-inbox.md` | Project inbox (§5) — pasted/attached raw material saved verbatim to `projects.local/<slug>/inbox/` before summarizing; never edited, loaded only on demand |
+| `harness/references/project-inbox.md` | Project raw material (§5) — pasted/attached material saved verbatim to gitignored `projects/<slug>/raw/` and indexed in `sources.md` before summarizing; never edited, opened only on demand |
 | `harness/references/project-stage.md` | Project stage line (§5) — stage worked out from which `projects/<slug>/` files have real content; derived, never stored, never a gate |
 | `harness/references/gallery-card-enrichment.md` | Team Gallery card profile lookup (title / focusAreas / avatar) — primary at first eligibility; audit Step 3.5 safety net |
 | `harness/references/source-links.md` | Repo-wide rule — link tickets, docs pages, chat threads, Figma, and Miro when cited in output |

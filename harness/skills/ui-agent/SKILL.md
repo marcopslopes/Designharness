@@ -8,7 +8,8 @@ description: >-
   prototype (micro-edits still use this skill — never freestyle code edits).
   Before writing CSS values, runs the `design-system` token-check. Chains into
   `icon-usage` for iconography and `audit` as the mandatory close before
-  sharing.   Does not do discovery or research — see `research-agent`. For
+  sharing. A new surface starts in `design-kickoff`. Does not do
+  discovery or research — see `research-agent`. For
   phone-frame device chrome specifically, see mobile-shell. For token
   gaps / stylesheet layer rules alone, see `design-system`.
 
@@ -54,15 +55,17 @@ overrides it.
 
 **And** the screen you are changing, or the nearest existing screen in that project. Open a file it imports only to check one value.
 
+**Component props:** `context/design-system/COMPONENTS-INDEX.md`, once (generated: one line per component with its props and values). Open a `ds/*.tsx` file only when a prop there is unclear, or to copy markup the index can't show.
+
 Do not preload `harness/ORCHESTRATOR.md`, `COMPANY-BUSINESS.md`, `COMPANY-ARCHETYPES.md`, `context/design-system/ds/index.ts`, or a platform pattern doc. The orchestrator is already in force. Name the product area from the brief. Open one platform doc only when the new screen's behavior depends on it, and only that platform.
 
 ---
 
 ## Workflow
 
-**New screen.** Adding a screen uses more than one skill, so the plan gate applies. Write the plan and stop. Do not create or edit a file until the designer replies "go". Nobody to answer (headless, one-shot): the plan is the whole reply. Do not build the screen, the storyboard, or the case study in that turn. A change to a screen already in progress does not stop.
+**New screen.** `harness/skills/design-kickoff/SKILL.md`, then this workflow. A small tweak to a screen already in progress does not stop for that. Nobody to answer (headless, one-shot): the plan is the whole reply. Do not build the screen, the storyboard, or the case study in that turn.
 
-0. **Read-back, existing project only** — read the fenced YAML truth block in `brief.md` and the last 10 `decisions.md` entries (see Project decisions above), nothing else from the folder (`log.md` and `findings.md` stay unread). If the request touches a `parked` direction, an unknown with `blocks`, or contradicts a `decisions.md` entry, say that with the matching sentence in `harness/ORCHESTRATOR.md` §2h and run that challenge. If none of those are touched, say nothing and continue. No project folder yet: skip this step.
+0. **Read-back, existing project only** — read the fenced YAML truth block in `brief.md`, the brief's scope (in, out, named owner), and the last 10 `decisions.md` entries (see Project decisions above). `log.md` and `findings.md` stay unread. If the request touches a `parked` direction, an unknown with `blocks`, a `decisions.md` entry, or the brief's scope or a named owner, say that with the matching sentence in `harness/ORCHESTRATOR.md` §2h and run that challenge. If none of those are touched, say nothing and continue. No project folder yet: skip this step.
 
 0.5. **Fidelity check (only when genuinely asked or genuinely unclear)** — most builds skip this silently and go
    straight to Step 1, same as the platform/format checks below. Only reason through this when the designer asks
@@ -163,7 +166,9 @@ Do not preload `harness/ORCHESTRATOR.md`, `COMPANY-BUSINESS.md`, `COMPANY-ARCHET
    layer rule (real DS vs Design Harness chrome vs per-prototype CSS).
 5. **Prototype in Design Harness** — project screens live in `projects/<slug>/screens/<Name>Page.tsx`, exporting
    a component named after the file; Design Harness discovers them (`src/design-harness/projectsIndex.ts`), so a new
-   prototype is that one file — never a route list, nav entry or shared registry edit. A project saved locally
+   prototype is that one file — never a route list, nav entry or shared registry edit. A brand-new screen file can
+   show "unknown route" in a tab that was already open: reload the full page (`?reload=1` before the `#`) once
+   before reading any router code. A project saved locally
    (`projects.local/<slug>/`, company tools on a public repo) keeps its screen in that folder too; the public
    playground only lists tracked `projects/`. Never create a prototype
    anywhere else; with no project yet, start one first (`design-kickoff`, which also starts its branch per
@@ -177,7 +182,7 @@ Do not preload `harness/ORCHESTRATOR.md`, `COMPANY-BUSINESS.md`, `COMPANY-ARCHET
    `![Label](screens/<Name>Page.tsx)` on its own line — Design Harness renders it live — instead of pasting a
    screenshot that drifts. Pages written for people (a flow, a research readout) go in `projects/<slug>/docs/` as
    `.md` or `.mermaid`; embed a diagram with `![Label](docs/<name>.mermaid)`. The project sidebar is one flat
-   "Artifacts" list — About, Project facts, docs, screens (plus a Case study section when
+   "Artifacts" list — About, Project facts, Decisions (`decisions.md` entries, once there is one), docs, screens (plus a Case study section when
    `case-study` outputs exist) — with an icon per kind, so name files so
    they read well on their own. `docs/` is read by the app, so never
    put agent working notes (`decisions.md`, `findings.md`, `log.md`) there — write a human summary instead.
@@ -202,7 +207,8 @@ Do not preload `harness/ORCHESTRATOR.md`, `COMPANY-BUSINESS.md`, `COMPANY-ARCHET
    `case-study.md`, and `decisions.md` holds a chosen direction (an entry with a **Chosen:** line, or a decision
    that names the rejected alternative; kickoff answers don't count), run `harness/skills/case-study/SKILL.md` in
    its after-build mode. List it in the build's plan so the go covers it. When `behaviour.caseStudyDraft` is `false`,
-   ask once via `AskQuestion` instead (write it / not now). Never rewrites an existing `case-study.md`; updates
+   don't write it: end the build's reply with one `AskQuestion` (write the case study / not now), once per project.
+   Never rewrites an existing `case-study.md`; updates
    stay on request.
 7. **Run audit** — unless `behaviour.audit` is `on-share` in `harness.config.local.json`; then defer it until the
    designer is sharing or asks, and log the deferral (`harness/references/harness-settings.md`). — `harness/skills/audit/SKILL.md` before sharing

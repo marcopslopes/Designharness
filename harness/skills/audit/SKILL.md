@@ -46,8 +46,8 @@ the reference.
 
 ## Two layers (required on every report)
 
-Same labeling system as `harness/skills/figma-ux-audit/SKILL.md` and
-`harness/agents/product-designer.md` — one convention, not three.
+Same labeling system as `harness/references/design-critique.md` § Two
+layers — one convention everywhere.
 
 | Layer | Label | Severity in this skill |
 |---|---|---|

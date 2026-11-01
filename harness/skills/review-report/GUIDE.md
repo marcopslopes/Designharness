@@ -79,8 +79,9 @@ The chassis is the paper article shell in
 article, its own sections.
 
 Reports save under `projects/<slug>/artifacts/reports/` (or
-`projects.local/<slug>/artifacts/reports/` for real-company work). Serve
-the `artifacts/` folder so capture images resolve.
+`projects.local/<slug>/artifacts/reports/` for real-company work). A report
+in `projects/` opens on the project page under **Reviews**, and sits on the
+project board with the screens.
 
 ---
 

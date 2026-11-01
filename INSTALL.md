@@ -4,7 +4,7 @@ There are two ways to use this work. Pick the one that matches what you want.
 
 | You want | Install | What you get |
 |---|---|---|
-| **The full harness** — routing, research-first kickoff, quality gates, logged projects, the Design Harness app | [Clone this repo](#full-harness) | Every skill, the orchestrator, your company pack, project folders, the preview app |
+| **The full harness** — routing, kickoff for a new request, quality gates, logged projects, the Design Harness app | [Clone this repo](#full-harness) | Every skill, the orchestrator, your company pack, project folders, the preview app |
 | **Just the skills**, inside a project you already have | [Design Skills package](#skills-only) | The same skill playbooks, each self-contained. No routing between skills, no gates, no app |
 
 The gates this harness is known for (research before building, `audit` before

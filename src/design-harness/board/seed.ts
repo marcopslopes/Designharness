@@ -124,7 +124,7 @@ export function projectDoc(project: Project): BoardDoc {
 }
 
 /**
- * Brings a saved board up to date: artifacts made since then join the canvas in a new row at the bottom.
+ * Brings a saved board up to date: artifacts made since then join the canvas at the bottom, a row per sidebar section.
  * Boards saved as one page per artifact become one canvas, keeping what people added to each page.
  */
 export function syncProjectDoc(doc: BoardDoc, project: Project): BoardDoc {
@@ -135,11 +135,11 @@ export function syncProjectDoc(doc: BoardDoc, project: Project): BoardDoc {
     doc.pages.flatMap((page) => page.nodes.flatMap((node) => (node.type === 'prototype' ? [node.route] : []))),
   )
   const missing = projectArtifactSections(project)
-    .flatMap((section) => section.items)
-    .filter((artifact) => !covered.has(artifact.route))
+    .map((section) => ({ ...section, items: section.items.filter((artifact) => !covered.has(artifact.route)) }))
+    .filter((section) => section.items.length)
   if (!missing.length) return unwrapped
   const bottom = Math.max(0, ...canvas.nodes.map((node) => nodeBounds(node)).map((r) => r.y + r.h)) + ROW_GAP
-  const { nodes } = layoutSections(project, [{ label: 'New since you last looked', items: missing }], bottom)
+  const { nodes } = layoutSections(project, missing, bottom)
   return {
     ...unwrapped,
     pages: unwrapped.pages.map((page) =>

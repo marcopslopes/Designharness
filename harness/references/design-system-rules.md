@@ -114,6 +114,8 @@ tokens: `context/design-system/TOKENS-QUICK-REFERENCE.md` (summary) and
 
 Prop and import cheat sheet for `Button`, `Text`, `Stack`, `Card`, `Badge`,
 `TextField`, `Toast` and `Icon`: `context/design-system/COMPONENTS-QUICK-REFERENCE.md`.
+Props of every other component, one line each, generated from the types:
+`context/design-system/COMPONENTS-INDEX.md` (`npm run ds:index`; the build fails when it's stale).
 New call sites use `Button`'s `intent` + `size` (`variant`/`tone` are deprecated).
 Icons come only from `@tabler/icons-react` via `Icon` — never hand-drawn `<svg>`.
 

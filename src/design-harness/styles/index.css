@@ -31,3 +31,6 @@
 
 @import './prototypes/navigation-profile.css';
 @import './prototypes/wallet-home.css';
+@import './prototypes/everyday-home.css';
+@import './prototypes/send-list.css';
+@import './prototypes/login.css';

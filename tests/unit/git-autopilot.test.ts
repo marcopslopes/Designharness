@@ -227,20 +227,24 @@ test('resume switches to the project branch, and stays put without one', () => {
 test('share refuses a harness-maintenance branch', () => {
   const { root, git } = repo()
   git('switch', '-q', '-c', 'simplify')
-  assert.throws(() => share(root), /This one is simplify/)
+  assert.throws(
+    () => share(root),
+    /simplify is harness work, not a project, so "share this" won't push it\. To push harness changes, merge into main and push from there\./,
+  )
   git('switch', '-q', '-c', 'ana/harness-x')
-  assert.throws(() => share(root), /Share this is for a project branch/)
+  assert.throws(() => share(root), /ana\/harness-x is harness work, not a project/)
 })
 
 test('share pushes the project branch and links to the PR form, never main', () => {
   const { root, git, write } = repo()
   const origin = bare()
   git('remote', 'add', 'origin', origin)
-  assert.throws(() => share(root), /project branch/)
+  assert.throws(() => share(root), /main is harness work, not a project/)
   start(root, 'demo')
   write('projects/demo/brief.md', 'v1\n')
   save(root, 'demo', 'First save.')
-  share(root)
+  const sent = share(root)
+  assert.match(sent.message, /^Sent ana\/demo\.$/)
   assert.equal(gitIn(origin)('branch', '--list').trim(), 'ana/demo')
   assert.equal(
     branchLink('git@github.com:team/harness.git', 'ana/demo'),

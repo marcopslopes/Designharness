@@ -98,7 +98,7 @@ const BEHAVIOUR_TOGGLES: {
           label: 'On',
           text: 'Once decisions.md records a chosen direction, the next build writes the case study as a draft. Once per project; it never overwrites one.',
         },
-        { label: 'Off', text: 'Asks once: write it, or not now.' },
+        { label: 'Off', text: 'After the build, asks once: write it, or not now.' },
       ],
       note: 'Slides and an article are always asked about. Asking for a case study always works.',
     },
@@ -159,6 +159,21 @@ const BEHAVIOUR_TOGGLES: {
         { label: 'Off', text: "'Wrap up' still saves and 'share this' still pushes. Start, continue, undo, update, and a parallel folder stay off." },
       ],
       note: "It never pushes unless you say share, never to main, and never with force. '- Git autopilot: on' in your designer profile turns it on.",
+    },
+  },
+  {
+    key: 'shareRaw',
+    title: 'Share raw notes with the team',
+    description: "Off by default. A project's transcripts, threads, and screenshots stay on this computer.",
+    info: {
+      rows: [
+        {
+          label: 'On',
+          text: "Raw notes with no people's names in them save to raw/shared/ and are committed. Anything naming people still stays local unless you say to share that file.",
+        },
+        { label: 'Off', text: 'Everything in a project’s raw/ folder stays on this computer.' },
+      ],
+      note: 'Every raw file gets a line in the project’s sources.md either way, so the index says it exists.',
     },
   },
 ]

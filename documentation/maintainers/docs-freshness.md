@@ -24,7 +24,6 @@ internals:
 | Install and team use | `INSTALL.md` | Install paths, team sharing, taking updates |
 | Design Harness briefing deck | `public/how-to/designer-briefing.html` | At-a-glance skill chips |
 | Design Harness system map | `public/how-to/system-map-agents-skills.html` | Roles + skills cards |
-| Agent role files | `harness/agents/*.md` | What each role owns / composes |
 | Routing standards | `harness/logs/routing-standards.md` | Live roster audit table (count source of truth) |
 | Orchestrator related-files | `harness/ORCHESTRATOR.md` § Related files | Pointers to HOWTOs / logs |
 
@@ -71,7 +70,6 @@ Copy this mentally; tick in the log entry’s notes if useful:
 - [ ] `INSTALL.md` — install, team, and update steps still match
 - [ ] `public/how-to/designer-briefing.html` — skill chips
 - [ ] `public/how-to/system-map-agents-skills.html` — skill cards (no dead skills)
-- [ ] `harness/agents/*.md` — ownership tables
 - [ ] `harness/ORCHESTRATOR.md` Related files — no “proposal only” drift for shipped things
 - [ ] Append one line to `harness/logs/docs-freshness.md`
 
@@ -101,9 +99,9 @@ Example:
 
 | Role | Duty |
 |------|------|
-| **design-ops** (`harness/agents/design-ops.md`) | Owns the contract; greps for drift when structure moves |
-| **Whoever ships a new skill** | Broad-docs pass (or explicit handoff to design-ops) in the **same** PR / same day — see `build-a-skill.md` checklist |
-| **harness-audit** | After a prospective eval pass that adds/changes a §2 row, remind: “docs freshness still due?” if no same-day log line |
+| **Harness maintainer** | Owns the contract; greps for drift when structure moves |
+| **Whoever ships a new skill** | Broad-docs pass (or explicit handoff to the maintainer) in the **same** PR / same day — see `build-a-skill.md` checklist |
+| **harness-audit** | Does not remind in a normal reply. Wrap up (`session-journal`) says it once if this session changed a §2 row, a skill description, or added a skill, and today's log has no line for it |
 
 ---
 
@@ -115,5 +113,5 @@ Example:
 | [`documentation/guides/how-the-harness-works.md`](../guides/how-the-harness-works.md) | Skills architecture + inventory |
 | [`documentation/guides/how-the-harness-works.md`](../guides/how-the-harness-works.md) | One-diagram process explainer |
 | [`documentation/maintainers/build-a-skill.md`](build-a-skill.md) | New-skill checklist includes this pass |
-| [`harness/agents/design-ops.md`](../../harness/agents/design-ops.md) | Systems role that owns harness health |
+| [`harness/harness-audit/SKILL.md`](../../harness/harness-audit/SKILL.md) | Harness health: routing audit and evals |
 | [`harness/logs/routing-standards.md`](../../harness/logs/routing-standards.md) | Live skill roster (count source of truth) |

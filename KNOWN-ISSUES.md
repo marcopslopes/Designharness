@@ -58,14 +58,13 @@ scan spec) + `.cursor/agents.md` (a Slack/Confluence Cloud Agent "project
 briefing" workflow) + `.cursor/skills/project-briefing/` and `.cursor/
 skills/feedback-synthesis-scan/` form a second, parallel agent stack —
 separate from `harness/skills/research-agent/`, not routed through
-`ORCHESTRATOR.md` §2, and not mentioned in `harness/agents/researcher.md`'s
-role file. Not dead (used as a Cursor Cloud Agent workflow), just confusing to have two
+`ORCHESTRATOR.md` §2, and not mentioned in `research-agent`. Not dead (used as a Cursor Cloud Agent workflow), just confusing to have two
 differently-shaped "research agent" concepts with no doc explaining how
 they relate.
 
 Needs a designer decision: fold the Cloud Agent briefing flow into the main
 `ORCHESTRATOR.md` routing table as its own documented exception, or add one
-clarifying paragraph to `harness/agents/researcher.md` explaining the
+clarifying paragraph to `harness/skills/research-agent/SKILL.md` explaining the
 split, so a future reader doesn't have to reconstruct the relationship from
 file layout alone. Not a mechanical fix.
 

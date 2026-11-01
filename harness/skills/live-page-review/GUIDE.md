@@ -34,7 +34,7 @@ guessing from a screenshot or from source alone.
 - Does **not** replace pre-share `audit` (no PASS/BLOCK from capture alone)
 - Does **not** house-critique a competitor — it captures, then
   `competitor-scan`
-- Does **not** add a Playwright MCP or a fifth onboarding MCP
+- Does **not** use Playwright MCP or add a fifth onboarding MCP (agent persona runs on a test link are `test-this`, which may use it)
 - Does **not** install Chromium for you — one-time `npx playwright install chromium` if capture is needed
 - Does **not** invent a 0–100 score or five parallel personas
 - Does **not** package the critique as HTML — after findings, ask for `review-report` if you want a scrollable report

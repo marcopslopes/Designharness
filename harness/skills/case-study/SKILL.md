@@ -58,8 +58,8 @@ the call from decisions.
   yet (§3 PLAN: `case-study` → `deck-builder` / `writing`).
 - **After-build mode:** `ui-agent` Step 6.6 runs this once per project, when
   there's no `case-study.md` yet and `decisions.md` holds a chosen
-  direction. Same workflow, minus the outline wait in step 2: the build's
-  plan already covered it. Skipped chapters are still listed, never filled.
+  direction (`behaviour.caseStudyDraft` `false`: only after a yes to the
+  build's one question). Same workflow. Skipped chapters are still listed, never filled.
 - **Does not fire on:** "make a stakeholder deck" / "workshop deck"
   (`deck-builder` directly); "HTML report of these findings"
   (`review-report`); "start a project" (`design-kickoff`).
@@ -88,9 +88,9 @@ confirms, and label every chapter that has no folder source as skipped.
 1. **Source.** Read the folder files and the journal. Note which
    chapters each file can fill. If `brief.md` has no problem statement, stop and ask.
 2. **Outline in chat.** One line per chapter: what goes in it and its
-   source file, or **skip — nothing in <file>**. Wait for go or adjust. This
-   is the cheap point to catch missing evidence. In after-build mode, show
-   the outline and keep going.
+   source file, or **skip — nothing in <file>**. Show it and keep going: the
+   file is a DRAFT, so the designer corrects the outline after reading it.
+   Wait for go only when they asked for the outline first.
 3. **Write.** Fill `projects/<slug>/case-study.md` in the file shape from
    `chapters.md`. Every chapter ends with a `Source:` line. Skipped chapters
    go under **Skipped** with the reason. Mark it `Status: DRAFT`.

@@ -86,22 +86,9 @@ check polaris for core SaaS initiatives
 
 The orchestrator routes these to `workload-agent` per `harness/ORCHESTRATOR.md` §2.
 
-### 2. Automatically on net-new kickoff (`design-kickoff` Step 1a)
+### 2. Kickoff
 
-Every net-new project that goes through `design-kickoff` runs the workload
-agent **before** the deep `research-agent` sweep:
-
-```
-Step 0  → 3 routing questions (name, known material, PM)
-Step 1a → workload-agent  (roadmap + DES/UXR + cross-ref)
-Step 1b → research-agent    (Confluence, Slack, Figma, Miro, Jira bodies)
-Step 2  → PRD in projects/<slug>/brief.md  (§1 Existing work & ownership)
-Step 3  → human gate
-```
-
-Raw output is appended to `projects/<slug>/findings.md` (dated,
-`workload-agent`). The PRD's **§1 Existing work & ownership** is
-distilled from this leg.
+Not this guide. `harness/skills/design-kickoff/SKILL.md`.
 
 ### 3. After designer onboarding (personal queue)
 
@@ -269,9 +256,7 @@ Queries run: [batched JQL listed]
 | **Question** | Who's on this? What's committed? Any overlap? | What do we know about the problem? |
 | **Sources** | Jira only (Polaris + `DES` + `UXR`) | Confluence, Jira, Slack, Figma, Miro |
 | **Output** | Snapshot + cross-ref buckets | Findings + optional Confluence draft |
-| **Kickoff role** | Step 1a — ownership & roadmap | Step 1b — deep discovery |
-
-Both run on net-new kickoffs. Neither replaces the other.
+| **Kickoff role** | Not part of kickoff. `harness/skills/design-kickoff/SKILL.md`. | Not part of kickoff. |
 
 ---
 

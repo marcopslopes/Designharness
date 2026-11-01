@@ -11,8 +11,8 @@ happens between your sentence and the result.
 
 ```mermaid
 flowchart TD
-    A["You type a request"] --> K{{"New project with no approved brief?"}}
-    K -->|yes| DK["design-kickoff: research, brief, your approval"]
+    A["You type a request"] --> K{{"New or ambiguous request?"}}
+    K -->|yes| DK["design-kickoff: references, one why, then the brief"]
     K -->|no| C["Intake: check the project folder and repo first"]
     DK --> C
     C --> D{{"Routing table, ORCHESTRATOR §2"}}
@@ -87,21 +87,17 @@ you choosing skills.
 
 ---
 
-## New projects start with research
+## A new request starts with kickoff
 
-When there's no approved brief for the thing you're asking about,
-`design-kickoff` runs first:
+A new or ambiguous request runs `design-kickoff` before anything is written.
+A small tweak to a screen already in progress skips it.
 
-1. Three short questions (name, what you already have, who the PM is).
-2. `workload-agent`: is someone already on this?
-3. `research-agent`: what exists in your docs, tracker, chat, Figma, and
-   Miro.
-4. `assumption-mapper`: what's known vs only believed.
-5. A brief with job stories in `projects/<slug>/brief.md`.
-6. **The gate.** Nothing is built until you approve the brief.
+1. It reads your profile and any existing project that could own this.
+2. It brings references, one search per source, skipping what isn't connected: your own projects first, then Mobbin screens (and flows for a journey), your matching Mobbin saves, a matching NotebookLM notebook, a Figma file you linked, and your team's docs, tracker, and chat. Three outside references, plus your own work, then one line saying which sources it used and which it skipped.
+3. It asks one question: what problem, for whom, and what changes.
+4. After you answer, it writes the brief, including a guessed "How we'd know" line for you to correct.
 
-Connected tools make step 3 richer. Without them, research uses what you
-paste and the web.
+Wayfinding and "which research method" are separate routes, not part of this.
 
 ---
 

@@ -7,9 +7,9 @@ single-skill auto-runs, multi-skill always gates, with no per-task
 override short of the standing "just do it" profile preference. See
 `documentation/guides/confidence-autonomy.md` for the full proposal.
 
-Whenever a plan block above actually fires (i.e. a real multi-skill
-chain, not a single-skill auto-run), offer one extra `AskQuestion` right
-after the plan, before "go":
+Kickoff: `harness/skills/design-kickoff/SKILL.md`. Otherwise, when a plan
+block fires and the profile says to ask how hands-on to be, offer one
+`AskQuestion` in the same message as the plan, before "go":
 
 ```
 How hands-on do you want to be on this one?

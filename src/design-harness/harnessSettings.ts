@@ -18,6 +18,7 @@ export type HarnessConfig = {
     tasteCheckpoint: boolean
     handoffNudge: boolean
     gitAutopilot: boolean
+    shareRaw: boolean
   }
 }
 
@@ -36,6 +37,7 @@ export const DEFAULT_HARNESS_CONFIG: HarnessConfig = {
     tasteCheckpoint: true,
     handoffNudge: true,
     gitAutopilot: false,
+    shareRaw: false,
   },
 }
 

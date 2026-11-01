@@ -4,9 +4,10 @@
  * (its `about.md`, or the brief's Intent until one exists), and each
  * `projects/<slug>/screens/*Page.tsx` (one folder deep, e.g. `desktop/`) opens at `#/playground/<slug>/<screen>`.
  *
- * PRIVACY BOUNDARY: only `about.md`, `brief.md`, `screens/**` and `docs/**`
- * are read. `docs/` holds pages written for people; the agent's working files
- * (`decisions.md`, `findings.md`, `log.md`, `sources.md`, …) stay at the
+ * PRIVACY BOUNDARY: only `about.md`, `brief.md`, `decisions.md`, `screens/**`
+ * and `docs/**` are read; `decisions.md` from its first dated `### ` entry on.
+ * `docs/` holds pages written for people; the agent's other working files
+ * (`findings.md`, `log.md`, `sources.md`, `debt.md`, `raw/`, …) stay at the
  * project root and are never globbed — same rule as the Team Gallery. The Team
  * Gallery uses only the brief's Ownership and Case study summary fields.
  * Folders starting with `_` (e.g. `_template`) are skipped.
@@ -19,7 +20,8 @@
  * `screens/states/*Page.tsx`, same export rule, at
  * `#/playground/<slug>/state/<state>`.
  *
- * `docs/*.md` and `docs/*.mermaid` (one folder deep allowed) open at `#/playground/<slug>/doc/<name>`; the brief at `#/playground/<slug>/facts`.
+ * `docs/*.md` and `docs/*.mermaid` (one folder deep allowed) open at `#/playground/<slug>/doc/<name>`; the brief at `#/playground/<slug>/facts`;
+ * the decisions at `#/playground/<slug>/decisions`.
  *
  * Titles, ownership, and screen routes/labels come from `projectFacts.ts`,
  * which `npm run harness:context` also uses.
@@ -94,6 +96,26 @@ const aboutSources = import.meta.glob<string>(['/projects/*/about.md', '!/projec
   eager: true,
 })
 
+const decisionsSources = import.meta.glob<string>(['/projects/*/decisions.md', '!/projects/_*/**'], {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+})
+
+/**
+ * The dated entries only: the file's header and example comment are notes for the agent.
+ * Each `**Label:**` line becomes its own paragraph, so it doesn't run into the list above it.
+ */
+function decisionEntries(raw: string | undefined): string | undefined {
+  const body = raw?.replace(/<!--[\s\S]*?-->/g, '') ?? ''
+  const start = body.search(/^### /m)
+  if (start < 0) return undefined
+  return body
+    .slice(start)
+    .replace(/\n(?=\*\*[^*\n]+:\*\*)/g, '\n\n')
+    .trim()
+}
+
 const docSources = import.meta.glob<string>(
   ['/projects/*/docs/*.{md,mermaid}', '/projects/*/docs/*/*.{md,mermaid}', '!/projects/_*/**'],
   { query: '?raw', import: 'default', eager: true },
@@ -116,6 +138,13 @@ const caseStudyDeckUrls = import.meta.glob<string>(
   ['/projects/*/artifacts/decks/*case-study.html', '!/projects/_*/**'],
   { query: '?url', import: 'default', eager: true },
 )
+
+/** `review-report` output: scrollable HTML reports, shown whole like the slide deck. */
+const reportUrls = import.meta.glob<string>(['/projects/*/artifacts/reports/*.html', '!/projects/_*/**'], {
+  query: '?url',
+  import: 'default',
+  eager: true,
+})
 
 type ProjectScreenBase = {
   route: ProjectRoute
@@ -178,16 +207,28 @@ export type ProjectCaseStudyPage = {
   source: string
 }
 
+export type ProjectReport = {
+  route: ProjectRoute
+  file: string
+  label: string
+  /** The report's URL. */
+  source: string
+}
+
 export type Project = {
   slug: string
   route: ProjectRoute
   /** `#/playground/<slug>/facts` — the brief, rendered as-is. */
   factsRoute: ProjectRoute
+  /** `#/playground/<slug>/decisions` — chosen and rejected directions. */
+  decisionsRoute: ProjectRoute
   /** `#/playground/<slug>/board` — every artifact as a page of one canvas. */
   boardRoute: ProjectRoute
   title: string
   brief?: string
   about?: string
+  /** `decisions.md` entries; undefined until the first one is written. */
+  decisions?: string
   facts: ProjectBriefFacts
   ownership: ProjectOwnership
   caseStudy?: ProjectCaseStudy
@@ -199,6 +240,8 @@ export type Project = {
   presentations: ProjectPresentation[]
   /** Story, slides, article — in that order, whichever exist. */
   caseStudyPages: ProjectCaseStudyPage[]
+  /** `artifacts/reports/*.html` — listed under "Reviews". */
+  reports: ProjectReport[]
 }
 
 function buildProjects(): Project[] {
@@ -213,10 +256,12 @@ function buildProjects(): Project[] {
         slug,
         route: `playground/${slug}`,
         factsRoute: `playground/${slug}/facts`,
+        decisionsRoute: `playground/${slug}/decisions`,
         boardRoute: `playground/${slug}/board`,
         title: projectTitle(slug, brief),
         brief,
         about: about === undefined || isUnfilledStarter(about) ? undefined : splitFrontMatter(about).body,
+        decisions: decisionEntries(decisionsSources[`/projects/${slug}/decisions.md`]),
         facts: briefFacts(brief),
         ownership: ownershipFromBrief(brief),
         caseStudy: caseStudyFromBrief(brief),
@@ -226,6 +271,7 @@ function buildProjects(): Project[] {
         storyboards: [],
         presentations: [],
         caseStudyPages: [],
+        reports: [],
       }
       bySlug.set(slug, project)
     }
@@ -320,6 +366,14 @@ function buildProjects(): Project[] {
     })
   }
 
+  for (const [file, url] of Object.entries(reportUrls)) {
+    const match = file.match(/^\/projects\/([^/]+)\/artifacts\/reports\/([^/]+)\.html$/)
+    if (!match) continue
+    const [, slug, name] = match
+    const label = name === slug ? 'Review report' : `${name.charAt(0).toUpperCase()}${name.slice(1).replace(/-/g, ' ')}`
+    projectFor(slug).reports.push({ route: `playground/${slug}/report/${name}`, file, label, source: url })
+  }
+
   const byLabel = <T extends { label: string }>(a: T, b: T) => a.label.localeCompare(b.label)
   return [...bySlug.values()]
     .map((p) => {
@@ -333,6 +387,7 @@ function buildProjects(): Project[] {
         docs: projectDocs,
         storyboards: p.storyboards.sort(byLabel),
         presentations: p.presentations.sort(byLabel),
+        reports: p.reports.sort(byLabel),
       }
     })
     .sort((a, b) => a.title.localeCompare(b.title))
@@ -346,22 +401,27 @@ export type ResolvedProjectRoute = {
   doc?: ProjectDoc
   /** The brief ("Project facts") page. */
   facts?: true
+  /** The decisions page. */
+  decisions?: true
   board?: true
   storyboard?: ProjectStoryboard
   presentation?: ProjectPresentation
   caseStudyPage?: ProjectCaseStudyPage
+  report?: ProjectReport
 }
 
 const RESOLVED_ROUTES = new Map<string, ResolvedProjectRoute>(
   PROJECTS.flatMap((project) => [
     [project.route, { project }] as const,
     [project.factsRoute, { project, facts: true }] as const,
+    ...(project.decisions ? [[project.decisionsRoute, { project, decisions: true }] as const] : []),
     [project.boardRoute, { project, board: true }] as const,
     ...[...project.screens, ...project.states].map((screen) => [screen.route, { project, screen }] as const),
     ...project.docs.map((doc) => [doc.route, { project, doc }] as const),
     ...project.storyboards.map((storyboard) => [storyboard.route, { project, storyboard }] as const),
     ...project.presentations.map((presentation) => [presentation.route, { project, presentation }] as const),
     ...project.caseStudyPages.map((caseStudyPage) => [caseStudyPage.route, { project, caseStudyPage }] as const),
+    ...project.reports.map((report) => [report.route, { project, report }] as const),
   ]),
 )
 

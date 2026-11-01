@@ -9,7 +9,7 @@ description: >-
   "capture this page and review it", or a non-Figma http(s) URL plus
   review/audit/critique. Does not review Figma (`ux-pattern` /
   `figma-ux-audit`). Does not replace pre-share `audit` on Design Harness code.
-  Does not add a Playwright MCP or a fifth onboarding MCP. Playwright
+  Does not use Playwright MCP or add a fifth onboarding MCP. Playwright
   Chromium is optional — skip capture and say so if browsers are missing.
 ---
 
@@ -49,7 +49,8 @@ Runtime evidence only. House judgment stays in `ux-pattern` / `content` /
 
 - **Fires on:** a fetchable `http://` or `https://` URL that is **not** `figma.com`, plus review/audit/critique/click-through intent (or the designer names this skill).
 - **Does not fire on:** Figma/FigJam links; git diffs (`interface-change-review`); "ready to share" on Design Harness code with no URL (`audit`); competitor lookup with **no** URL (`competitor-scan` web/Mobbin path).
-- Never installs Playwright MCP. Never adds a fifth onboarding MCP. Never ports a five-persona review theatre.
+- This skill never uses Playwright MCP; capture is the `capture-page.mjs` script. Never adds a fifth onboarding MCP. Never ports a five-persona review theatre.
+- The one exception is outside this skill: `test-this` agent persona runs may drive a published test link with Playwright MCP. The designer installs it for that, opt-in. It never joins the onboarding gate.
 
 ---
 

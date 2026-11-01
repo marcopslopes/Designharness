@@ -1,0 +1,31 @@
+/* Login — projects/everyday-banking-dashboard/screens/LoginPage.tsx */
+
+.login {
+  padding-top: var(--spacing-09);
+}
+
+.login__hello .ds-text {
+  margin: 0;
+}
+
+.login__name.ds-text {
+  font-family: var(--font-family-display);
+  font-size: var(--kit-font-headline-size);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--color-text-default);
+}
+
+.login__forgot {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--kit-brand);
+  font: inherit;
+  font-size: var(--font-size-label);
+  cursor: pointer;
+}
+
+.login__forgot:focus-visible {
+  outline: var(--border-02) solid var(--color-border-focus);
+  outline-offset: var(--spacing-01);
+}

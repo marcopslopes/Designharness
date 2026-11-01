@@ -65,7 +65,8 @@ first, propose a diff, apply only on explicit approval.
    `SKILL.md` the agent read, recorded by the hook. Use it for match counts
    and for skills that never load.
 3. Every `projects/*/log.md` — task-scoped routing detail.
-4. `harness/ORCHESTRATOR.md` §2 (routing table), `harness/references/routing-notes.md`
+4. `harness/ORCHESTRATOR.md` §2 (routing table), `harness/references/routes.md`
+   (group sections), `harness/references/routing-notes.md`
    (full row notes) and `harness/logs/routing-standards.md` — what the current
    rules actually say, to compare against what happened.
 5. `harness/references/handoff-patterns.md` — the named handoff
@@ -95,7 +96,8 @@ first, propose a diff, apply only on explicit approval.
    per §2 routing row, plus a table of known ambiguous pairs).
 2. For each case, determine what the **current** `harness/ORCHESTRATOR.md`
    §2 table would actually match it to — reason through it directly
-   against the table's current wording (full row notes in
+   against the table's current wording (a group row sends you to its
+   section of `harness/references/routes.md`; full row notes in
    `harness/references/routing-notes.md`), or run the prompt in a fresh
    chat if higher confidence is needed.
 3. Compare to the case's `Expected match`. Any mismatch is a finding —
@@ -141,7 +143,11 @@ deliberate phase.
 
 **Rule going forward:** an external skills-repo/article link, on its own,
 is **informational-only** — read it, compare it to the current roster,
-report gaps/overlaps, stop. Building a new skill (or extending an
+report gaps/overlaps, stop.
+
+Read only the linked repos or pages. No Slack, docs, tracker, or org-pack
+sources. No file, brief, or project folder. Answer in chat: what it is,
+where it overlaps this harness, which gaps are worth a look. Building a new skill (or extending an
 existing one) from that comparison requires an **explicit, separate**
 build ask afterward ("build the gap you found," "ship that," "yes,
 adopt it") — not an open-ended "worth adopting?"/"anything good here?"
@@ -153,17 +159,7 @@ This does not undo the skills already shipped this way — it stops the
 next one from happening on an implicit read, and gives the retrospective
 audit above a real chance to catch up before the roster grows further.
 
-## Docs freshness reminder (after §2 / new-skill changes)
+## Docs freshness
 
-If this run was triggered by (or itself applied) a change to
-`harness/ORCHESTRATOR.md` §2, a skill frontmatter description, or a new
-skill, check whether `harness/logs/docs-freshness.md` already has a
-**same-day** line covering that change. If not, end the report with one
-line:
-
-> Docs freshness still due — run the checklist in
-> `documentation/maintainers/docs-freshness.md` (README / harness-flow / HOWTO-SKILLS /
-> Design Harness how-to decks / agents) and append to
-> `harness/logs/docs-freshness.md`.
-
-Do not silently skip overview docs when the routing table moved.
+Do not add a docs-freshness reminder to this report, or to any normal reply.
+Wrap up says it once, if it is still due. `harness/skills/session-journal/SKILL.md`.

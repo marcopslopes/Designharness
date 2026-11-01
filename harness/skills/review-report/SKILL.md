@@ -64,7 +64,7 @@ decision — that is still a report.
 1. **Source.** Read `findings.md` for this task. Do not invent findings. If the critique has not run, stop and route to `live-page-review` / design-critique.
 2. **Template.** Infer from the artifact (URL capture → live-page; Figma/screenshot → figma-or-screenshot; named click path → flow). Confirm in one line.
 3. **Build.** Copy `references/report-shell.html`. Fill from findings + captures using the template **and format guardrails** in `references/templates.md`. Save to `projects.local/<slug>/artifacts/reports/<slug>.html` when the work is real-company (gitignored), else `projects/<slug>/artifacts/reports/`. Relative image paths into `../captures/` or the capture folder named in findings.
-4. **Offer localhost.** Serve the `artifacts/` folder (so `../captures/` resolves) — do not run `publish-project` unless asked.
+4. **Point to the project.** A report in `projects/<slug>/artifacts/reports/` shows on the project page under **Reviews** and on the project board: link `#/playground/<slug>/report/<file name>` on the running Design Harness. Do not start a separate server. Only a `projects.local/` report (not in the app) gets a local serve of its `artifacts/` folder. Never run `publish-project` unless asked.
 5. **Log.** One line in `findings.md` and the task `log.md`.
 
 ---

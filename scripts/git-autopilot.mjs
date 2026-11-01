@@ -279,6 +279,11 @@ function scaffold(root, slug, title, local = false) {
   if (existsSync(dir)) return false
   mkdirSync(path.join(root, folder), { recursive: true })
   cpSync(path.join(root, 'projects', '_template'), dir, { recursive: true })
+  // Written by their own skill, once there's something to put in them.
+  for (const name of ['strategy.md', 'breadboard.md', 'conceptual-model.md']) {
+    const file = path.join(dir, name)
+    if (existsSync(file)) unlinkSync(file)
+  }
   const brief = path.join(dir, 'brief.md')
   if (existsSync(brief)) {
     writeFileSync(brief, readFileSync(brief, 'utf8').replaceAll('<task-slug>', title || slug))
@@ -535,13 +540,16 @@ export function isProjectBranch(branch) {
 export function share(root) {
   const branch = currentBranch(root)
   if (!isProjectBranch(branch)) {
-    throw new AutopilotError(`Share this is for a project branch. This one is ${branch || 'no branch'}.`)
+    const name = branch || 'No branch'
+    throw new AutopilotError(
+      `${name} is harness work, not a project, so "share this" won't push it. To push harness changes, merge into main and push from there.`,
+    )
   }
   const remote = gitValue(root, ['remote', 'get-url', 'origin'])
-  if (!remote) throw new AutopilotError('This copy has no remote to share to yet.')
+  if (!remote) throw new AutopilotError('This copy has nowhere to send the branch yet.')
   git(root, ['push', '-u', 'origin', `${branch}:${branch}`])
   const link = branchLink(remote, branch)
-  return { link, message: link ? `Shared: ${link}` : `Shared ${branch} to ${remote}.` }
+  return { link, message: link ? `Ready for review: ${link}` : `Sent ${branch}.` }
 }
 
 /** Fetches one branch with a short timeout and no password prompt. Tests pass their own. */

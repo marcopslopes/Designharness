@@ -62,6 +62,11 @@ Ask, batched in one `AskQuestion` if more than one is unanswered:
 Never re-ask something already stated in the conversation or answered in
 a matched `projects/<slug>/brief.md`.
 
+**Picked from the case-study offer:** ask nothing. Mode is case study, the
+anchor is that project, the reader is another designer reading it cold,
+external (no internal names), full article. Say those defaults in one line
+and draft, with no outline wait (Step 2.5); the designer changes them after reading.
+
 ### Step 0a — Name the actual reader, not just the audience category
 
 "External" or "internal" (Step 0.3) tells you what to redact — it
@@ -195,7 +200,10 @@ rather than guessing.
 
 ### Step 1d — Verify, don't assume
 
-After the first full draft, ask directly: **"Does this sound like you?"**
+After the first full draft, show it in chat in full (or open the file in the
+editor when it is longer than a screen, and say where it is), then ask in the
+same reply: **"Does this sound like you?"** Never ask about a draft the
+designer hasn't been shown.
 Treat it as a real checkpoint, not a rhetorical close — if the answer is
 no, ask what specifically feels off (word choice? sentence length? too
 hedged? too blunt?) and fold that back into `writing-voice-dna.md` so the
@@ -229,7 +237,8 @@ Before writing a single sentence of the piece itself:
 ## Step 2.5 — Propose structure, wait for go (essay / case-study only)
 
 Before drafting a full essay or case-study (skip for short-form/social —
-one idea doesn't need this scaffolding), propose the shape and wait for
+one idea doesn't need this scaffolding, and skip when the piece renders an
+existing `case-study.md`: its chapters are the structure), propose the shape and wait for
 explicit approval:
 
 ```

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Review — Everyday banking home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700&display=swap" rel="stylesheet" />
+  <style>
+    /* Mirrors context/design-system/tokens.css. See harness/skills/review-report/references/report-shell.html. */
+    :root {
+      --ink: #14161a;
+      --secondary: #4b5563;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --bg: #f5f5f5;
+      --paper: #ffffff;
+      --accent: #007078;
+      --error: #951c13;
+      --error-bg: #f9e3df;
+      --warning: #b86a00;
+      --warning-bg: #faefd7;
+      --success: #258438;
+      --success-bg: #dff5e4;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+    .bar {
+      background: var(--paper);
+      color: var(--secondary);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 24px;
+      font-size: 13px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .bar a { color: var(--accent); }
+    article {
+      max-width: 760px;
+      margin: 40px auto 80px;
+      background: var(--paper);
+      padding: 40px 40px 64px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    h1 { font-size: 32px; font-weight: 400; line-height: 1.2; margin: 0 0 12px; }
+    h2 { font-size: 20px; font-weight: 500; margin: 40px 0 12px; }
+    h3 { font-size: 16px; font-weight: 500; margin: 24px 0 8px; }
+    p, li { font-size: 16px; }
+    em { color: var(--muted); }
+    hr { border: 0; border-top: 1px solid var(--line); margin: 40px 0; }
+    img { max-width: 100%; height: auto; display: block; margin: 24px 0; border: 1px solid var(--line); border-radius: 8px; }
+    figure { margin: 24px 0; }
+    figure img { margin: 0; width: 100%; max-height: 520px; object-fit: cover; object-position: top; }
+    figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 16px 0 24px; }
+    th, td { text-align: left; border-bottom: 1px solid var(--line); padding: 12px; vertical-align: top; }
+    th { color: var(--secondary); font-weight: 500; }
+    a { color: var(--accent); }
+    code { font-size: 0.88em; background: var(--bg); padding: 0.1em 0.35em; border-radius: 4px; }
+    .meta { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .meta strong { color: var(--ink); font-weight: 500; }
+    .badge { display: inline-block; font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: 8px; }
+    .badge-high, .badge-p1 { background: var(--error-bg); color: var(--error); }
+    .badge-med, .badge-p2 { background: var(--warning-bg); color: var(--warning); }
+    .badge-low { background: var(--success-bg); color: var(--success); }
+    .badge-p3 { background: var(--bg); color: var(--muted); }
+    @media (max-width: 640px) {
+      article { margin: 0; padding: 24px 16px 40px; border: 0; border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    Review report
+    <span>Local file. Images sit next to this report under snapshots.</span>
+  </div>
+  <article>
+    <h1>Everyday banking home</h1>
+    <p class="meta">
+      <strong>Date:</strong> 1 Nov 2026<br />
+      <strong>Template:</strong> flow<br />
+      <strong>Path:</strong> Home, then Send, then a saved payee. A transaction opens a sheet.<br />
+      <strong>Mode:</strong> Design Harness prototype, lab<br />
+      <strong>Source:</strong> findings.md, 2026-11-01, ux-pattern and content
+    </p>
+
+    <h2>First look</h2>
+    <p>The home does the job that was picked: the balance is first, then recent activity, and Send opens saved payees. The structure breaks on controls that look finished and do nothing: See all, Add money, Card, and the other tabs. On the send list, each person has a forward chevron and the tap does not leave the list, which the decision allowed, and the chevron still promises a next step.</p>
+
+    <h2>Top 5</h2>
+    <p>Effort is inferred from the kind of change, not an engineering estimate.</p>
+
+    <h3>1. Controls that go nowhere <span class="badge badge-p1">P1</span></h3>
+    <p><strong>Why.</strong> See all, Add money, Card, and the Payments, Cards, and Account tabs look like navigation. Only Send and a transaction row do anything. A person hunting for the rest of their activity, or for a card, gets silence.</p>
+    <p><strong>Fix.</strong> Hide or disable a control until its screen exists.</p>
+    <p><strong>Effort.</strong> <span class="badge badge-low">Low</span></p>
+
+    <h3>2. A chevron on a row that stays put <span class="badge badge-p2">P2</span></h3>
+    <p><strong>Why.</strong> Each saved payee uses a forward chevron. The decision says a tap does not open an amount. The chevron still reads as a next step.</p>
+    <p><strong>Fix.</strong> Drop the chevron until an amount screen exists.</p>
+    <p><strong>Effort.</strong> <span class="badge badge-low">Low</span></p>
+
+    <h3>3. “See all” names a missing list <span class="badge badge-p2">P2</span></h3>
+    <p><strong>Why.</strong> The label commits to the rest of the activity. That list is not built.</p>
+    <p><strong>Fix.</strong> Remove the label until the list exists.</p>
+    <p><strong>Effort.</strong> <span class="badge badge-low">Low</span></p>
+
+    <h3>4. “No saved payee” <span class="badge badge-p2">P2</span></h3>
+    <p><strong>Why.</strong> An empty search uses a singular, internal word. The person typed a name and got jargon.</p>
+    <p><strong>Fix.</strong> “No one with that name.”</p>
+    <p><strong>Effort.</strong> <span class="badge badge-low">Low</span></p>
+
+    <h3>5. The transaction sheet is not marked as a dialog <span class="badge badge-p2">P2</span></h3>
+    <p><strong>Why.</strong> The sheet closes with Done and the dimmed area. The house pattern asks for a dialog role, aria-modal, and a labelled title. This overlay does not set them.</p>
+    <p><strong>Fix.</strong> Put those three on the sheet.</p>
+    <p><strong>Effort.</strong> <span class="badge badge-low">Low</span></p>
+
+    <h2>Walkthrough</h2>
+    <table>
+      <thead>
+        <tr><th>Step</th><th>Action</th><th>Risk</th><th>Issue</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Open the home</td>
+          <td>Low</td>
+          <td>Balance and the newest transactions are on screen. The other tabs are already visible.</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Tap See all, Add money, or Card</td>
+          <td>High</td>
+          <td>Nothing happens. DD-001, DD-004.</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Tap a transaction</td>
+          <td>Medium</td>
+          <td>The sheet opens. It is not marked as a dialog. DD-003. Status words differ: Posted and Money in. DD-006.</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Tap Send</td>
+          <td>Low</td>
+          <td>The saved-payee list opens. This path works.</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Tap a person, or search a name that is not there</td>
+          <td>High</td>
+          <td>The row stays put behind a chevron. DD-002. An empty search says “No saved payee”. DD-005.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Evidence</h2>
+    <figure>
+      <img src="../snapshots/banking-home.png" alt="Banking home with the balance, quick actions, and recent transactions" />
+      <figcaption>Home. Balance first. See all, Add money, and Card are on screen and do not go anywhere.</figcaption>
+    </figure>
+    <figure>
+      <img src="../snapshots/send-list.png" alt="Send list with search, add a recipient, and saved payees" />
+      <figcaption>Send list. Each payee row ends in a chevron. A tap does not leave the list.</figcaption>
+    </figure>
+
+    <h2>Findings</h2>
+    <p><strong>Location: home.</strong> <span class="badge badge-high">Major</span> [UX Heuristic: Consistency and standards] See all, Add money, Card, and the Payments, Cards, and Account tabs do not go anywhere.</p>
+    <p><strong>Location: send list.</strong> <span class="badge badge-high">Major</span> [House: COMPANY-PATTERNS.md — Navigation conventions, forward chevron] Saved payee rows use a chevron. A tap stays on the list, by decision.</p>
+    <p><strong>Location: transaction sheet.</strong> <span class="badge badge-med">Minor</span> [House: COMPANY-PATTERNS.md — Modal and sheet patterns] The sheet does not set role="dialog", aria-modal, or a labelled title.</p>
+    <p><strong>Location: home, Recent.</strong> <span class="badge badge-med">Minor</span> [House: content style guide — specific] “See all” names a list that is not built.</p>
+    <p><strong>Location: send list, empty search.</strong> <span class="badge badge-med">Minor</span> [House: content style guide — plain words] The empty state says “No saved payee”.</p>
+    <p><strong>Location: transaction sheet.</strong> <span class="badge badge-low">Note</span> [House: content style guide — plain words] A card payment is “Posted” and a salary is “Money in”.</p>
+    <p><strong>Location: project.</strong> <span class="badge badge-low">Note</span> [House: COMPANY-PATTERNS.md — Responsive device frames] The example pack asks for a desktop frame. This brief is iOS only.</p>
+
+    <h2>Priority matrix</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Priority</th><th>Finding</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>DD-001</td><td><span class="badge badge-p1">P1</span></td><td>Dead controls on the home</td></tr>
+        <tr><td>DD-002</td><td><span class="badge badge-p2">P2</span></td><td>Chevron on a payee that stays put</td></tr>
+        <tr><td>DD-004</td><td><span class="badge badge-p2">P2</span></td><td>“See all”</td></tr>
+        <tr><td>DD-005</td><td><span class="badge badge-p2">P2</span></td><td>“No saved payee”</td></tr>
+        <tr><td>DD-003</td><td><span class="badge badge-p2">P2</span></td><td>Transaction sheet dialog contract</td></tr>
+        <tr><td>DD-006</td><td><span class="badge badge-p3">P3</span></td><td>Posted versus Money in</td></tr>
+        <tr><td>DD-007</td><td><span class="badge badge-p3">P3</span></td><td>No desktop frame</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Asks</h2>
+    <ul>
+      <li>Which of the silent controls should stay visible before their screens exist?</li>
+      <li>Should a payee row lose its chevron until an amount screen exists?</li>
+    </ul>
+
+    <h2>Record</h2>
+    <ul>
+      <li><code>findings.md</code> — 2026-11-01, ux-pattern and content</li>
+      <li><code>debt.md</code> — DD-001 through DD-007, all open</li>
+      <li><code>screens/BankingHomePage.tsx</code></li>
+      <li><code>screens/SendListPage.tsx</code></li>
+      <li><code>artifacts/snapshots/banking-home.png</code></li>
+      <li><code>artifacts/snapshots/send-list.png</code></li>
+    </ul>
+  </article>
+</body>
+</html>

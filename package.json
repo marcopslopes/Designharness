@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "npm run -s design:check && npm run -s docs:check && tsc -b && vite build",
+    "build": "npm run -s design:check && npm run -s docs:check && npm run -s ds:index -- --check && tsc -b && vite build",
     "lint": "eslint .",
     "benchmark": "node scripts/benchmark.mjs",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"scripts/**/*.{ts,mjs,js}\" \"tests/**/*.ts\" \"*.{ts,js,json}\"",
@@ -22,6 +22,7 @@
     "design:detect": "node scripts/design-detector/detect.mjs",
     "design:check": "node scripts/design-detector/check-baseline.mjs",
     "docs:check": "node scripts/check-docs-facts.mjs",
+    "ds:index": "node scripts/ds-index.mjs",
     "harness:context": "node scripts/harness-context.mjs",
     "skills:package": "node scripts/build-skills-package.mjs",
     "prepare": "node scripts/install-git-hooks.mjs",

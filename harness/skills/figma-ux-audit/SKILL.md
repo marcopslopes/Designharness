@@ -104,8 +104,9 @@ Card header: `EMOJI SEVERITY · FIELD · SUBJECT`
 
 **Basis layer (required in title or first body line — never omit):**
 
-This labeling convention is **shipped and shared** across `figma-ux-audit`,
-`harness/agents/product-designer.md`, and `harness/skills/audit/SKILL.md`.
+This labeling convention is **shipped and shared** — canonical copy in
+`harness/references/design-critique.md` § Two layers, also used by
+`harness/skills/audit/SKILL.md`.
 Do **not** invent alternate shapes (`[Craft/UX]`, `[House standard]`, etc.).
 
 | Layer | Label shape | Source |

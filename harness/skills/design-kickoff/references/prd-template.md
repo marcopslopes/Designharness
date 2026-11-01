@@ -76,7 +76,7 @@ Primary metric + current baseline + target:
 Guardrails (what must not regress):
 
 Once this section has a real metric (not UNKNOWN), a validation study is
-`researcher`'s to plan — see `harness/agents/researcher.md` and
+`research-agent`'s to plan — see
 `harness/skills/research-agent/references/test-plan-template.md`, copied
 into `projects/<slug>/testing/test-plan.md` when the study is actually
 planned or run.

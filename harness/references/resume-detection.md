@@ -17,8 +17,6 @@ If `brief.md` has no truth block and no old `Status:` line (a legacy folder from
 
 **Truth-block `status` vs. `decisions.md` disagreement is a bookkeeping gap, not proof the gate was bypassed.** If the truth block still says `draft` but `decisions.md` has a dated gate-approval entry (and/or `log.md`/`findings.md` show post-gate skill output like `ui-agent`/`audit`), treat `decisions.md`'s dated entry as authoritative — it is the append-only, harder-to-silently-edit record — and set the truth block to `approved` rather than treating the artifacts as an unauthorized pre-approval build. Log the correction itself as a new dated `decisions.md` entry so the fix is traceable. Only treat it as an actual gate bypass if `decisions.md` has **no** approval entry at all for that build.
 
-**Atomicity rule — never leave a folder at `exploring` past the end of your turn.** If you create/open a task folder because a designer said "let's start on X," you must either:
-- complete Step 0 (ask + log the 3 questions) and move into Step 1 in the same turn, setting the truth block to `draft` once the PRD lands, **or**
-- if something blocks you from finishing (missing MCP access, ambiguous request, etc.), say so explicitly to the designer rather than going silent — never let a turn end with a stubbed folder and no explanation.
+Kickoff folders, writes, and deletions: `harness/skills/design-kickoff/SKILL.md`.
 
-This exists because two real task folders (`ai-receptionist`, `in-app-chat`) were created as empty template copies when a session ended right after the designer's opening message, before Step 0 ever ran — and a later resume nearly mistook the folder's existence for "already kicked off."
+A folder that exists at `exploring` still restarts there. Empty folders used to get mistaken for a finished kickoff (`ai-receptionist`, `in-app-chat`).

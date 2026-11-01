@@ -19,7 +19,13 @@ import {
   setDesignHarnessHash,
 } from './routes'
 import { resolveProjectRoute } from './projectsIndex'
-import { ProjectCaseStudyPageView, ProjectDocPage, ProjectFactsPage } from './pages/ProjectDocPage'
+import {
+  ProjectCaseStudyPageView,
+  ProjectDecisionsPage,
+  ProjectDocPage,
+  ProjectFactsPage,
+  ProjectReportView,
+} from './pages/ProjectDocPage'
 import { StoryboardPage } from './pages/StoryboardPage'
 import { ComparePage, IdeasPage, StagePage, VariantsPage } from './pages/PresentationPages'
 import { RESERVED_HASH_KEYS } from './presentation'
@@ -146,16 +152,19 @@ function renderPage(route: DesignHarnessRoute, isEmbed: boolean) {
     return <GalleryDesignerPage route={route} />
   }
   if (isProjectRoute(route)) {
-    const { project, screen, doc, facts, board, storyboard, presentation, caseStudyPage } = resolveProjectRoute(route)!
+    const { project, screen, doc, facts, decisions, board, storyboard, presentation, caseStudyPage, report } =
+      resolveProjectRoute(route)!
     if (board) return <BoardPage key={project.slug} project={project} />
     if (doc) return <ProjectDocPage project={project} doc={doc} />
     if (caseStudyPage) return <ProjectCaseStudyPageView project={project} page={caseStudyPage} />
+    if (report) return <ProjectReportView project={project} report={report} />
     if (storyboard) return <StoryboardPage project={project} entry={storyboard} />
     if (presentation?.kind === 'variants') return <VariantsPage project={project} entry={presentation} />
     if (presentation?.kind === 'compare') return <ComparePage project={project} entry={presentation} />
     if (presentation?.kind === 'stage') return <StagePage project={project} entry={presentation} />
     if (presentation?.kind === 'ideas') return <IdeasPage project={project} entry={presentation} />
     if (facts) return <ProjectFactsPage project={project} />
+    if (decisions) return <ProjectDecisionsPage project={project} />
     if (!screen) return <ProjectPage project={project} />
     const ProjectScreen = screen.Component as ComponentType<Record<string, string>>
     const screenView = (

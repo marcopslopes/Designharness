@@ -55,6 +55,12 @@ context/design-system/.inbox/
 # clarity.
 projects.local/
 
+# A project's raw material (transcripts, threads, screenshots) carries people's
+# names and words. raw/shared/ is what a team chose to commit (Settings →
+# "Share raw notes with the team"). harness/references/project-inbox.md
+projects/*/raw/*
+!projects/*/raw/shared/
+
 # Real routing/benchmarking history — every skill/rule appends dated
 # real-request lines here, so these accumulate real company specifics
 # fast. Same never-shared intent as the `*.local` rule above, enforced

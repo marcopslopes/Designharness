@@ -372,6 +372,7 @@ function projectSections(project: Project): NavSection[] {
       items: [
         { label: 'About this prototype', route: project.route, icon: FrameFile },
         { label: 'Project facts', route: project.factsRoute, icon: FrameList },
+        ...(project.decisions ? [{ label: 'Decisions', route: project.decisionsRoute, icon: FrameRoute }] : []),
         ...docs,
         ...screens.filter((entry) => !entry.screen.folder).flatMap(screenItems),
         ...project.storyboards.filter((s) => !s.folder).map(storyboardItem),
@@ -398,6 +399,14 @@ function projectSections(project: Project): NavSection[] {
               route: p.route,
               icon: CASE_STUDY_ICON[p.kind],
             })),
+          },
+        ]
+      : []),
+    ...(project.reports.length
+      ? [
+          {
+            label: 'Reviews',
+            items: project.reports.map((p): NavItem => ({ label: p.label, route: p.route, icon: FrameChecklist })),
           },
         ]
       : []),

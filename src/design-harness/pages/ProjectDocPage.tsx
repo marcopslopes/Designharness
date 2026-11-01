@@ -2,7 +2,7 @@ import { MermaidDiagram } from '../components/MermaidDiagram'
 import { DesignHarnessDocPage } from '../components/DesignHarnessDocPage'
 import { DesignHarnessMarkdown } from '../components/DesignHarnessMarkdown'
 import { ProjectDocToolbar } from '../components/ProjectDocToolbar'
-import type { Project, ProjectCaseStudyPage, ProjectDoc } from '../projectsIndex'
+import type { Project, ProjectCaseStudyPage, ProjectDoc, ProjectReport } from '../projectsIndex'
 import { ProjectFactsStrip } from './ProjectPage'
 import { Stack } from '../ui'
 import '../styles/howto-html.css'
@@ -66,6 +66,42 @@ export function ProjectFactsPage({ project }: ProjectFactsPageProps) {
         ) : null}
       </DesignHarnessDocPage>
     </Stack>
+  )
+}
+
+/** `decisions.md`'s entries: what was chosen, what was rejected, and why. */
+export function ProjectDecisionsPage({ project }: { project: Project }) {
+  return (
+    <Stack gap="var(--spacing-08)" className="design-harness-ds-page">
+      <DesignHarnessDocPage
+        title="Decisions"
+        breadcrumb={
+          <ProjectDocToolbar
+            project={project}
+            title="Decisions"
+            source={project.decisions}
+            fileName={`${project.slug}-decisions`}
+          />
+        }
+        lead="What was chosen, what was ruled out, and why. Oldest first."
+      >
+        {project.decisions ? <DesignHarnessMarkdown source={project.decisions} projectSlug={project.slug} /> : null}
+      </DesignHarnessDocPage>
+    </Stack>
+  )
+}
+
+/** A `review-report` HTML page, full-bleed like the case study slides. */
+export function ProjectReportView({ project, report }: { project: Project; report: ProjectReport }) {
+  return (
+    <div className="design-harness-howto-html">
+      <iframe
+        className="design-harness-howto-html__frame"
+        title={`${project.title} — ${report.label}`}
+        src={report.source}
+        loading="eager"
+      />
+    </div>
   )
 }
 

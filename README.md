@@ -92,10 +92,10 @@ the same playbooks, without routing, gates, or the app.
 You: "Kick off discovery on a city leaderboard"
 
 Harness:
-1. workload-agent: is anyone already working on this?
-2. research-agent: what exists in your docs, tickets, chat, and Figma?
-3. Drafts an evidence-based brief
-4. Stops and waits for your approval
+1. Reads your profile and existing projects
+2. Brings three references
+3. Asks one question: what problem, for whom, what changes
+4. After you answer, writes the brief
 
 You: "Looks good, build it"
 

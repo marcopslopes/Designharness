@@ -84,9 +84,9 @@ Shared convention (same labels everywhere):
 | Global UX craft | `[UX Heuristic: <name>]` | Nielsen-style heuristics + senior craft judgment (hierarchy, affordance, etc.) — not House-specific. |
 | House standards | `[House: <source> — <rule>]` | House ground truth: patterns, archetypes, business, content, tokens. |
 
-**Sources:** `harness/agents/product-designer.md` (§ Two layers), `audit/SKILL.md` § Two layers, `figma-ux-audit/SKILL.md` § Card format.
+**Sources:** `harness/references/design-critique.md` (§ Two layers), `audit/SKILL.md` § Two layers, `figma-ux-audit/SKILL.md` § Card format.
 
-**Precedence:** If something is both craft-questionable and a company violation, **House stays the harder call**; craft must not soften a company blocker. Prefer **two labelled points** over one blended note (`product-designer.md`; `audit/SKILL.md`: “do not let craft soften a company blocker”; `figma-ux-audit/SKILL.md`: “House violations stay the harder finding when both layers apply”).
+**Precedence:** If something is both craft-questionable and a company violation, **House stays the harder call**; craft must not soften a company blocker. Prefer **two labelled points** over one blended note (`design-critique.md`; `audit/SKILL.md`: “do not let craft soften a company blocker”; `figma-ux-audit/SKILL.md`: “House violations stay the harder finding when both layers apply”).
 
 **Verification status for precedence:** The branch has **two-layer audits and critiques** where house and craft advisories appear **on the same screen** (profile banner: dual-offer house advisory + hierarchy/consistency craft advisories) with **First look** tying them to one root cause (`findings.md` V2). There is **no logged end-to-end case** where the *same underlying issue* was deliberately split-tested as “craft only” vs “house wins” in conflict. Precedence is **specified in skills**; **not separately verified** as a dedicated overlap experiment in `routing-log.md` or `findings.md`.
 
@@ -200,7 +200,7 @@ Claims in this doc map to repo evidence as follows.
 | Project debt vs KNOWN-ISSUES | `harness/references/project-debt-register.md`, `projects/<slug>/debt.md` |
 | Session journal (not read by critique) | `harness/skills/session-journal/SKILL.md` |
 | `figma-ux-audit` workflow, cards, layers | `harness/skills/figma-ux-audit/SKILL.md`, `offer-questions.md` |
-| Two-layer labels + precedence wording | `harness/agents/product-designer.md` ~41–52; `audit/SKILL.md` ~45–58; `figma-ux-audit/SKILL.md` ~105–119 |
+| Two-layer labels + precedence wording | `harness/references/design-critique.md` § Two layers; `audit/SKILL.md` ~45–58; `figma-ux-audit/SKILL.md` ~105–119 |
 | Precedence **not** E2E-tested | Absence of overlap test in `findings.md` / `routing-log.md` (grep); V2 shows related advisories + synthesis, not conflict test |
 | First look V2 quote | `projects/invite-friends/findings.md` VERIFY V2 |
 | First look V1 before/after | Same file VERIFY V1 |

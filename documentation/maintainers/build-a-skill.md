@@ -366,8 +366,10 @@ owner (`accessibility`, `content`) and hand off.
 
 ### 7. Wire routing
 
-1. Add a row to **`harness/ORCHESTRATOR.md` §2** with trigger phrases — not a
-   paraphrase of the topic — and one short line of notes. The full notes go in
+1. Add a row with trigger phrases — not a paraphrase of the topic — and one
+   short line of notes. Common work goes in **`harness/ORCHESTRATOR.md` §2**;
+   anything else goes under its group in **`harness/references/routes.md`**,
+   and the group row in §2 gets a few words for it. The full notes go in
    the same row of **`harness/references/routing-notes.md`**
 2. Add one case to **`harness/harness-audit/references/eval-prompts.md`**,
    and a page at `documentation/skills/<name>.md`. `npm run build` fails if
@@ -554,9 +556,9 @@ ui-agent → design-system (auto, before CSS) → mobile-shell (if phone) → ic
 
 | Question | Who / where |
 |---|---|
-| Does this overlap an existing skill? | Read §2 in [`harness/ORCHESTRATOR.md`](../../harness/ORCHESTRATOR.md); ask in #design-system-lab or your squad channel |
-| Routing / harness conventions | Design ops / harness maintainers — [`harness/agents/design-ops.md`](../../harness/agents/design-ops.md) |
-| Token / DS rules for build skills | [`design-system/GUIDE.md`](../../harness/skills/design-system/GUIDE.md) + Colin (design system) when back |
+| Does this overlap an existing skill? | Read §2 in [`harness/ORCHESTRATOR.md`](../../harness/ORCHESTRATOR.md); ask your team channel |
+| Routing / harness conventions | Harness maintainers — [`harness/harness-audit/SKILL.md`](../../harness/harness-audit/SKILL.md) |
+| Token / DS rules for build skills | [`design-system/GUIDE.md`](../../harness/skills/design-system/GUIDE.md) + your design-system owner |
 | Copy / voice for notification wording | `content` skill owners + content design |
 | "Is this routable?" audit | [`harness/logs/routing-standards.md`](../../harness/logs/routing-standards.md) |
 

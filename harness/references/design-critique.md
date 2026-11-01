@@ -85,3 +85,30 @@ script / "help me present this in UX review" matches **`critique-prep`**,
 not this section — do not fold it into drop-time written/annotate. If they
 want both a script and a review, show a §3 PLAN (`critique-prep` first,
 then this chain); the script must not read the critique findings.
+
+## Two layers (required on every critique)
+
+Every finding from `ux-pattern`, `content`, `audit`, or `figma-ux-audit`
+draws from **both** layers and **labels which layer it uses**. Neither
+replaces the other.
+
+| Layer | Label | What it covers |
+|---|---|---|
+| Global UX craft | `[UX Heuristic: <name>]` | Senior craft judgment: usability heuristics (Nielsen or equivalent), named visual craft in `harness/references/ui-craft-rules.md`, interaction patterns proven across the industry, typography / hierarchy / spacing / affordance quality that is **not** house-specific. Name the heuristic or craft subject in the brackets (e.g. Visibility of system status, Visual hierarchy, Focal point, Affordance). |
+| House standards | `[House: <source> — <rule>]` | Real house ground truth: `COMPANY-PATTERNS`, `ARCHETYPES`, `BUSINESS`, content standards, `tokens.css` / Foundations. |
+
+**Tone for the craft layer:** reasoned opinion with a clear *why* — direct
+and specific, not a fake-objective checklist.
+
+**Precedence:** if something is both craft-questionable **and** a house
+violation, the house finding stays the harder call. Do not soften or
+override house rules with craft opinion. Prefer two labelled points over
+one blended note when both apply.
+
+**One convention:** `figma-ux-audit` cards, written critique (`ux-pattern`
+→ `content`), and `audit` all use these labels. Do not invent parallel
+phrasing like `[Craft/UX]` or `[House standard]`.
+
+**Artifact type + First look:** before critique/audit output, classify the
+drop and write the holistic paragraph per
+`harness/references/artifact-type-critique.md`.

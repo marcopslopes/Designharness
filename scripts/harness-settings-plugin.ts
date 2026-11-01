@@ -76,6 +76,7 @@ type HarnessConfig = {
     tasteCheckpoint: boolean
     handoffNudge: boolean
     gitAutopilot: boolean
+    shareRaw: boolean
   }
 }
 
@@ -94,6 +95,7 @@ const DEFAULT_CONFIG: HarnessConfig = {
     tasteCheckpoint: true,
     handoffNudge: true,
     gitAutopilot: false,
+    shareRaw: false,
   },
 }
 
@@ -104,6 +106,7 @@ const BEHAVIOUR_FLAGS = [
   'tasteCheckpoint',
   'handoffNudge',
   'gitAutopilot',
+  'shareRaw',
 ] as const
 
 function readJson(file: string): unknown {

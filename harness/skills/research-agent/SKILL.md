@@ -9,8 +9,8 @@ description: >-
   depth — plus linked Figma and Miro boards — then writes a structured draft
   page to the docs tool and returns a short executive summary
   with confidence rating. A question or lookup runs this skill directly,
-  with no PRD gate. A new product bet goes to design-kickoff first; this
-  skill is Step 1b of that flow.
+  with no PRD gate. A new or ambiguous request is `design-kickoff`.
+  See that skill. This skill is not part of it.
 
   Also runs standalone, in a lighter **single-source gap-fill mode**, on an
   already-approved `projects/<slug>/` task (no PRD, no docs draft) —
@@ -95,7 +95,7 @@ Copy `references/test-plan-template.md` into `projects/<slug>/testing/
 test-plan.md` when a study is actually planned or run — not before, and
 not as a permanent placeholder. Raw results go in
 `testing/<id>/results.md`. Summarise them into the brief's truth block
-(`harness/references/project-files.md`). See `harness/agents/researcher.md`.
+(`harness/references/project-files.md`).
 
 **Always check `harness/skills/workload-agent/references/roadmap-boards.md`** before the tracker leg of any topic that could span multiple product domains — it maps every known roadmap board across teams (Jira Product Discovery projects, Linear projects, a Notion roadmap database, or GitHub Projects), so the search isn't limited to whichever project the designer happened to name. (Canonical copy lives under `workload-agent/`, not here — see `references/roadmap-boards.md` in this folder for the pointer.)
 
@@ -113,7 +113,7 @@ not as a permanent placeholder. Raw results go in
 - *what do we know about [topic]*
 - *what is [topic] / is there a project on [topic]* — plain lookup phrasing is **not** an exemption from routing; see below
 
-**A question or a lookup reaches this skill directly. It does not open `design-kickoff` and it does not stop at the PRD gate.** A new product bet still does: "let's start working on X" or "let's explore X" opens `design-kickoff`, which calls this skill as Step 1b and then stops at Step 3. **Never** answer "what is X" from local repo files alone (`projects/*`, `projects/<slug>/screens/`) — those are this designer's own in-flight work, not verified ground truth. A live sweep of the team's docs, tracker, and chat answers "is this real" / "is there a project on it." A lookup does not create a project folder. When this skill does write a new task folder from Slack, Jira, Confluence, Notion, or Google Drive, and `publicRepo` is on, that folder is `projects.local/<slug>/` (`harness/references/git-autopilot.md` § 1). Say `Saved locally, since this repo is public.`
+**A question or a lookup reaches this skill directly.** A new or ambiguous request is `design-kickoff`. See `harness/skills/design-kickoff/SKILL.md`. This skill does not run as part of it. **Never** answer "what is X" from local repo files alone (`projects/*`, `projects/<slug>/screens/`) — those are this designer's own in-flight work, not verified ground truth. A live sweep of the team's docs, tracker, and chat answers "is this real" / "is there a project on it." A lookup does not create a project folder. When this skill does write a new task folder from Slack, Jira, Confluence, Notion, or Google Drive, and `publicRepo` is on, that folder is `projects.local/<slug>/` (`harness/references/git-autopilot.md` § 1). Say `Saved locally, since this repo is public.`
 
 **Lightweight gap-fill mode** (one named source, on an already-approved `projects/<slug>/` task — see § below):
 - *check Slack [channel/thread] for [topic]*
@@ -143,9 +143,9 @@ already existed).
 
 **What it does, instead of the full Workflow below:**
 0. If the source was pasted or attached (not a link the source still
-   holds), save it verbatim to `projects.local/<slug>/inbox/` first —
-   `harness/references/project-inbox.md`. The `findings.md` entry cites
-   that path.
+   holds), save it verbatim to `projects/<slug>/raw/` first and index it in
+   `sources.md` — `harness/references/project-inbox.md`. The `findings.md`
+   entry cites that path.
 1. Read/search only the one named source — not a full docs + tracker +
    chat + Figma + Miro sweep.
 2. Synthesize it against what's already in that task's `findings.md` —

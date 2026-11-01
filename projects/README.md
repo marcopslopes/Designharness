@@ -15,16 +15,17 @@ projects/<project-slug>/
 ├── about.md        # optional — the project's front page in Design Harness: a short tour with live
 │                     # screen embeds, written for whoever opens the link (falls back to brief Intent)
 ├── brief.md        # truth block at the top (status, assumptions, unknowns, evidence, parked), then intent, scope, sources, constraints ("Project facts" in Design Harness)
-├── sources.md      # project link catalog (articles, comps, Docs) — append rows; see documentation/guides/company-sources.md
+├── sources.md      # the project's index: outside links, plus one line per raw/ and docs/ file. Read it first — append rows; see documentation/guides/company-sources.md
 ├── findings.md      # accumulated outputs from every skill run, append-only, dated
 ├── debt.md          # optional until first deferred advisory — project debt register (audit/critique); see harness/references/project-debt-register.md
 ├── decisions.md     # designer decisions + rationale, append-only, dated
 ├── log.md           # routing log for this project: date | request | intent | chain | why
 ├── handoff.md       # optional — session-handoff output for continuing in a fresh chat
 ├── case-study.md    # optional — case-study output: the eight-chapter story, one Source: line per chapter
-├── inbox/           # optional, created on first save — raw pastes and attached files, verbatim with a
-│                     # short header, never edited. Lives in projects.local/<slug>/inbox/ only (people's
-│                     # words stay out of the public repo). See harness/references/project-inbox.md
+├── raw/             # optional, created on first save — raw pastes and attached files, verbatim with a
+│                     # short header, never edited, each indexed in sources.md. Gitignored (people's words
+│                     # stay out of the public repo); raw/shared/ is committed when the team setting is on.
+│                     # See harness/references/project-inbox.md
 ├── notes/           # optional — freestanding working/reference docs that aren't a dated
 │                     # findings.md entry (IA taxonomies, workshop recaps, one-pagers,
 │                     # write-ups). Findings stay skill-run-only; notes/ is everything else
@@ -51,11 +52,11 @@ projects/<project-slug>/
 └── testing/         # optional — closes the PRD's "how will we know it worked" question.
                       # test-plan.md (what's being validated, method, success criteria),
                       # study links (e.g. Lyssna), and a dated results write-up. Owned by
-                      # the `researcher` role (see harness/agents/researcher.md) — same evidence
-                      # discipline as findings.md: sourced, dated, honest about sample size.
+                      # research-agent — same evidence discipline as findings.md:
+                      # sourced, dated, honest about sample size.
 ```
 
-Copy `projects/_template/` to start a new project folder. `about.md` ships in the template as a starter — fill it in once there's something to show, or delete it. `docs/` is created on demand, for pages the brief doesn't already cover (a flow diagram, a research readout). `notes/`, `screens/`, `artifacts/`, and `testing/` are all optional and created on demand — a research-only or ideas-only project has none of them. `artifacts/` only appears once a screen has actually been built, and its three sub-folders (`decks/`/`snapshots/`/`qa/`) only appear as each kind of export actually happens — don't pre-create empty ones. None of these are mandatory like `brief.md`/`sources.md`/`findings.md`/`decisions.md`/`log.md`.
+Copy `projects/_template/` to start a new project folder, then remove `strategy.md`, `breadboard.md` and `conceptual-model.md`. Each of those is created by its own skill when that work happens, from the copy kept in `_template/`. `about.md` ships in the template as a starter — fill it in once there's something to show, or delete it. `docs/` is created on demand, for pages the brief doesn't already cover (a flow diagram, a research readout). `notes/`, `screens/`, `artifacts/`, and `testing/` are all optional and created on demand — a research-only or ideas-only project has none of them. `artifacts/` only appears once a screen has actually been built, and its three sub-folders (`decks/`/`snapshots/`/`qa/`) only appear as each kind of export actually happens — don't pre-create empty ones. None of these are mandatory like `brief.md`/`sources.md`/`findings.md`/`decisions.md`/`log.md`.
 
 **Publishing a public URL is a separate, opt-in step — never automatic.** Everything under `projects/<slug>/artifacts/` (all three sub-folders) stays local/sandbox by default. Only `artifacts/decks/` content ever leaves that local view, and only when the designer explicitly asks to publish/deploy/share — see `harness/skills/publish-project/SKILL.md`. It gets copied into `public/projects/<slug>/`, the only public-facing mirror; nothing in `artifacts/snapshots/` or `artifacts/qa/` is meant to go there. See [`public/README.md`](../public/README.md) for that side's own schema.
 

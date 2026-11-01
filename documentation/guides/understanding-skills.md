@@ -223,13 +223,7 @@ Want to add a custom skill? See:
 
 ## Skill vs Agent?
 
-**Skills** are playbooks. **Agents** are roles that compose skills.
-
-Example:
-- **product-designer agent** uses: `ui-agent`, `audit`, `ux-pattern`, `deck-builder`
-- **researcher agent** uses: `research-agent`, `workload-agent`, `competitor-scan`
-
-See: `harness/agents/` for role definitions
+There are only skills. See [Agents vs skills](agents-vs-skills.md).
 
 ---
 
