@@ -93,7 +93,8 @@ trailer. If your team enforces a message format, add a `commit-msg` hook in
 your own copy. The harness doesn't ship one, so nothing is enforced by
 default.
 
-## Turning autopilot off
+## Turning autopilot on
 
-Settings → "Handle Git for me", or `- Git autopilot: off` in
-`designer-profile.local.md`. Either one turns it off for that designer only.
+It starts off. "Wrap up" still saves and "share this" still pushes.
+Settings → "Handle Git for me", or `- Git autopilot: on` in
+`designer-profile.local.md`, turns on a branch per project.
