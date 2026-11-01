@@ -1,6 +1,6 @@
 # Components — API quick reference
 
-Moved from `harness/ORCHESTRATOR.md` §7.4. Source of truth for the full
+Moved from orchestrator §7.4 (now `harness/references/design-system-rules.md`). Source of truth for the full
 primitive list is `context/design-system/ds/index.ts`.
 
 ```tsx

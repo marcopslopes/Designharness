@@ -804,10 +804,11 @@
 /**
  * Design Harness kit — dark mode (2026-08-11). Real DS layer now, not a Design Harness-chrome-only
  * concern — supersedes the old "prototypes are always light" hard rule (see
- * harness/ORCHESTRATOR.md §7.1 rule 7 + context/design-system/STUDIO-OS-KIT-NOTES.md).
+ * harness/references/design-system-rules.md §7.1 rule 7 +
+ * context/design-system/STUDIO-OS-KIT-NOTES.md).
  * Set `data-theme="dark"` on the app root — separate attribute from the pre-existing
  * Design Harness-catalog-only `data-design-harness-theme`. Prototypes stay light: the
- * prototype surface sets `data-theme="light"` (see ORCHESTRATOR.md §7.1 rule 7).
+ * prototype surface sets `data-theme="light"` (see design-system-rules.md §7.1 rule 7).
  */
 :root[data-theme='dark'] {
   --kit-bg: #0e1115;

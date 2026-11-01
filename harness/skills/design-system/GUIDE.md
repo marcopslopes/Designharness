@@ -25,7 +25,7 @@ For how *all* skills route, see [`how-the-harness-works.md`](../../../documentat
 | Tokens (source of truth) | [`context/design-system/tokens.css`](../../../context/design-system/tokens.css) |
 | Lab-only tokens (not DS) | [`src/design-harness/styles/tokens.lab.css`](../../../src/design-harness/styles/tokens.lab.css) |
 | Primitives | [`context/design-system/ds/`](../../../context/design-system/ds) |
-| Hard rules | [`harness/ORCHESTRATOR.md`](../../ORCHESTRATOR.md) §7 |
+| Hard rules | [`harness/references/design-system-rules.md`](../../references/design-system-rules.md) |
 | Live catalog | Design Harness — `npm run dev` → Foundations / Components |
 | Routing entry | [`harness/ORCHESTRATOR.md`](../../ORCHESTRATOR.md) §2 |
 | Loaded by | [`ui-agent`](../ui-agent/SKILL.md) before writing CSS |
@@ -227,4 +227,4 @@ colour samples via `var(--color-…)`, type via `--type-*` / `--font-size-*`.
 | [`ai-native-design-system.md`](../../../documentation/guides/ai-native-design-system.md) | Token-first build playbook |
 | [`icon-usage`](../icon-usage/GUIDE.md) | Icon / Tabler lane (separate from colour/spacing) |
 | [`context/design-system/README.md`](../../../context/design-system/README.md) | What’s in the DS folder |
-| [`harness/ORCHESTRATOR.md`](../../ORCHESTRATOR.md) §7 | Non-negotiable token / component rules |
+| [`harness/references/design-system-rules.md`](../../references/design-system-rules.md) | Non-negotiable token / component rules |

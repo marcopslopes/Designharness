@@ -1,7 +1,7 @@
 # Design tokens — quick reference
 
-Moved from `harness/ORCHESTRATOR.md` §7.3. Source of truth is
-`context/design-system/tokens.css`; this is the readable summary.
+Moved from orchestrator §7.3 (now `harness/references/design-system-rules.md`).
+Source of truth is `context/design-system/tokens.css`; this is the readable summary.
 
 **Brand colour** (Design Harness — teal + plum + warm paper)
 

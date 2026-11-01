@@ -34,7 +34,7 @@ builds a screen — and on direct asks like “is this a real token?”
 
 - Human guide: [`harness/skills/design-system/GUIDE.md`](../../harness/skills/design-system/GUIDE.md)
 - Agent protocol: [`harness/skills/design-system/SKILL.md`](../../harness/skills/design-system/SKILL.md)
-- Hard rules: [`harness/ORCHESTRATOR.md`](../../harness/ORCHESTRATOR.md) §7
+- Hard rules: [`harness/references/design-system-rules.md`](../../harness/references/design-system-rules.md)
 
 ## No Storybook
 
