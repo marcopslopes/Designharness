@@ -1,10 +1,25 @@
 # Git autopilot — branches, saves and shares without Git words
 
+## How to run
+
+Do not read this file end to end. Do not open `scripts/git-autopilot.mjs`.
+Run the one command, say its line, stop.
+
+- **"wrap up"** (after the journal) → `node scripts/git-autopilot.mjs save <slug> "<one-line summary>"`
+- **"share this"** → `node scripts/git-autopilot.mjs share`
+
+If the command fails, pass its one sentence on and stop. Do not grep, do
+not compare branches, do not invent a remote.
+
+Share this is for a project branch (`ana/invite-friends`). On `main`,
+`simplify`, or any harness-maintenance branch, the script refuses. That
+is the answer. Do not offer to share it anyway.
+
+Read a section below only if the script asked a question you must answer.
+
 Designers never type a Git command, and never see one unless something goes
-wrong. Each project gets its own branch, `<first name>/<slug>` (so two
-designers on one project never share a branch); "wrap up" saves it; "share
-this" pushes it. Every step runs one script, which does the Git and prints
-the one line to say:
+wrong. Each project gets its own branch, `<first name>/<slug>`; "wrap up"
+saves it; "share this" pushes it. Every step runs one script:
 
 ```
 node scripts/git-autopilot.mjs start <slug> [--scaffold] [--local]
@@ -112,7 +127,8 @@ node scripts/git-autopilot.mjs save <slug> "<the entry's one-line summary>"
 
 Anything else changed outside `projects/` is a change to the harness itself (a
 skill, a rule, the app). When there is any, `save` stops and lists the files.
-Ask once (`AskQuestion`):
+Ask once (`AskQuestion`) with exactly these two options. Do not add Other
+(Cursor already will if it must):
 
 - **Keep it local** → `save … --keep-harness`. The project is saved; the
   harness files stay uncommitted in this copy, and it won't ask about those
@@ -129,7 +145,7 @@ Ask once (`AskQuestion`):
 
 1. Run `undo` (no flag). It names the last autopilot save on this branch and
    lists its files. Show that, in plain words, and ask once
-   (`AskQuestion`: Undo it / Keep it).
+   (`AskQuestion`: Undo it / Keep it — no Other).
 2. On yes, run `undo --yes`. It adds a new commit that takes the save back;
    history is never rewritten, so the undo can itself be undone by asking
    again later.
@@ -142,22 +158,15 @@ edit in the file as usual.
 
 ## 5. Share — "share this"
 
-Only on the designer's ask ("share this", "send this to the team", "push
-this"). Never on your own, never as a side effect of wrap up.
+1. Run `node scripts/git-autopilot.mjs share`.
+2. Say its line to the designer.
+3. If it fails, say that line and stop.
 
-1. Same gate as any share: if the project has built screens and `audit`
-   hasn't passed since they last changed, run `audit` first. BLOCKED → don't
-   share.
-2. Save first if there's unsaved project work (step 3).
-3. Run `share`. It pushes the branch and prints a link: the pull request
-   form on GitHub, the branch page elsewhere. Give the link.
+Do not read the script. Do not grep. Do not add a remote. A harness
+branch (`simplify`, `main`, `<name>/harness-<slug>`) is a refusal, not a
+prompt to share anyway.
 
-The script never pushes `main`, never force pushes, and only pushes the
-current branch. No remote → it says so. Pass it on. A rejected push
-(someone else pushed the branch) → say it needs a pull first. Never force.
-
-"Publish this project / give me a share URL" is `publish-project` (a
-deployed site), not this.
+"Publish this project / give me a share URL" is `publish-project`.
 
 ## 6. Update my harness (on request only)
 

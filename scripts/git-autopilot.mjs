@@ -526,11 +526,16 @@ export function undo(root, { confirm = false } = {}) {
   return { target, files, message: `Undid "${target.subject}"` }
 }
 
+/** A designer's project branch: `<first>/<slug>`. Not `main`, `simplify`, or `<first>/harness-<slug>`. */
+export function isProjectBranch(branch) {
+  return /^[^/]+\/(?!harness-)[^/]+$/.test(branch || '')
+}
+
 /** Pushes the current project branch. Only on "share this"; never main, never force. */
 export function share(root) {
   const branch = currentBranch(root)
-  if (!branch || branch === BASE) {
-    throw new AutopilotError(`Share works from a project branch, not ${branch || 'no branch'}.`)
+  if (!isProjectBranch(branch)) {
+    throw new AutopilotError(`Share this is for a project branch. This one is ${branch || 'no branch'}.`)
   }
   const remote = gitValue(root, ['remote', 'get-url', 'origin'])
   if (!remote) throw new AutopilotError('This copy has no remote to share to yet.')

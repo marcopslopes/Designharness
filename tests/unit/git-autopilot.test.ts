@@ -224,6 +224,14 @@ test('resume switches to the project branch, and stays put without one', () => {
   assert.equal(git('branch', '--show-current'), 'ana/demo')
 })
 
+test('share refuses a harness-maintenance branch', () => {
+  const { root, git } = repo()
+  git('switch', '-q', '-c', 'simplify')
+  assert.throws(() => share(root), /This one is simplify/)
+  git('switch', '-q', '-c', 'ana/harness-x')
+  assert.throws(() => share(root), /Share this is for a project branch/)
+})
+
 test('share pushes the project branch and links to the PR form, never main', () => {
   const { root, git, write } = repo()
   const origin = bare()

@@ -129,11 +129,10 @@ clean. Write the journal entry, then append one handoff row to
   the session raised a new one, say so in chat and offer to add it to
   `brief.md`.
 - No task folder → journal entry only; say there was no `log.md` to write.
-- **Save** (Git autopilot, default on): run
+- **Save:** run
   `node scripts/git-autopilot.mjs save <slug> "<the entry's heading, without the time>"`
-  and say its line (`harness/references/git-autopilot.md` § 3). It commits
-  only the project's folder; the journal stays local. Never push here. If it
-  lists harness files, ask keep local / suggest to the harness (§ 3a).
+  and say its line. Do not open the script. If it lists harness files, ask
+  Keep it local / Suggest it to the harness — no Other.
 - Then end with one line: "Wrapped up. Start a new chat and say 'continue
   <slug>'."
 

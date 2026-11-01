@@ -75,6 +75,8 @@ for you there.
 If the list might not cover every case, that's fine — the tool's own
 built-in "Other…" already handles it. Do **not** add your own `{ "id":
 "other", "label": "Other…" }` entry to `options[]` (see the note above).
+Closed pairs (Keep it local / Suggest it to the harness, Undo it / Keep it)
+do not get Other from you either.
 
 ---
 
