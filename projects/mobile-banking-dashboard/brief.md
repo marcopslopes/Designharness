@@ -173,6 +173,19 @@ Dependencies:
 Primary metric: support contacts about balance, payouts or the wallet, per 1,000 active wallet users. Baseline UNKNOWN. Target UNKNOWN.
 Guardrails: wallet usage (about 41% of providers, July 2026) doesn't drop; payout-settings completion doesn't drop.
 
+## How we'd know
+
+| Layer | Metric | Baseline | Target | Measured by |
+|---|---|---|---|---|
+| Outcome | Support contacts about balance, payouts or the wallet per 1,000 active wallet users | unknown | set once the baseline exists | needs instrumentation — a support-tag count |
+| UX | Participants can say why money is on hold, and the next step, unaided | — | set before the test | prototype test |
+| UX | Time to answer "when is my next payout, and how much?" | — | set before the test | prototype test |
+| UX | Participants can match a payout to services, tips, fees and deductions | — | set before the test | prototype test |
+| Guardrail | Providers who open the wallet at least once a month | about 41% (2026-07-07) | no drop | tracked — analytics dashboard, 2026-07-07 |
+| Guardrail | Payout-settings completion | unknown | set once the baseline exists | needs instrumentation — an analytics event when payout settings is finished |
+
+Status: proposed
+
 ## 7. Risks & open questions
 
 The open questions are the truth block's unknowns. Owners and what each one blocks are on that row, from the old risk table. Two beliefs stay assumptions: that a block or hold reason can be shown, and that the cause is presentation rather than missing data.

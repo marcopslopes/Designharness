@@ -38,6 +38,18 @@ PLAN — [task name] (figma-ux-audit)
 Estimated: ~X min. Reply "go", or edit the plan.
 ```
 
+**Go wide (`ux-pattern` go-wide → `ui-agent` → `presenter` Compare):**
+
+```
+PLAN — [X] (go wide)
+1. ux-pattern → ideas from the brief, findings, decisions and How we'd know, grouped into 3 directions of the type you pick
+2. ui-agent → each direction built into the real screen as an option (one string prop, today stays the default)
+3. presenter → a Compare section in the project: today plus the 3 directions, a name and one-sentence why under each
+4. You pick in Compare → that direction becomes the screen's default (audit deferred)
+```
+
+The plan's approval is the type `AskQuestion` (Content / UI / UX / UI and UX / Completely different directions). No separate "go", and no presenter question. The pick at step 4 runs under this approval. Full steps: `harness/skills/ux-pattern/SKILL.md` § Go-wide mode.
+
 **Single-skill plans skip the gate** if the designer has stated a standing "just do it" preference (log this preference in `projects/<slug>/decisions.md` the first time it's stated) **or** if `designer-profile.local.md` (Step 0) already records interaction style as "just do it for simple asks". **Multi-skill chains always show the plan** — no exceptions, even with a standing preference or profile setting. Never execute before approval on a multi-skill chain.
 
 ### 3a. Autonomy dial (optional, per-task, offered only inside a plan block)

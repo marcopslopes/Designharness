@@ -8,12 +8,17 @@ import { WalletHoldSheet, WalletHomeBody } from './wallet-home-shared'
 
 /**
  * Wallet home — iOS. The Wallet tab of a banking app. The hold reason opens as a sheet over the wallet.
- * `status` and `lead` are strings so presentations can set them from the URL.
+ * `status`, `lead`, `sample`, and `direction` are strings so presentations can set them from the URL.
+ * `sample=under-minimum` shows the €25 shortfall line. The usual week stays €1,284.50.
+ * `direction` omitted is the payout page (chosen 2026-11-02). `today` is the previous home.
+ * `hold` and `fridays` stay available. `lead=balance` still shows that rejected home.
  */
 export type WalletHomePageProps = {
   data?: WalletHomeData
   status?: string
   lead?: WalletLead | string
+  sample?: string
+  direction?: string
   initialHoldOpen?: boolean
 }
 
@@ -21,9 +26,12 @@ export function WalletHomePage({
   data: baseData = WALLET_HOME_DATA,
   status,
   lead,
+  sample,
+  direction,
   initialHoldOpen = false,
 }: WalletHomePageProps = {}) {
-  const data = walletDataFor(status, baseData)
+  const data = walletDataFor(status, baseData, sample)
+  const resolvedDirection = direction ?? (lead === 'balance' ? 'today' : 'payout')
   const [holdOpen, setHoldOpen] = useState(initialHoldOpen)
   const [holdMotion, setHoldMotion] = useState(true)
   return (
@@ -58,6 +66,7 @@ export function WalletHomePage({
             <WalletHomeBody
               data={data}
               lead={lead === 'balance' ? 'balance' : 'payout'}
+              direction={resolvedDirection}
               onOpenHold={(event) => {
                 setHoldMotion(event.detail !== 0)
                 setHoldOpen(true)

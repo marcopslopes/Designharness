@@ -25,7 +25,8 @@ moderated study.]
 
 ## Success criteria
 
-[Defined **before** the study runs, not adjusted after seeing results.
+[Copy the `brief.md` `## How we'd know` UX rows this study measures,
+with their targets. Defined **before** the study runs, not adjusted after seeing results.
 E.g. "≥70% of participants complete the referral share flow without
 assistance" — a number and a threshold, not "people seem to like it."]
 

@@ -747,8 +747,9 @@ If `git status` shows nothing to commit, skip this step silently — no need to 
 
 **Git autopilot** (`behaviour.gitAutopilot`, off by default): items 3–5 become one
 question, "Share this? It goes to the team on its own project branch.", and
-a yes runs save then share (`harness/references/git-autopilot.md` §§ 3, 5).
-Never `git push` by hand, never to `main`.
+a yes runs save then share. Share checks the ship packet (internal) before
+the push (`harness/references/git-autopilot.md` §§ 3, 5,
+`harness/references/ship-packet.md`). Never `git push` by hand, never to `main`.
 
 ---
 

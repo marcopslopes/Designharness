@@ -61,7 +61,7 @@ wording that has to land close enough for §2 to route there.
 | `icon-usage` | **Composed** (ui-agent when icons) | Phrase | (rides on ui-agent) / "which icon should I use for X" | |
 | `audit` | **Composed** (end of build; deferred on micro-edit) | Phrase ("ready to share") | "is this ready to share" / "audit this screen" | Checks 6–7 (OOUX, layer) ride here. Check 8 (ethical, conditional-fire) added 2026-08-31. |
 | `content` | **Offered/composed** (critique when copy in scope) | Phrase | "review the copy on this" / "is this CTA clear" | |
-| `ux-pattern` | Phrase (critique / decide / debate / breadboard) | Kickoff Step 4 "if structure question" | "should this be a modal or a page" / "critique this flow" / "breadboard this flow" | OOUX + layer tags on critique. Breadboard mode wired 2026-08-31 (was reference-only, claimed-not-wired). Not automatic on every kickoff. |
+| `ux-pattern` | Phrase (critique / decide / debate / breadboard / go-wide) | Kickoff Step 4 "if structure question" | "should this be a modal or a page" / "critique this flow" / "breadboard this flow" / "show me 15 ways to make X better" | OOUX + layer tags on critique. Breadboard mode wired 2026-08-31 (was reference-only, claimed-not-wired). Not automatic on every kickoff. |
 | `figma-ux-audit` | **Offered** (after written critique / drop-time) | Phrase (annotate) | "leave notes on the canvas" / "annotate this Figma" | |
 | `review-report` | **Offered** (after written critique) | Phrase | "write this up as a report" | |
 | `critique-prep` | Phrase | — | "prep me for critique" / "presenter script" / "frame this for design critique" | Never offered on a Figma drop. Never critiques. Ambiguous "I present Thursday" → AskQuestion. |
@@ -110,7 +110,7 @@ wording that has to land close enough for §2 to route there.
 | `presenter` | Phrase | — | "how should I show this to the PM?" / "put these side by side" / "set the prototype up for a research session" / "show the team every idea" | Built screens only; mockups before build stay on the `ui-agent` review board. The test script itself is `usability-test-guide`. |
 | `deck-builder` | Phrase | — | "build a deck for this" | Case-study deck reads `case-study.md`. |
 | `writing` | Phrase | — | "help me write this up" / "run anti-slop on this" / "use the writing skill on this article" | |
-| `publish-project` | Phrase | After audit PASS, still on-demand | "publish this project" | |
+| `publish-project` | Phrase | After the ship packet (general) and an audit PASS, still on-demand | "publish this project" | |
 | `session-handoff` | Phrase | Soft nudge after long sessions | "let's hand this off / wrap up the session" | |
 | `scheduling` | Phrase | — | "help me schedule X" | Never a gate. |
 | `manager-1on1-prep` | Phrase | Manager-gated | "help me prep for my 1:1 with X" | |

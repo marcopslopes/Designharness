@@ -31,12 +31,22 @@ export const variants: Variants = {
           default: 'payout',
           note: 'Decided: Next payout. Balance-first showed €1,284.50 twice and was dropped in review.',
         },
+        {
+          id: 'sample',
+          label: 'Next payout amount',
+          options: [
+            { id: 'default', label: '€1,284.50' },
+            { id: 'under-minimum', label: 'Under €25' },
+          ],
+          default: 'default',
+          note: 'Under €25 shows how much is still short, and that this Friday is missed. The usual week stays €1,284.50.',
+        },
       ],
     },
   ],
   frame: (v) => ({
     screen: SCREEN,
-    props: { status: v.status, lead: v.lead },
+    props: { status: v.status, lead: v.lead, sample: v.sample },
   }),
   note: (v) => {
     if (v.status === 'not-set-up' && v.lead === 'balance')

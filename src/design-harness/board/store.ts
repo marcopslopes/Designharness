@@ -36,6 +36,10 @@ export type BoardAction =
   | { type: 'add'; nodes: BoardNode[]; select?: boolean }
   | { type: 'update'; patches: { id: string; patch: NodePatch }[]; history?: boolean }
   | { type: 'remove'; ids: string[] }
+  /** One undo step: the nodes (and their frames' children) go, `nodes` take their place. */
+  | { type: 'replace'; ids: string[]; nodes: BoardNode[] }
+  /** One undo step: the active page's nodes become `nodes`. */
+  | { type: 'setNodes'; nodes: BoardNode[] }
   | { type: 'reorder'; ids: string[]; direction: 'forward' | 'backward' | 'front' | 'back' }
   | { type: 'reparent'; ids: string[] }
   | { type: 'select'; ids: string[] }
@@ -179,6 +183,13 @@ export function boardReducer(state: BoardState, action: BoardAction): BoardState
       const next = withNodes(doc, (nodes) => nodes.filter((node) => !ids.has(node.id)))
       return { ...push(state, next), selected: state.selected.filter((id) => !ids.has(id)) }
     }
+    case 'replace': {
+      const ids = new Set(withChildren(activePage(doc).nodes, action.ids))
+      const next = withNodes(doc, (nodes) => [...nodes.filter((node) => !ids.has(node.id)), ...action.nodes])
+      return { ...push(state, next), selected: action.nodes.slice(0, 1).map((node) => node.id) }
+    }
+    case 'setNodes':
+      return push(state, withNodes(doc, () => action.nodes))
     case 'reorder':
       return push(
         state,

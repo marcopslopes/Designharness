@@ -1522,31 +1522,36 @@ task folder; hand-copies prototype markup instead of using the
 
 ---
 
-## Scenario 53 — `publish-project` requires a prior audit PASS
+## Scenario 53 — `publish-project` requires a ship packet and an audit PASS
 
-**Case A — audit already PASSed:**
+**Case A — Ship block complete, audit already PASSed:**
 
 **Request:** *"Publish this project — give me a share URL."*
 
 **Expected:**
-1. MATCHED `publish-project`. Copies the picked file from
+1. MATCHED `publish-project`. Runs `harness/references/ship-packet.md`
+   at exposure general, then copies the picked file from
    `artifacts/decks/` into `public/projects/<slug>/` — the only folder
    actually served publicly.
-2. Logged.
+2. The brief's `## Ship` lines are filled (hypothesis, success, owner,
+   review date, exposure `general`, decision). The confirm line is said
+   before the copy.
+3. Logged as a `ship` / `cleared` row in the project's `log.md`.
 
-**Case B — no prior audit PASS on record:**
+**Case B — no prior audit PASS, or Ship block missing a line:**
 
-**Request:** same as above, but no PASS verdict exists for this
-project.
+**Request:** same as above, but no PASS verdict exists, or Review (or
+any other Ship line) is blank.
 
-**Expected:** declines to publish, states plainly that an `audit` PASS
-is required first, and offers to run `audit` now rather than publishing
-anyway.
+**Expected:** declines to publish in one message. A missing audit says
+to run `audit` first. A missing Ship line names the line and the edit.
+Nothing is copied. A `ship` / `refused` row is logged.
 
-**Fail conditions:** publishes without a prior PASS; publishes from
-`artifacts/snapshots/` or `artifacts/qa/` instead of `artifacts/decks/`;
-auto-fires right after `ui-agent`/`deck-builder`/`audit` without being
-asked.
+**Fail conditions:** publishes without a prior PASS; publishes with a
+blank Ship line or a success line that is only a delivery step;
+publishes from `artifacts/snapshots/` or `artifacts/qa/` instead of
+`artifacts/decks/`; auto-fires right after `ui-agent`/`deck-builder`/`audit`
+without being asked; runs Git autopilot share instead.
 
 **Designer HOWTO:** `harness/skills/publish-project/SKILL.md`
 

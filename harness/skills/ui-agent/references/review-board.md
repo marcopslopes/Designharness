@@ -46,6 +46,14 @@ Do not freestyle a new board aesthetic each time — clone that structure
 
 ---
 
+## Not go-wide
+
+`ux-pattern` go-wide does not use a review board. It builds its directions
+into the real screen and shows them in the project's Compare view
+(`harness/skills/ux-pattern/SKILL.md` § Go-wide mode).
+
+---
+
 ## Forbidden
 
 - Shipping all variants as live Design Harness routes before a pick

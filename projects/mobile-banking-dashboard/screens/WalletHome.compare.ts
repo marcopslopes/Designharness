@@ -36,5 +36,34 @@ export const compare: Compare = {
       ],
       source: 'brief.md — job story 1',
     },
+    {
+      id: 'directions',
+      title: 'Ways to make the home clearer',
+      question: 'Which home makes it easier to see where your money is, and what to do next?',
+      frames: [
+        {
+          label: 'Today',
+          frame: { screen: IOS, props: { direction: 'today' } },
+          note: 'The previous home.',
+        },
+        {
+          label: 'Payout is the page',
+          frame: { screen: IOS, props: { direction: 'payout' } },
+          note: "The payout opens as its own page, with fees and refunds. Providers can't match a payout to what they charged.",
+          chosen: true,
+        },
+        {
+          label: 'The hold leads',
+          frame: { screen: IOS, props: { direction: 'hold' } },
+          note: 'On hold moves above the payout and opens as a page. Providers call when a hold has no next step.',
+        },
+        {
+          label: 'One list by Friday',
+          frame: { screen: IOS, props: { direction: 'fridays' } },
+          note: 'Money is grouped by the Friday it lands. Providers want to know when a payout reaches the bank.',
+        },
+      ],
+      source: 'decisions.md 2026-11-02 — Go wide: wallet home',
+    },
   ],
 }

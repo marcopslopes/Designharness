@@ -117,3 +117,39 @@ Quartz (design.how) is a cold, dense system for agent tools. The wallet desktop 
 **Chosen:** Confirm each step.
 **Rationale:** Hands-on dial for this screen only. Does not skip the plan approval.
 **Made by:** designer, via AskQuestion.
+
+## 2026-11-02 — Go wide: wallet home
+
+**Picked:** #1 Show the hold reason on the On hold tile instead of always “Disputed payment · Why?”. (moves UX: say why money is on hold, and the next step) · #2 Under the Next payout amount, say what is still short of the €25 minimum and the date that payout will actually go out. (moves UX: time to answer when and how much) · #3 On the Next payout hero, show refunds and chargebacks already taken out of Friday’s amount. (moves UX: time to answer when and how much) · #4 On each collapsed Past payouts row, show the fee total next to the amount paid to the bank. (moves UX: match a payout to services, tips, fees and deductions) · #5 On the hold sheet, make the primary button the next step named in the sheet, and take Contact Support Team off that sheet. (moves Outcome: support contacts about balance, payouts or the wallet)
+**Parked:** #6 Make each Pending row open that payment and the payout date it joins. — UX: time to answer when and how much, job story 2; findings 2026-10-13, day · #7 On the returned-payout alert, take Update bank details straight into the payout-settings handoff. — Guardrail: payout-settings completion, findings 2026-09-15, 2026-10-08, day · #8 When a pending payment changes Friday’s amount, mark the Next payout figure with what changed and why. — UX: time to answer when and how much, findings 2026-10-13, day · #9 Remove the Pending section total, which repeats the amount already on the Pending tile. — UX: time to answer when and how much, hunch, hour · #10 When payouts are paused or a payout is returned, notify the provider with the reason and the next step. — Outcome: support contacts about balance, payouts or the wallet, findings 2026-10-07, 2026-10-13, project
+Source: ux-pattern go-wide; How we'd know status proposed; board artifacts/snapshots/wallet-home-ideas.html
+
+### 2026-11-02 — Review board: wallet home directions
+
+**Format:** review board
+**On the board:** #1 hold reason on the tile, #2 minimum on next payout, #4 fees on the collapsed payout row, #5 next step on the hold sheet
+**Not on this board:** #3 refunds on the hero — still picked, not mocked
+**File:** `artifacts/snapshots/wallet-home-variants.html`
+**Waiting:** a pick before any edit to the wallet home prototype
+**Made by:** designer, via AskQuestion (the four to mock)
+
+### 2026-11-02 — Build the four wallet home directions
+
+**Chosen:** #1 hold reason on the On hold tile, #2 the €25 shortfall under Next payout, #4 fees on the collapsed payout row, #5 the hold sheet's main button is the next step
+**Not in this build:** #3 refunds on the hero — still picked, not built
+**Rationale:** designer picked all four mocked directions
+**Made by:** designer, via AskQuestion
+
+### 2026-11-02 — Text boards removed
+
+**Removed:** `artifacts/snapshots/wallet-home-ideas.html` and `artifacts/snapshots/wallet-home-variants.html`. The idea list and picks above stay the record.
+**Why:** the boards read as text-heavy. Go-wide now shows directions as real screens in Compare (`screens/WalletHome.compare.ts`).
+**Made by:** designer, via AskQuestion.
+
+## 2026-11-02 — Go wide: wallet home (UI and UX)
+
+**Directions:** The payout is the page (#1, #2, #3 — moves match a payout to services, tips, fees and deductions) · The hold leads (#4, #5, #6 — moves say why money is on hold, and the next step. Depends on Finance.) · One list by Friday (#7, #8, #9 — moves time to answer when the next payout is, and how much)
+**Chosen:** The payout is the page
+**Ideas not in a chosen direction:** #4 Move On hold above Next payout — UX say why money is on hold, job story 1, findings 2026-10-07 and 2026-10-13, hour · #5 Open that row as a page — UX say why and the next step, job story 1, findings 2026-10-07, day · #6 Say the held amount is not in the next payout — UX time to answer when and how much, findings 2026-10-13, conceptual-model 2026-10-15, hour · #7 Group money by Friday — UX time to answer when and how much, job story 2, findings 2026-10-15, day · #8 Each Friday opens that payout — UX match a payout, job story 3, findings 2026-09-29, day · #9 Show a refund in the Friday it changed — UX match a payout, job story 4, findings 2026-09-25 and 2026-10-14, hour · #10 Move Payout Settings into the header — Guardrail: payout-settings completion, hunch, hour
+**Ideas:** #1 Open a past payout as its own page, with payments, tips, refunds and fees — UX match a payout, job story 3, findings 2026-09-29, day · #2 Open Next payout and list the pending and held money that is not in it — UX time to answer when and how much, job story 2, findings 2026-10-13, day · #3 Show the latest payout's payments, tips, refunds and fees without an expand — UX match a payout, job story 3, findings 2026-09-29, hour · #4 Move On hold to a full-width row above Next payout — UX say why money is on hold, job story 1, findings 2026-10-07 and 2026-10-13, hour · #5 Open that row as a page, not a sheet — UX say why and the next step, job story 1, findings 2026-10-07, day · #6 Keep the Next payout figure alone, and say the held amount is not in it — UX time to answer when and how much, findings 2026-10-13, conceptual-model 2026-10-15, hour · #7 Group pending and past payouts by the Friday they belong to — UX time to answer when and how much, job story 2, findings 2026-10-15, day · #8 Each Friday shows what the bank receives or received, and opens that payout — UX match a payout, job story 3, findings 2026-09-29, day · #9 Show a refund as a line in the Friday it changed — UX match a payout, job story 4, findings 2026-09-25 and 2026-10-14, hour
+Source: ux-pattern go-wide; How we'd know status proposed; Compare screens/WalletHome.compare.ts (directions)

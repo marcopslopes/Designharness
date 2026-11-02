@@ -66,3 +66,34 @@ is gallery-ready.
 ## Constraints
 
 <Anything that limits the approach: deadline, platform parity, existing pattern to match, etc.>
+
+## How we'd know
+
+<!--
+Proposed by kickoff from its research. Correct any row.
+Contract: harness/references/measurement-plan.md.
+Never invent a baseline or a target.
+-->
+
+| Layer | Metric | Baseline | Target | Measured by |
+|---|---|---|---|---|
+| Outcome | | | | |
+| UX | | | | |
+| Guardrail | | | | |
+
+Status: proposed
+
+## Ship
+
+<!--
+Checked before a team share (internal) or a public copy (general).
+Contract: harness/references/ship-packet.md.
+Leave Review blank until a date is named. Do not invent Success.
+-->
+
+- **Hypothesis:**
+- **Success:**
+- **Owner:**
+- **Review:**
+- **Exposure:**
+- **Decision:** pending

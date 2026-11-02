@@ -1,0 +1,84 @@
+/* Travel itinerary — projects/travel-app/screens/ItineraryPage.tsx */
+
+.travel-itinerary__plan {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-05);
+  padding: 0 var(--spacing-05) var(--spacing-05);
+}
+
+.travel-itinerary .ds-header__title,
+.travel-itinerary .ds-header__stat strong,
+.travel-itinerary__row-main .ds-text {
+  overflow-wrap: anywhere;
+}
+
+.travel-itinerary__plan .ds-text,
+.travel-itinerary__row-main .ds-text,
+.travel-itinerary__time .ds-text {
+  margin: 0;
+}
+
+.travel-itinerary__head,
+.travel-itinerary__day-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-03);
+}
+
+.travel-itinerary__day {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-02);
+}
+
+.travel-itinerary__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-radius: var(--radius-03);
+  background: var(--color-surface-default);
+  box-shadow: var(--kit-shadow-border);
+}
+
+.travel-itinerary__list > li + li {
+  border-top: var(--border-01) solid var(--kit-line);
+}
+
+.travel-itinerary__row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-04);
+  width: 100%;
+  min-height: var(--size-11);
+  padding: var(--spacing-04) var(--spacing-05);
+  border: none;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+
+.travel-itinerary__row:focus-visible {
+  outline: var(--border-02) solid var(--color-border-focus);
+  outline-offset: calc(var(--border-02) * -1);
+}
+
+.travel-itinerary__time {
+  flex: none;
+}
+
+.travel-itinerary__row-icon {
+  display: flex;
+  flex: none;
+  color: var(--color-text-muted);
+}
+
+.travel-itinerary__row-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-01);
+  min-width: 0;
+}

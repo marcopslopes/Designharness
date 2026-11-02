@@ -523,3 +523,316 @@ export function docFileFacts(docs: { file: string; source: string }[]): DocFileF
     })
     .filter((d) => d !== undefined)
 }
+
+/** `lead` is a page's headline statement, larger than body text. */
+export type BoardBlockKind = 'lead' | 'body' | 'item' | 'label' | 'callout'
+/** `marker` is a list item's number, or `•` for a bullet. */
+export type BoardBlock = { kind: BoardBlockKind; text: string; marker?: string }
+/** `wide` takes a row of its own on a story page, at the intro's width. */
+export type BoardOutlineSection = { heading: string; blocks: BoardBlock[]; wide?: boolean }
+export type BoardOutline = { title: string; sections: BoardOutlineSection[] }
+
+function plainInline(text: string): string {
+  return text
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/(^|[^*\w])\*([^*\n]+)\*(?!\w)/g, '$1$2')
+    .replace(/(^|\s)_([^_\n]+)_(?=\s|[.,;:!?]|$)/g, '$1$2')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+/**
+ * A markdown page as board pages: one per `##` section (or `###` when the page has none), each a list of
+ * blocks — paragraphs, list items and table rows, sub-headings, quotes. The markdown file stays the source.
+ */
+export function markdownBoardOutline(source: string | undefined, fallbackTitle: string): BoardOutline {
+  const body = splitFrontMatter(source ?? '')
+    .body.replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/^\s*```[\s\S]*?^\s*```\s*$/gm, '')
+  const sectionLevel = /^##\s/m.test(body) ? 2 : 3
+  let title = ''
+  const sections: BoardOutlineSection[] = []
+  let current: BoardOutlineSection = { heading: '', blocks: [] }
+  let para: string[] = []
+  let paraKind: BoardBlockKind = 'body'
+  let paraMarker: string | undefined
+  let tableHeader = true
+
+  const push = (kind: BoardBlockKind, raw: string, marker?: string) => {
+    const text = plainInline(raw)
+    if (text) current.blocks.push(marker ? { kind, text, marker } : { kind, text })
+  }
+  const flush = () => {
+    push(paraKind, para.join(' '), paraMarker)
+    para = []
+    paraKind = 'body'
+    paraMarker = undefined
+  }
+  const close = () => {
+    flush()
+    if (current.blocks.length) sections.push(current)
+  }
+
+  for (const raw of body.split('\n')) {
+    const line = raw.trim()
+    if (!line.startsWith('|')) tableHeader = true
+    if (!line || /^(-{3,}|\*{3,})$/.test(line)) {
+      flush()
+      continue
+    }
+    const heading = line.match(/^(#{1,6})\s+(.*)$/)
+    if (heading) {
+      flush()
+      const level = heading[1].length
+      if (level === 1) title ||= plainInline(heading[2])
+      else if (level <= sectionLevel) {
+        close()
+        current = { heading: plainInline(heading[2]), blocks: [] }
+      } else push('label', heading[2])
+      continue
+    }
+    if (line.startsWith('|')) {
+      flush()
+      if (tableHeader || /^\|[\s:|-]+\|$/.test(line)) {
+        tableHeader = false
+        continue
+      }
+      const cells = line.replace(/^\||\|$/g, '').split('|').map(plainInline).filter(Boolean)
+      if (cells.length) push('item', cells.join(' · '))
+      continue
+    }
+    const item = line.match(/^(?:[-*+]|(\d+)[.)])\s+(.*)$/)
+    if (item) {
+      flush()
+      para = [item[2]]
+      paraKind = 'item'
+      paraMarker = item[1] ?? '•'
+      continue
+    }
+    if (line.startsWith('>')) {
+      if (paraKind !== 'callout') flush()
+      paraKind = 'callout'
+      para.push(line.replace(/^>\s?/, ''))
+      continue
+    }
+    para.push(line)
+  }
+  close()
+  return { title: title || fallbackTitle, sections }
+}
+
+/** Truth-block `evidence`. */
+export function briefEvidence(brief: string | undefined): { text: string; source?: string }[] {
+  return briefItems(brief, 'evidence').map(({ text, source }) => ({ text, ...(source ? { source } : {}) }))
+}
+
+/** Dated `decisions.md` entries with a **Chosen:** line, newest first. Templates and kickoff answers have none. */
+export function chosenDecisions(decisions: string | undefined): { title: string; chosen: string }[] {
+  const entries = (decisions ?? '').split(/^#{2,3}\s+/m).slice(1).reverse()
+  return entries
+    .flatMap((entry) => {
+      const [first, ...rest] = entry.split('\n')
+      const date = first.match(/^(\d{4}-\d{2}-\d{2})\s+[—–-]\s+(.*)$/)
+      const chosen = rest.join('\n').match(/^\*\*Chosen:\*\*\s*(.+)$/m)?.[1]
+      return date && chosen ? [{ date: date[1], title: plainInline(date[2]), chosen: plainInline(chosen) }] : []
+    })
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .map(({ title, chosen }) => ({ title, chosen }))
+}
+
+/** "How we'd know" rows as one line each: metric, then baseline and target when they're set. */
+function measurementLines(brief: string | undefined): string[] {
+  const rows = briefSection(brief, "How we'd know")
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith('|') && !/^\|[\s:|-]+\|$/.test(line))
+    .slice(1)
+    .map((line) => line.replace(/^\||\|$/g, '').split('|').map((cell) => plainInline(cell)))
+  return rows.flatMap(([layer, metric, baseline, target]) => {
+    if (!metric) return []
+    const known = (value?: string) => value && !/^(—|-|unknown)$/i.test(value)
+    const numbers = [known(baseline) ? `now ${baseline}` : '', known(target) ? `target ${target}` : '']
+      .filter(Boolean)
+      .join(', ')
+    return [`${layer}: ${metric}${numbers ? ` (${numbers})` : ''}`]
+  })
+}
+
+const STORY_ITEMS = 4
+
+/**
+ * The project in one board page: problem, evidence, what was chosen, how we'd know, what's still open.
+ * Read from the brief's truth block and summary, and from `decisions.md`. The files stay the source.
+ */
+export function projectStoryOutline(project: { title: string; brief?: string; decisions?: string }): BoardOutline {
+  const { brief } = project
+  const summary = caseStudyFromBrief(brief)
+  const who = briefSection(brief, '3\\. Users & context').match(/^Who is this for:\s*(.+?)(?:\.|$)/m)?.[1]
+  const item = (text: string, marker = '•'): BoardBlock => ({ kind: 'item', text: clipLine(text, 200), marker })
+  const sections: BoardOutlineSection[] = [
+    {
+      heading: '',
+      blocks: [
+        ...(summary?.problem ? [{ kind: 'lead' as const, text: summary.problem }] : []),
+        ...(who ? [{ kind: 'body' as const, text: `For ${who}.` }] : []),
+        ...(summary?.goal ? [{ kind: 'callout' as const, text: `Goal: ${summary.goal}` }] : []),
+      ],
+    },
+    {
+      heading: 'Evidence',
+      blocks: briefEvidence(brief).slice(0, STORY_ITEMS).map(({ text }) => item(text)),
+    },
+    {
+      heading: 'What we chose',
+      blocks: chosenDecisions(project.decisions)
+        .slice(0, STORY_ITEMS)
+        .map(({ title, chosen }, index) => item(`${title.replace(/:\s*/g, ' – ')}: ${chosen}`, String(index + 1))),
+    },
+    {
+      heading: "How we'd know",
+      blocks: measurementLines(brief).slice(0, STORY_ITEMS + 1).map((text) => item(text)),
+    },
+    {
+      heading: 'Still open',
+      blocks: presentedUnknowns(brief)
+        .slice(0, STORY_ITEMS + 1)
+        .map(({ text, owner, blocks }) =>
+          item(`${owner ? `${owner}: ` : ''}${displayQuestion(text)}${blocks ? ` (blocks ${blocks})` : ''}`),
+        ),
+    },
+  ]
+  return { title: project.title, sections: sections.filter((section) => section.blocks.length) }
+}
+
+/** A sentence ends at punctuation followed by a space, so `findings.md` and `€1,284.50` stay whole. */
+const SENTENCE = /(?:[^.!?]|[.!?](?!\s|$))+(?:[.!?]+(?=\s|$)|$)/g
+
+const capitalised = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
+
+/** The opening sentences of a paragraph, enough to carry the point: at least `min` characters, clipped at `max`. */
+function opening(text: string, min = 80, max = 240): string {
+  const sentences = text.match(SENTENCE)?.map((sentence) => sentence.trim()) ?? [text]
+  let out = ''
+  for (const sentence of sentences) {
+    out = out ? `${out} ${sentence}` : sentence
+    if (out.length >= min) break
+  }
+  return clipLine(out, max)
+}
+
+/** `**Label.** rest`, `**Label:** rest`, `**Label** — rest` or `Label: rest`. */
+function labelled(paragraph: string): { label: string; rest: string } | undefined {
+  const bold = paragraph.match(/^\*\*([^*]+?)[.:]?\*\*[.:]?\s*(?:[—–-]\s*)?([\s\S]*)$/)
+  if (bold) return { label: bold[1].trim(), rest: bold[2].trim() }
+  const plain = paragraph.match(/^([A-Z][\w '’]{1,30}):\s+([\s\S]+)$/)
+  return plain ? { label: plain[1], rest: plain[2].trim() } : undefined
+}
+
+/** A case-study chapter as paragraphs, list items as their own entries, nested items folded into their parent. */
+function chapterParagraphs(source: string, heading: string): string[] {
+  return briefSection(source, heading)
+    .replace(/^Source:.*$/gm, '')
+    .split(/\n\s*\n/)
+    .flatMap((block) => block.split(/\n(?=[-*]\s)/))
+    .map((entry) => entry.replace(/^[-*]\s+/, '').trim())
+    .filter(Boolean)
+}
+
+/** What an option paragraph settled on: its **Chosen:** clause, the chosen row of the table after it, or its opening. */
+function optionLine(rest: string, table: string | undefined): string {
+  const chosen = rest.match(/\*\*Chosen(?: \([^)]*\))?:\*\*\s*([\s\S]*?)(?=\s\*\*|$)/)?.[1]
+  if (chosen) return opening(plainInline(chosen), 0, 200)
+  const rows = (table ?? '')
+    .split('\n')
+    .filter((line) => line.startsWith('|') && !/^\|[\s:|-]+\|$/.test(line))
+    .slice(1)
+    .map((line) => line.replace(/^\||\|$/g, '').split('|').map(plainInline))
+  const pick = rows.find((cells) => cells.some((cell) => /^chosen\b/i.test(cell)))
+  if (pick) {
+    const others = rows.filter((cells) => cells !== pick && cells.some((cell) => /^rejected\b/i.test(cell)))
+    return `${pick[0]}${others.length ? ` (over ${others.map((cells) => cells[0]).join(', ')})` : ''}`
+  }
+  return opening(plainInline(rest), 120, 200)
+}
+
+/**
+ * The story page read from `case-study.md` (`case-study` skill): the framing as the headline, then the arc in
+ * order — problem, evidence, what we tried, what we chose, what should change, what's still open — and the
+ * chapters the case study skipped. Live prototype and sources stay off the page: the board shows them beside it.
+ */
+export function caseStudyStoryOutline(source: string, title: string): BoardOutline {
+  const chapterOne = briefSection(source, '1\\.')
+  const field = (name: string) =>
+    plainInline(chapterOne.match(new RegExp(`^-\\s+\\*\\*${name}:\\*\\*\\s*(.+)$`, 'm'))?.[1] ?? '')
+  const item = (text: string, marker = '•'): BoardBlock => ({ kind: 'item', text: clipLine(text, 220), marker })
+
+  const problem = chapterParagraphs(source, '2\\.').map(plainInline)
+
+  const evidence = markdownBoardOutline(briefSection(source, '3\\.').replace(/^Source:.*$/gm, ''), '')
+    .sections.flatMap((section) => section.blocks)
+    .filter((block) => block.kind === 'item' || block.kind === 'callout')
+    .slice(0, STORY_ITEMS)
+    .map((block) => ({ ...block, text: clipLine(block.text.replace(/^\d+ · /, ''), 220) }))
+
+  const options = chapterParagraphs(source, '4\\.')
+  const tried = options.flatMap((paragraph, index) => {
+    const option = labelled(paragraph)
+    if (!option) return []
+    const table = options[index + 1]?.startsWith('|') ? options[index + 1] : undefined
+    return [`${option.label}: ${optionLine(option.rest, table)}`]
+  })
+
+  const decision = chapterParagraphs(source, '5\\.').flatMap((paragraph): BoardBlock[] => {
+    const part = labelled(paragraph)
+    if (!part) return []
+    const text = plainInline(part.rest)
+    return /^why\b/i.test(part.label)
+      ? [{ kind: 'body', text: `Why: ${opening(text, 120, 280)}` }]
+      : [{ kind: 'callout', text: capitalised(clipLine(text, 320)) }]
+  })
+
+  const open: string[] = []
+  const change: BoardBlock[] = []
+  chapterParagraphs(source, '7\\.').forEach((paragraph, index) => {
+    const [first, ...nested] = paragraph.split(/\n\s*[-*]\s+/)
+    const part = labelled(first)
+    if (part && /^still open/i.test(part.label)) {
+      open.push(...(nested.length ? nested : (part.rest.match(SENTENCE) ?? [])).map(plainInline).filter(Boolean))
+    } else if (part && /^built\b/i.test(part.label)) return
+    else if (part) change.push(item(`${part.label}: ${opening(plainInline(part.rest), 120, 220)}`))
+    else if (index === 0) change.push({ kind: 'body', text: plainInline(first) })
+    else change.push(item(opening(plainInline(first), 120, 220)))
+  })
+
+  const notYet = chapterParagraphs(source, 'Skipped').flatMap((entry) => {
+    const skip = plainInline(entry).match(/^Chapter ([2-7]),\s*([^—:]+?)\s*[—:]\s*(.+)$/)
+    return skip ? [item(`${skip[2]}: ${opening(skip[3], 0, 200)}`)] : []
+  })
+
+  const sections: BoardOutlineSection[] = [
+    {
+      heading: '',
+      blocks: [
+        ...(field('Framing') ? [{ kind: 'lead' as const, text: field('Framing') }] : []),
+        ...(field('Intro') ? [{ kind: 'body' as const, text: field('Intro') }] : []),
+        ...(field('Who') ? [{ kind: 'label' as const, text: field('Who') }] : []),
+      ],
+    },
+    {
+      heading: 'The problem',
+      wide: true,
+      blocks: problem.slice(0, 1).map((text) => ({ kind: 'body' as const, text: opening(text, 160, 360) })),
+    },
+    { heading: 'Evidence', blocks: evidence },
+    { heading: 'What we tried', blocks: tried.slice(0, STORY_ITEMS).map((text, index) => item(text, String(index + 1))) },
+    { heading: 'What we chose', blocks: decision },
+    { heading: 'What should change', blocks: change.slice(0, STORY_ITEMS) },
+    { heading: 'Still open', blocks: open.slice(0, STORY_ITEMS).map((text) => item(text)) },
+    { heading: 'Not yet', blocks: notYet },
+  ]
+  return { title, sections: sections.filter((section) => section.blocks.length) }
+}

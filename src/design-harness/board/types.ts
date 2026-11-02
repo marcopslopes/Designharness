@@ -31,8 +31,25 @@ type NodeBase = {
 }
 
 export type StickyNode = NodeBase & { type: 'sticky'; text: string; color: BoardColor }
-export type TextNode = NodeBase & { type: 'text'; text: string; color: BoardColor; heading?: boolean }
-export type FrameNode = NodeBase & { type: 'frame'; title: string }
+/** How a text block on a written page reads, like the same element on the HTML page. */
+export type TextBlock = 'eyebrow' | 'title' | 'lead' | 'section' | 'body' | 'item' | 'label' | 'callout'
+export type TextNode = NodeBase & {
+  type: 'text'
+  text: string
+  color: BoardColor
+  heading?: boolean
+  block?: TextBlock
+  /** A section's or list item's number, or `•`, drawn in the block's colour. */
+  marker?: string
+}
+export type FrameNode = NodeBase & {
+  type: 'frame'
+  title: string
+  /** Project boards: the written page this frame is a section of. It shows as a white page. */
+  source?: string
+  /** Story page: a fingerprint of the blocks as they were made, so an untouched story can refresh itself. */
+  stamp?: string
+}
 export type ShapeNode = NodeBase & {
   type: 'shape'
   shape: 'rect' | 'ellipse'
@@ -54,7 +71,16 @@ export type FileNode = NodeBase & {
   preview?: string
 }
 /** A live Design Harness route (a project screen, state, doc or storyboard) in an iframe. */
-export type PrototypeNode = NodeBase & { type: 'prototype'; route: string; label: string; project: string }
+export type PrototypeNode = NodeBase & {
+  type: 'prototype'
+  route: string
+  label: string
+  project: string
+  /** A written page as a small card: title and first line, open to read, or put its text on the board. */
+  compact?: boolean
+  /** Set on a lead screen that was placed beside the story. Sync removes that copy; the screen stays in the prototype row. */
+  slot?: 'story'
+}
 /** Any outside page — Figma and Miro links turn into their embed URLs. */
 export type EmbedNode = NodeBase & { type: 'embed'; url: string; label: string }
 
@@ -76,6 +102,10 @@ export type BoardPage = {
   fresh?: boolean
   /** What that first fit frames; everything when unset. */
   focus?: string[]
+  /** Project boards: artifact routes already placed once, so deleting one keeps it off the canvas. */
+  seeded?: string[]
+  /** Project boards: `story` once the board opens on the story row; older boards are rebuilt once. */
+  layout?: 'story'
 }
 
 export type BoardBackground = 'dots' | 'plain'

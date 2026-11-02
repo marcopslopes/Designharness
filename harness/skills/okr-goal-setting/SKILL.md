@@ -42,6 +42,14 @@ should we track for this"
 
 ---
 
+## Step 0 — Start from the project's plan
+
+If the project's `brief.md` has a `## How we'd know` table
+(`harness/references/measurement-plan.md`), start from it: the Outcome
+row is the draft objective, and its Baseline and Measured by columns are
+already sourced. Write the key results back into that table's Outcome and
+Guardrail rows, not into a second goal section.
+
 ## Step 1 — Name the objective (qualitative, ambitious, one sentence)
 
 Not a metric yet — a statement of the outcome that matters. "Reduce

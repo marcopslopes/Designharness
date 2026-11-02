@@ -106,7 +106,9 @@ system, many layouts — not one template per format.
    shipping on its own. Accent, density, or copy alone is a tint of one
    direction — name that and ask for a real alternative before writing
    the config. Every direction still uses Foundations tokens and the
-   motion craft bar.
+   motion craft bar. Exception: a go-wide comparison of type Content
+   (`ux-pattern` § Go-wide mode) compares copy on purpose; its question
+   names the copy, and it is not a tint.
 4. **Write the config** beside the screens:
    `screens/<Name>.variants.ts` (export `variants`),
    `screens/<Name>.compare.ts` (`compare`), `screens/<Name>.stage.ts`

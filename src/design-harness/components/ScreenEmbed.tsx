@@ -1,3 +1,4 @@
+import { harnessFrameSrc } from '../presentation'
 import type { ProjectScreen } from '../projectsIndex'
 
 /**
@@ -21,7 +22,7 @@ export function ScreenEmbed({ screen, label, query = '' }: { screen: ProjectScre
       <iframe
         className="design-harness-screen-embed__frame"
         data-theme="light"
-        src={`${window.location.pathname}#/${screen.route}?embed=1${props}`}
+        src={harnessFrameSrc(`${screen.route}?embed=1${props}`)}
         title={`${title} — live screen`}
         loading="lazy"
       />

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { FrameArrowUpRight, FrameChevronDown, FrameChevronUp, FramePlay, FrameRefresh } from '../harnessIcons'
-import { framePropsQuery } from '../presentation'
+import { framePropsQuery, harnessFrameSrc } from '../presentation'
 import { resolveScreenFile, type Project, type ProjectStoryboard } from '../projectsIndex'
 import { getDesignHarnessHashQuery, replaceDesignHarnessHashQuery as setHashQuery } from '../routes'
 import type { StoryboardStart, StoryboardTarget } from '../storyboard'
@@ -394,7 +394,7 @@ export function StoryboardPage({ project, entry }: { project: Project; entry: Pr
             ref={iframeRef}
             className="design-harness-storyboard__iframe"
             title={screen.label}
-            src={`${window.location.pathname}${screenHash(true)}`}
+            src={harnessFrameSrc(screenHash(true))}
           />
           {rect ? (
             <div

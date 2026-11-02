@@ -15,6 +15,10 @@ import {
   screenFileFacts,
   truthChipLabel,
   truthLine,
+  markdownBoardOutline,
+  chosenDecisions,
+  projectStoryOutline,
+  caseStudyStoryOutline,
 } from '../../src/design-harness/projectFacts.ts'
 
 const repo = path.resolve(import.meta.dirname, '../..')
@@ -184,5 +188,186 @@ test('every project brief has a title', () => {
     const brief = path.join(repo, 'projects', slug, 'brief.md')
     if (slug.startsWith('_') || !existsSync(brief)) continue
     assert.ok(projectTitle(slug, readFileSync(brief, 'utf8')).length > 0, slug)
+  }
+})
+
+test('a written page becomes board pages of text blocks; the markdown stays the source', () => {
+  const page = `---
+status: draft
+---
+# Wallet brief
+
+<!-- guidance for the agent -->
+Intro line.
+
+## 3. Users & context
+| # | When | I want to | So I can |
+|---|---|---|---|
+| 1 | When money is held | to see **why** | sort it out |
+
+## How we'd know
+- Support contacts per 1,000 [dashboard](https://example.com)
+2. Payout disputes
+
+> Baseline first.
+
+\`\`\`mermaid
+graph TD
+\`\`\`
+`
+  const outline = markdownBoardOutline(page, 'Fallback')
+  assert.equal(outline.title, 'Wallet brief')
+  assert.deepEqual(outline.sections, [
+    { heading: '', blocks: [{ kind: 'body', text: 'Intro line.' }] },
+    {
+      heading: '3. Users & context',
+      blocks: [{ kind: 'item', text: '1 · When money is held · to see why · sort it out' }],
+    },
+    {
+      heading: "How we'd know",
+      blocks: [
+        { kind: 'item', text: 'Support contacts per 1,000 dashboard', marker: '•' },
+        { kind: 'item', text: 'Payout disputes', marker: '2' },
+        { kind: 'callout', text: 'Baseline first.' },
+      ],
+    },
+  ])
+  assert.deepEqual(
+    markdownBoardOutline('### Card style\n#### Why\n**Decision:** Flat cards.', 'Decisions').sections,
+    [{ heading: 'Card style', blocks: [{ kind: 'label', text: 'Why' }, { kind: 'body', text: 'Decision: Flat cards.' }] }],
+  )
+})
+
+test('the story page reads the brief summary, truth block and chosen decisions', () => {
+  const brief = `
+\`\`\`yaml
+status: approved
+unknowns:
+  - text: "Does the provider send the hold reason?"
+    owner: "Finance"
+    blocks: "Job story 1"
+evidence:
+  - text: "Providers call support about blocked wallets."
+    source: findings.md
+\`\`\`
+
+## Case study summary
+- **Problem:** Providers can't tell where their money is.
+- **Goal:** Answer how much, when, and why.
+
+## How we'd know
+| Layer | Metric | Baseline | Target | Measured by |
+|---|---|---|---|---|
+| Outcome | Support contacts per 1,000 | unknown | 20% fewer | support tags |
+`
+  const decisions = `### YYYY-MM-DD — <decision>
+**Chosen:** <label>
+
+### 2026-10-16 — Platform
+**Chosen:** iOS first.
+
+### 2026-11-02 — Go wide
+**Chosen:** The payout is the page.
+`
+  assert.deepEqual(chosenDecisions(decisions).map((d) => d.chosen), ['The payout is the page.', 'iOS first.'])
+  const story = projectStoryOutline({ title: 'Wallet', brief, decisions })
+  assert.deepEqual(
+    story.sections.map((s) => s.heading),
+    ['', 'Evidence', 'What we chose', "How we'd know", 'Still open'],
+  )
+  assert.equal(story.sections[0].blocks.at(-1)?.text, 'Goal: Answer how much, when, and why.')
+  assert.equal(story.sections[2].blocks[0].text, 'Go wide: The payout is the page.')
+  assert.equal(story.sections[3].blocks[0].text, 'Outcome: Support contacts per 1,000 (target 20% fewer)')
+  assert.equal(story.sections[0].blocks[0].kind, 'lead')
+  assert.equal(story.sections[4].blocks[0].text, 'Finance: Does the provider send the hold reason? (blocks Job story 1)')
+})
+
+test('a case study becomes the story: headline, problem, options, the call, what should change, gaps', () => {
+  const source = `# Case study — Clients
+
+## 1. Opening
+
+- **Framing:** A list that shows who needs a call today.
+- **Intro:** A bank's client list sorted into Premium, New and Dormant.
+
+## 2. Problem / why now
+
+A flat list tells managers who their clients are. It doesn't tell them who needs them.
+
+Source: brief.md
+
+## 4. Options considered
+
+**Row layout** — three layouts, side by side:
+
+| Option | What it is | Result |
+|--------|------------|--------|
+| One card | All rows in one card | **Chosen** |
+| Flat list | No card | Rejected |
+
+**Platform.** Android was built first. **Chosen (2026-10-16):** iOS only. Android was removed.
+
+## 5. The decision
+
+**Direction built:** one list, sorted into segments.
+
+**Why:** dormant clients stay visible.
+
+## 6. Live prototype
+
+- \`#/playground/clients\` — the list.
+
+## 7. Outcome / expected change
+
+Nothing has shipped.
+
+- **Expected:** managers check in before relationships go cold.
+- **Still open:**
+  - How do clients land in Premium?
+  - Is 6 months right?
+
+## Skipped
+
+- **Chapter 1, RACI** — no people named.
+- **Chapter 3, Evidence** — findings.md holds build notes only.
+`
+  const story = caseStudyStoryOutline(source, 'Clients')
+  assert.deepEqual(
+    story.sections.map((s) => s.heading),
+    ['', 'The problem', 'What we tried', 'What we chose', 'What should change', 'Still open', 'Not yet'],
+  )
+  assert.deepEqual(story.sections[0].blocks[0], { kind: 'lead', text: 'A list that shows who needs a call today.' })
+  assert.deepEqual(
+    story.sections[2].blocks.map((b) => b.text),
+    ['Row layout: One card (over Flat list)', 'Platform: iOS only.'],
+  )
+  assert.deepEqual(story.sections[3].blocks, [
+    { kind: 'callout', text: 'One list, sorted into segments.' },
+    { kind: 'body', text: 'Why: dormant clients stay visible.' },
+  ])
+  assert.equal(story.sections[4].blocks[1].text, 'Expected: managers check in before relationships go cold.')
+  assert.deepEqual(story.sections[5].blocks.map((b) => b.text), ['How do clients land in Premium?', 'Is 6 months right?'])
+  assert.deepEqual(story.sections[6].blocks.map((b) => b.text), ['Evidence: findings.md holds build notes only.'])
+})
+
+test('every project gets a story page on its board, headed by its framing or its problem', () => {
+  for (const slug of readdirSync(path.join(repo, 'projects')).filter((name) => !name.startsWith('_'))) {
+    const brief = path.join(repo, 'projects', slug, 'brief.md')
+    if (!existsSync(brief)) continue
+    const caseStudy = path.join(repo, 'projects', slug, 'case-study.md')
+    if (existsSync(caseStudy)) {
+      const story = caseStudyStoryOutline(readFileSync(caseStudy, 'utf8'), slug)
+      assert.equal(story.sections[0].blocks[0]?.kind, 'lead', `${slug}: no framing headline`)
+      assert.ok(story.sections.some((s) => s.heading === 'What we chose'), `${slug}: no decision`)
+      continue
+    }
+    const decisions = path.join(repo, 'projects', slug, 'decisions.md')
+    const story = projectStoryOutline({
+      title: slug,
+      brief: readFileSync(brief, 'utf8'),
+      decisions: existsSync(decisions) ? readFileSync(decisions, 'utf8') : undefined,
+    })
+    assert.ok(story.sections.length > 0, `${slug}: empty story`)
+    assert.equal(story.sections[0].blocks[0]?.kind, 'lead', `${slug}: no problem headline`)
   }
 })

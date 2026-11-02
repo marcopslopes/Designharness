@@ -48,9 +48,10 @@ import {
 import { downloadBlob, exportBoard, importBoard, loadDoc, MAIN_BOARD, saveDoc } from './persistence'
 import type { BoardPrototypeEntry } from './prototypes'
 import { activePage, boardReducer, cloneNodes, emptyDoc, newId, withChildren, type BoardState } from './store'
-import { projectDoc, seedDoc, syncProjectDoc } from './seed'
-import type { Project } from '../projectsIndex'
-import type { BoardColor, BoardNode, Camera, NodePatch, Point, Rect, Tool } from './types'
+import { projectDoc, refreshStory, seedDoc, syncProjectDoc } from './seed'
+import { pageNodes, writtenPageSource } from './pageNodes'
+import { resolveProjectRoute, type Project } from '../projectsIndex'
+import type { BoardColor, BoardNode, Camera, NodePatch, Point, PrototypeNode, Rect, Tool } from './types'
 
 type Drag =
   | { kind: 'pan'; start: Point; camera: Camera }
@@ -60,6 +61,8 @@ type Drag =
   | { kind: 'create'; tool: Tool; origin: Point; current: Point; shift: boolean }
   | { kind: 'draw'; points: number[] }
 
+/** Room between the board's content and a page put on it from a source card. */
+const EXPAND_GAP = 320
 const CLIPBOARD_TYPE = 'application/x-design-harness-board'
 const BOARD_CLIPBOARD_MARK = 'design-harness-board:'
 const COLORED = new Set<BoardNode['type']>(['sticky', 'text', 'shape', 'line', 'draw'])
@@ -179,7 +182,15 @@ export function BoardPage({ project }: { project?: Project }) {
       setView({ w: entry.contentRect.width, h: entry.contentRect.height }),
     )
     observer.observe(node)
-    return () => observer.disconnect()
+    // The camera pans the board; focusing an off-screen control must not scroll the viewport underneath it.
+    const unscroll = () => {
+      if (node.scrollLeft || node.scrollTop) node.scrollTo(0, 0)
+    }
+    node.addEventListener('scroll', unscroll)
+    return () => {
+      observer.disconnect()
+      node.removeEventListener('scroll', unscroll)
+    }
   }, [])
 
   const screenPoint = useCallback((event: { clientX: number; clientY: number }): Point => {
@@ -554,6 +565,24 @@ export function BoardPage({ project }: { project?: Project }) {
 
   const onEditEnd = useCallback(() => setEditing(undefined), [])
   const onZoomTo = useCallback((id: string) => fitTo([id]), [fitTo])
+  const onRefresh = useCallback(() => {
+    if (!project) return
+    const next = refreshStory(page, project, true)
+    if (next) dispatch({ type: 'setNodes', nodes: next })
+  }, [page, project])
+  const onExpand = useCallback(
+    (node: PrototypeNode) => {
+      const owner = resolveProjectRoute(node.route)?.project
+      const source = owner ? writtenPageSource(owner, node.route) : undefined
+      const others = nodes.filter((other) => other.id !== node.id).map(nodeBounds)
+      const at = { x: node.x, y: Math.max(node.y, ...others.map((r) => r.y + r.h)) + EXPAND_GAP }
+      const blocks = source ? pageNodes(source, node.label, node.route, at, newId) : undefined
+      if (!blocks) return
+      dispatch({ type: 'replace', ids: [node.id], nodes: blocks.nodes })
+      setCamera(fitCamera(nodeBounds(blocks.frames[0]), view))
+    },
+    [nodes, view, setCamera],
+  )
 
   // Text nodes grow with what's typed.
   useLayoutEffect(() => {
@@ -871,6 +900,8 @@ export function BoardPage({ project }: { project?: Project }) {
               onEditEnd={onEditEnd}
               onZoomTo={onZoomTo}
               onOpen={setViewing}
+              onExpand={onExpand}
+              onRefresh={project ? onRefresh : undefined}
             />
           ))}
           {draft?.rect ? (

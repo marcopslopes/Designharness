@@ -51,3 +51,4 @@
 | 2026-10-15 | MATCHED iterating (ui-agent) | Case study section added to the project sidebar: Story, Slides, Article |
 | 2026-10-15 | MATCHED iterating | Project context page removed (duplicated the brief); About now links to Project facts |
 | 2026-10-16 | states → props | ui-agent | state files removed; States sidebar section gone; links use screens/…?prop=value | — |
+| 2026-11-02 | PLAN case-study → ui-agent | Board story page now renders case-study.md: framing, problem, what we tried, what we chose, what should change, still open, not yet | — |

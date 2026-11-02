@@ -194,8 +194,13 @@ screen or format's page in the project sidebar.
 **Job:** Close the arc. Shipped results if you have them; otherwise the
 honest expected change and how you'll know.
 
-**Source:** `findings.md` post-ship / validation notes; otherwise
-`brief.md` "How will we know it worked?" and Status.
+**Source:** `findings.md` post-ship / validation notes and
+`testing/test-plan.md` results; otherwise the `brief.md` `## How we'd know`
+table (each row as expected, with its Measured by label), else the PRD's
+"How will we know it worked?", and Status. A row with a result is
+written as measured, past tense. A row without one stays expected. Never
+move a row from expected to measured without a result in the folder. The
+Ship block's Decision, once it is not `pending`, closes the chapter.
 
 **Write like:** Past tense for shipped ("phase 1 hit 79.6%"). Future
 tense for expectations ("target ≥80% on header tasks"). Never present a

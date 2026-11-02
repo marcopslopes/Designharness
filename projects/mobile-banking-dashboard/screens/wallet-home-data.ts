@@ -1,5 +1,11 @@
 /** Wallet home sample data and money formatting. */
 
+/** The payout minimum providers already hit. Findings 2026-09-30. */
+export const PAYOUT_MINIMUM = 25
+
+/** Next payout used when a presentation asks for the under-minimum week. */
+export const UNDER_MINIMUM_AVAILABLE = 18
+
 export type PayoutStage = 'scheduled' | 'on-the-way' | 'arrived'
 
 /** `paused` = payouts stopped until the provider acts; `failed` = the bank returned the last payout. */
@@ -87,20 +93,44 @@ const WALLET_STATUSES: WalletStatus[] = ['active', 'paused', 'failed', 'not-set-
  * The sample wallet in a given state. `failed` also marks the last payout as returned and puts its
  * money back into the next one. Unknown values (from a URL) fall back to the data as given.
  */
-export function walletDataFor(status: string | undefined, data: WalletHomeData = WALLET_HOME_DATA): WalletHomeData {
-  if (!status || !WALLET_STATUSES.includes(status as WalletStatus) || status === data.status) return data
-  if (status !== 'failed') return { ...data, status: status as WalletStatus }
-  const [last, ...earlier] = data.payouts
-  return {
-    ...data,
-    status: 'failed',
-    available: data.available + last.amount,
-    payouts: [{ ...last, status: 'returned' }, ...earlier],
+export function walletDataFor(
+  status: string | undefined,
+  data: WalletHomeData = WALLET_HOME_DATA,
+  sample?: string,
+): WalletHomeData {
+  let next = data
+  if (status && WALLET_STATUSES.includes(status as WalletStatus) && status !== data.status) {
+    if (status !== 'failed') next = { ...data, status: status as WalletStatus }
+    else {
+      const [last, ...earlier] = data.payouts
+      next = {
+        ...data,
+        status: 'failed',
+        available: data.available + last.amount,
+        payouts: [{ ...last, status: 'returned' }, ...earlier],
+      }
+    }
   }
+  if (sample === 'under-minimum' && next.status === 'active') {
+    return { ...next, available: UNDER_MINIMUM_AVAILABLE }
+  }
+  return next
 }
 
 /** What leads the home: the next payout (chosen), or an Available balance card above it (first build, rejected). */
 export type WalletLead = 'payout' | 'balance'
+
+/**
+ * Go-wide layout. Absent or unknown stays the current home.
+ * `payout` opens a payout as its own page. `hold` leads with the hold.
+ * `fridays` groups the same money by the Friday it belongs to.
+ */
+export type WalletDirection = 'today' | 'payout' | 'hold' | 'fridays'
+
+export function walletDirection(value?: string): WalletDirection {
+  if (value === 'payout' || value === 'hold' || value === 'fridays') return value
+  return 'today'
+}
 
 export const STAGES: { id: PayoutStage; label: string }[] = [
   { id: 'scheduled', label: 'Scheduled' },

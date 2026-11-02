@@ -1,3 +1,4 @@
+import { harnessFrameSrc } from '../presentation'
 import { PROJECTS, resolveProjectRoute } from '../projectsIndex'
 
 /** Everything in `projects/` that can sit on the board as a live embed. */
@@ -61,7 +62,7 @@ export function prototypeEntries(): BoardPrototypeEntry[] {
   ])
 }
 
-export const embedSrc = (route: string) => `${window.location.pathname}#/${route}?embed=1`
+export const embedSrc = (route: string) => harnessFrameSrc(`${route}?embed=1`)
 
 /** What the card header icon stands for — proto, case study, doc, and the rest. */
 export type ArtifactKind =

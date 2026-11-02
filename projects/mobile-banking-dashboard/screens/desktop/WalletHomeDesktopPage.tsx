@@ -12,6 +12,8 @@ export type WalletHomeDesktopPageProps = {
   data?: WalletHomeData
   status?: string
   lead?: WalletLead | string
+  sample?: string
+  direction?: string
   initialHoldOpen?: boolean
 }
 
@@ -19,9 +21,11 @@ export function WalletHomeDesktopPage({
   data: baseData = WALLET_HOME_DATA,
   status,
   lead,
+  sample,
+  direction,
   initialHoldOpen = false,
 }: WalletHomeDesktopPageProps = {}) {
-  const data = walletDataFor(status, baseData)
+  const data = walletDataFor(status, baseData, sample)
   const [holdOpen, setHoldOpen] = useState(initialHoldOpen)
   const [holdMotion, setHoldMotion] = useState(true)
   return (
@@ -31,6 +35,7 @@ export function WalletHomeDesktopPage({
           layout="desktop"
           data={data}
           lead={lead === 'balance' ? 'balance' : 'payout'}
+          direction={direction}
           onOpenHold={(event) => {
             setHoldMotion(event.detail !== 0)
             setHoldOpen(true)

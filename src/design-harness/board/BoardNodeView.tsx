@@ -10,14 +10,16 @@ import {
   FrameMonitor,
   FramePhone,
   FramePresentation,
+  FrameRefresh,
   FrameStructure,
 } from '../harnessIcons'
 import { Icon } from '../ui'
 import { fileKind, formatBytes, isPdf } from './files'
+import { compactSummary } from './pageNodes'
 import { blobUrl } from './persistence'
 import { artifactKind, embedSrc, type ArtifactKind } from './prototypes'
 import type { TablerIconComponent } from '../ui'
-import type { BoardNode, DrawNode, LineNode, NodePatch } from './types'
+import type { BoardNode, DrawNode, LineNode, NodePatch, PrototypeNode } from './types'
 import type { ViewerTarget } from './BoardDialogs'
 
 export type NodeViewProps = {
@@ -28,6 +30,33 @@ export type NodeViewProps = {
   onEditEnd: () => void
   onZoomTo: (id: string) => void
   onOpen: (target: ViewerTarget) => void
+  /** Replaces a source card with its page as editable blocks. */
+  onExpand?: (node: PrototypeNode) => void
+  /** Rebuilds a project board's story page from the project's files. */
+  onRefresh?: (id: string) => void
+}
+
+/** A written page or report as a card: its first line, open to read, or put its text on the board. */
+function SourceCardBody({ node, onExpand }: { node: PrototypeNode; onExpand?: (node: PrototypeNode) => void }) {
+  const { lead, sections } = compactSummary(node.route)
+  return (
+    <div className="design-harness-board-node__source">
+      <p className="design-harness-board-node__source-lead">{lead ?? 'Open it to read.'}</p>
+      {sections && onExpand ? (
+        <div className="design-harness-board-node__source-foot">
+          <span>{sections === 1 ? '1 section' : `${sections} sections`}</span>
+          <button
+            type="button"
+            className="design-harness-board-node__source-action"
+            data-board-control="true"
+            onClick={() => onExpand(node)}
+          >
+            Put on the board
+          </button>
+        </div>
+      ) : null}
+    </div>
+  )
 }
 
 function useBlobUrl(id: string): string | undefined {
@@ -60,7 +89,10 @@ function EditableText({
   onChange,
   onDone,
   className,
+  leadLabel,
 }: {
+  /** Shows a short `Label:` at the start in bold. The text stays plain. */
+  leadLabel?: boolean
   value: string
   editing: boolean
   placeholder: string
@@ -97,9 +129,16 @@ function EditableText({
       />
     )
   }
+  const lead = leadLabel ? value.match(/^([^:\n]{2,48}):\s+([\s\S]+)$/) : null
   return (
     <div className={className} data-empty={value ? undefined : 'true'}>
-      {value || placeholder}
+      {lead ? (
+        <>
+          <strong className="design-harness-board-node__lead-label">{lead[1]}:</strong> {lead[2]}
+        </>
+      ) : (
+        value || placeholder
+      )}
     </div>
   )
 }
@@ -240,7 +279,7 @@ function ImageView({ node }: { node: Extract<BoardNode, { type: 'image' }> }) {
   )
 }
 
-function NodeViewInner({ node, editing, interactive, onEdit, onEditEnd, onZoomTo, onOpen }: NodeViewProps) {
+function NodeViewInner({ node, editing, interactive, onEdit, onEditEnd, onZoomTo, onOpen, onExpand, onRefresh }: NodeViewProps) {
   const common = {
     'data-node-id': node.id,
     'data-type': node.type,
@@ -268,9 +307,17 @@ function NodeViewInner({ node, editing, interactive, onEdit, onEditEnd, onZoomTo
           className="design-harness-board-node"
           data-color={node.color}
           data-heading={node.heading ? 'true' : undefined}
+          data-block={node.block}
+          data-marker={node.marker ? (node.marker === '•' ? 'bullet' : 'number') : undefined}
         >
+          {node.marker ? (
+            <span className="design-harness-board-node__marker" aria-hidden="true">
+              {node.marker === '•' ? '' : node.marker}
+            </span>
+          ) : null}
           <EditableText
             className="design-harness-board-node__text"
+            leadLabel={node.block === 'item'}
             value={node.text}
             editing={editing}
             placeholder="Type something"
@@ -296,7 +343,7 @@ function NodeViewInner({ node, editing, interactive, onEdit, onEditEnd, onZoomTo
       )
     case 'frame':
       return (
-        <div {...common} className="design-harness-board-node">
+        <div {...common} className="design-harness-board-node" data-page={node.source ? 'true' : undefined}>
           <div className="design-harness-board-node__frame-bar">
             {editing ? (
               <input
@@ -326,6 +373,18 @@ function NodeViewInner({ node, editing, interactive, onEdit, onEditEnd, onZoomTo
             >
               <Icon icon={FrameFit} size="xs" />
             </button>
+            {onRefresh && node.source?.endsWith('#story') ? (
+              <button
+                type="button"
+                className="design-harness-board-node__frame-action"
+                data-board-control="true"
+                aria-label="Refresh the story from the project's files"
+                title="Refresh from the brief and decisions"
+                onClick={() => onRefresh(node.id)}
+              >
+                <Icon icon={FrameRefresh} size="xs" />
+              </button>
+            ) : null}
           </div>
         </div>
       )
@@ -359,9 +418,10 @@ function NodeViewInner({ node, editing, interactive, onEdit, onEditEnd, onZoomTo
       const open = node.type === 'prototype' ? `#/${node.route}` : node.url
       const kind = node.type === 'prototype' ? artifactKind(node.route) : 'link'
       const meta = node.type === 'prototype' ? node.project : 'Live link'
+      const compact = node.type === 'prototype' && node.compact
       return (
         <div {...common} className="design-harness-board-node" data-interactive={interactive || undefined}>
-          <div className="design-harness-board-node__card">
+          <div className="design-harness-board-node__card" data-compact={compact || undefined}>
             <header className="design-harness-board-node__card-head">
               <Icon icon={KIND_ICON[kind]} size="sm" />
               <span className="design-harness-board-node__card-title" title={node.label}>
@@ -379,7 +439,11 @@ function NodeViewInner({ node, editing, interactive, onEdit, onEditEnd, onZoomTo
                 <Icon icon={FrameArrowUpRight} size="sm" />
               </button>
             </header>
-            <EmbedFrame src={src} title={`${node.label} — live`} interactive={interactive} />
+            {compact ? (
+              <SourceCardBody node={node} onExpand={onExpand} />
+            ) : (
+              <EmbedFrame src={src} title={`${node.label} — live`} interactive={interactive} />
+            )}
           </div>
         </div>
       )

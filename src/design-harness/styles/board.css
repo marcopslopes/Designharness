@@ -165,8 +165,136 @@
   font-weight: var(--font-weight-bold);
 }
 
-.design-harness-board-node[data-type='text'][data-color]:not([data-color='ink']) .design-harness-board-node__text {
+.design-harness-board-node[data-type='text'][data-color]:not([data-color='ink']):not([data-block]) .design-harness-board-node__text {
   color: var(--board-stroke);
+}
+
+/* Written pages on a project board: the page's type as separate editable blocks. Heights in pageNodes.ts. */
+.design-harness-board-node[data-block] .design-harness-board-node__text {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-body-large);
+  line-height: var(--type-body-large-line);
+  color: var(--color-text-secondary);
+}
+
+.design-harness-board-node[data-block='eyebrow'] .design-harness-board-node__text,
+.design-harness-board-node[data-block='label'] .design-harness-board-node__text {
+  font-size: var(--type-label-size);
+  line-height: var(--type-label-line);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.design-harness-board-node[data-block='eyebrow'] .design-harness-board-node__text {
+  color: var(--board-stroke);
+}
+
+.design-harness-board-node[data-block='label'] .design-harness-board-node__text {
+  color: var(--color-text-muted);
+}
+
+.design-harness-board-node[data-block='title'] .design-harness-board-node__text {
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-line);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--type-heading-tracking);
+  color: var(--color-text-default);
+}
+
+.design-harness-board-node[data-block='lead'] .design-harness-board-node__text {
+  font-size: var(--type-h4-size);
+  line-height: var(--type-h4-line);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--type-heading-tracking);
+  color: var(--color-text-default);
+}
+
+.design-harness-board-node[data-block='section'] .design-harness-board-node__text {
+  font-size: var(--type-h4-size);
+  line-height: var(--type-h4-line);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--type-heading-tracking);
+  color: var(--color-text-default);
+}
+
+.design-harness-board-node[data-block='item'] {
+  border-bottom: var(--border-01) solid var(--color-border-muted);
+}
+
+.design-harness-board-node[data-block='item'] .design-harness-board-node__text {
+  padding: var(--spacing-05) 0;
+  color: var(--color-text-default);
+}
+
+.design-harness-board-node__lead-label {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-default);
+}
+
+.design-harness-board-node[data-block='callout'] {
+  border-radius: var(--radius-03);
+  background: var(--board-fill);
+}
+
+.design-harness-board-node[data-block='callout'] .design-harness-board-node__text {
+  padding: var(--spacing-06) var(--spacing-07);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-default);
+}
+
+/* Section number, list number or bullet, in the section's colour. Room as `marker` in pageNodes.ts. */
+.design-harness-board-node[data-marker] {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-05);
+}
+
+.design-harness-board-node__marker {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-06);
+  height: var(--size-06);
+  margin-top: calc(var(--spacing-05) + var(--spacing-01));
+  border-radius: var(--radius-05);
+  background: var(--board-fill);
+  color: var(--board-stroke);
+  font-family: var(--font-family-text);
+  font-size: var(--type-label-sm-size);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.design-harness-board-node[data-marker='bullet'] .design-harness-board-node__marker {
+  background: transparent;
+}
+
+.design-harness-board-node[data-marker='bullet'] .design-harness-board-node__marker::before {
+  content: '';
+  width: var(--spacing-04);
+  height: var(--spacing-04);
+  border-radius: var(--radius-05);
+  background: var(--board-stroke);
+}
+
+.design-harness-board-node[data-block='section'] {
+  gap: var(--spacing-04);
+}
+
+.design-harness-board-node[data-block='section'] .design-harness-board-node__marker {
+  width: var(--size-10);
+  height: var(--size-10);
+  margin-top: 0;
+  background: var(--board-stroke);
+  color: var(--color-text-inverse);
+  font-size: var(--type-h6-size);
+}
+
+.design-harness-board-node[data-marker] .design-harness-board-node__text {
+  flex: 1;
+  min-width: 0;
 }
 
 .design-harness-board-node[data-type='shape'] {
@@ -201,6 +329,11 @@ textarea.design-harness-board-node__shape-text {
   box-shadow:
     0 0 0 var(--border-01) var(--design-harness-shell-panel-border),
     var(--kit-shadow-1);
+}
+
+.design-harness-board-node[data-type='frame'][data-page='true'] {
+  border-radius: var(--radius-01);
+  background: var(--color-bg-default);
 }
 
 .design-harness-board-node__frame-bar {
@@ -360,6 +493,49 @@ input.design-harness-board-node__frame-title {
 
 .design-harness-board-node[data-interactive='true'] .design-harness-board-node__card-meta {
   color: var(--board-accent);
+}
+
+.design-harness-board-node__source {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-04);
+  min-height: 0;
+  padding: var(--spacing-05) var(--spacing-06);
+}
+
+.design-harness-board-node__source-lead {
+  display: -webkit-box;
+  flex: 1;
+  margin: 0;
+  overflow: hidden;
+  color: var(--kit-ink);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.design-harness-board-node__source-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-04);
+  color: var(--kit-ink-50);
+  font-size: var(--type-label-sm-size);
+}
+
+.design-harness-board-node__source-action {
+  padding: var(--spacing-02) var(--spacing-04);
+  border: var(--border-01) solid var(--kit-line-strong);
+  border-radius: var(--radius-05);
+  color: var(--kit-ink);
+  font-size: var(--type-label-sm-size);
+  font-weight: var(--font-weight-medium);
+}
+
+.design-harness-board-node__source-action:hover {
+  background: var(--design-harness-field-fill);
 }
 
 .design-harness-board-node__card-action {

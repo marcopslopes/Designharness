@@ -33,7 +33,7 @@ automatically, never on save, never on an `audit` PASS by itself. See
   full local history, every export, sandbox by default.
 - `public/projects/<slug>/` is a curated, opt-in subset: only the
   `artifacts/decks/` files a designer explicitly asked to publish, and
-  only after that artifact has passed `audit`.
+  only after a complete Ship block (exposure general) and an `audit` PASS.
 - If a file here looks stale or wrong, fix the source in
   `artifacts/decks/` and re-run `publish-project` — don't patch the copy
   directly, or the two will drift the next time someone republishes.

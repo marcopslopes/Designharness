@@ -121,3 +121,13 @@ export function framePropsQuery(props: Record<string, string> = {}): string {
   }
   return query.toString()
 }
+
+/**
+ * Iframe src for a harness route. `?iframe=1` sits before the hash so the browser loads a new document.
+ * A src that differs from its parent only inside the hash stays `about:blank` when the parent is itself
+ * an iframe, which is every screen inside a storyboard, compare, ideas, variants or stage on the board.
+ */
+export function harnessFrameSrc(hash: string): string {
+  const fragment = hash.startsWith('#') ? hash : `#${hash.startsWith('/') ? hash : `/${hash}`}`
+  return `${window.location.pathname}?iframe=1${fragment}`
+}

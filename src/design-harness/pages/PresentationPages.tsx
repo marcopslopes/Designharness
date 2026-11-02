@@ -9,7 +9,7 @@ import {
   FrameMaximize,
   FrameNotes,
 } from '../harnessIcons'
-import { framePropsQuery, type PresentationFrame, type StageScenario } from '../presentation'
+import { framePropsQuery, harnessFrameSrc, type PresentationFrame, type StageScenario } from '../presentation'
 import { resolveScreenFile, type Project, type ProjectPresentation } from '../projectsIndex'
 import { getDesignHarnessHashQuery, replaceDesignHarnessHashQuery } from '../routes'
 import { Badge, Chip, Icon, IconButton } from '../ui'
@@ -117,7 +117,7 @@ function FittedScreen({
         data-viewport={frame.viewport ?? 'phone'}
         style={{ '--present-scale': scale } as CSSProperties}
         title={title}
-        src={`${window.location.pathname}#/${screen.route}?${framePropsQuery(frame.props)}`}
+        src={harnessFrameSrc(`${screen.route}?${framePropsQuery(frame.props)}`)}
       />
     </div>
   )

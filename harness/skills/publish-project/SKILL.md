@@ -8,8 +8,9 @@ description: >-
   `projects/<slug>/artifacts/decks/` (occasionally `artifacts/snapshots/` if
   named explicitly) into `public/projects/<slug>/`, fixing any sibling
   asset paths so the copy is self-contained, then confirms the resulting
-  URL. Requires the project has already passed `audit` at least once —
-  declines and points at `audit` first if not. Never auto-picks which
+  URL. Before the copy, the brief's Ship block must be complete at
+  exposure general (`harness/references/ship-packet.md`) and the artifact
+  must have passed `audit`. Never auto-picks which
   artifact(s) to publish when more than one candidate exists; never
   auto-fires after `ui-agent`/`deck-builder` — publishing is always a
   separate, explicit ask.
@@ -34,16 +35,9 @@ those stay local-only until the designer explicitly asks for this.
 
 ## Preconditions
 
-1. **Resolve `<slug>`** from the conversation or the active `projects/`
-   folder. If ambiguous, ask which project.
-2. **Require a passed `audit`.** Check `findings.md`/`decisions.md` for a
-   dated `audit` PASS entry on the artifact(s) being published. If none
-   exists, decline plainly:
-
-   > "This hasn't been through `audit` yet — publishing unaudited work to a
-   > public URL skips the share gate. Want me to run `audit` first?"
-
-   Do not publish BLOCKED work, ever.
+1. **Resolve `<slug>`** from the conversation or the active project folder
+   (`projects/<slug>/` or `projects.local/<slug>/`). If ambiguous, ask which
+   project.
 
 ## Steps
 
@@ -55,19 +49,28 @@ those stay local-only until the designer explicitly asks for this.
    (plain-text degrade per `harness/references/ask-question-ui.md` if the
    tool is absent) — options named by content ("Case study v10", "Workshop
    slides v3", "Stakeholder update"), never "Option A/B".
-2. **Copy into `public/projects/<slug>/`** — same filename, same relative
+2. **Ship packet, then audit, in one pass.** Run
+   `harness/references/ship-packet.md` at exposure `general`, and check
+   `findings.md` / `decisions.md` for a dated `audit` PASS on the picked
+   files. If the packet refuses, the audit is missing, or the PASS is
+   stale because the artifact changed, say it in **one** message and stop.
+   Do not copy. A missing audit is: "No audit PASS on \<file\>. Run audit
+   on it. Publishing waits for PASS." Do not publish BLOCKED work, ever.
+3. **Copy into `public/projects/<slug>/`** — same filename, same relative
    folder shape as the source (e.g. a `decks/navigation-ia/` sub-hub stays
    `public/projects/<slug>/navigation-ia/`). Create the destination folder
    if it doesn't exist yet.
-3. **Fix internal links.** Any absolute path inside the copied HTML that
+4. **Fix internal links.** Any absolute path inside the copied HTML that
    pointed at another file in the same publish set (e.g.
    `href="/navigation_ia_prototypes.html"`) must be rewritten to the new
    `/projects/<slug>/...` location. Relative same-folder references (e.g.
    a deck's own sibling `.jpg`s) need no change — they moved together.
-4. **Log.** One dated line in `projects/<slug>/log.md` ("published X to
-   `public/projects/<slug>/`") and, if this is the project's first publish,
-   a line in `decisions.md` noting the public URL now exists.
-5. **State the result plainly** — the local path copied, the resulting
+5. **Log.** The ship packet writes the `cleared` row only after the copy
+   succeeds. Put the public path in that row's Why
+   (`general, review <date>, public/projects/<slug>/...`). If this is the
+   project's first publish, a line in `decisions.md` notes the public URL
+   now exists.
+6. **State the result plainly** — the local path copied, the resulting
    `public/projects/<slug>/...` path, and the reminder below. Don't imply
    the site is live on the internet from this step alone.
 

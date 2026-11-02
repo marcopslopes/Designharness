@@ -183,6 +183,10 @@ Looked at [Quartz](https://design.how/systems/quartz) (design.how, for agent and
 
 **Locked (2026-10-17):** Desktop gets the table, filter, status word, and stats strip when those pieces are built. The Harness frame also takes sentence case, one primary action per view, and status as a word. No restyle yet.
 
+### 2026-11-02 — ui-agent (wallet home, four directions)
+
+Built the four directions the designer picked off the review board, on the shared phone and desktop body. The On hold tile names the dispute. A next payout under €25 says how much is short and which Friday is missed (`?sample=under-minimum`; the usual week stays €1,284.50). Each collapsed past payout shows its fee. The hold sheet's main button is "Wait until 24 Oct"; Contact Support Team is off that sheet. Idea 3 (refunds on the hero) stays picked and is not built. Audit deferred (on-share).
+
 ### 2026-10-16 — Android screen removed
 
 `WalletHomeAndroidPage.tsx` is gone, along with the platform switch in Variants, the iOS/Android Compare, and the Stage Android scenario. The wallet home is the iOS screen only. Audit deferred (on-share).

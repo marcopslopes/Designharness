@@ -80,8 +80,13 @@ feedback?" — not a generic "what do you want to learn" open-ender.
 4. **Participant profile** — who, and how many segments.
 5. **Metrics that matter** (quantitative only).
 
-If a `projects/<slug>/brief.md` exists, pull goals and the "how will we
-know it worked?" line from there instead of re-asking.
+If a `projects/<slug>/brief.md` exists, pull goals from there instead of
+re-asking. Its `## How we'd know` UX rows are the quantitative tasks and
+metrics: one task per row, with the row's target as the success criterion.
+A row whose target is `set before the test` gets its number here, written
+back into the brief before the session runs
+(`harness/references/measurement-plan.md`). No table: use the PRD's "how
+will we know it worked?" line.
 
 ## Step 3 — Sample size (include in output)
 

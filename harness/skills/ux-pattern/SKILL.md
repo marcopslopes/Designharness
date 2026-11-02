@@ -47,13 +47,24 @@ description: >-
   places and affordances for this". Different job from critique mode
   (reviewing something that exists): this drafts the flow itself, text-only,
   before any visual form. See § Breadboard mode below.
+
+  Also runs a **go-wide mode** — triggered by: "show me 15 ways to make X
+  better", "N ways to improve X", "go wide on X", "give me a lot of ideas
+  for X", "brainstorm" / "give me ideas" on a screen or flow in an existing
+  project. One question up front (variation type: content, UI, UX, both,
+  or completely different directions — which is also the plan go), then
+  ideas from the research grouped into 3 directions, built into the real
+  screen and shown in the project's Compare view beside Today (a name and
+  one-sentence why under each), and one question at the end: which
+  direction becomes the screen. No project for X →
+  design-kickoff. See § Go-wide mode.
 ---
 
 # UX Pattern Agent
 
 ## What You Do
 
-You review a flow's structure and interaction patterns to ensure they match how the company actually works, not just how it looks. You run critique, decision framework, debate, breadboard, and grill. **Grill mode** asks one question at a time through a plan that is not yet shared, and stops when the designer confirms the restatement. You load the company patterns, archetypes, and business context before reviewing. You do not build UI (see `ui-agent`), write copy (see `content`), or run mechanical pre-share checks (see `audit`).
+You review a flow's structure and interaction patterns to ensure they match how the company actually works, not just how it looks. You run critique, decision framework, debate, breadboard, grill, and go-wide. **Grill mode** asks one question at a time through a plan that is not yet shared, and stops when the designer confirms the restatement. You load the company patterns, archetypes, and business context before reviewing. You do not build UI (see `ui-agent`), write copy (see `content`), or run mechanical pre-share checks (see `audit`).
 
 ---
 
@@ -485,6 +496,136 @@ it. Unstable conceptual model underneath → fix that first
 
 ---
 
+## Go-wide mode
+
+**The gap this closes:** ideas are cheap and text is hard to choose from.
+The designer should see different versions of X, built from the research,
+and decide once, by looking.
+
+**When this fires:** X is a screen or flow in an existing
+`projects/<slug>/` (or `projects.local/<slug>/`). No project for X →
+`design-kickoff`, unchanged.
+
+**Questions: two, total.** One before anything is built (the type, which
+is also the plan approval). One at the end, with Compare open. Nothing
+in between: no picking from a text list, no "which four to mock".
+
+### Step 1 — Type + plan (the one question up front)
+
+Go-wide is a chain (`ux-pattern` → `ui-agent` → `presenter` Compare), so
+the plan gate applies. Show the plan block,
+then one `AskQuestion` whose answer is both the type and the go:
+
+```
+PLAN — <X> (go wide)
+1. ux-pattern → ideas from the brief, findings, decisions and How we'd know, grouped into 3 directions of the type you pick
+2. ui-agent → each direction built into the real screen as an option (one string prop, today stays the default)
+3. presenter → a Compare section in the project: today plus the 3 directions, a name and one-sentence why under each
+4. You pick in Compare → that direction becomes the screen's default (audit deferred)
+```
+
+| Option | Means | Who writes the variation |
+|---|---|---|
+| Content | Copy and labels only. Same layout and flow | `content` writes, `ui-agent` places it |
+| UI | Layout, hierarchy, visual weight. Same flow | `ui-agent` |
+| UX | What happens on tap, the steps, the defaults | `ux-pattern`, `ui-agent` draws it |
+| UI and UX | Both, per direction | both |
+| Completely different directions | A different concept for the same job, not a tweak | both |
+
+The request already names the type ("rewrite the copy", "different
+layouts", "new directions"): that option goes first with "(Recommended)".
+Otherwise the recommended option is the one most of the research-backed
+ideas fall into. No Other. The answer is the go; do not ask again before
+Compare.
+
+### Step 2 — Go wide (no questions)
+
+**Read:** `brief.md` (`## How we'd know`, job stories, truth block),
+`findings.md`, `decisions.md`. No `## How we'd know` table: propose it
+(`harness/references/measurement-plan.md` § Proposing it) and say so in
+the final message. No new searches.
+
+**Ideas:** the number they named, else 10, inside the chosen type. Each
+one sentence naming the element it changes ("Show the hold reason on the
+On hold tile"), never a category. Two ideas that differ only in colour,
+wording of the same label, or position are one idea. For "Completely
+different directions", ideas are concepts, and may change the whole
+screen.
+
+**Tag every idea:**
+
+| Column | Value |
+|---|---|
+| Moves | The `## How we'd know` row it should move (Outcome, a UX row by name, or a Guardrail it puts at risk). `—` when none |
+| Backed by | A `findings.md` signal with its date, a job story number, or a `decisions.md` entry. Otherwise `hunch` |
+| Size | `hour`, `day`, or `project` |
+
+An idea already rejected or parked in `decisions.md` or the truth block
+appears only with `parked <date>` in Backed by, and says what changed.
+
+**Group into 3 directions.** Ideas that change the same element or the
+same moment go together. Each direction gets a short name that says what
+it makes true ("The hold explains itself"), the ideas it combines, the row
+it moves, and what backs it. Rank: backed before hunch, Outcome and UX rows
+before none, smaller before larger. A direction made only of hunches can be
+shown, its note says it is a hunch, and it is never ranked first. A direction that depends on
+an open `unknowns` row with `blocks` ends its note with "Depends on <owner>."
+
+### Step 3 — Build the directions into the screen, then Compare (no questions)
+
+Load `ui-agent` (with `design-system`, and `mobile-shell` for a phone
+screen). Add one optional string prop to the screen, e.g.
+`direction="hold"`, with today as the default. Never copy the screen.
+Same seed data in every direction.
+
+Then `presenter`, without its own `AskQuestion` (who and what back are
+already known): add one comparison to `screens/<Name>.compare.ts` (create
+it if missing), four frames at most:
+
+- **Today** first, note "As it is now."
+- **One frame per direction.** `label` is the direction's name, four words
+  at most. `note` is one sentence, 20 words at most: what changes, then
+  the evidence in plain words ("The reason and next step sit on the tile.
+  Providers call support when a hold shows no reason.").
+- **`question`:** what to look at across the frames, in the person's words.
+- **`source`:** `decisions.md YYYY-MM-DD — Go wide: <X>`.
+
+No tags, no idea list, no Moves / Backed by / Size on the page. Those live
+in `decisions.md`. No HTML board in `artifacts/`.
+
+Check: open `#/playground/<slug>/compare/<Name>`, every frame renders,
+typecheck passes.
+
+### Step 4 — The one question at the end
+
+Message: the Compare link, then one line naming the strongest direction
+and why. Then one `AskQuestion`, `allow_multiple: true`: each direction by
+name (strongest first, "(Recommended)"), plus "None for now". Two picked
+means combine them. No Other.
+
+On a pick, `ui-agent` makes that direction the prop's default (combined:
+both), under the plan already approved (micro-edit lane, audit deferred),
+and the frame gets `chosen: true`. The other directions stay reachable
+through the prop for the case study. "None for now" changes no default.
+
+### Persist
+
+One dated entry in `decisions.md`:
+
+```markdown
+## YYYY-MM-DD — Go wide: <X> (<type>)
+
+**Directions:** <A name> (#1, #5 — moves <row>) · <B name> (...) · ...
+**Chosen:** <name(s)> | none for now
+**Ideas not in a chosen direction:** #<n> <idea> — <Moves>, <Backed by>, <Size> · ...
+Source: ux-pattern go-wide; How we'd know status <proposed|agreed>; Compare screens/<Name>.compare.ts (<comparison id>)
+```
+
+One `log.md` row. The unchosen directions and ideas are what `case-study`
+chapter 4 and `presenter` Ideas read later.
+
+---
+
 ## Never do this
 
 - Never approve a flow without naming the target archetype
@@ -500,6 +641,12 @@ it. Unstable conceptual model underneath → fix that first
   spacing fix — load `harness/references/ooux-failure-modes.md`
 - Never run `interaction-laws.md` or `ui-craft-rules.md` as a full
   checklist, or cite either as user research
+- Never ask more than the two go-wide questions (type up front, direction
+  at the end), ask the designer to pick ideas from text, change the
+  screen's default before the end pick, copy a screen to make a direction,
+  put tags or an idea list on the Compare page, write an HTML board, pad
+  the count with near-duplicates, or write a Backed by source the project
+  folder doesn't have
 
 ---
 

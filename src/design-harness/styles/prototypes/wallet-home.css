@@ -16,6 +16,107 @@
   gap: var(--spacing-01);
 }
 
+.wallet-home--direction {
+  display: flex;
+  flex-direction: column;
+}
+
+.wallet-home__hero-hit {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-03);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+div.wallet-home__hero-hit {
+  cursor: default;
+}
+
+.wallet-home__hero-hit:focus-visible,
+.wallet-home__hold-lead:focus-visible,
+.wallet-home__back:focus-visible,
+.wallet-home__section-head--button:focus-visible {
+  outline: var(--border-02) solid var(--color-border-focus);
+  outline-offset: var(--spacing-01);
+}
+
+.wallet-home__see {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--spacing-03);
+  color: var(--color-text-secondary);
+}
+
+.wallet-home__hold-lead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-01);
+  width: 100%;
+  margin: 0;
+  padding: var(--spacing-04);
+  border: 0;
+  border-radius: var(--radius-03);
+  background: var(--kit-amber-soft);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.wallet-home__statement.ds-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-03);
+}
+
+.wallet-home__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  margin: 0;
+  padding: var(--spacing-02) 0;
+  border: 0;
+  background: none;
+  color: var(--color-text-secondary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.wallet-home__section-head--button {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.wallet-home__section-end {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-02);
+  color: var(--color-text-muted);
+}
+
+.wallet-home__section-end .ds-text {
+  margin: 0;
+}
+
 .wallet-home__hero-head {
   display: flex;
   align-items: center;
