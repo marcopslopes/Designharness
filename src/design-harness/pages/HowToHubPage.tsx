@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import {
   FrameBook,
   FrameBuildings,
+  FrameFolder,
   FrameStars,
   FramePalette,
   FramePlug,
@@ -37,6 +38,10 @@ const START_COPY: Record<string, { description: string; icon: TablerIconComponen
   'how-to/harness-system-map': {
     description: 'See how the orchestrator, agents, skills, and human checkpoints fit together.',
     icon: FrameStructure,
+  },
+  'how-to/the-harness': {
+    description: 'The six parts in one folder, and the steps a project goes through.',
+    icon: FrameFolder,
   },
   'how-to/guides/agents-vs-skills': {
     description: 'What each word means here, and when the harness uses which.',

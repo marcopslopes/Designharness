@@ -65,3 +65,11 @@ Checked in the browser: empty Log in marks the field invalid, a password keeps t
 ### 2026-11-01 — case-study (login, moved from `banking-login`)
 
 The login's own case study and article were written while it was a separate project. Kept as `artifacts/login-case-study-draft.md` and `artifacts/login-article-draft.md` (DRAFT). This project's `case-study.md` doesn't include the login yet.
+
+### 2026-11-02 — case-study (update: login folded in)
+
+`case-study.md` now covers the login: chapters 1, 2, 4, 5, 6, 7 and 8 updated in place from `decisions.md` and `brief.md`. Chapter 7 says the login has no success signal in the brief, since the old `banking-login` brief that held one is gone. Chapter 3 still skipped. The article (`artifacts/everyday-banking-dashboard-case-study.md`) does not include the login yet.
+
+### 2026-11-02 — writing (article: login folded in)
+
+`artifacts/everyday-banking-dashboard-case-study.md` rewritten from the updated `case-study.md`, now with the login. `artifacts/login-case-study-draft.md` and `artifacts/login-article-draft.md` deleted (designer yes). DRAFT, needs the designer edit pass.

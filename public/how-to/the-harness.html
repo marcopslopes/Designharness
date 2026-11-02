@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The harness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0b0c;
+    --card: #121214;
+    --line: rgba(255, 255, 255, 0.08);
+    --text: #f4f4f5;
+    --muted: #8b8d92;
+    --dim: #55585e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    padding: 64px 6vw 72px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-size: clamp(36px, 6vw, 52px); font-weight: 700; letter-spacing: -0.03em; margin-top: 14px; }
+  .lead { color: var(--muted); font-size: 17px; margin-top: 12px; }
+
+  .tree {
+    margin-top: 48px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 36px 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 26px; }
+  .path { white-space: pre; }
+  .path b { font-weight: 700; color: var(--text); }
+  .path .sub { color: var(--dim); }
+  .path .file { color: var(--text); }
+  .branch { color: var(--dim); }
+  .label { display: flex; align-items: center; gap: 10px; font-family: 'Inter', sans-serif; font-size: 14px; white-space: nowrap; }
+  .num {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--muted);
+  }
+  .note { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--muted); white-space: nowrap; }
+  .gap { height: 10px; }
+
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 40px; }
+  .pill { border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 999px; padding: 7px 16px; font-size: 14px; }
+  .arrow { color: var(--dim); }
+  .foot { color: var(--muted); font-size: 13px; margin-top: 14px; line-height: 1.6; }
+
+  @media (max-width: 640px) {
+    .tree { padding: 24px 18px; font-size: 12px; overflow-x: auto; }
+    .note, .label { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">How I work as a designer</p>
+  <h1>The harness</h1>
+  <p class="lead">One folder. Six parts. Every part reads the same project.</p>
+
+  <div class="tree" role="img" aria-label="The harness folder: the orchestrator, skills, memory, context, projects, and the app">
+    <div class="row"><span class="path"><b>design-harness/</b></span></div>
+
+    <div class="row"><span class="path"><span class="branch">├── </span><b>harness/</b></span></div>
+    <div class="row"><span class="path"><span class="branch">│   ├── </span><span class="file">ORCHESTRATOR.md</span></span><span class="label"><span class="num">1</span>Orchestration</span></div>
+    <div class="row"><span class="path"><span class="branch">│   ├── </span><span class="sub">references/routes.md</span></span><span class="note">Which skill each ask goes to</span></div>
+    <div class="row"><span class="path"><span class="branch">│   └── </span><b>skills/</b></span><span class="label"><span class="num">2</span>Skills</span></div>
+    <div class="row"><span class="path"><span class="branch">│       ├── </span><span class="sub">design-kickoff/</span></span></div>
+    <div class="row"><span class="path"><span class="branch">│       ├── </span><span class="sub">research-agent/</span></span></div>
+    <div class="row"><span class="path"><span class="branch">│       ├── </span><span class="sub">ui-agent/</span></span></div>
+    <div class="row"><span class="path"><span class="branch">│       ├── </span><span class="sub">ux-pattern/</span></span></div>
+    <div class="row"><span class="path"><span class="branch">│       └── </span><span class="sub">case-study/  …68 in all</span></span></div>
+
+    <div class="gap"></div>
+    <div class="row"><span class="path"><span class="branch">├── </span><b>designer-context.local/</b></span><span class="label"><span class="num">3</span>Memory</span></div>
+    <div class="row"><span class="path"><span class="branch">│   ├── </span><span class="sub">preferences.md</span></span><span class="note">Rules I taught it</span></div>
+    <div class="row"><span class="path"><span class="branch">│   ├── </span><span class="sub">writing-voice-dna.md</span></span><span class="note">How I write</span></div>
+    <div class="row"><span class="path"><span class="branch">│   └── </span><span class="sub">journal/</span></span><span class="note">One entry per session</span></div>
+
+    <div class="gap"></div>
+    <div class="row"><span class="path"><span class="branch">├── </span><b>context/</b></span><span class="label"><span class="num">4</span>Context</span></div>
+    <div class="row"><span class="path"><span class="branch">│   ├── </span><span class="sub">design-system/</span></span><span class="note">Tokens and components</span></div>
+    <div class="row"><span class="path"><span class="branch">│   └── </span><span class="sub">org-pack/</span></span><span class="note">Company, voice, patterns</span></div>
+
+    <div class="gap"></div>
+    <div class="row"><span class="path"><span class="branch">├── </span><b>projects/</b></span><span class="label"><span class="num">5</span>Projects</span></div>
+    <div class="row"><span class="path"><span class="branch">│   └── </span><b>everyday-banking-dashboard/</b></span><span class="note">One project per app</span></div>
+    <div class="row"><span class="path"><span class="branch">│       ├── </span><span class="sub">brief.md</span></span><span class="note">What's true, assumed, unknown</span></div>
+    <div class="row"><span class="path"><span class="branch">│       ├── </span><span class="sub">decisions.md</span></span><span class="note">Chosen and ruled out</span></div>
+    <div class="row"><span class="path"><span class="branch">│       ├── </span><span class="sub">findings.md</span></span><span class="note">What each skill found</span></div>
+    <div class="row"><span class="path"><span class="branch">│       ├── </span><span class="sub">sources.md</span></span><span class="note">The index, read first</span></div>
+    <div class="row"><span class="path"><span class="branch">│       ├── </span><span class="sub">raw/</span></span><span class="note">Transcripts, kept local</span></div>
+    <div class="row"><span class="path"><span class="branch">│       └── </span><span class="sub">screens/</span></span><span class="note">Live prototypes</span></div>
+
+    <div class="gap"></div>
+    <div class="row"><span class="path"><span class="branch">└── </span><b>src/design-harness/</b></span><span class="label"><span class="num">6</span>The app</span></div>
+    <div class="row"><span class="path"><span class="branch">    └── </span><span class="sub">project page and board</span></span><span class="note">Where the work is shown</span></div>
+  </div>
+
+  <div class="flow" aria-label="The steps">
+    <span class="pill">Kickoff</span><span class="arrow">→</span>
+    <span class="pill">Research</span><span class="arrow">→</span>
+    <span class="pill">Build</span><span class="arrow">→</span>
+    <span class="pill">Critique</span><span class="arrow">→</span>
+    <span class="pill">Share</span>
+  </div>
+  <p class="foot">The orchestrator sends each ask to a skill. Every skill reads and writes the same project folder. Memory keeps what I taught it.</p>
+</div>
+</body>
+</html>

@@ -21,3 +21,5 @@ Detailed, task-scoped view of every routing decision made within this task. Ever
 | 2026-11-01 | go | design critique | ux-pattern → content | Written findings. DD-001–DD-007. No blockers. Report offer next. |
 | 2026-11-01 | yes, HTML report | review-report | artifacts/reports/everyday-banking-dashboard.html | Flow template. Local serve on 4187. |
 | 2026-11-01 | move login into this project | harness review | — | LoginPage, storyboard, snapshot, 2 decisions, 3 parked, 4 sources moved from banking-login. Its case study and article kept as artifacts/login-*-draft.md. banking-login deleted (designer yes). |
+| 2026-11-02 | fold the login drafts into the case study | case study (update) | case-study | case-study.md updated in place; article not re-rendered yet. |
+| 2026-11-02 | rewrite the article, delete the login drafts | writing | artifacts/everyday-banking-dashboard-case-study.md | Login folded in. Both login drafts deleted (designer yes). |

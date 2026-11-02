@@ -1,12 +1,12 @@
 # Case study — Everyday banking home
 
-Status: DRAFT — 2026-11-01 · Sources: brief.md, findings.md, decisions.md
+Status: DRAFT — 2026-11-02 · Sources: brief.md, findings.md, decisions.md
 
 ## 1. Opening
 
 - **Framing:** The home should say how much you have, and what just happened, before it sells anything else.
 - **Who:** Marco Paulo Lopes (Design). No PM. No squad. Status: draft.
-- **Intro:** A concept home for a consumer banking app, and the list behind Send.
+- **Intro:** A concept home for a consumer banking app, the list behind Send, and the login in front of both.
 - **RACI:** Merged with Who. The brief names the designer and nobody else, so there is no accountable owner, no consultees, and no informed list.
 
 Source: brief.md (Ownership, Case study summary, Intent)
@@ -17,7 +17,9 @@ Everyday customers open a banking app to see how much they have and what just ha
 
 Sending was not in the first brief. On 2026-11-01 it was added as the list behind Send, for people you have already paid. The amount, the review, and the confirmation of a payment stay out.
 
-Source: brief.md (Why, Scope)
+The login came the same day. A returning customer gets asked who they are again, on a phone that already knows. It started as its own project and moved here, because it is the same app.
+
+Source: brief.md (Why, Scope); decisions.md 2026-11-01 (Login belongs to this project)
 
 ## 4. Options considered
 
@@ -29,13 +31,17 @@ Source: brief.md (Why, Scope)
 
 **How the send list is arranged.** Search, an Add a recipient row, then a flat list with the account on each row. Not the last three people first, then everyone else A–Z, with no search. That layout put a repeat payment in reach without typing. This one asks you to search.
 
+**What the login asks for.** A password, because the phone already knows the customer. Not a PIN or a face, the way you unlock the phone. Not an email or a phone number first, with the secret on a later step.
+
+**Whether the name is on the login.** A greeting with the name, so you can see whose account it is. Not a screen with no name. That one keeps the name off when someone else is holding the phone.
+
 Source: decisions.md 2026-11-01; brief.md (parked)
 
 ## 5. The decision
 
-**The decision.** The home leads with one balance and the last five transactions. Send opens a searchable list of people you have already paid, with the account on the row.
+**The decision.** The home leads with one balance and the last five transactions. Send opens a searchable list of people you have already paid, with the account on the row. The login says good evening, then the customer's name, then a password field, Forgot, and Log in.
 
-**Why.** The home has to answer how much and what just happened. A payment to someone known should start as a pick, not as setting them up. Tapping a person does not open an amount screen.
+**Why.** The home has to answer how much and what just happened. A payment to someone known should start as a pick, not as setting them up. Tapping a person does not open an amount screen. At the login, the phone already knows who is there, and the name shows it is the right account. A correct password does not open the home yet.
 
 Source: decisions.md 2026-11-01; brief.md (Goal, Scope)
 
@@ -49,10 +55,15 @@ The balance is first. Tap a transaction to open its detail. See all does not ope
 
 Open this from Send on the home. Search a name. Add a recipient. A payee row stays on this screen.
 
+![Login](screens/LoginPage.tsx)
+
+The name is Nora Hale, and it is made up. Leave the password empty and Log in asks you to enter one. Type a password and Log in stays on this screen. Forgot does nothing yet.
+
 - [Banking home storyboard](screens/BankingHome.storyboard.ts): why the balance is first.
 - [Send list storyboard](screens/SendList.storyboard.ts): search, add, and the account on the row.
+- [Login storyboard](screens/Login.storyboard.ts): why the name is on the screen, and why Log in does not leave it.
 
-Source: findings.md 2026-11-01; screens/BankingHomePage.tsx; screens/SendListPage.tsx
+Source: findings.md 2026-11-01; screens/BankingHomePage.tsx; screens/SendListPage.tsx; screens/LoginPage.tsx
 
 ## 7. Outcome / expected change
 
@@ -60,16 +71,19 @@ Nothing has shipped, and nothing has been measured.
 
 Expected: in a quick test, a person can say their available balance and their last transaction within 5 seconds of opening the home. The brief calls those 5 seconds a guess, not a result.
 
-Still open: See all has no activity list. Savings and other accounts are not on this home. A payment still has no amount, review, or confirmation.
+The login has no success signal in the brief yet.
+
+Still open: See all has no activity list. Savings and other accounts are not on this home. A payment still has no amount, review, or confirmation. A new phone, a first login, and Forgot password are out of scope.
 
 Source: brief.md (How we'd know, unknowns, Scope)
 
 ## 8. Sources
 
 - [Project brief](brief.md)
-- [Mobbin references](sources.md) — home and send-list precedents. No ticket.
+- [Mobbin references](sources.md) — home, send-list, and login precedents (N26 for the password-only login). No ticket.
 - [Banking home](screens/BankingHomePage.tsx)
 - [Send list](screens/SendListPage.tsx)
+- [Login](screens/LoginPage.tsx)
 
 Source: brief.md (Sources); sources.md
 

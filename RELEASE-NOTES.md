@@ -4,6 +4,14 @@ What changed in the harness and Design Harness, newest first. Add an entry when 
 
 Each release is a version in `package.json` and a matching Git tag, such as `v0.1.0`. New entries go under a date heading above the latest version until the next release.
 
+### 2 November 2026
+
+- **The harness in one picture.** Documentation → Start here has a one-page map of the six parts (orchestrator, skills, memory, context, projects, the app) and the steps a project goes through.
+
+### 2 November 2026
+
+- **The harness in one picture.** Documentation → Start here has a one-page map of the six parts (orchestrator, skills, memory, context, projects, the app) and the steps a project goes through.
+
 ### 1 November 2026
 
 - **Decisions on the project page.** Each project lists **Decisions** under Project facts, and on its board: every dated entry in `decisions.md`, with what was chosen, what was rejected, and why. Findings, sources, the log, and raw notes stay off the page.

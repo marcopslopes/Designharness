@@ -238,7 +238,7 @@ export const HOWTO_RELEASE_NOTES_ROUTE: HowtoDocRoute | undefined = releaseNotes
 
 /** Interactive HTML embeds — harness IA / designer briefing (served from public/). */
 /** Each `href` must exist in `public/how-to/` — a missing file falls back to the Design Harness home page. */
-export const HOWTO_HARNESS_ROUTES = ['how-to/harness-system-map'] as const
+export const HOWTO_HARNESS_ROUTES = ['how-to/harness-system-map', 'how-to/the-harness'] as const
 
 export const HOWTO_GUIDE_ROUTES: HowtoDocRoute[] = discovered.filter((d) => d.group === 'start').map((d) => d.route)
 
@@ -289,6 +289,12 @@ export const HOWTO_HTML: Record<HowtoHtmlRoute, HowtoHtmlMeta> = {
     label: 'System map — agents & skills',
     hint: 'Orchestrator, roles, skills, and human gates — harness IA.',
     href: `${import.meta.env.BASE_URL}how-to/system-map-agents-skills.html`,
+    group: 'harness',
+  },
+  'how-to/the-harness': {
+    label: 'The harness in one picture',
+    hint: 'The six parts in one folder, and the steps a project goes through.',
+    href: `${import.meta.env.BASE_URL}how-to/the-harness.html`,
     group: 'harness',
   },
 }

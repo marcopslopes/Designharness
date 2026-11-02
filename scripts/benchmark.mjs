@@ -91,6 +91,40 @@ const TASKS = [
     cloud: true,
     prompt: () => `${project} swap the order of the two header buttons on the wallet home screen.`,
   },
+  {
+    // Eval #128: a screen for an app that already has a project is a question, not a new folder.
+    id: 'same-product',
+    expect: 'design-kickoff',
+    prompt: () => 'i want a new project: a card settings screen for my banking app',
+    check: (record) =>
+      /everyday-banking-dashboard/.test(record.lastText) &&
+      record.endedOnQuestion &&
+      !record.writes.some((file) => /\/projects\/(?!everyday-banking-dashboard\/)[^/]+\//.test(file)),
+  },
+  {
+    // Eval #127: open with the work, never with which harness rule applies.
+    id: 'no-narration',
+    expect: 'ux-pattern',
+    prompt: () => 'Critique the everyday banking home.',
+    check: (record) => !/\bskill\b|\brouting\b|freeform|goes through|the harness says/i.test(record.firstText),
+  },
+  {
+    // Eval #126: your own work first, and a closing Sources / Not used line.
+    id: 'source-order',
+    expect: 'design-kickoff',
+    prompt: () => 'Design a money request flow for my banking app.',
+    check: (record) =>
+      /everyday-banking-dashboard/.test(record.lastText) &&
+      /Sources:/.test(record.lastText) &&
+      /Not used:/.test(record.lastText),
+  },
+  {
+    // case-study + writing: an article from an existing case study is drafted, not outlined first.
+    id: 'case-study-article',
+    expect: 'writing',
+    prompt: () => 'Write the case study for the everyday-banking-dashboard project as an article.',
+    check: (record) => record.writes.some((file) => /\.md$/.test(file)),
+  },
 ]
 
 const ALLOWED = [
@@ -184,7 +218,7 @@ function runTask(task, opts, cwd) {
     '--disallowedTools',
     ...DENIED,
   ]
-  const record = { steps: 0, tools: {}, skills: [], lastText: '', result: null }
+  const record = { steps: 0, tools: {}, skills: [], writes: [], firstText: '', lastText: '', result: null }
   return new Promise((done) => {
     const child = spawn('claude', args, { cwd, stdio: ['ignore', 'pipe', 'pipe'] })
     const timer = setTimeout(() => child.kill('SIGTERM'), opts.routing ? 180_000 : 900_000)
@@ -203,10 +237,14 @@ function runTask(task, opts, cwd) {
         }
         if (event.type === 'assistant') {
           for (const part of event.message?.content ?? []) {
-            if (part.type === 'text') record.lastText += part.text + '\n'
+            if (part.type === 'text') {
+              if (!record.firstText.trim()) record.firstText = part.text
+              record.lastText += part.text + '\n'
+            }
             if (part.type !== 'tool_use') continue
             record.steps++
             record.tools[part.name] = (record.tools[part.name] ?? 0) + 1
+            if (['Write', 'Edit'].includes(part.name) && part.input?.file_path) record.writes.push(part.input.file_path)
             const skill = String(part.input?.file_path ?? '').match(SKILL_PATH)?.[1]
             if (skill && !record.skills.includes(skill)) record.skills.push(skill)
             if (skill && opts.routing) child.kill('SIGTERM')
@@ -235,6 +273,7 @@ function skillHit(task, record) {
     return record.skills.includes('ui-agent') && !/parked/i.test(record.lastText)
   }
   const found = record.skills.includes(task.expect)
+  if (task.check) return found && task.check({ ...record, endedOnQuestion: asked })
   if (task.id === 'tweak') return found && record.skills.every((name) => name === 'ui-agent') && searches === 0
   return found
 }
@@ -264,6 +303,7 @@ function summarize(task, opts, record, commit) {
     cacheWrite: usage.cache_creation_input_tokens ?? null,
     output: usage.output_tokens ?? null,
     endedOnQuestion: /\?\s*$/.test(record.lastText.trim()) || Boolean(record.tools.AskUserQuestion),
+    reply: record.lastText.trim().slice(-1200),
     error: result.is_error ? String(result.result ?? 'error').slice(0, 200) : null,
   }
 }
@@ -278,7 +318,7 @@ const rows = []
 for (let run = 1; run <= opts.runs; run++) {
   for (const task of selected) {
     process.stdout.write(`${opts.label ? opts.label + ' ' : ''}${run}/${opts.runs} ${task.id} … `)
-      const dir = makeWorktree(task, opts)
+    const dir = makeWorktree(task, opts)
     try {
       const row = summarize(task, opts, await runTask(task, opts, dir), commit)
       if (task.cloud && existsSync(join(dir, 'designer-profile.local.md'))) row.hit = false
