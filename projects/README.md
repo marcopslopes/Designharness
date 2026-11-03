@@ -147,6 +147,5 @@ That includes the brief, findings, decisions, and screens. The one line is
 `Saved locally, since this repo is public.` Git ignores that folder. The public playground only lists tracked `projects/`, so a local
 project's screens stay off the public index.
 
-A project with no company source, and the **New project** button, still
-use `projects/<slug>/`. Set `publicRepo` to `false` on a private copy
+A project with no company source still uses `projects/<slug>/`. Set `publicRepo` to `false` on a private copy
 (`harness/references/harness-settings.md`) and company projects go there too.

@@ -1,14 +1,12 @@
 import {
   closeSync,
   copyFileSync,
-  cpSync,
   existsSync,
   mkdirSync,
   openSync,
   readSync,
   readdirSync,
   readFileSync,
-  unlinkSync,
   writeFileSync,
 } from 'node:fs'
 import path from 'node:path'
@@ -30,7 +28,6 @@ import type { Plugin } from 'vite'
  */
 
 const ENDPOINT = '/__harness/settings'
-const NEW_PROJECT = '/__harness/new-project'
 const PROFILE_FILE = 'designer-profile.local.md'
 const CONFIG_FILE = 'harness.config.local.json'
 const UNSET = '<unset — deferred>'
@@ -396,34 +393,6 @@ function writeConfig(
   writeFileSync(path.join(root, CONFIG_FILE), `${JSON.stringify(merged, null, 2)}\n`)
 }
 
-export function slugify(name: string): string {
-  return name
-    .toLowerCase()
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 60)
-    .replace(/-+$/, '')
-}
-
-/** "New project" in the app: a copy of `projects/_template`. Git is left to the designer. */
-function newProject(root: string, input: { name?: unknown }) {
-  const name = text(input.name, 'Project name', 60)
-  const slug = slugify(name)
-  if (!slug) throw new Error('Give the project a name with letters or numbers')
-  const dir = path.join(root, 'projects', slug)
-  if (existsSync(dir)) throw new Error(`There's already a project called ${slug}.`)
-  cpSync(path.join(root, 'projects', '_template'), dir, { recursive: true })
-  // Written by their own skill, once there's something to put in them.
-  for (const file of ['strategy.md', 'breadboard.md', 'conceptual-model.md']) {
-    if (existsSync(path.join(dir, file))) unlinkSync(path.join(dir, file))
-  }
-  const brief = path.join(dir, 'brief.md')
-  if (existsSync(brief)) writeFileSync(brief, readFileSync(brief, 'utf8').replaceAll('<task-slug>', name))
-  return { slug, route: `playground/${slug}/facts` }
-}
-
 function readBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
     let data = ''
@@ -464,15 +433,6 @@ export function harnessSettingsPlugin(): Plugin {
       root = config.root
     },
     configureServer(server) {
-      server.middlewares.use(NEW_PROJECT, async (req, res) => {
-        if (!isSameOrigin(req)) return send(res, 403, { error: 'Same-origin requests only' })
-        if (req.method !== 'POST') return send(res, 405, { error: 'Use POST' })
-        try {
-          return send(res, 200, newProject(root, JSON.parse((await readBody(req)) || '{}')))
-        } catch (error) {
-          return send(res, 400, { error: error instanceof Error ? error.message : 'Could not start the project' })
-        }
-      })
       server.middlewares.use(ENDPOINT, async (req, res) => {
         if (!isSameOrigin(req)) return send(res, 403, { error: 'Same-origin requests only' })
         try {

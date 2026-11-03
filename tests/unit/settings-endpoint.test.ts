@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict'
-import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { tmpdir } from 'node:os'
@@ -140,27 +139,4 @@ test('a public repo is the default, and turning it off sticks', async () => {
   assert.equal(saved.status, 200)
   assert.equal((saved.body.config as { publicRepo: boolean }).publicRepo, false)
   assert.match(read('harness.config.local.json'), /"publicRepo": false/)
-})
-
-test('New project makes the folder from the template and stays on the current branch', async () => {
-  const { root, call, read } = setup()
-  const git = (...args: string[]) => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim()
-  mkdirSync(path.join(root, 'projects/_template'), { recursive: true })
-  writeFileSync(path.join(root, 'projects/_template/brief.md'), '# Brief — <task-slug>\n')
-  writeFileSync(path.join(root, '.gitignore'), '*.local.md\n')
-  git('init', '-q', '-b', 'main')
-  git('-c', 'user.email=t@example.com', '-c', 'user.name=T', 'commit', '-q', '--allow-empty', '-m', 'init')
-  const reply = await call('POST', { body: { name: 'Invite friends' }, headers: SAME_ORIGIN }, '/__harness/new-project')
-  assert.equal(reply.status, 200)
-  assert.equal(reply.body.route, 'playground/invite-friends/facts')
-  assert.equal(git('branch', '--show-current'), 'main')
-  assert.equal(read('projects/invite-friends/brief.md'), '# Brief — Invite friends\n')
-  const again = await call('POST', { body: { name: 'Invite friends' }, headers: SAME_ORIGIN }, '/__harness/new-project')
-  assert.equal(again.status, 400)
-  const evil = await call(
-    'POST',
-    { body: { name: 'x' }, headers: { 'sec-fetch-site': 'cross-site' } },
-    '/__harness/new-project',
-  )
-  assert.equal(evil.status, 403)
 })
