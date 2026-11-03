@@ -65,7 +65,8 @@ type Section = { label: string; items: Artifact[]; compact?: boolean }
 const STORY_LABEL = 'The story'
 const PROTOTYPE_LABEL = 'Prototype'
 
-const isDesktopScreen = (screen: Project['screens'][number]) => /desktop|web/i.test(screen.platform ?? screen.folder ?? '')
+const isDesktopScreen = (screen: Project['screens'][number]) =>
+  /desktop|web/i.test(screen.platform ?? screen.folder ?? '')
 
 /** The first phone, or the only screen. It belongs in the prototype row, not beside the story. */
 const leadRoute = (project: Project) =>
@@ -84,7 +85,11 @@ function boardSections(project: Project, skip = new Set<string>()): Section[] {
   const sections: Section[] = [
     { label: STORY_LABEL, items: [{ label: STORY_LABEL, route: storyRoute(project) }] },
     { label: PROTOTYPE_LABEL, items: live },
-    { label: 'Sources', items: all.filter((item) => isSourceRoute(project, item.route)), compact: true },
+    {
+      label: 'Sources',
+      items: all.filter((item) => isSourceRoute(project, item.route) && item.route !== project.decisionsRoute),
+      compact: true,
+    },
   ]
   return sections
     .map((section) => ({ ...section, items: section.items.filter((item) => !skip.has(item.route)) }))
@@ -164,7 +169,10 @@ function storyFingerprint(frame: BoardNode, nodes: BoardNode[]): string {
   return hash(
     nodes
       .filter((node) => node.parentId === frame.id)
-      .map((node) => `${node.type}|${'text' in node ? node.text : ''}|${node.x - frame.x}|${node.y - frame.y}|${node.w}|${node.h}`)
+      .map(
+        (node) =>
+          `${node.type}|${'text' in node ? node.text : ''}|${node.x - frame.x}|${node.y - frame.y}|${node.w}|${node.h}`,
+      )
       .sort()
       .join('\n'),
   )
@@ -176,7 +184,10 @@ export function storyOutline(project: Project): BoardOutline {
   if (caseStudy) return caseStudyStoryOutline(caseStudy, project.title)
   const outline = projectStoryOutline(project)
   const [intro, ...rest] = outline.sections
-  const nudge = { kind: 'callout' as const, text: 'No case study yet. Ask your agent to "build the case study" to tell the full story.' }
+  const nudge = {
+    kind: 'callout' as const,
+    text: 'No case study yet. Ask your agent to "build the case study" to tell the full story.',
+  }
   return intro && !intro.heading
     ? { ...outline, sections: [{ ...intro, blocks: [...intro.blocks, nudge] }, ...rest] }
     : { ...outline, sections: [{ heading: '', blocks: [nudge] }, ...outline.sections] }
@@ -242,7 +253,9 @@ export function projectDoc(project: Project): BoardDoc {
 function removeStoryRowLead(page: BoardPage, lead?: string): { page: BoardPage; reopen: boolean } {
   if (!lead) return { page, reopen: false }
   const storyHeading = page.nodes.find((node) => node.type === 'text' && node.heading && node.text === STORY_LABEL)
-  const prototypeHeading = page.nodes.find((node) => node.type === 'text' && node.heading && node.text === PROTOTYPE_LABEL)
+  const prototypeHeading = page.nodes.find(
+    (node) => node.type === 'text' && node.heading && node.text === PROTOTYPE_LABEL,
+  )
   const inStoryRow = (node: PrototypeNode) => {
     if (node.slot === 'story') return true
     if (!storyHeading) return false
@@ -250,11 +263,19 @@ function removeStoryRowLead(page: BoardPage, lead?: string): { page: BoardPage; 
     const bottom = prototypeHeading ? prototypeHeading.y : storyHeading.y + 5000
     return top >= storyHeading.y && top < bottom
   }
-  const storyCopy = page.nodes.find((node): node is PrototypeNode => node.type === 'prototype' && node.route === lead && inStoryRow(node))
+  const storyCopy = page.nodes.find(
+    (node): node is PrototypeNode => node.type === 'prototype' && node.route === lead && inStoryRow(node),
+  )
   if (!storyCopy) return { page, reopen: false }
   const nodes = page.nodes.filter((node) => node.id !== storyCopy.id)
   const stillThere = nodes.some((node) => node.type === 'prototype' && node.route === lead)
   return { page: { ...page, nodes }, reopen: !stillThere }
+}
+
+/** Older boards seeded a Decisions source card. The story's "What we chose" already says it. */
+function removeDecisionsCard(page: BoardPage, project: Project): BoardPage {
+  const isCard = (node: BoardNode) => node.type === 'prototype' && node.compact && node.route === project.decisionsRoute
+  return page.nodes.some(isCard) ? { ...page, nodes: page.nodes.filter((node) => !isCard(node)) } : page
 }
 
 /** Nodes already sitting in a section's row, between its heading and the next one. */
@@ -320,7 +341,7 @@ export function syncProjectDoc(doc: BoardDoc, project: Project): BoardDoc {
   const lead = leadRoute(project)
   const restoried = refreshStory(saved, project)
   if (restoried) return syncProjectDoc(withPageNodes(unwrapped, saved.id, restoried), project)
-  const lifted = removeStoryRowLead(saved, lead)
+  const lifted = removeStoryRowLead(removeDecisionsCard(saved, project), lead)
   const placed = new Set<string>([
     ...(lifted.page.seeded ?? []),
     ...placedRoutes(lifted.page),
@@ -354,7 +375,10 @@ function withPageNodes(doc: BoardDoc, pageId: string, nodes: BoardNode[]): Board
 /** A fresh story board in place of an older layout. What people added keeps its arrangement, below the sources. */
 function rebuildWithStory(doc: BoardDoc, saved: BoardPage, project: Project): BoardDoc {
   const fresh = projectDoc(project).pages[0]
-  const artifacts = new Set([...boardRoutes(project), ...projectArtifactSections(project).flatMap((s) => s.items.map((i) => i.route))])
+  const artifacts = new Set([
+    ...boardRoutes(project),
+    ...projectArtifactSections(project).flatMap((s) => s.items.map((i) => i.route)),
+  ])
   const generated = new Set(
     saved.nodes.flatMap((node) =>
       (node.type === 'prototype' && artifacts.has(node.route)) ||

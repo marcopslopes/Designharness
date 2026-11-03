@@ -34,7 +34,7 @@ deck) and nobody could read it.
 | Intro | What this work *is* — one short heading and one sentence. |
 | RACI | Responsible / Accountable / Consulted / Informed. |
 
-**Source:** `brief.md` ownership fields, Case study summary, Constraints
+**Source:** `brief.md` ownership fields, Why, Constraints
 (content / eng consultees). RACI people must already appear in the brief
 — don't invent a Consulted row.
 
@@ -261,7 +261,7 @@ Status: DRAFT — <YYYY-MM-DD> · Sources: brief.md, findings.md, decisions.md
 - **Who:** …
 - **Intro:** …
 - **RACI:** R … · A … · C … · I …
-Source: brief.md (Ownership, Case study summary)
+Source: brief.md (Ownership, Why)
 
 ## 2. Problem / why now
 …

@@ -65,9 +65,10 @@ first, propose a diff, apply only on explicit approval.
    `SKILL.md` the agent read, recorded by the hook. Use it for match counts
    and for skills that never load.
 3. Every `projects/*/log.md` — task-scoped routing detail.
-4. `harness/ORCHESTRATOR.md` §2 (routing table), `harness/references/routes.md`
-   (group sections), `harness/references/routing-notes.md`
-   (full row notes) and `harness/logs/routing-standards.md` — what the current
+4. `harness/ORCHESTRATOR.md` §2 (routing table and common-row triggers),
+   `harness/references/routes.md` (group sections and their triggers),
+   `harness/references/routing-notes.md` (notes only, by route name) and
+   `harness/logs/routing-standards.md` — what the current
    rules actually say, to compare against what happened.
 5. `harness/references/handoff-patterns.md` — the named handoff
    anti-patterns and handoff types, when a task felt bumpy even though

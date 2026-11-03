@@ -95,7 +95,7 @@ A small tweak to a screen already in progress skips it.
 1. It reads your profile and any existing project that could own this.
 2. It brings references, one search per source, skipping what isn't connected: your own projects first, then Mobbin screens (and flows for a journey), your matching Mobbin saves, a matching NotebookLM notebook, a Figma file you linked, and your team's docs, tracker, and chat. Three outside references, plus your own work, then one line saying which sources it used and which it skipped.
 3. It asks one question: what problem, for whom, and what changes.
-4. After you answer, it writes the brief, including a guessed "How we'd know" line for you to correct.
+4. After you answer, it writes the brief: your why, plus a proposed "How we'd know" table for you to correct.
 
 Wayfinding and "which research method" are separate routes, not part of this.
 

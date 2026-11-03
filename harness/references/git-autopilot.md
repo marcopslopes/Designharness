@@ -11,11 +11,11 @@ Do not read past this section unless a section below is named, or the script ask
 | They said | Run |
 |---|---|
 | "wrap up" (after the journal) | `node scripts/git-autopilot.mjs save <slug> "<one-line summary>"` |
-| "share this" / "push this" / "send this to the team" | Ship packet, exposure internal (`harness/references/ship-packet.md`). A refusal is said, then stop. A clear says the confirm line, then `node scripts/git-autopilot.mjs share`, then its line. |
+| "share this" / "push this" / "send this to the team" | Ship packet, exposure internal (`harness/references/ship-packet.md`): say its one line, then `node scripts/git-autopilot.mjs share`, then the script's line. |
 
-Show the script's output when one ran. If it refuses or fails, stop. A ship-packet refusal stops before the script.
+Show the script's output. If it refuses or fails, stop.
 
-Those two run even when Git autopilot is off. The rest run only when `behaviour.gitAutopilot` is on, or the profile says `- Git autopilot: on`. Off, they print `Git autopilot is off.` and touch nothing. `doctor` still runs when named.
+Those two run even when Git autopilot is off. The rest (start, resume, catch-up, undo, update, a parallel folder) are team mode. Team mode is parked for phase two: it runs only when `behaviour.gitAutopilot` is on, or the profile says `- Git autopilot: on`. Off, they print `Git autopilot is off.` and touch nothing. `doctor` still runs when named.
 
 In Cursor, do not run `session`.
 
@@ -52,12 +52,12 @@ Run `undo`. Show what it names and ask once (`AskQuestion`: Undo it / Keep it â€
 
 ## 5. Push â€” "share this"
 
-The words are "share this". The operation is a push of the project branch, after the ship packet.
+The words are "share this". The operation is a push of the project branch, after the ship packet's line.
 
-1. Run `harness/references/ship-packet.md` at exposure internal. A refusal is said, then stop. Do not run the script.
-2. A clear says the confirm line, then `node scripts/git-autopilot.mjs share`. Show its output. If it refuses or fails, stop.
+1. Run `harness/references/ship-packet.md` at exposure internal. It never stops a share. Say its one line, including anything not set yet.
+2. Run `node scripts/git-autopilot.mjs share`. Show its output. If it refuses or fails, stop.
 
-Don't read the script, other guides, or config. The ship packet is the one read before the script.
+Don't read the script, other guides, or config. Before the script, read only the brief, plus `findings.md` when the packet has to propose How we'd know.
 
 The line `Ready for review: <url>` is the review page for that push. It is not a share link.
 

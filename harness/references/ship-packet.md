@@ -1,22 +1,19 @@
 # Ship packet
 
-Six lines on the project's `brief.md`, under `## Ship`. A team share and a public copy both read them before anything moves. The builder is the person those lines have to serve: a complete packet clears in the same turn, and a gap comes back in the same turn with the exact line to fill.
+What a share or a public copy checks in the project's `brief.md` before anything moves. Most of it is already in the brief. The `## Ship` section adds only three lines: Review, Exposure, and Decision.
 
 Callers:
 
-- **Internal** — "share this" / "send this to the team" / "push this". `harness/references/git-autopilot.md`.
-- **General** — "publish" / "deploy" / "give me a share URL". `harness/skills/publish-project/SKILL.md`.
+- **Internal** — "share this" / "send this to the team" / "push this". `harness/references/git-autopilot.md`. **Advisory:** a gap is said in one line, and the share goes ahead.
+- **General** — "publish" / "deploy" / "give me a share URL". `harness/skills/publish-project/SKILL.md`. **A gate:** a gap stops the copy.
 
-Prototype is a level on the same block, not a third command. Tests, security scans, and dependency ownership stay with engineering. This packet is the product half. `audit` stays the design-system and accessibility half.
+Tests, security scans, and dependency ownership stay with engineering. This packet is the product half. `audit` stays the design-system and accessibility half.
 
 ## The block
 
 ```markdown
 ## Ship
 
-- **Hypothesis:**
-- **Success:**
-- **Owner:**
 - **Review:**
 - **Exposure:**
 - **Decision:** pending
@@ -24,100 +21,69 @@ Prototype is a level on the same block, not a third command. Tests, security sca
 
 Exposure is one of `prototype`, `internal`, `general`. Decision is one of `pending`, `kill`, `pivot`, `persevere`. Review is `YYYY-MM-DD`.
 
-Write derived lines into the brief before refusing, so the next attempt only has to fill the blanks. Never overwrite a line that already has a real value. Never invent a hypothesis, a success line, an owner, or a date.
+If `## Ship` is absent, add it at the end of the brief. Never overwrite a line that already has a value. Never invent a date.
 
-## Where each line comes from
+## What it reads
 
-Look only in this project's `brief.md`, including a PRD written inside it, then a separate PRD file in the same folder if one exists.
+Read each fact where it lives. Do not copy it into `## Ship`.
 
-| Line | Use this, in order | It counts as missing when |
+| Fact | Where it lives | It counts as missing when |
 |---|---|---|
-| Hypothesis | The Ship line, else the brief's **Problem**, else the PRD's "Why are we doing this?", else `## Intent` | Every source is empty, `UNKNOWN`, or only a request to build a screen ("I want to build a dashboard view") |
-| Success | The Ship line, else the Outcome row of `## How we'd know` (`harness/references/measurement-plan.md`), else the brief's **Goal**, else PRD §6 primary metric, else the PRD's "How will we know it worked?" | Every source is empty, `UNKNOWN`, only a delivery step ("ship the screen", "get it in the build", "launch the feature", "publish the deck"), or only describes the screen ("a wallet home that answers how much, when, and why") |
-| Owner | The Ship line, else **Designer** | Empty, or the value is `UNKNOWN`, `unassigned`, `none`, `TBD`, or `—` (any case, any trailing text) |
-| Review | The Ship line, else a date the designer just named | No date. "Next Thursday" may be written as `YYYY-MM-DD`. A guessed date may not |
-| Exposure | The Ship line, else the door they just asked for | Saved value and the door disagree. See Widening |
-| Decision | The Ship line, else `pending` | — |
+| Hypothesis | `## Why` → **Problem** and **What changes**. Older briefs: `## Case study summary`, else the PRD's "Why are we doing this?" | Empty, `UNKNOWN`, or only a request to build a screen ("I want to build a dashboard view") |
+| Success | The Outcome row of `## How we'd know` (`harness/references/measurement-plan.md`). Older briefs: the PRD's primary metric | Empty, or only a delivery step ("ship the screen", "publish the deck"), or only describes the screen |
+| Owner | `## Ownership` → **Designer** | Empty, `UNKNOWN`, `unassigned`, `none`, `TBD`, or `—` |
+| Review | `## Ship` → **Review**, or a date the designer just named | No date. "Next Thursday" may be written as `YYYY-MM-DD`. A guessed date may not |
+| Exposure | `## Ship` → **Exposure**, else the door they just asked for | — |
+| Decision | `## Ship` → **Decision** | — |
 
-Try each source in order. A source that is present but fails its test is skipped, not reported. Report the line as missing only when every source fails.
+Success has to name a person and something they do differently, or a measurable change in that behaviour. A metric with an unknown baseline passes.
 
-Success has to name a person and something they do differently, or a measurable change in that behavior. A screen, a deck, or a ship date does not pass. A metric with an unknown baseline passes. Write `Baseline unknown.` after it.
+No `## How we'd know` yet: propose it from the brief and `findings.md` as `measurement-plan.md` § Proposing it says, then read its Outcome row.
 
-Owner is who looks at the result on the review date. Clearance does not wait for that person to reply. The confirm line names them. If the designer does not correct it, the send stands.
+## Internal share
 
-## Doors
+Write `internal` into Exposure when it is blank. Then one line before the script runs:
 
-| They asked | Exposure to write when the line is blank | What may happen after a clear |
-|---|---|---|
-| Share / send to the team / push | `internal` | The git share script. An `audit` PASS is not required |
-| Publish / deploy / share URL | `general` | The copy into `public/`. Requires an `audit` PASS on the picked file |
-| Keep it local / prototype cohort, as a correction on one of those doors | `prototype` | Write the block. No copy, no push |
+> Sharing \<project\> as internal. \<Owner\> reviews it on \<review\>.
 
-Empty exposure is not a conflict. Write the door's level.
+If any fact is missing, the line names them instead, and the share still runs:
 
-**Narrowing** (saved `general`, they asked to share) updates Exposure to `internal` and continues. The confirm line says the exposure was general and this share is internal. The review date stays.
+> Sharing \<project\> as internal. Not set yet: \<missing facts, comma-separated\>.
 
-**Widening** (saved `prototype` and they asked to share or publish, or saved `internal` and they asked to publish) does not change Exposure yet.
+A Review date that has passed with Decision still `pending` adds: "Review date was \<date\>. Decision is still pending." The share still runs.
 
-- Other lines are also missing: one refusal, and name the exposure conflict in that same message. No buttons.
-- The exposure conflict is the only gap: `AskQuestion`, two options, nothing else. Share: "Set exposure to internal and share" / "Keep it as prototype". Publish from prototype: "Set exposure to general and publish" / "Keep it as prototype". Publish from internal: "Set exposure to general and publish" / "Keep it internal". On prototype, write `prototype` and stop. On the wider level, write it and continue.
+No `audit` line. Internal does not need one.
 
-## Clear
+## General (publish)
 
-All six lines are filled, Success passes the test above, and today is on or before Review, or Decision is already `kill`, `pivot`, or `persevere`.
+Write `general` into Exposure when it is blank, or when it was `internal` and they asked to publish. Saved `prototype` and they asked to publish: `AskQuestion`, "Set exposure to general and publish" / "Keep it as prototype".
 
-Say one line, then run the door:
+**Clear** when every fact above is present, Success passes its test, the Review date is today or later (or Decision is not `pending`), and the picked file has an `audit` PASS. Say one line, then copy:
 
-> Sharing \<project or file\> as \<exposure\>. Hypothesis: \<hypothesis\>. \<Owner\> reviews it on \<review\>. Audit: \<status\>.
+> Publishing \<file\> as general. Hypothesis: \<Problem\>. \<Owner\> reviews it on \<review\>. Audit: PASS on \<date\>.
 
-Audit status:
+**Refuse** otherwise, in one message, with each gap and where to fix it:
 
-- General: `PASS on <date>` (no date on the PASS entry: `PASS`).
-- Internal, latest verdict BLOCKED: `BLOCKED — internal share still allowed`.
-- Internal, no verdict: `none yet — internal share still allowed`.
-- Prototype: `not required`.
+- **Hypothesis** — "Write the problem and what changes under Why in the brief."
+- **Success** — "Name what a person does differently, in the Outcome row of How we'd know."
+- **Owner** — "Designer is \<value\>. Name who reviews the result."
+- **Review** — "Add the date you will decide kill, pivot, or persevere, under Ship."
+- **Audit** — "No audit PASS on \<file\>. Run audit on it. Publishing waits for PASS."
 
-Then the caller runs its door. Log `cleared` only after that door succeeds. A script or copy failure is that door's failure line, not a packet refusal.
+A file that changed since its PASS: offer a re-run, do not copy (`publish-project`).
 
-Prototype clear does not run a door. Log `cleared` with Why `prototype, no copy, no push`, and say nothing was copied or pushed.
-
-## Refuse
-
-One message. Every missing line, each with its next edit:
-
-- **Hypothesis** — "Write what you believe will change, and for whom, under Ship in the brief."
-- **Success, blank** — "Name what a person does differently once this is in their hands, under Success."
-- **Success, delivery step** — "Success only names a delivery step. Name what a person does differently once this is in their hands."
-- **Owner** — "Designer is \<the brief's value, e.g. unassigned\>. Name who reviews the result on the review date."
-- **Review** — "Add the date you will decide kill, pivot, or persevere."
-
-General also states a missing or stale `audit` in that same message: "No audit PASS on \<file\>. Run audit on it. Publishing waits for PASS." Publishing a file that changed since its PASS stays the rule already in `publish-project` (offer a re-run, do not copy).
-
-Review date already passed, Decision still `pending`:
-
-> Review date was \<date\> and Decision is still pending. Write kill, pivot, or persevere, or set a new date and say why.
-
-No `brief.md`: stop. "This project has no brief, so there is nowhere to put the ship packet." Do not create a project.
-
-Write the `refused` row in this same turn, then stop.
-
-If `## Ship` is absent, add it at the end of the brief, then fill what you can.
+No `brief.md`: stop. "This project has no brief, so there is nowhere to check what it's for." Do not create a project.
 
 ## Log
 
-Append one row to the project's `log.md` table. Do not add a plain match to `harness/logs/routing-log.md`.
+One row in the project's `log.md`. No line in `harness/logs/routing-log.md`.
 
 | Date | Request | Intent classified | Chain run | Why |
 |---|---|---|---|---|
-| YYYY-MM-DD | their words | ship | refused | general, missing: review date, success |
-| YYYY-MM-DD | their words | ship | cleared | internal, review 2026-11-16 |
-
-Why for a refusal starts with the exposure, then `missing:` and the field names. Why for a clear starts with the exposure, then `review` and the date. Create the table from `projects/_template/log.md` when the file has none.
-
-Before writing a refusal row, read the earlier `ship` / `refused` rows. For each missing field that already appears in one of them, add this sentence to the chat message:
-
-> This has stopped on \<field\> before.
+| YYYY-MM-DD | their words | ship | shared | internal, not set: review |
+| YYYY-MM-DD | their words | ship | refused | general, missing: review, audit |
+| YYYY-MM-DD | their words | ship | cleared | general, review 2026-11-16 |
 
 ## What this does not check
 
-Engineering minimums (tests, security, unowned dependencies). Time-to-feedback as a dashboard. A reminder on the review date. Those stay out of this file.
+Engineering minimums (tests, security, unowned dependencies). A reminder on the review date.

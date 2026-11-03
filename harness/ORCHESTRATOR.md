@@ -92,7 +92,8 @@ heading and match inside it. A group row is never itself a skill. **After a
 row matches, read its full notes** in
 [`harness/references/routing-notes.md`](references/routing-notes.md) (Grep the
 skill name) before running it. Trigger phrases live here and in `routes.md`;
-the evals read both.
+the evals read both. Each phrase is written once: common rows here, group
+rows in `routes.md`. `routing-notes.md` holds notes only.
 
 | Intent signal | Chain | Notes |
 |---|---|---|
@@ -104,7 +105,7 @@ the evals read both.
 | "copy / microcopy / button label / does this wording sound right" | `content` | Standalone, or tail-end of a build chain. |
 | "run the audit / check before sharing / is this ready" — **on a Design Harness prototype / built screen in this repo** | `audit` | Built screens only, not Figma or opinion asks. On PASS, offer the push (§6). |
 | **"fix / tweak / make X taller / add a badge / adjust spacing"** on an existing Design Harness prototype or `projects/<slug>/` screen | **`ui-agent`** (loads `design-system`) → (`mobile-shell` / `icon-usage` as needed) → **`audit`** (deferred by default — see micro-edit lane below) | **Never freestyle `.tsx`/CSS.** Micro-edit lane defers `audit` and logs it (`harness/references/micro-edit-lane.md`). |
-| **"share this" / "send this to the team" / "push this"** — project work | **Git autopilot share** (`harness/references/git-autopilot.md` § How to run) | Ship packet first, exposure internal (`harness/references/ship-packet.md`). Refusal → say it and stop. Clear → run `node scripts/git-autopilot.mjs share` and say its line. Fail → stop. Project branches only. Not `publish-project`. |
+| **"share this" / "send this to the team" / "push this"** — project work | **Git autopilot share** (`harness/references/git-autopilot.md` § How to run) | Ship packet line first, exposure internal (`harness/references/ship-packet.md`): advisory, it names any gaps and never stops the share. Then run `node scripts/git-autopilot.mjs share` and say its line. The script refuses or fails → stop. Project branches only. Not `publish-project`. |
 | **"wrap up"** (same: "journal this" / "add this to my journal" / "log this session to my journal") | **`session-journal`** | End of session: journal entry, handoff row in `log.md`, then the save. Not a full-chat compact (`session-handoff`) and not a project retro. |
 | **"handoff this session" / "session handoff" / "compact this chat for a new session" / "context is full, write a handoff" / "continue in a fresh chat" / "write a handoff for the next agent"** | **`session-handoff`** | On-demand chat compact → `handoff.md`. |
 | **"audit the harness / check routing / why did this freestyle / routing coverage / harness audit / run the routing evals"** — or a link to an **external** design harness, skills repo, or agent article + "any thoughts / compare these / look at these repos" | **`harness-audit`** | Not `audit`. **Prospective evals mandatory, same turn,** after any §2 or skill-description edit. External links: informational only, answered in chat. |
@@ -116,7 +117,7 @@ the evals read both.
 | **Figma pipeline** — sync tokens / variables · download or upload assets / icons · Code Connect · search libraries / prevent duplicate components · shader / effects catalog | `routes.md` § Figma pipeline | — |
 | **Handoff, docs and presenting** — ticket / Jira / Linear / GitHub issue · handoff spec for developers · Confluence / Notion / Google Doc page · case study · how should I show this / compare directions live / participant view · deck / slides · publish / deploy / share URL · article / blog / LinkedIn / anti-slop | `routes.md` § Handoff, docs and presenting | Not "share this" (git row above). |
 | **Team and people** — team workload / board / roadmap · 1:1 prep · feedback / SBI / growth plan · who's on my team / who owns X · book a meeting / find time | `routes.md` § Team and people | Manager-only skills check the profile. |
-| **Git and close-out** — update my harness · a second project in parallel · undo my last save · retrospective / close out a project | `routes.md` § Git and close-out | — |
+| **Git and close-out** — update my harness · a second project in parallel · undo my last save (these three parked, off by default) · retrospective / close out a project | `routes.md` § Git and close-out | — |
 | No match | **Fallback protocol** (§4) | **Loud miss — never silent freestyle.** Log every fallback. |
 
 ### 2a. `design-kickoff` vs a small tweak
@@ -200,7 +201,7 @@ When this turn reads or writes `projects/<slug>/` or `projects.local/<slug>/`, r
 
 ## 6. Remote sync (no shared/hosted instance — yet)
 
-Each designer runs a local clone; the team's Git remote is the only sync and nothing pushes on its own. `audit` asks about commit and push on a PASS, and checks gallery eligibility first. With Git autopilot on, that push is "share this": the ship packet clears first (internal), then the project branch only, never `main` (`harness/references/git-autopilot.md` § 5). Harness updates come from the `upstream` remote ("update my harness", § 6). Full rule: `harness/references/remote-sync.md`.
+Each designer runs a local clone; the team's Git remote is the only sync and nothing pushes on its own. `audit` asks about commit and push on a PASS, and checks gallery eligibility first. With Git autopilot on, that push is "share this": one ship packet line first (internal, advisory), then the project branch only, never `main` (`harness/references/git-autopilot.md` § 5). Harness updates come from the `upstream` remote ("update my harness", § 6). Full rule: `harness/references/remote-sync.md`.
 
 ---
 

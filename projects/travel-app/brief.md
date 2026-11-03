@@ -11,11 +11,9 @@
 
 ## Why
 
-**Problem:** A traveler who can name a starting point, a destination, and how flexible the dates are still has no itinerary.
-**For whom:** Someone planning a trip who knows those three things and does not want to build every stop by hand.
-**What changes:** Those inputs produce a first itinerary. Creating it manually stays available.
-
-**How we'd know:** In a test, a person can turn a starting point, a destination, and date flexibility into a first itinerary. The table below is the proposal. Correct it.
+**Problem:** A traveler who knows where they're going still has no itinerary.
+**For whom:** Someone who can name a starting point, a destination, and how flexible the dates are, and does not want to build every stop by hand.
+**What changes:** Those three facts produce a first itinerary. Creating it manually stays available.
 
 <!--
 Truth block — the index the next session reads. Add a row only when a
@@ -50,11 +48,6 @@ parked:
 - **Squad:**
 - **Gallery:** visible
 
-## Case study summary (feeds the Team Gallery — keep this short and clean)
-
-- **Problem:** A traveler who knows where they're going still has no itinerary.
-- **Goal:** A few inputs — starting point, destination, and date flexibility — produce a first itinerary, with a way to create it manually.
-
 ## Intent
 
 "I want to build a new project for a travel app using adaptive ui and AI." The chosen job is a first itinerary from a few facts.
@@ -86,9 +79,6 @@ Status: proposed
 
 ## Ship
 
-- **Hypothesis:** A traveler who can name a starting point, a destination, and how flexible the dates are can get a first itinerary from those inputs, and can still create it manually.
-- **Success:** Travelers who know a starting point, a destination, and how flexible the dates are leave with a first itinerary generated from those inputs
-- **Owner:** Marco Paulo Lopes
 - **Review:**
 - **Exposure:**
 - **Decision:** pending

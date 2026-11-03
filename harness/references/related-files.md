@@ -34,7 +34,7 @@ not on every request.
 | `harness/skills/case-study/SKILL.md` | The eight-chapter case-study story written once into `projects/<slug>/case-study.md` from the task folder; `deck-builder` and `writing` render it. Human guide `harness/skills/case-study/GUIDE.md` |
 | `harness/skills/presenter/SKILL.md` | Picks how to show built screens (Variants control panel, Compare side by side, Stage for research, Ideas index) from who's looking and what you want back; writes `<Name>.variants.ts` / `.compare.ts` / `.stage.ts` / `.ideas.ts` beside the screens. Pages: `src/design-harness/pages/PresentationPages.tsx` |
 | `harness/skills/deck-builder/SKILL.md` | Self-contained HTML presentation decks (3 templates; the case-study deck renders `case-study.md`) from a task folder or PRD — reuses the existing dark presentation skin, embeds live Design Harness prototypes via chromeless `?embed=1` routes instead of hand-copied lookalike markup. Saves to `artifacts/decks/` only — never auto-mirrors to `public/` |
-| `harness/skills/publish-project/SKILL.md` | On-demand only — copies a picked `artifacts/decks/` file into `public/projects/<slug>/`, the only folder actually served publicly. Requires a complete Ship block at exposure general, then an `audit` PASS; never auto-fires after a build, export, or audit |
+| `harness/skills/publish-project/SKILL.md` | On-demand only — copies a picked `artifacts/decks/` file into `public/projects/<slug>/`, the only folder actually served publicly. Requires the ship packet to clear at exposure general, then an `audit` PASS; never auto-fires after a build, export, or audit |
 | `harness/skills/writing/SKILL.md` | On-demand long-form prose (essay / case-study / short-form) from task-folder evidence — anti-slop pass, optional voice DNA, structure gate, always DRAFT; human guide `harness/skills/writing/GUIDE.md` |
 | `harness/skills/session-handoff/SKILL.md` | On-demand chat compact for a fresh agent session — state-first; saves to `projects/<slug>/handoff.md`; human guide `harness/skills/session-handoff/GUIDE.md` |
 | `harness/skills/assumption-mapper/SKILL.md` | Separates sourced "known" from unsourced "believed" before research/a build starts. Not part of kickoff. Human guide `harness/skills/assumption-mapper/GUIDE.md` |
@@ -89,8 +89,8 @@ not on every request.
 | `harness/references/onboarding-gate.md` | §0 in full — onboarding order (greeting first), manager path, and the `sessionStart` hook note; read only when the profile is missing |
 | `harness/references/resume-detection.md` | §2b in full — `brief.md` `Status:` decides whether an existing folder is kicked off; the no-STUB-at-end-of-turn rule |
 | `harness/references/challenge.md` | §2h templates and buttons, how to fill the blanks, and what each button writes |
-| `harness/references/routes.md` | The long tail of §2, grouped by phase. Opened only when a §2 group row matches |
-| `harness/references/routing-notes.md` | Full notes for every §2 row. Grep the skill name after a row matches |
+| `harness/references/routes.md` | The long tail of §2, grouped by phase. Holds the group rows' trigger phrases. Opened only when a §2 group row matches |
+| `harness/references/routing-notes.md` | Notes only, one entry per route, keyed by the Chain name. No trigger phrases. Grep the skill name after a row matches |
 | `harness/references/people-lookup.md` | §2c in full — direct "who works on X" lookup from the profile and `COMPANY-SQUADS.md`; the honesty rule |
 | `harness/references/design-critique.md` | §2d in full — artifact type, drop-time `AskQuestion`, written chain, follow-up offers, carve-outs |
 | `harness/references/autonomy-dial.md` | §3a in full — the per-task "how hands-on" question inside a plan block |

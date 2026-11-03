@@ -18,7 +18,7 @@ eligibility), with `harness/skills/audit/SKILL.md` Step 3.5 as the safety net.
 | What | Path |
 |------|------|
 | Live UI | `#/gallery` (and `#/gallery/<designer-slug>`) |
-| Projects (read at build time) | `projects/<slug>/brief.md` — Ownership + Case study summary only |
+| Projects (read at build time) | `projects/<slug>/brief.md` — Ownership + Why (Problem, What changes) only |
 | Designer cards (one file each; the page comes from the file name) | `src/design-harness/gallery-designers/<slug>.ts` |
 | Card profile enrichment | `harness/references/gallery-card-enrichment.md` |
 | When enrichment runs (primary) | `task-intake` / `design-kickoff` at first eligibility |
@@ -35,7 +35,7 @@ committed `brief.md`** with:
 
 - a resolved **`Designer:`** name matching the `name` in their card file, and
 - **`Gallery: visible`**, and
-- all three **Case study summary** lines filled, and
+- **Why** with Problem and What changes filled (older briefs: the Case study summary lines), and
 - a **fully enriched** card (`role`, `focusAreas`, `avatarUrl`)
 
 **One project is enough.** There is no “wait until a second project” rule,
@@ -49,7 +49,7 @@ and no empty “no projects yet” placeholder card. Incomplete enrichment →
 **From brief.md (project):**
 
 - Ownership — `Designer:`, optional `Squad:`, `Gallery:`
-- Case study — `Problem:` and `Goal:`. Status is the truth block's `status`, not a third line.
+- Case study — Why's `Problem:` and `What changes:` (shown as the goal). Status is the truth block's `status`, not a third line.
 - Tap the card to open a detail modal (case study + a link to the project
   page when it has screens). Still brief-only; never `findings.md` /
   `decisions.md` / `log.md`.
@@ -82,7 +82,7 @@ appear. Stand-ups and 1:1 notes are not enrichment sources.
 ```text
 1. Work lives in projects/<slug>/ with brief.md filled in
 2. Ownership: Designer: <real name>   Gallery: visible
-3. Case study summary: Problem / Goal / Status (short, clean)
+3. Why: Problem / What changes, one sentence each
 4. First eligibility → gallery-card-enrichment.md
    - OK → write `gallery-designers/<slug>.ts` (name/role/focus/avatar)
    - FAIL → [GALLERY-ENRICHMENT] flag, leave unlisted

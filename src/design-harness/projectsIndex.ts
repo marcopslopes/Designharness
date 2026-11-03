@@ -9,7 +9,7 @@
  * `docs/` holds pages written for people; the agent's other working files
  * (`findings.md`, `log.md`, `sources.md`, `debt.md`, `raw/`, …) stay at the
  * project root and are never globbed — same rule as the Team Gallery. The Team
- * Gallery uses only the brief's Ownership and Case study summary fields.
+ * Gallery uses only the brief's Ownership and Why (Problem, What changes) fields.
  * Folders starting with `_` (e.g. `_template`) are skipped.
  *
  * A screen file must export a component named after the file

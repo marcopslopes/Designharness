@@ -1,6 +1,18 @@
 # Brief — <task-slug>
 
 <!--
+Each fact has one home. The problem and the goal: Why. Success: the How we'd know
+table. The owner: Ownership → Designer. The Team Gallery, the board story, and the
+ship packet read them from there. Don't repeat them in another section.
+-->
+
+## Why
+
+**Problem:** <One sentence: the problem, and for whom. The gallery and the board show it.>
+**For whom:** <Who this is for, in a few words.>
+**What changes:** <One sentence: what is different once it works. The gallery shows it as the goal.>
+
+<!--
 Truth block — the index the next session reads. Add a row only when a
 source says it. Never invent one. An empty list means not recorded.
 status: exploring (nothing built) | draft (built, not approved) | approved | closed
@@ -43,18 +55,6 @@ determined (e.g. "Requested by" field only says 'designer', no name given
 anywhere in this folder) — this is what makes the gap visible to a human,
 instead of it only being known in a chat transcript that won't survive.
 
-## Case study summary (feeds the Team Gallery — keep this short and clean)
-
-These two lines are the **only** case-study copy the Team Gallery reads.
-Status is the truth block above, not a third line here. Keep them short —
-no raw rationale, no named-individual gossip, nothing that belongs in
-`findings.md` / `decisions.md` / `log.md`. If you can't fill them from the
-rest of this brief, the brief needs better structure before this project
-is gallery-ready.
-
-- **Problem:** <One sentence — the problem this project addresses, for whom.>
-- **Goal:** <One sentence — what this project is trying to achieve/prove.>
-
 ## Intent
 
 <What the designer actually asked for, in their words.>
@@ -86,14 +86,11 @@ Status: proposed
 ## Ship
 
 <!--
-Checked before a team share (internal) or a public copy (general).
-Contract: harness/references/ship-packet.md.
-Leave Review blank until a date is named. Do not invent Success.
+Read before a team share or a public copy. Contract: harness/references/ship-packet.md.
+The hypothesis is Why, success is the Outcome row, the owner is Designer. Only these
+three lines live here. Leave Review blank until a date is named.
 -->
 
-- **Hypothesis:**
-- **Success:**
-- **Owner:**
 - **Review:**
 - **Exposure:**
 - **Decision:** pending

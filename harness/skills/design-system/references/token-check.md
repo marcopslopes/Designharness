@@ -70,14 +70,18 @@ real Foundations token only if Figma defines a third width.
 
 ---
 
-## Output format (paste into chat when checking)
+## Output format (only on a gap)
+
+When the token exists, use it and say nothing. A nearest swap is the one line
+in the table above. The designer sees this block only on a gap they must
+decide:
 
 ```
 ### Token check — [value or intent]
 
 Layer: DS | Design Harness chrome | prototype
 Lookup: [what you searched for]
-Result: EXISTS `var(--…)` | NEAREST `var(--…)` (was …) | GAP — need human
+Result: GAP — need human
 Action: [what will be written / waiting on]
 ```
 

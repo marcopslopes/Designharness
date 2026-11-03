@@ -4,20 +4,31 @@ What changed in the harness and Design Harness, newest first. Add an entry when 
 
 Each release is a version in `package.json` and a matching Git tag, such as `v0.1.0`. New entries go under a date heading above the latest version until the next release.
 
+### 3 November 2026
+
+- **Each fact in the brief has one place.** The why (Problem, For whom, What changes) lives under `## Why`, success is the Outcome row of How we'd know, and the owner is the Designer under Ownership. `## Ship` keeps only Review, Exposure, and Decision. The gallery and the project page read the same lines. Older briefs with a Case study summary still show.
+- **Share this never stops on the brief.** Before it pushes, the agent says one line: who reviews it and when, or which of those are not set yet. Publish is still strict: it refuses without a why, a success line, an owner, a review date, and an audit PASS.
+- **Git for teams waits for phase two.** Start, continue, undo, update, and a second folder still need "Handle Git for me", which is off. "Wrap up" saves, and "share this" pushes.
+- **Trigger phrases are written once.** Common requests are in the orchestrator table, everything else is in its group in `routes.md`, and `routing-notes.md` keeps only the notes behind each route.
+- **Go wide reads as five steps.** Plan and type, ideas, three directions, build into the screen and Compare, then pick. Still two questions. Its `decisions.md` entry is written when Compare opens (Chosen: pending), so the Compare page's source link works, and it keeps every idea with its tags.
+- **Fewer working notes in replies.** A matching token says nothing, a nearest swap is one line, and the Token check block shows only for a real gap. A build names the person from the brief, and no longer explains that the example archetypes don't fit.
+- **No Decisions card on the board.** The story's "What we chose" already says it. Boards saved before this drop the card on the next open.
+
 ### 2 November 2026
 
 - **The harness in one picture.** Documentation → Start here has a one-page map of the six parts (orchestrator, skills, memory, context, projects, the app) and the steps a project goes through.
-
-### 2 November 2026
-
-- **The harness in one picture.** Documentation → Start here has a one-page map of the six parts (orchestrator, skills, memory, context, projects, the app) and the steps a project goes through.
+- **Each project board tells its story.** The board opens with a story row (the problem, what we chose, what's next), then a Prototype row with each screen once, then the written sources as small cards. A saved board that had the first screen twice keeps only the Prototype row copy.
+- **The brief says how we'd know.** Kickoff writes a proposed table of what would change for the person, how to measure it, and what not to break. Correct any row, or leave it.
+- **A share checks what the work is for.** The ship packet reads the why, the success line, the owner, and a review date before a share or a publish.
+- **Go wide builds real directions.** "Show me 15 ways to make X better" asks the variation type, groups ideas from the research into three directions, builds them into the real screen, and opens them side by side in Compare. Then you pick one. The wallet home has three directions this way.
+- **A new example project: travel.** An itinerary screen for a traveler who knows where they're going, with its brief, sources, and storyboard.
 
 ### 1 November 2026
 
-- **Decisions on the project page.** Each project lists **Decisions** under Project facts, and on its board: every dated entry in `decisions.md`, with what was chosen, what was rejected, and why. Findings, sources, the log, and raw notes stay off the page.
+- **Decisions on the project page.** Each project lists **Decisions** under Project facts (and on its board until 3 November): every dated entry in `decisions.md`, with what was chosen, what was rejected, and why. Findings, sources, the log, and raw notes stay off the page.
 - **Raw notes stay next to the project.** Pasted transcripts and threads save to the project's `raw/` folder, which is never committed. Settings → "Share raw notes with the team" commits the ones that name no one. Every file gets a line in `sources.md`, which agents read first.
 - **The docs reminder waits for wrap up.** A normal reply no longer ends with "docs freshness still due." Say "wrap up" and it appears once, if that session changed routing or a skill and the log has no line for today.
-- **Kickoff is one file.** A new or ambiguous request reads the profile and existing briefs, finds three references, and asks one why question before it writes anything. A small tweak skips that and just does the change. Name, requester, and hands-on level are not questions. A new screen lists what is on it and two options before the build. Deleting or overwriting waits for a yes. A project branch starts only when Git autopilot is on. Wayfinding and "which research method" are their own routes, not kickoff. The brief includes a guessed "How we'd know" line.
+- **Kickoff is one file.** A new or ambiguous request reads the profile and existing briefs, finds three references, and asks one why question before it writes anything. A small tweak skips that and just does the change. Name, requester, and hands-on level are not questions. A new screen lists what is on it and two options before the build. Deleting or overwriting waits for a yes. A project branch starts only when Git autopilot is on. Wayfinding and "which research method" are their own routes, not kickoff. The brief includes a guessed "How we'd know" line (a table from 2 November).
 
 ### 31 October 2026
 
@@ -41,7 +52,7 @@ Each release is a version in `package.json` and a matching Git tag, such as `v0.
 
 ### 30 October 2026
 
-- **Git runs itself, on by default.** Starting a project (in chat, or with the new **New project** button on Prototypes) puts it on your own branch, `<your first name>/<slug>`, from main, with the line "Working on ana/<slug>." "Continue X" switches back to it and merges in main once it's a day behind; a conflict stops and lists the files. "Wrap up" saves only that project's folder, with the journal's one-line summary. "Undo the last change" shows the last save and takes it back. "Share this" pushes the branch and gives you the pull request link. Nothing is pushed unless you say share, never to main, never with force; your journal, profile and logs are never committed. Settings → "Handle Git for me", or `- Git autopilot: off` in your profile, turns it off.
+- **Git runs itself.** (Off by default from 31 October.) Starting a project (in chat, or with the new **New project** button on Prototypes) puts it on your own branch, `<your first name>/<slug>`, from main, with the line "Working on ana/<slug>." "Continue X" switches back to it and merges in main once it's a day behind; a conflict stops and lists the files. "Wrap up" saves only that project's folder, with the journal's one-line summary. "Undo the last change" shows the last save and takes it back. "Share this" pushes the branch and gives you the pull request link. Nothing is pushed unless you say share, never to main, never with force; your journal, profile and logs are never committed. Settings → "Handle Git for me", or `- Git autopilot: off` in your profile, turns it off.
 - **Made for teams.** Each chat starts with a warning if you're on main or 50+ commits behind. "Update my harness" brings in the latest harness and leaves your team's projects alone. "Work on another project in parallel" opens a second folder on its own branch that already knows who you are. If you change the harness itself on a project branch, wrap up asks whether to keep it local or suggest it to the harness as a pull request. Two people adding to the same project `log.md`, `findings.md` or `sources.md` no longer conflict. New guide: "Using it as a team".
 - **One file per prototype and per designer card.** New prototypes only ever live in `projects/<slug>/screens/` (no route list to edit), and each Team Gallery designer is one small file in `src/design-harness/gallery-designers/` with name, role, focus areas and avatar, so two people adding at once never touch the same file.
 

@@ -121,7 +121,7 @@ Before any CSS value is written:
 
 | Result | Action |
 |--------|--------|
-| Token **exists** in `tokens.css` | Use `var(--…)` (or the matching `ds` prop) |
+| Token **exists** in `tokens.css` | Use `var(--…)` (or the matching `ds` prop). Say nothing |
 | **Nearest** token is close enough | Use nearest; one-line note in chat |
 | Real **gap** (Figma has it, we don’t) | Hard-stop — map / add to `tokens.css` / defer — **never invent** `--my-special-teal` in page CSS |
 
@@ -131,7 +131,7 @@ Before any CSS value is written:
 **Borders today:** `--border-01`, `--border-02` only — there is no
 `--border-03`.
 
-Example agent output shape:
+Example agent output shape (only a gap gets a block):
 
 ```
 ### Token check — soft lavender tip-card background

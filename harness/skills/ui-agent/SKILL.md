@@ -119,7 +119,8 @@ Do not preload `harness/ORCHESTRATOR.md`, `COMPANY-BUSINESS.md`, `COMPANY-ARCHET
    **2026-08-07:** checkout till-header "variation mockups" → board at
    `projects/checkout/artifacts/snapshots/till-header-variants.html` — locked as the default layout recipe in the
    HOWTO above.
-2. **Name the archetype** — from `COMPANY-ARCHETYPES.md` (never "providers" as one group)
+2. **Name the person** — the brief's For whom. Use a `COMPANY-ARCHETYPES.md` archetype when one fits (never
+   "providers" as one group). When none fits, use the brief's words and say nothing about the archetype file.
 2.5. **Flag directive conflicts with documented research (only when traceable, rare)** — before composing, check
    whether the specific instruction just given contradicts something already written down for *this exact task*: a
    `findings.md` entry, a prior `decisions.md` entry, or a named pattern in `COMPANY-PATTERNS.md`/
@@ -171,7 +172,7 @@ Do not preload `harness/ORCHESTRATOR.md`, `COMPANY-BUSINESS.md`, `COMPANY-ARCHET
    before reading any router code. A project saved locally
    (`projects.local/<slug>/`, company tools on a public repo) keeps its screen in that folder too; the public
    playground only lists tracked `projects/`. Never create a prototype
-   anywhere else; with no project yet, start one first (`design-kickoff`, which also starts its branch per
+   anywhere else; with no project yet, start one first (`design-kickoff`, which also starts its branch when Git autopilot is on,
    `harness/references/git-autopilot.md`). **Screen-level states** (no results, a preselected filter, empty, error) are optional
    **string** props on the screen with today's defaults (`status="paused"`, `initialQuery="Olivia"`,
    `clients="none"`) — never a copy of the screen, and no separate file per state. A link opens a state

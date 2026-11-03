@@ -2,8 +2,10 @@
 
 `harness/ORCHESTRATOR.md` §2 keeps the common rows and one row per group.
 When an ask matches a group row there, find that group's heading here and
-match inside it. Full notes for any row: `harness/references/routing-notes.md`
-(Grep the skill name). When a row changes, change both files in the same edit.
+match inside it. The trigger phrases for group rows live here and nowhere
+else. Full notes for each route live in `harness/references/routing-notes.md`,
+keyed by the route name in the Chain column (Grep the skill name). Change
+triggers here and notes there.
 
 ## Framing and strategy
 
@@ -53,7 +55,7 @@ match inside it. Full notes for any row: `harness/references/routing-notes.md`
 | **"help me choose between [A] and [B]" / "which direction should we go" / "how do I decide between these options" / "is this choice defensible"** — options already exist (sketched/built/described) | **`ux-pattern`** (decision framework mode) | Weighs existing options on explicit criteria; logs to `decisions.md`. |
 | **"debate this" / "argue both sides" / "advocate for each option" / "cross-examine these directions" / "I want productive conflict on this decision"** — options already exist or can be stated crisply | **`ux-pattern`** (debate mode) | Advocate briefs per option, then the designer picks. |
 | **"grill me" / "question this plan until we agree" / "walk every branch" / "stress-test this plan with questions"** — a plan or design already exists | **`ux-pattern`** (grill mode) | One question at a time until the designer confirms a restatement. |
-| **"give me ideas / brainstorm / help me think through" / "show me 15 ways to make X better" / "N ways to improve X" / "go wide on X"** on work that **already has** an approved PRD or prototype (iterating) | **`ux-pattern`** (go-wide mode for ideas, brainstorm, a count, or "go wide": type question, then 3 directions built into the screen and shown in Compare, then one pick; "help me think through" is structure/options grounded in the company patterns) → (**`research-agent`** only if they explicitly want a fresh discovery sweep) | **Never freestyle a brainstorm.** No PRD → `design-kickoff`. |
+| **"give me ideas / give me a lot of ideas for X / brainstorm / help me think through" / "show me 15 ways to make X better" / "N ways to improve X" / "go wide on X"** on work that **already has** an approved PRD or prototype (iterating) | **`ux-pattern`** (go-wide mode for ideas, brainstorm, a count, or "go wide": type question, then 3 directions built into the screen and shown in Compare, then one pick; "help me think through" is structure/options grounded in the company patterns) → (**`research-agent`** only if they explicitly want a fresh discovery sweep) | **Never freestyle a brainstorm.** No PRD → `design-kickoff`. |
 
 ## Make, beyond the build rows
 
@@ -120,6 +122,6 @@ match inside it. Full notes for any row: `harness/references/routing-notes.md`
 | Intent signal | Chain | Notes |
 |---|---|---|
 | **"design retrospective" / "retro this project" / "what did we learn from [slug]" / "reflect on this launch" / "close out this project"** | **`design-retrospective`** | Reflection from task-folder evidence; never auto-steers next work. |
-| **"update my harness" / "get the latest harness" / "pull the harness updates"** | **Git autopilot update** (`harness/references/git-autopilot.md` § 6) | Only when `gitAutopilot` is on. Merges the harness's `main` into this branch; the team's `projects/` and `*.local` files stay. A conflict stops and lists files. |
-| **"work on another project in parallel" / "open <slug> in a second window" / "two projects at once"** | **Git autopilot worktree** (`harness/references/git-autopilot.md` § 7) | Only when `gitAutopilot` is on. Second folder on its own branch, profile and context linked in. |
-| **"undo the last change" / "undo my last save" / "take back the last save"** | **Git autopilot undo** (`harness/references/git-autopilot.md` § 4) | Only when `gitAutopilot` is on. Show what it undoes, ask once, then revert that save. An unsaved edit is undone in the file, not here. |
+| **"update my harness" / "get the latest harness" / "pull the harness updates"** | **Git autopilot update** (`harness/references/git-autopilot.md` § 6) | Parked for phase two: runs only when `gitAutopilot` is on (default off); off, the script says `Git autopilot is off.` Merges the harness's `main` into this branch; the team's `projects/` and `*.local` files stay. A conflict stops and lists files. |
+| **"work on another project in parallel" / "open <slug> in a second window" / "two projects at once"** | **Git autopilot worktree** (`harness/references/git-autopilot.md` § 7) | Parked for phase two: runs only when `gitAutopilot` is on; off, the script says `Git autopilot is off.` Second folder on its own branch, profile and context linked in. |
+| **"undo the last change" / "undo my last save" / "take back the last save"** | **Git autopilot undo** (`harness/references/git-autopilot.md` § 4) | Parked for phase two: runs only when `gitAutopilot` is on; off, the script says `Git autopilot is off.` Show what it undoes, ask once, then revert that save. An unsaved edit is undone in the file, not here. |

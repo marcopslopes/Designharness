@@ -671,8 +671,9 @@ on demand — same manual, no-CI trust model as `harness-audit`.
 
 Design Harness's Team Gallery (`#/gallery`) reads **projects** straight from each
 committed `projects/<slug>/brief.md` at build time
-(`src/design-harness/projectsIndex.ts` → `galleryData.ts`) — only the Ownership
-and Case study summary fields, never `decisions.md`/`findings.md`/`log.md`.
+(`src/design-harness/projectsIndex.ts` → `galleryData.ts`) — only Ownership and
+the Why section's Problem and What changes (older briefs: Case study summary),
+never `decisions.md`/`findings.md`/`log.md`.
 **Designer cards** (role / focusAreas / avatar) are the only gallery data
 written by hand, one file per designer in `src/design-harness/gallery-designers/`.
 There is no project entry to copy.
@@ -697,8 +698,8 @@ prototype doesn't belong in the gallery either).
    report (e.g. "Team Gallery: skipped — Designer unresolved, see
    brief.md's Ownership section") so the gap has a visible reason on record,
    not silent absence. Never guess a name here to make the project appear.
-   Also check the three Case study summary lines are filled — a brief
-   missing any of them doesn't render in the gallery; say so in the report.
+   Also check Why has Problem and What changes filled — a brief missing
+   either doesn't render in the gallery; say so in the report.
    **Never** read `designer-profile.local.md` for this step — gallery data is
    committed/shared; the local profile is never pushed.
 2. If eligible, check `src/design-harness/gallery-designers/` for a card

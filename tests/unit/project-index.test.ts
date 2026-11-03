@@ -5,6 +5,7 @@ import { test } from 'node:test'
 import {
   docFileFacts,
   galleryBlocker,
+  caseStudyFromBrief,
   ownershipFromBrief,
   projectTitle,
   briefAssumptions,
@@ -75,7 +76,24 @@ test('an unknown designer or a hidden flag keeps a project out of the gallery', 
   assert.deepEqual(ownership, { designer: undefined, squad: undefined, gallery: 'hidden' })
   assert.equal(galleryBlocker(ownership, undefined), 'Designer unresolved')
   assert.equal(galleryBlocker({ designer: 'Ada', gallery: 'hidden' }, undefined), 'Gallery: hidden')
-  assert.equal(galleryBlocker({ designer: 'Ada', gallery: 'visible' }, undefined), 'Case study summary incomplete')
+  assert.equal(galleryBlocker({ designer: 'Ada', gallery: 'visible' }, undefined), 'Why incomplete')
+})
+
+test('problem and goal come from the Why section, or the older Case study summary', () => {
+  const why =
+    '## Why\n\n**Problem:** No itinerary yet.\n**For whom:** Travelers.\n**What changes:** A first plan from three facts.\n'
+  assert.deepEqual(caseStudyFromBrief(why), {
+    problem: 'No itinerary yet.',
+    goal: 'A first plan from three facts.',
+    status: '',
+  })
+  const older = '## Case study summary\n- **Problem:** Money is hard to find.\n- **Goal:** Show it at a glance.\n'
+  assert.deepEqual(caseStudyFromBrief(older), {
+    problem: 'Money is hard to find.',
+    goal: 'Show it at a glance.',
+    status: '',
+  })
+  assert.equal(caseStudyFromBrief('## Why\n\n**Problem:** Only half.\n'), undefined)
 })
 
 test('unknowns are plain strings or text with an optional owner and blocks', () => {
@@ -232,10 +250,15 @@ graph TD
       ],
     },
   ])
-  assert.deepEqual(
-    markdownBoardOutline('### Card style\n#### Why\n**Decision:** Flat cards.', 'Decisions').sections,
-    [{ heading: 'Card style', blocks: [{ kind: 'label', text: 'Why' }, { kind: 'body', text: 'Decision: Flat cards.' }] }],
-  )
+  assert.deepEqual(markdownBoardOutline('### Card style\n#### Why\n**Decision:** Flat cards.', 'Decisions').sections, [
+    {
+      heading: 'Card style',
+      blocks: [
+        { kind: 'label', text: 'Why' },
+        { kind: 'body', text: 'Decision: Flat cards.' },
+      ],
+    },
+  ])
 })
 
 test('the story page reads the brief summary, truth block and chosen decisions', () => {
@@ -269,7 +292,10 @@ evidence:
 ### 2026-11-02 — Go wide
 **Chosen:** The payout is the page.
 `
-  assert.deepEqual(chosenDecisions(decisions).map((d) => d.chosen), ['The payout is the page.', 'iOS first.'])
+  assert.deepEqual(
+    chosenDecisions(decisions).map((d) => d.chosen),
+    ['The payout is the page.', 'iOS first.'],
+  )
   const story = projectStoryOutline({ title: 'Wallet', brief, decisions })
   assert.deepEqual(
     story.sections.map((s) => s.heading),
@@ -279,7 +305,10 @@ evidence:
   assert.equal(story.sections[2].blocks[0].text, 'Go wide: The payout is the page.')
   assert.equal(story.sections[3].blocks[0].text, 'Outcome: Support contacts per 1,000 (target 20% fewer)')
   assert.equal(story.sections[0].blocks[0].kind, 'lead')
-  assert.equal(story.sections[4].blocks[0].text, 'Finance: Does the provider send the hold reason? (blocks Job story 1)')
+  assert.equal(
+    story.sections[4].blocks[0].text,
+    'Finance: Does the provider send the hold reason? (blocks Job story 1)',
+  )
 })
 
 test('a case study becomes the story: headline, problem, options, the call, what should change, gaps', () => {
@@ -346,8 +375,14 @@ Nothing has shipped.
     { kind: 'body', text: 'Why: dormant clients stay visible.' },
   ])
   assert.equal(story.sections[4].blocks[1].text, 'Expected: managers check in before relationships go cold.')
-  assert.deepEqual(story.sections[5].blocks.map((b) => b.text), ['How do clients land in Premium?', 'Is 6 months right?'])
-  assert.deepEqual(story.sections[6].blocks.map((b) => b.text), ['Evidence: findings.md holds build notes only.'])
+  assert.deepEqual(
+    story.sections[5].blocks.map((b) => b.text),
+    ['How do clients land in Premium?', 'Is 6 months right?'],
+  )
+  assert.deepEqual(
+    story.sections[6].blocks.map((b) => b.text),
+    ['Evidence: findings.md holds build notes only.'],
+  )
 })
 
 test('every project gets a story page on its board, headed by its framing or its problem', () => {
@@ -358,7 +393,10 @@ test('every project gets a story page on its board, headed by its framing or its
     if (existsSync(caseStudy)) {
       const story = caseStudyStoryOutline(readFileSync(caseStudy, 'utf8'), slug)
       assert.equal(story.sections[0].blocks[0]?.kind, 'lead', `${slug}: no framing headline`)
-      assert.ok(story.sections.some((s) => s.heading === 'What we chose'), `${slug}: no decision`)
+      assert.ok(
+        story.sections.some((s) => s.heading === 'What we chose'),
+        `${slug}: no decision`,
+      )
       continue
     }
     const decisions = path.join(repo, 'projects', slug, 'decisions.md')

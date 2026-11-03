@@ -4,11 +4,9 @@
 
 ## Why
 
-**Problem:** Everyday customers open their banking app to answer two questions: how much do I have, and what just happened. Most bank homes bury that under promos, product tiles and settings (see the Lloyds and Marcus homes in `sources.md`).
+**Problem:** Everyday banking customers can't see at a glance how much they have and what just happened.
 **For whom:** Everyday retail banking customers with a current account and maybe a savings pot.
 **What changes:** One glance at the home answers "how much" and "what just happened". No extra tap needed.
-
-**How we'd know:** In a quick test, a person can say their available balance and their last transaction within 5 seconds of opening the home. *(A guess at the success signal. Correct it.)*
 
 <!--
 Truth block — the index the next session reads. Add a row only when a
@@ -58,11 +56,6 @@ parked:
 - **Squad:**
 - **Gallery:** visible
 
-## Case study summary (feeds the Team Gallery — keep this short and clean)
-
-- **Problem:** Everyday banking customers can't see at a glance how much they have and what just happened.
-- **Goal:** A home dashboard that answers balance and recent activity in one glance.
-
 ## Intent
 
 "i want to build z dashboard for my abnking app asd convetpt". In other words, a dashboard for a banking app, built as a concept.
@@ -80,3 +73,11 @@ parked:
 - Product UI from `context/design-system/ds` and tokens only. Compose the `#/design-system` (Mobile) header, tab bar and sheets. Don't redraw them.
 - Screens go in `projects/everyday-banking-dashboard/screens/`.
 - Concept only, so no real customer data.
+
+## How we'd know
+
+| Layer | Metric | Baseline | Target | Measured by |
+|---|---|---|---|---|
+| UX | Participant says their available balance and their last transaction after opening the home | — | within 5 seconds | prototype test |
+
+Status: proposed

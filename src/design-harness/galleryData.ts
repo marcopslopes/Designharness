@@ -3,10 +3,10 @@
  *
  * Two sources, nothing else:
  * - **Projects** come from each committed `projects/<slug>/brief.md` at build
- *   time (`projectsIndex.ts`) — only its "Ownership" and "Case study summary"
- *   fields (see `projects/_template/brief.md`). A project appears under the
- *   designer whose `name` matches its `Designer:` line, when `Gallery:` isn't
- *   `hidden` and all three case-study lines are filled. No hand copy.
+ *   time (`projectsIndex.ts`) — only its "Ownership" and "Why" fields (see
+ *   `projects/_template/brief.md`; older briefs: "Case study summary"). A project
+ *   appears under the designer whose `name` matches its `Designer:` line, when
+ *   `Gallery:` isn't `hidden` and Problem and What changes are filled. No hand copy.
  * - **Designer profiles** (`title`, `focusAreas`, `avatarUrl`) are written
  *   here by `harness/references/gallery-card-enrichment.md`. A brief naming a
  *   designer who isn't listed here stays unlisted — that's the enrichment gate.

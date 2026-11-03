@@ -8,8 +8,8 @@ description: >-
   `projects/<slug>/artifacts/decks/` (occasionally `artifacts/snapshots/` if
   named explicitly) into `public/projects/<slug>/`, fixing any sibling
   asset paths so the copy is self-contained, then confirms the resulting
-  URL. Before the copy, the brief's Ship block must be complete at
-  exposure general (`harness/references/ship-packet.md`) and the artifact
+  URL. Before the copy, the ship packet must clear at exposure general
+  (`harness/references/ship-packet.md`) and the artifact
   must have passed `audit`. Never auto-picks which
   artifact(s) to publish when more than one candidate exists; never
   auto-fires after `ui-agent`/`deck-builder` — publishing is always a

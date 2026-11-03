@@ -9,7 +9,7 @@ Status: DRAFT — 2026-11-02 · Sources: brief.md, findings.md, decisions.md
 - **Intro:** A concept home for a consumer banking app, the list behind Send, and the login in front of both.
 - **RACI:** Merged with Who. The brief names the designer and nobody else, so there is no accountable owner, no consultees, and no informed list.
 
-Source: brief.md (Ownership, Case study summary, Intent)
+Source: brief.md (Ownership, Why, Intent)
 
 ## 2. Problem / why now
 

@@ -15,7 +15,7 @@ export type ProjectOwnership = {
   gallery: 'visible' | 'hidden'
 }
 
-/** brief.md "Case study summary" — problem and goal. Status comes from the truth block. */
+/** brief.md `## Why` — problem and goal (older briefs: "Case study summary"). Status comes from the truth block. */
 export type ProjectCaseStudy = {
   problem: string
   goal: string
@@ -166,9 +166,9 @@ function briefSection(source: string | undefined, heading: string): string {
   return end < 0 ? rest : rest.slice(0, end)
 }
 
-/** `- **Label:** value` inside a section; template `<placeholders>` count as empty. */
+/** `- **Label:** value` (or `**Label:** value`) inside a section; template `<placeholders>` count as empty. */
 function briefField(section: string, label: string): string | undefined {
-  const value = section.match(new RegExp(`^-\\s+\\*\\*${label}:\\*\\*[ \\t]*(.*)$`, 'm'))?.[1]?.trim()
+  const value = section.match(new RegExp(`^(?:-\\s+)?\\*\\*${label}:\\*\\*[ \\t]*(.*)$`, 'm'))?.[1]?.trim()
   return value && !value.startsWith('<') ? value : undefined
 }
 
@@ -425,10 +425,12 @@ export function ownershipFromBrief(brief: string | undefined): ProjectOwnership 
   }
 }
 
+/** Problem and goal from `## Why`; briefs written before it keep them under `## Case study summary`. */
 export function caseStudyFromBrief(brief: string | undefined): ProjectCaseStudy | undefined {
-  const section = briefSection(brief, 'Case study summary')
-  const problem = briefField(section, 'Problem')
-  const goal = briefField(section, 'Goal')
+  const why = briefSection(brief, 'Why')
+  const summary = briefSection(brief, 'Case study summary')
+  const problem = briefField(why, 'Problem') ?? briefField(summary, 'Problem')
+  const goal = briefField(why, 'What changes') ?? briefField(summary, 'Goal')
   if (!problem || !goal) return undefined
   return { problem, goal, status: briefStatus(brief) ?? '' }
 }
@@ -440,7 +442,7 @@ export function galleryBlocker(
 ): string | undefined {
   if (!ownership.designer) return 'Designer unresolved'
   if (ownership.gallery === 'hidden') return 'Gallery: hidden'
-  if (!caseStudy) return 'Case study summary incomplete'
+  if (!caseStudy) return 'Why incomplete'
   return undefined
 }
 
@@ -601,7 +603,11 @@ export function markdownBoardOutline(source: string | undefined, fallbackTitle: 
         tableHeader = false
         continue
       }
-      const cells = line.replace(/^\||\|$/g, '').split('|').map(plainInline).filter(Boolean)
+      const cells = line
+        .replace(/^\||\|$/g, '')
+        .split('|')
+        .map(plainInline)
+        .filter(Boolean)
       if (cells.length) push('item', cells.join(' · '))
       continue
     }
@@ -632,7 +638,10 @@ export function briefEvidence(brief: string | undefined): { text: string; source
 
 /** Dated `decisions.md` entries with a **Chosen:** line, newest first. Templates and kickoff answers have none. */
 export function chosenDecisions(decisions: string | undefined): { title: string; chosen: string }[] {
-  const entries = (decisions ?? '').split(/^#{2,3}\s+/m).slice(1).reverse()
+  const entries = (decisions ?? '')
+    .split(/^#{2,3}\s+/m)
+    .slice(1)
+    .reverse()
   return entries
     .flatMap((entry) => {
       const [first, ...rest] = entry.split('\n')
@@ -651,7 +660,12 @@ function measurementLines(brief: string | undefined): string[] {
     .map((line) => line.trim())
     .filter((line) => line.startsWith('|') && !/^\|[\s:|-]+\|$/.test(line))
     .slice(1)
-    .map((line) => line.replace(/^\||\|$/g, '').split('|').map((cell) => plainInline(cell)))
+    .map((line) =>
+      line
+        .replace(/^\||\|$/g, '')
+        .split('|')
+        .map((cell) => plainInline(cell)),
+    )
   return rows.flatMap(([layer, metric, baseline, target]) => {
     if (!metric) return []
     const known = (value?: string) => value && !/^(—|-|unknown)$/i.test(value)
@@ -684,7 +698,9 @@ export function projectStoryOutline(project: { title: string; brief?: string; de
     },
     {
       heading: 'Evidence',
-      blocks: briefEvidence(brief).slice(0, STORY_ITEMS).map(({ text }) => item(text)),
+      blocks: briefEvidence(brief)
+        .slice(0, STORY_ITEMS)
+        .map(({ text }) => item(text)),
     },
     {
       heading: 'What we chose',
@@ -694,7 +710,9 @@ export function projectStoryOutline(project: { title: string; brief?: string; de
     },
     {
       heading: "How we'd know",
-      blocks: measurementLines(brief).slice(0, STORY_ITEMS + 1).map((text) => item(text)),
+      blocks: measurementLines(brief)
+        .slice(0, STORY_ITEMS + 1)
+        .map((text) => item(text)),
     },
     {
       heading: 'Still open',
@@ -750,7 +768,12 @@ function optionLine(rest: string, table: string | undefined): string {
     .split('\n')
     .filter((line) => line.startsWith('|') && !/^\|[\s:|-]+\|$/.test(line))
     .slice(1)
-    .map((line) => line.replace(/^\||\|$/g, '').split('|').map(plainInline))
+    .map((line) =>
+      line
+        .replace(/^\||\|$/g, '')
+        .split('|')
+        .map(plainInline),
+    )
   const pick = rows.find((cells) => cells.some((cell) => /^chosen\b/i.test(cell)))
   if (pick) {
     const others = rows.filter((cells) => cells !== pick && cells.some((cell) => /^rejected\b/i.test(cell)))
@@ -828,7 +851,10 @@ export function caseStudyStoryOutline(source: string, title: string): BoardOutli
       blocks: problem.slice(0, 1).map((text) => ({ kind: 'body' as const, text: opening(text, 160, 360) })),
     },
     { heading: 'Evidence', blocks: evidence },
-    { heading: 'What we tried', blocks: tried.slice(0, STORY_ITEMS).map((text, index) => item(text, String(index + 1))) },
+    {
+      heading: 'What we tried',
+      blocks: tried.slice(0, STORY_ITEMS).map((text, index) => item(text, String(index + 1))),
+    },
     { heading: 'What we chose', blocks: decision },
     { heading: 'What should change', blocks: change.slice(0, STORY_ITEMS) },
     { heading: 'Still open', blocks: open.slice(0, STORY_ITEMS).map((text) => item(text)) },

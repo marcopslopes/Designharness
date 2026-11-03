@@ -126,7 +126,7 @@ entries, keep the `Source:` lines current, bump the date. Don't fork a v2.
 |---------|-----|
 | "Case study deck" → straight to slides with no `case-study.md` | PLAN: `case-study` first, then `deck-builder` |
 | Treating `review-report` as the case study | A report lists one critique's findings; it can be chapter 3 evidence, nothing more |
-| Copying the brief's Case study summary as the whole case study | That's the gallery card (3 lines). The case study is all eight chapters |
+| Copying the brief's Why as the whole case study | That's the gallery card. The case study is all eight chapters |
 | Numbers, quotes and a table in one evidence block | One group per evidence type |
 | "Decision" written while everything is still open | `Decision pending` + open questions, or suggest a workshop deck |
 

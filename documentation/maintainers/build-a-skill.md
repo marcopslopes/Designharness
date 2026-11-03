@@ -370,7 +370,8 @@ owner (`accessibility`, `content`) and hand off.
    short line of notes. Common work goes in **`harness/ORCHESTRATOR.md` §2**;
    anything else goes under its group in **`harness/references/routes.md`**,
    and the group row in §2 gets a few words for it. The full notes go in
-   the same row of **`harness/references/routing-notes.md`**
+   **`harness/references/routing-notes.md`** under the route name. Write the
+   trigger phrases once, in the row, not in the notes file.
 2. Add one case to **`harness/harness-audit/references/eval-prompts.md`**,
    and a page at `documentation/skills/<name>.md`. `npm run build` fails if
    the page is missing or a doc states the wrong skill count.

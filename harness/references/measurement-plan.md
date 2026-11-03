@@ -52,7 +52,7 @@ A number someone quotes in Slack or a doc counts as `tracked`, with that message
 
 ## Proposing it
 
-Kickoff writes the block with Status `proposed` in the same turn it writes the brief. Then the write message shows the table once, with one line: "Correct any row here or in the brief. Otherwise this is what the test and the Ship block will use." No `AskQuestion`, and no wait. The work continues.
+Kickoff writes the block with Status `proposed` in the same turn it writes the brief. Then the write message shows the table once, with one line: "Correct any row here or in the brief. Otherwise this is what the test and the ship packet will use." No `AskQuestion`, and no wait. The work continues.
 
 An existing project with no `## How we'd know`: the first reader that needs it (Ship packet, test guide, case study chapter 7) proposes it the same way from the brief and `findings.md`, writes it, and says the same line.
 

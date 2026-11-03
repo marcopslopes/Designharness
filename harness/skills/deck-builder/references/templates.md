@@ -109,7 +109,7 @@ Slide checklist:
 update deck", "prep something for leadership", "put this PRD into slides".
 
 **Shape:** short, outcome-first, minimal process detail. Source: `brief.md`
-Status + Case study summary, `findings.md`, `decisions.md`. Build from the
+Status + Why, `findings.md`, `decisions.md`. Build from the
 same base skin. A PRD-into-slides ask uses this template with the brief as
 the main source — there is no separate PRD walkthrough template (the brief
 already renders at `#/playground/<slug>/facts`).
