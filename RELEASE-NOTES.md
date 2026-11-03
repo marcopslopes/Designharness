@@ -12,6 +12,7 @@ Each release is a version in `package.json` and a matching Git tag, such as `v0.
 - **Trigger phrases are written once.** Common requests are in the orchestrator table, everything else is in its group in `routes.md`, and `routing-notes.md` keeps only the notes behind each route.
 - **Go wide reads as five steps.** Plan and type, ideas, three directions, build into the screen and Compare, then pick. Still two questions. Its `decisions.md` entry is written when Compare opens (Chosen: pending), so the Compare page's source link works, and it keeps every idea with its tags.
 - **Fewer working notes in replies.** A matching token says nothing, a nearest swap is one line, and the Token check block shows only for a real gap. A build names the person from the brief, and no longer explains that the example archetypes don't fit.
+- **The reply offers the next step in plain words.** After a brief is written or a screen is built, once per session: "I can write this session up whenever you want to stop." If there is a screen or a deck, it also says to ask for a link when someone should open it without the app. It does not name the commands. Saying yes, or "write this session up", still writes the journal. "Give me a link" still publishes. The first-run tour no longer says the harness pushes the repo.
 - **No Decisions card on the board.** The story's "What we chose" already says it. Boards saved before this drop the card on the next open.
 
 ### 2 November 2026

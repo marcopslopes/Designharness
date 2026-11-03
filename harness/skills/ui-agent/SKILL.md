@@ -221,6 +221,9 @@ Do not preload `harness/ORCHESTRATOR.md`, `COMPANY-BUSINESS.md`, `COMPANY-ARCHET
    For multi-view prototypes (tabs, steps), pass one `--views "<label>:<click-selector>"` per state so each view
    gets its own snapshot file. For variant forks, export each variant during Step 3.5; after the pick, export the
    winner again as the canonical snapshot (Step 7).
+9. **Plain next step** — end the reply with the one sentence in
+   `harness/references/state-rules.md` (Next step in plain words). Once per session.
+   A micro-edit skips it.
 
 ---
 

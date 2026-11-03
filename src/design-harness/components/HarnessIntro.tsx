@@ -132,7 +132,7 @@ const STEPS: Step[] = [
         to={<Sketch title="Your project" thumb lines={2} tag="brief.md" />}
       />
     ),
-    text: 'Ask your agent to kick off a project. It checks what already exists and drafts a brief that stays as context for everything after.',
+    text: 'Ask your agent to start a project. It checks what already exists and drafts a brief that stays as context for everything after.',
   },
   {
     title: 'Give your idea shape',
@@ -212,7 +212,7 @@ const STEPS: Step[] = [
             </span>
           </Scene>
         ),
-        text: 'Push the repo so teammates and their agents can pick up the work with all its context.',
+        text: 'Push the repo yourself when teammates should have the work. The harness does not push it.',
       },
       {
         label: 'Publish',

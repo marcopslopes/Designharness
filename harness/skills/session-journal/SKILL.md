@@ -6,7 +6,8 @@ description: >-
   or overrode the agent (in their words), decisions taken, and screenshot
   links — to `designer-context.local/journal/YYYY-MM-DD-<project>.md`.
   Triggers on: "wrap up", "journal this", "add this to my journal", "log
-  this session to my journal", and runs inside `session-handoff`. Every
+  this session to my journal", "write this session up", a yes
+  to the plain offer (`harness/references/state-rules.md`), and runs inside `session-handoff`. Every
   phrase runs the same wrap-up: the entry, a handoff note (done, next,
   open questions from the truth block) in the project's `log.md`. Nothing
   is committed. Read
@@ -22,7 +23,7 @@ A record of **the designer's judgment**, not the AI's output: what they
 asked for, where they steered, what they decided. One short entry per
 session, in a private file per day per project.
 
-**Invoke in Cursor:** "wrap up" ("journal this" is the same)
+**Invoke in Cursor:** "wrap up", or "write this session up" ("journal this" is the same)
 
 ---
 

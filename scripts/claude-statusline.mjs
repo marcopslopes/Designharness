@@ -10,7 +10,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
-export const HANDOFF = "Good moment for a handoff. Say 'wrap up' and start a new chat."
+export const HANDOFF = "Want me to write this session up so a new chat can pick it up?"
 
 export function statusLine(data, { nudge = true } = {}) {
   const used = data?.context_window?.used_percentage

@@ -6,7 +6,7 @@ import path from 'node:path'
 import { test } from 'node:test'
 
 const script = path.resolve(import.meta.dirname, '../../scripts/claude-statusline.mjs')
-const handoff = "Good moment for a handoff. Say 'wrap up' and start a new chat."
+const handoff = 'Want me to write this session up so a new chat can pick it up?'
 
 /** Runs the status line the way Claude Code does: session JSON on stdin. */
 function render(used: number | null, config?: object) {

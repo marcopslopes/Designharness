@@ -134,16 +134,16 @@ const BEHAVIOUR_TOGGLES: {
     key: 'handoffNudge',
     title: 'Suggest a handoff in long chats',
     description:
-      "Claude Code: from half the context window. Cursor: after about 15–20 turns. Suggests saying 'wrap up'.",
+      'Claude Code: from half the context window. Cursor: after about 15–20 turns. Offers to write the session up.',
     info: {
       rows: [
         {
           label: 'On',
-          text: "Claude Code's status line warns at 50% context and suggests a handoff from 60%. Cursor suggests one after about 15–20 turns on one task.",
+          text: "Claude Code's status line warns at 50% context and, from 60%, offers to write the session up. Cursor offers the same after about 15–20 turns on one task.",
         },
         { label: 'Off', text: 'No suggestion. The Claude Code status line still shows the percentage.' },
       ],
-      note: "Saying 'wrap up' or asking for a handoff always works.",
+      note: "Asking to write the session up, or saying 'wrap up', always works.",
     },
   },
   {

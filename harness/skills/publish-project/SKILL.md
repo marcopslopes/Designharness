@@ -4,7 +4,8 @@ description: >-
   On-demand publishing of a project's share pages to a public deploy URL —
   NOT the default behavior of any build/export step. Triggers on: "publish
   this project", "deploy this / make it public", "give me a share URL for
-  [project]", "put this online". Copies the picked file(s) from
+  [project]", "put this online", "give me a link", "a link anyone can
+  open". Copies the picked file(s) from
   `projects/<slug>/artifacts/decks/` (occasionally `artifacts/snapshots/` if
   named explicitly) into `public/projects/<slug>/`, fixing any sibling
   asset paths so the copy is self-contained, then confirms the resulting
