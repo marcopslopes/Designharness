@@ -5,17 +5,6 @@
     "command": "node \"${CLAUDE_PROJECT_DIR:-.}/scripts/claude-statusline.mjs\""
   },
   "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\" && node scripts/git-autopilot.mjs session || true",
-            "timeout": 30
-          }
-        ]
-      }
-    ],
     "PreToolUse": [
       {
         "matcher": "Edit|Write",

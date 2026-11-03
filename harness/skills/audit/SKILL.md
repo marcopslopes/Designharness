@@ -682,8 +682,8 @@ There is no project entry to copy.
 should already have run at first eligibility via `task-intake` or
 `design-kickoff` using `harness/references/gallery-card-enrichment.md`.
 **This step is the safety net** — catch designers who became gallery-eligible
-without that pass and backfill missing card fields. Run it here, before
-Step 4's push, so any designer entry rides along in the *same* commit/push.
+without that pass and backfill missing card fields, so the designer entry is
+ready whenever the designer commits the brief.
 
 **Run this only on PASS** (skip entirely on BLOCKED — an unfinished
 prototype doesn't belong in the gallery either).
@@ -727,30 +727,6 @@ prototype doesn't belong in the gallery either).
    or, if a designer was added: `Added designer Jane Doe — gallery-designers/jane-doe.ts.`
    or, if skipped: `Team Gallery: skipped — Gallery: hidden in brief.md.`
    or enrichment fail: `[GALLERY-ENRICHMENT] … Left unlisted.`
-
----
-
-## Step 4 — Prompt to sync with the shared remote (only on PASS)
-
-This repo has no hosted/shared instance — every designer runs their own local clone (see `README.md`). The only thing keeping `projects/`, `harness/logs/routing-log.md`, and any guardrail edits (`CLAUDE.md`, `AGENTS.md`, `harness/skills/**`) in sync across designers is the team's own Git remote (see `INSTALL.md` § Use it with a team). Nothing pushes there automatically — so a PASSing audit is the point to ask.
-
-**On PASS only** (never on BLOCKED — don't prompt to publish unfinished work):
-
-1. Run `git status` to see what changed this session.
-2. If there are uncommitted changes, tell the designer what would be pushed, distinguishing:
-   - **Harness/system files** — `projects/<slug>/**`, `harness/logs/routing-log.md`, `CLAUDE.md`, `AGENTS.md`, `harness/skills/**` — these affect every other designer's clone once pushed, so call them out explicitly.
-   - **Prototype/output files** — `src/design-harness/gallery-designers/**`, `context/design-system/ds/**`, `context/design-system/tokens.css`, `projects/<slug>/artifacts/**` — the actual build output, including any Step 3.5 designer entry.
-3. Ask one direct question: *"Push this to `origin` so other designers get it too? (commit message will be `<skill(s)>: <task slug>`)"*
-4. **Never push without an explicit yes.** If the designer says no or doesn't answer, leave the changes local and move on — this is a nudge, not a gate.
-5. If yes: `git add`, commit with a message naming the skill chain and task slug (e.g. `ui-agent+audit: clients-list-redesign`), then `git push`. Report the result (pushed / conflict / needs pull first).
-
-If `git status` shows nothing to commit, skip this step silently — no need to report "nothing to push."
-
-**Git autopilot** (`behaviour.gitAutopilot`, off by default): items 3–5 become one
-question, "Share this? It goes to the team on its own project branch.", and
-a yes runs save then share. Share checks the ship packet (internal) before
-the push (`harness/references/git-autopilot.md` §§ 3, 5,
-`harness/references/ship-packet.md`). Never `git push` by hand, never to `main`.
 
 ---
 

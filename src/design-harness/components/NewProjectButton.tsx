@@ -5,8 +5,8 @@ import { Button, Callout, Field, Icon } from '../ui'
 const ENDPOINT = '/__harness/new-project'
 
 /**
- * Starts a project from the app: the dev server makes its folder from `projects/_template/`
- * and, with Git autopilot on, its branch (`harness/references/git-autopilot.md`), then opens the brief.
+ * Starts a project from the app: the dev server makes its folder from `projects/_template/`,
+ * then opens the brief.
  * Dev only; the endpoint lives in `scripts/harness-settings-plugin.ts`.
  */
 export function NewProjectButton() {

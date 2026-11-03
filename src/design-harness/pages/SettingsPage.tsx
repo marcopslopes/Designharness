@@ -147,21 +147,6 @@ const BEHAVIOUR_TOGGLES: {
     },
   },
   {
-    key: 'gitAutopilot',
-    title: 'Handle Git for me',
-    description: "Off by default. 'Wrap up' still saves, 'share this' still sends. A branch per project is extra.",
-    info: {
-      rows: [
-        {
-          label: 'On',
-          text: "Starting a project makes your own branch for it from main. Continue, undo, update, and a second folder also run.",
-        },
-        { label: 'Off', text: "'Wrap up' still saves and 'share this' still pushes. Start, continue, undo, update, and a parallel folder stay off." },
-      ],
-      note: "It never pushes unless you say share, never to main, and never with force. '- Git autopilot: on' in your designer profile turns it on.",
-    },
-  },
-  {
     key: 'shareRaw',
     title: 'Share raw notes with the team',
     description: "Off by default. A project's transcripts, threads, and screenshots stay on this computer.",

@@ -1551,7 +1551,7 @@ Nothing is copied. A `ship` / `refused` row is logged.
 blank Ship line or a success line that is only a delivery step;
 publishes from `artifacts/snapshots/` or `artifacts/qa/` instead of
 `artifacts/decks/`; auto-fires right after `ui-agent`/`deck-builder`/`audit`
-without being asked; runs Git autopilot share instead.
+without being asked; runs a Git push instead.
 
 **Designer HOWTO:** `harness/skills/publish-project/SKILL.md`
 

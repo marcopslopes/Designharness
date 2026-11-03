@@ -1,11 +1,8 @@
 # Ship packet
 
-What a share or a public copy checks in the project's `brief.md` before anything moves. Most of it is already in the brief. The `## Ship` section adds only three lines: Review, Exposure, and Decision.
+What a public copy checks in the project's `brief.md` before anything moves. Most of it is already in the brief. The `## Ship` section adds only three lines: Review, Exposure, and Decision.
 
-Callers:
-
-- **Internal** — "share this" / "send this to the team" / "push this". `harness/references/git-autopilot.md`. **Advisory:** a gap is said in one line, and the share goes ahead.
-- **General** — "publish" / "deploy" / "give me a share URL". `harness/skills/publish-project/SKILL.md`. **A gate:** a gap stops the copy.
+One caller: "publish" / "deploy" / "give me a share URL" (`harness/skills/publish-project/SKILL.md`). It is a gate: a gap stops the copy.
 
 Tests, security scans, and dependency ownership stay with engineering. This packet is the product half. `audit` stays the design-system and accessibility half.
 
@@ -19,7 +16,7 @@ Tests, security scans, and dependency ownership stay with engineering. This pack
 - **Decision:** pending
 ```
 
-Exposure is one of `prototype`, `internal`, `general`. Decision is one of `pending`, `kill`, `pivot`, `persevere`. Review is `YYYY-MM-DD`.
+Exposure is `prototype` until a publish clears, then `general`. Decision is one of `pending`, `kill`, `pivot`, `persevere`. Review is `YYYY-MM-DD`.
 
 If `## Ship` is absent, add it at the end of the brief. Never overwrite a line that already has a value. Never invent a date.
 
@@ -40,23 +37,9 @@ Success has to name a person and something they do differently, or a measurable 
 
 No `## How we'd know` yet: propose it from the brief and `findings.md` as `measurement-plan.md` § Proposing it says, then read its Outcome row.
 
-## Internal share
-
-Write `internal` into Exposure when it is blank. Then one line before the script runs:
-
-> Sharing \<project\> as internal. \<Owner\> reviews it on \<review\>.
-
-If any fact is missing, the line names them instead, and the share still runs:
-
-> Sharing \<project\> as internal. Not set yet: \<missing facts, comma-separated\>.
-
-A Review date that has passed with Decision still `pending` adds: "Review date was \<date\>. Decision is still pending." The share still runs.
-
-No `audit` line. Internal does not need one.
-
 ## General (publish)
 
-Write `general` into Exposure when it is blank, or when it was `internal` and they asked to publish. Saved `prototype` and they asked to publish: `AskQuestion`, "Set exposure to general and publish" / "Keep it as prototype".
+Write `general` into Exposure when it is blank and the publish clears. Saved `prototype` and they asked to publish: `AskQuestion`, "Set exposure to general and publish" / "Keep it as prototype".
 
 **Clear** when every fact above is present, Success passes its test, the Review date is today or later (or Decision is not `pending`), and the picked file has an `audit` PASS. Say one line, then copy:
 
@@ -80,7 +63,6 @@ One row in the project's `log.md`. No line in `harness/logs/routing-log.md`.
 
 | Date | Request | Intent classified | Chain run | Why |
 |---|---|---|---|---|
-| YYYY-MM-DD | their words | ship | shared | internal, not set: review |
 | YYYY-MM-DD | their words | ship | refused | general, missing: review, audit |
 | YYYY-MM-DD | their words | ship | cleared | general, review 2026-11-16 |
 

@@ -144,8 +144,7 @@ Tracked `projects/` holds fictional examples (and `_template/`). When
 Slack, Jira, Confluence, Notion, or Google Drive is created entirely at
 `projects.local/<project-slug>/`, which is gitignored (see `.gitignore`).
 That includes the brief, findings, decisions, and screens. The one line is
-`Saved locally, since this repo is public.` Autopilot never commits that
-folder. The public playground only lists tracked `projects/`, so a local
+`Saved locally, since this repo is public.` Git ignores that folder. The public playground only lists tracked `projects/`, so a local
 project's screens stay off the public index.
 
 A project with no company source, and the **New project** button, still

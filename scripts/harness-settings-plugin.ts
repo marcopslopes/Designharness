@@ -1,18 +1,19 @@
 import {
   closeSync,
   copyFileSync,
+  cpSync,
   existsSync,
   mkdirSync,
   openSync,
   readSync,
   readdirSync,
   readFileSync,
+  unlinkSync,
   writeFileSync,
 } from 'node:fs'
 import path from 'node:path'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import type { Plugin } from 'vite'
-import { slugify, start } from './git-autopilot.mjs'
 
 /**
  * Dev-only settings API for Design Harness (`#/settings`). Reads and writes the two
@@ -75,7 +76,6 @@ type HarnessConfig = {
     variantForks: boolean
     tasteCheckpoint: boolean
     handoffNudge: boolean
-    gitAutopilot: boolean
     shareRaw: boolean
   }
 }
@@ -94,7 +94,6 @@ const DEFAULT_CONFIG: HarnessConfig = {
     variantForks: true,
     tasteCheckpoint: true,
     handoffNudge: true,
-    gitAutopilot: false,
     shareRaw: false,
   },
 }
@@ -105,7 +104,6 @@ const BEHAVIOUR_FLAGS = [
   'variantForks',
   'tasteCheckpoint',
   'handoffNudge',
-  'gitAutopilot',
   'shareRaw',
 ] as const
 
@@ -398,14 +396,32 @@ function writeConfig(
   writeFileSync(path.join(root, CONFIG_FILE), `${JSON.stringify(merged, null, 2)}\n`)
 }
 
-/** "New project" in the app: the template folder. A branch only when Git autopilot is on. */
+export function slugify(name: string): string {
+  return name
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60)
+    .replace(/-+$/, '')
+}
+
+/** "New project" in the app: a copy of `projects/_template`. Git is left to the designer. */
 function newProject(root: string, input: { name?: unknown }) {
   const name = text(input.name, 'Project name', 60)
   const slug = slugify(name)
   if (!slug) throw new Error('Give the project a name with letters or numbers')
-  if (existsSync(path.join(root, 'projects', slug))) throw new Error(`There's already a project called ${slug}.`)
-  const result = start(root, slug, { scaffold: true, title: name })
-  return { slug, route: `playground/${slug}/facts`, branch: result.branch, message: result.message }
+  const dir = path.join(root, 'projects', slug)
+  if (existsSync(dir)) throw new Error(`There's already a project called ${slug}.`)
+  cpSync(path.join(root, 'projects', '_template'), dir, { recursive: true })
+  // Written by their own skill, once there's something to put in them.
+  for (const file of ['strategy.md', 'breadboard.md', 'conceptual-model.md']) {
+    if (existsSync(path.join(dir, file))) unlinkSync(path.join(dir, file))
+  }
+  const brief = path.join(dir, 'brief.md')
+  if (existsSync(brief)) writeFileSync(brief, readFileSync(brief, 'utf8').replaceAll('<task-slug>', name))
+  return { slug, route: `playground/${slug}/facts` }
 }
 
 function readBody(req: IncomingMessage): Promise<string> {

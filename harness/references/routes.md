@@ -104,7 +104,7 @@ triggers here and notes there.
 | **"case study for this project" / "build the case study" / "tell the story of this project" / "write up how we got here" (no format named) / "turn this project into a case study"** | **`case-study`** | Eight-chapter story once; then offers slides or prose, never auto-runs them. |
 | **"how should I show this" / "present this to <PM / eng / leadership>" / "let them play with the options" / "put these side by side" / "compare these directions live" / "show the states for review" / "let them flip through every state" / "set the prototype up for a research session" / "give me a participant view" / "show the team every idea we had"** on screens already built in `projects/<slug>/screens/` | **`presenter`** | One AskQuestion, then Variants / Compare / Stage / Ideas config beside the screens. Accent-only differences are one direction. Test script → `usability-test-guide`; both → §3 PLAN, guide first. |
 | **"build me a presentation / make a deck / case study deck / put this PRD into slides / workshop deck / stakeholder deck / status video"** | **`deck-builder`** | Renders `case-study.md` or a PRD; saves to `artifacts/decks/` only. Case-study deck with no `case-study.md` → §3 PLAN, `case-study` first. |
-| **"publish this project / deploy this / make it public / give me a share URL"** | **`publish-project`** | On-demand. Ship packet at exposure general, then a prior `audit` PASS. A deployed site, not "share this". |
+| **"publish this project / deploy this / make it public / give me a share URL"** | **`publish-project`** | On-demand. Ship packet at exposure general, then a prior `audit` PASS. A copy under `public/`, not "share this". |
 | **"write an article / write a blog post / turn this into an essay / write up how we got here (prose) / draft a LinkedIn post / write a case-study writeup / run anti-slop on this / use the writing skill on this article / how will this read after the anti-ai pass"** | **`writing`** | Long-form prose from sourced evidence, always DRAFT. |
 
 ## Team and people
@@ -117,11 +117,8 @@ triggers here and notes there.
 | "who's on my team / who works on [squad/domain/topic] / who should I talk to (or reach out to) about [topic] / what team owns [X]" | **Direct team/people lookup — no skill chain** | Profile + `COMPANY-SQUADS.md`; answers who, sends nothing. §2c. |
 | "book a meeting with [name] / find time with [name] / schedule a sync with [name] / when are we both free / propose a time for [meeting]" | **`scheduling`** | On-demand; free/busy only; books only on confirmation. |
 
-## Git and close-out
+## Close-out
 
 | Intent signal | Chain | Notes |
 |---|---|---|
 | **"design retrospective" / "retro this project" / "what did we learn from [slug]" / "reflect on this launch" / "close out this project"** | **`design-retrospective`** | Reflection from task-folder evidence; never auto-steers next work. |
-| **"update my harness" / "get the latest harness" / "pull the harness updates"** | **Git autopilot update** (`harness/references/git-autopilot.md` § 6) | Parked for phase two: runs only when `gitAutopilot` is on (default off); off, the script says `Git autopilot is off.` Merges the harness's `main` into this branch; the team's `projects/` and `*.local` files stay. A conflict stops and lists files. |
-| **"work on another project in parallel" / "open <slug> in a second window" / "two projects at once"** | **Git autopilot worktree** (`harness/references/git-autopilot.md` § 7) | Parked for phase two: runs only when `gitAutopilot` is on; off, the script says `Git autopilot is off.` Second folder on its own branch, profile and context linked in. |
-| **"undo the last change" / "undo my last save" / "take back the last save"** | **Git autopilot undo** (`harness/references/git-autopilot.md` § 4) | Parked for phase two: runs only when `gitAutopilot` is on; off, the script says `Git autopilot is off.` Show what it undoes, ask once, then revert that save. An unsaved edit is undone in the file, not here. |

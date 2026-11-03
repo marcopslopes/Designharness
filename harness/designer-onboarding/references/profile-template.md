@@ -222,7 +222,6 @@ Last updated: <YYYY-MM-DD>
 - Experience level: <unset — deferred; defaults to "new" explanation depth until told otherwise>
 - MCP tools: <comma-separated ids from Step 0b, or none>
 - Work tools: docs=<confluence|notion|google-docs|none>, tracker=<jira|linear|github|none>, roadmap=<jira-product-discovery|linear|notion|github|none>, chat=<slack|teams|none>
-- Git autopilot: <omit — off by default; write `on` only if the designer asks for a branch per project (`harness/references/git-autopilot.md`)>
 
 ## Active work (auto — from the tracker at last workload snapshot)
 

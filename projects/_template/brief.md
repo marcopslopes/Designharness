@@ -86,7 +86,7 @@ Status: proposed
 ## Ship
 
 <!--
-Read before a team share or a public copy. Contract: harness/references/ship-packet.md.
+Read before a public copy (publish). Contract: harness/references/ship-packet.md.
 The hypothesis is Why, success is the Outcome row, the owner is Designer. Only these
 three lines live here. Leave Review blank until a date is named.
 -->

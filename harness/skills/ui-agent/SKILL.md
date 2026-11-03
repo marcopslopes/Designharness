@@ -172,8 +172,7 @@ Do not preload `harness/ORCHESTRATOR.md`, `COMPANY-BUSINESS.md`, `COMPANY-ARCHET
    before reading any router code. A project saved locally
    (`projects.local/<slug>/`, company tools on a public repo) keeps its screen in that folder too; the public
    playground only lists tracked `projects/`. Never create a prototype
-   anywhere else; with no project yet, start one first (`design-kickoff`, which also starts its branch when Git autopilot is on,
-   `harness/references/git-autopilot.md`). **Screen-level states** (no results, a preselected filter, empty, error) are optional
+   anywhere else; with no project yet, start one first (`design-kickoff`). **Screen-level states** (no results, a preselected filter, empty, error) are optional
    **string** props on the screen with today's defaults (`status="paused"`, `initialQuery="Olivia"`,
    `clients="none"`) — never a copy of the screen, and no separate file per state. A link opens a state
    (`![Paused](screens/WalletHomePage.tsx?status=paused)` in markdown, `<route>?status=paused` in a deck), and

@@ -197,22 +197,6 @@ the designer a line.
 
 ---
 
-### Cursor runs the Git session check from a rule, not a hook
-
-**Found:** 2026-10-30, while adding the session-start Git warning.
-
-**What:** Claude Code runs `node scripts/git-autopilot.mjs session` as a
-SessionStart hook (`.claude/settings.json`), and its line reaches the chat.
-Cursor's `sessionStart` hook can't add context reliably (the same bug as the
-onboarding hook above), so Cursor shows no "you're on main" warning. The
-agent no longer runs the check on every first reply; that cost a step in
-every chat.
-
-Remove this entry once Cursor's `sessionStart` hook can add a line to the
-chat.
-
----
-
 ### Harness interface has no token file of its own
 
 **Found:** 2026-10-12, while building the Intro tour — the "Skip

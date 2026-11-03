@@ -8,8 +8,8 @@ description: >-
   Triggers on: "wrap up", "journal this", "add this to my journal", "log
   this session to my journal", and runs inside `session-handoff`. Every
   phrase runs the same wrap-up: the entry, a handoff note (done, next,
-  open questions from the truth block) in the project's `log.md`, and the
-  save. Read
+  open questions from the truth block) in the project's `log.md`. Nothing
+  is committed. Read
   back on resume with `decisions.md`, and by `case-study`. Not a
   transcript, not a handoff (`session-handoff` writes `handoff.md`), not a
   retrospective (`design-retrospective`), not taste rules
@@ -41,7 +41,7 @@ session, in a private file per day per project.
 
 | Trigger | What gets written |
 |---|---|
-| "wrap up", "journal this", or any other trigger above | The journal entry, then the handoff note and the save (§ Wrap up). One flow, whichever phrase. |
+| "wrap up", "journal this", or any other trigger above | The journal entry, then the handoff note (§ Wrap up). One flow, whichever phrase. |
 | `session-handoff` runs | The journal entry, alongside `handoff.md` |
 
 Never on its own. No trigger, no entry.
@@ -129,10 +129,6 @@ clean. Write the journal entry, then append one handoff row to
   the session raised a new one, say so in chat and offer to add it to
   `brief.md`.
 - No task folder → journal entry only; say there was no `log.md` to write.
-- **Save:** run
-  `node scripts/git-autopilot.mjs save <slug> "<the entry's heading, without the time>"`
-  and say its line. Do not open the script. If it lists harness files, ask
-  Keep it local / Suggest it to the harness — no Other.
 - Docs freshness, once, and only here: if this session changed a §2 row, a skill description, or added a skill, and `harness/logs/docs-freshness.md` has no line dated today for that change, say: "Docs freshness still due — run the checklist in `documentation/maintainers/docs-freshness.md` and append to `harness/logs/docs-freshness.md`." Never on any other reply.
 - Then end with one line: "Wrapped up. Start a new chat and say 'continue
   <slug>'."

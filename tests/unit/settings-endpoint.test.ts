@@ -153,8 +153,6 @@ test('New project makes the folder from the template and stays on the current br
   const reply = await call('POST', { body: { name: 'Invite friends' }, headers: SAME_ORIGIN }, '/__harness/new-project')
   assert.equal(reply.status, 200)
   assert.equal(reply.body.route, 'playground/invite-friends/facts')
-  assert.equal(reply.body.branch, null)
-  assert.equal(reply.body.message, null)
   assert.equal(git('branch', '--show-current'), 'main')
   assert.equal(read('projects/invite-friends/brief.md'), '# Brief — Invite friends\n')
   const again = await call('POST', { body: { name: 'Invite friends' }, headers: SAME_ORIGIN }, '/__harness/new-project')
@@ -165,19 +163,4 @@ test('New project makes the folder from the template and stays on the current br
     '/__harness/new-project',
   )
   assert.equal(evil.status, 403)
-})
-
-test('New project branches from main when Git autopilot is on', async () => {
-  const { root, call } = setup()
-  const git = (...args: string[]) => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim()
-  mkdirSync(path.join(root, 'projects/_template'), { recursive: true })
-  writeFileSync(path.join(root, 'projects/_template/brief.md'), '# Brief — <task-slug>\n')
-  writeFileSync(path.join(root, '.gitignore'), '*.local.md\n')
-  writeFileSync(path.join(root, 'harness.config.local.json'), '{"behaviour":{"gitAutopilot":true}}\n')
-  git('init', '-q', '-b', 'main')
-  git('-c', 'user.email=t@example.com', '-c', 'user.name=T', 'commit', '-q', '--allow-empty', '-m', 'init')
-  const reply = await call('POST', { body: { name: 'Invite friends' }, headers: SAME_ORIGIN }, '/__harness/new-project')
-  assert.equal(reply.status, 200)
-  assert.equal(reply.body.message, 'Working on ada/invite-friends.')
-  assert.equal(git('branch', '--show-current'), 'ada/invite-friends')
 })
