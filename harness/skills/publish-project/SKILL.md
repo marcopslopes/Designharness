@@ -1,20 +1,10 @@
 ---
 name: publish-project
 description: >-
-  On-demand publishing of a project's share pages to a public deploy URL —
-  NOT the default behavior of any build/export step. Triggers on: "publish
-  this project", "deploy this / make it public", "give me a share URL for
-  [project]", "put this online", "give me a link", "a link anyone can
-  open". Copies the picked file(s) from
-  `projects/<slug>/artifacts/decks/` (occasionally `artifacts/snapshots/` if
-  named explicitly) into `public/projects/<slug>/`, fixing any sibling
-  asset paths so the copy is self-contained, then confirms the resulting
-  URL. Before the copy, the ship packet must clear at exposure general
-  (`harness/references/ship-packet.md`) and the artifact
-  must have passed `audit`. Never auto-picks which
-  artifact(s) to publish when more than one candidate exists; never
-  auto-fires after `ui-agent`/`deck-builder` — publishing is always a
-  separate, explicit ask.
+  Do not route here. Share links are out of the live table (2026-11-05)
+  until a new sharing path exists. Kept on disk only. "Give me a link",
+  "publish this", and "share URL" get one line from the share-this row:
+  the harness doesn't publish a share link yet.
 ---
 
 # Publish project

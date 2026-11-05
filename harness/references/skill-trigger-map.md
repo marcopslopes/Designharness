@@ -110,7 +110,7 @@ wording that has to land close enough for §2 to route there.
 | `presenter` | Phrase | — | "how should I show this to the PM?" / "put these side by side" / "set the prototype up for a research session" / "show the team every idea" | Built screens only; mockups before build stay on the `ui-agent` review board. The test script itself is `usability-test-guide`. |
 | `deck-builder` | Phrase | — | "build a deck for this" | Case-study deck reads `case-study.md`. |
 | `writing` | Phrase | — | "help me write this up" / "run anti-slop on this" / "use the writing skill on this article" | |
-| `publish-project` | Phrase | After the ship packet (general) and an audit PASS, still on-demand | "publish this project" | |
+| `publish-project` | Do not route | Not in the live table (2026-11-05) | — | |
 | `session-handoff` | Phrase | Soft nudge after long sessions | "let's hand this off / wrap up the session" | |
 | `scheduling` | Phrase | — | "help me schedule X" | Never a gate. |
 | `manager-1on1-prep` | Phrase | Manager-gated | "help me prep for my 1:1 with X" | |

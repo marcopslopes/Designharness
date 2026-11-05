@@ -40,8 +40,8 @@ merging two designers' work rarely conflicts. The three files people append
 to most, `projects/*/log.md`, `findings.md` and `sources.md`, merge by keeping
 both sides' new lines (`.gitattributes`), so they don't conflict either.
 
-Saying "share this" in a chat does not push anything. The agent says so in
-one line and points to "publish" when you want a share URL.
+Saying "share this" or "give me a link" in a chat does not publish anything.
+The agent says so in one line.
 
 ## Taking harness updates
 

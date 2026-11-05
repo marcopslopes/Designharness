@@ -32,7 +32,7 @@ Generic AI can't tell the difference between a rough sketch and a production-rea
 **Design Harness is an operating system for AI-assisted product design.** Not a prompt library. Not a skill pack. An actual system with:
 
 - **Strategic grounding** (your business model, user archetypes, product roadmap, customer pain signals)
-- **68 specialized skills** that compose into workflows
+- **67 specialized skills** that compose into workflows
 - **Research-first gates** you can't bypass (workload check → discovery → PRD → human approval)
 - **Product decision tools** (prioritization, OKR setting, stakeholder alignment, assumption mapping)
 - **Your company brain** (voice, UX patterns, interaction conventions)
@@ -124,7 +124,7 @@ The core insight: **companies don't need smarter AI. They need AI that is specif
 ├─────────────────────────────────────────────┤
 │ Orchestrator (Routes to the right skills)   │
 ├─────────────────────────────────────────────┤
-│ 68 Skills (Composable workflows)            │
+│ 67 Skills (Composable workflows)            │
 ├─────────────────────────────────────────────┤
 │ Company Brain (Your context, not generic)   │
 │  • Business model & user archetypes         │
@@ -335,7 +335,7 @@ projects/city-leaderboard/
 
 "Continue the leaderboard project" works because the agent reads the folder, sees where you left off, and proposes next steps. **No re-asking questions already answered.**
 
-## The 68 Skills: Not a Menu, a System
+## The 67 Skills: Not a Menu, a System
 
 Skills aren't prompts you choose from. They're triggered by intent and compose into chains.
 
@@ -645,7 +645,7 @@ From the PDF you found:
 
 **Design Harness's answer:**
 - Self-maintaining where provable (detector blocks stale tokens)
-- Serves people first (68 skills designed for designers, not backend agents)
+- Serves people first (67 skills designed for designers, not backend agents)
 - Accuracy enforced mechanically (exit code 2 on commit)
 - Maintenance via self-audit (harness-audit + routing evals)
 - Human gates before knowledge changes (PRD approval, audit PASS)

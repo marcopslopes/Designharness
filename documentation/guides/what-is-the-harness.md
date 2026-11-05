@@ -232,7 +232,7 @@ During onboarding or anytime: "Set up my design system"
 
 ## What's Included
 
-- **68 skills** across build, critique, research, process, and Figma
+- **67 skills** across build, critique, research, process, and Figma
 - **Design Harness design system** (teal + plum, token-first, live preview)
 - **Northline example** (fictional booking platform for reference)
 - **Complete docs** (guides, skill references, troubleshooting)

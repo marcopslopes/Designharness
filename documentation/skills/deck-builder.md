@@ -14,7 +14,7 @@ Three templates:
 
 Prototypes are embedded as the real, interactive Design Harness screens (`?embed=1`), never as copied lookalikes.
 
-Decks save to `projects/<slug>/artifacts/decks/`. Publishing a public URL is a separate step ([publish-project](publish-project.md)).
+Decks save to `projects/<slug>/artifacts/decks/`. There is no share URL from chat.
 
 ---
 

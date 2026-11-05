@@ -1,5 +1,7 @@
 # publish-project
 
+Not routed (2026-11-05). Share links are out of the live table until a new sharing path exists. The skill folder is kept on disk.
+
 Final handoff package - everything needed to ship, all in one place.
 
 ## What It Does

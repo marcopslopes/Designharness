@@ -6,7 +6,7 @@ The full text behind `harness/ORCHESTRATOR.md` §2h: when to challenge, the sent
 
 Before building in an existing project, read the truth block and the brief's scope: what's in, what's out, and any named owner.
 
-Challenge only when `status` is `draft` or `exploring` and they asked to build, the ask builds something parked, an unknown's `blocks` covers this step, or an unsourced claim is being treated as fact. One sentence from the matching template, then `AskQuestion`. Plain words. Their past decision when there is one. Wait for the answer. Do not plan a build in that same message. A kickoff owner or scope conflict is the kickoff skill's one message, not this file (`harness/skills/design-kickoff/SKILL.md`).
+Challenge only when the ask builds something parked, an unknown's `blocks` covers this step, an unsourced claim is being treated as fact, or `status` is `draft` or `exploring` and they asked to build **and this chat did not write the brief**. One sentence from the matching template, then `AskQuestion`. Plain words. Their past decision when there is one. Wait for the answer. Do not plan a build in that same message. A kickoff owner or scope conflict is the kickoff skill's one message, not this file (`harness/skills/design-kickoff/SKILL.md`).
 
 Do not ask about that same gap again unless that item later changes. Writing the choice is not that change.
 
@@ -28,13 +28,13 @@ The fenced YAML at the top of `projects/<slug>/brief.md`, the brief's scope (wha
 
 ## When to say nothing
 
-An edit, a copy tweak, an import, or a question answered from chat. Also say nothing when `decisions.md` already records a choice on this same gap and that item has not changed since. Writing the choice is not a change.
+An edit, a copy tweak, an import, a question answered from chat, or the first build in the same chat that wrote the brief. A new project's `status: exploring` is the default, not a stop — kickoff already asked. Also say nothing when `decisions.md` already records a choice on this same gap and that item has not changed since. Writing the choice is not a change.
 
 ## Which template
 
 1. **Unknown that blocks** — an unknown whose `blocks` is the decision this step would lock (what the screen optimizes for, shows, or commits). On an approved project, skip a broader "should this work start" unknown.
 2. **Parked** — the ask would build a direction listed under `parked`.
-3. **Draft / exploring** — `status` is `draft` or `exploring` and they asked to build, and neither of the above matched.
+3. **Draft / exploring** — `status` is `draft` or `exploring`, they asked to build, this chat did not write the brief, and neither of the above matched.
 4. **Unsourced claim** — they are treating a claim as fact and `findings.md` has nothing behind it.
 5. **Scope or owner at kickoff** — `harness/skills/design-kickoff/SKILL.md`. Not this file.
 

@@ -6,6 +6,8 @@ Each release is a version in `package.json` and a matching Git tag, such as `v0.
 
 ### 5 November 2026
 
+- **The first build after a new project is not stopped again.** Kickoff already asked. Coming back later to an exploring or draft project still gets the challenge. After that first screen, status becomes draft.
+- **No share link from chat.** After a build, the reply no longer says "ask me for a link". "Give me a link", "publish this", and "share URL" get one line: the harness doesn't publish a share link yet. The old publish skill stays on disk. The local address after a build is unchanged.
 - **One-line design questions get the harness too.** "Which icon should I use for share?", "is this a real token?" and "give me a link" were answered from general knowledge in Claude Code, with no skill. `CLAUDE.md` now carries the first step itself, so every chat checks your profile and routes, even for one line.
 - **Matched requests read their skill before touching a project, and never write into a sample project unless you name it.** A usability-test-script request had been writing straight into the example banking project.
 - **Five habits from your past chats are now rules.** Fewer questions when the ask already names what to make; the verb sets the amount of work ("examples" answers in chat, "fix" fixes); boards and canvases show screens with one-line captions; "what do we need to do" after a harness comparison means this repo; and a § Harness preference against company content stops any skill that would pull from a company tool. The harness also stops claiming it only sees what you paste when tools like Slack or Figma are connected.

@@ -106,9 +106,7 @@ actual Foundations tokens (`design-system` pre-check), real copy (`content`),
 real interaction states (`interaction-design`), ready for `audit` before
 sharing.
 
-**Done means:** Built, audited, logged. Ready to push (`audit` PASS prompts
-for GitHub push) or, if explicitly requested, published
-(`publish-project`). Not "we could keep tweaking" — *shipped*.
+**Done means:** Built, audited, logged. Not "we could keep tweaking" — *shipped*.
 
 ---
 

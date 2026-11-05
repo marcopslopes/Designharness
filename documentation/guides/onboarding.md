@@ -243,7 +243,7 @@ The prototype then starts from components that are already right, instead of gue
 "Which sources can you see?" lists the connected tools and the company context in use. It costs almost nothing, so ask it whenever you're unsure.
 
 ### Where your work is
-After a build, the reply gives the local link (`http://localhost:3002/#/…`) and the folder it saved to. "Saved on your computer, not shared yet" means only you have it. Say "give me a link" when someone else needs to open it.
+After a build, the reply gives the local link (`http://localhost:3002/#/…`) and the folder it saved to. "Saved on your computer, not shared yet" means only you have it. There is no share URL yet.
 
 ---
 

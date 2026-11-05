@@ -20,8 +20,7 @@ description: >-
   other skills already produced in the task folder. Does not build a
   scrollable HTML critique report ("proper report of these findings") —
   that is `review-report`, not slides. Saves to
-  `projects/<slug>/artifacts/decks/*.html` — publishing a public URL is a
-  separate, opt-in step (`publish-project`), not automatic.
+  `projects/<slug>/artifacts/decks/*.html`. There is no share URL from chat.
 ---
 
 # Deck builder
@@ -159,10 +158,7 @@ in as the lightweight check).
    theme/font/transition-cycle/all-slides-overview the deck actually
    uses — don't hint at a shortcut key that does nothing.
 4. Save to `projects/<slug>/artifacts/decks/<slug>-<template>.html`. Do
-   **not** auto-mirror to `public/` — publishing a public URL is a separate,
-   opt-in step. If the designer wants one, run `publish-project`
-   (`harness/skills/publish-project/SKILL.md`), which copies the picked
-   file(s) into `public/projects/<slug>/`.
+   **not** auto-mirror to `public/`. There is no share URL from chat.
 
 Before saving, check every slide's narration/copy text (headings, stat
 labels, callouts — not the data itself) against

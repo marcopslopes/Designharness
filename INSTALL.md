@@ -152,10 +152,9 @@ The harness is a folder in Git, so a team shares it the way it shares code.
 3. Projects in `projects/<slug>/` are shared through normal commits and pull
    requests. The gallery (`#/gallery`) groups them by person, reading the
    Ownership section of each committed `brief.md`.
-4. To publish screens to a share URL, ask "publish this to a share URL". The
-   `publish-project` skill only publishes work whose ship packet clears and that has an `audit` PASS.
-5. To let people browse the app from a link, host a viewing copy on any static
-   host. See [Host a viewing copy](documentation/guides/hosting.md).
+4. There is no share URL from chat yet. To let people browse the app from a
+   link, host a viewing copy on any static host. See
+   [Host a viewing copy](documentation/guides/hosting.md).
 
 Protecting `main` on GitHub and working side by side:
 [Using it as a team](documentation/guides/using-it-as-a-team.md).
