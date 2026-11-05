@@ -4,7 +4,7 @@ Read this before writing under `projects/<slug>/`. One fact lives in one file.
 
 | File | Source of truth for |
 |---|---|
-| `brief.md` | The truth block: status, assumptions, unknowns, and evidence. An evidence row names its source and points at that source's `sources.md` line. |
+| `brief.md` | The truth block: status, assumptions, unknowns, and evidence. An evidence row names its source and points at that source's `sources.md` line. Two optional one-line keys: `system` (the design system ids the screens use, first one main — the app guesses from the Platform line only when it's empty) and `example: true` (a made-up sample, never resumed as the designer's work; `harness/references/resume-detection.md`). |
 | `findings.md` | The detail behind an evidence row. Append-only, dated, and named for the skill that wrote it. |
 | `decisions.md` | Choices, including the wayfinding map. The map is an index of named decisions; a settled decision is an entry in this same file. Its `### ` entries show on the project page and board as **Decisions**, so write them for a reader: no internal names or quotes about people who aren't the designer. |
 | `testing/<id>/results.md` | Raw test results. Summarise them into the truth block. The results file is not the only copy. |

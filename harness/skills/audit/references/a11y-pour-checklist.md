@@ -36,11 +36,14 @@ House-specific notes inline.
 | O1 | All functionality operable via keyboard (real `<button>` / `<a>`, not `div onClick`) | Yes | BLOCKING `[A11Y-LABEL]` |
 | O2 | Focus order is logical (DOM order vs visual order) | Partial | Advisory; **runtime/manual** if tab order untestable |
 | O3 | Focus indicators visible (`:focus-visible` or equivalent; no naked `outline: none`) | Yes | BLOCKING `[A11Y-FOCUS]` |
-| O4 | Touch targets at least ~44×44px (min height/width or padding) | Partial | Advisory Major if clearly undersized in styles |
+| O4 | Touch targets at least ~44×44px (min height/width or padding). This is the **house bar**, above the WCAG minimum in O9 | Partial | Advisory Major if clearly undersized in styles |
 | O5 | Motion respects `prefers-reduced-motion` when animation is used | Yes if `@media (prefers-reduced-motion)` or no motion | Advisory if motion without reduced fallback |
 | O6 | No keyboard traps in modals (focus management intent documented or implemented) | Partial | Advisory; BLOCKING only if trap evidenced (e.g. `tabIndex={-1}` on all controls) |
 | O7 | Hover-only styles gated with `@media (hover: hover)` so they don't stick after tap | Yes | Advisory |
 | O8 | Decorative overlays don't steal hits (`pointer-events: none` + `aria-hidden`) | Yes | Advisory; Major if a glow/gradient swallows a control |
+| O9 | **2.5.8 Target Size (Minimum, AA):** every pointer target is at least 24×24 CSS px, or has enough space that a 24px circle on it doesn't touch a neighbour. Inline text links and native, unstyled controls are exempt. Under 44 but at least 24 is an O4 finding, not this one | Partial | Advisory Major — a WCAG AA failure — if styles clearly make it smaller and crowded |
+| O10 | **2.4.11 Focus Not Obscured (Minimum, AA):** a control that gets keyboard focus is never fully hidden by sticky headers, tab bars, toasts, or a sheet the user didn't open. Look for `scroll-padding` / `scroll-margin` matching sticky chrome | Partial | Advisory; **runtime/manual** to confirm. Major if sticky chrome covers a form or list with no scroll offset |
+| O11 | **2.5.7 Dragging Movements (AA):** anything done by dragging (reorder, slider, swipe to delete, pan) also works with a single tap or click, e.g. move up/down buttons, tap on a track, a menu action | Partial (drag handlers vs. alternative controls) | Advisory Major if a drag is the only way |
 
 ---
 
@@ -54,6 +57,9 @@ House-specific notes inline.
 | U4 | Predictable behaviour (no surprise navigation on focus) | Partial | Advisory |
 | U5 | Plain language (provider-facing) | Copy review | Advisory — `content` / Check 3 |
 | U6 | Submit not disabled until the form is "valid"; validate on submit and focus first error | Yes | Advisory |
+| U7 | **3.2.6 Consistent Help (A):** when help (contact, chat, FAQ link, phone) shows on several screens, it sits in the same place, in the same order, each time | Partial (compare screens in the set) | Advisory |
+| U8 | **3.3.7 Redundant Entry (A):** in one flow, don't make the user type again what they already gave. Pre-fill it or let them pick it. Re-entry is fine for security, or when the old value no longer holds | Partial (flow + form fields) | Advisory; Major in long or multi-step forms |
+| U9 | **3.3.8 Accessible Authentication (Minimum, AA):** signing in never relies only on a memory or puzzle test (recall, re-type a code by hand, solve a puzzle). Allow paste and password managers: no paste blocking, `autocomplete` on email/password fields, `autocomplete="one-time-code"` on code fields | Yes (paste handlers, `autocomplete`) | Advisory Major if paste is blocked or a puzzle has no alternative |
 
 ---
 
@@ -66,6 +72,8 @@ House-specific notes inline.
 | R3 | Valid patterns for live regions (`role="status"` / `role="alert"`) | Yes | BLOCKING `[A11Y-LIVE]` |
 | R4 | Works with supported AT (no reliance on title-only tooltips) | Partial | Advisory |
 | R5 | Skip-to-content when repeated chrome precedes main; first focusable is the skip link | Partial | Advisory in Design Harness unless the prototype claims full-page chrome |
+
+WCAG 2.2 removed **4.1.1 Parsing**. Don't log a finding against it. Duplicate IDs still matter when they break a label or `aria-*` reference — log that under R2 or U2.
 
 ---
 

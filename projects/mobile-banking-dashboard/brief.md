@@ -17,6 +17,8 @@ Jira and Confluence being disconnected is this session's tools, not a question.
 
 ```yaml
 status: approved
+example: true
+system: mobile, desktop
 assumptions:
   - text: "The confusion is common, not a handful of loud cases."
     source: brief.md#2

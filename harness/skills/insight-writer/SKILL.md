@@ -42,6 +42,8 @@ whether it landed.
 
 ## Mode 1 — Write the insight
 
+First run `npm run -s harness:recall -- "<topic>"` (`harness/references/harness-recall.md`). A finding or insight on the same topic in another project either backs this one up (cite it) or contradicts it (say so). Both make it stronger than one study alone.
+
 Every insight has three parts. Missing the third one is the single most
 common failure:
 

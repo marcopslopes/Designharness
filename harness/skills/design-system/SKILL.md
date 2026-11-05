@@ -49,8 +49,10 @@ Full procedure: `references/token-check.md` § Layer check.
 
 **Which system (2026-10-11).** Systems are described in
 `context/design-system/systems/*.md` (Mobile — default, Desktop, Brand,
-Harness). Before building, match the project brief's **Platform** line to a
-system's `platforms` words; no match → the `Default` one (Mobile). A request
+Harness). Before building, read `system` in the brief's truth block (a
+system file name, first one main). Empty → match the brief's **Platform**
+line to a system's `platforms` words; no match → the `Default` one (Mobile).
+When kickoff or a build settles the system, write it into `system`. A request
 to build a mobile screen or a prototype, with no other platform named, uses
 Mobile. The catalog at `#/design-system` is that system — header, tab bar,
 glass icons, sheet, and the composed screens — not a set of throwaway

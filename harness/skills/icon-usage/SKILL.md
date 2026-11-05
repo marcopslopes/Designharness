@@ -55,7 +55,7 @@ function IconGiftButton({ className }: { className?: string }) {
 }
 ```
 
-See `src/design-harness/pages/NavigationProfilePrototypePage.tsx` for a full worked example (~30 icons migrated from hand-drawn SVGs to this pattern).
+See `projects/mobile-banking-dashboard/screens/wallet-home-shared.tsx` for a worked example (every icon on the wallet home follows this pattern).
 
 ## Related files
 

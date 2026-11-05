@@ -57,6 +57,10 @@ export type ProjectBriefFacts = {
   status?: string
   platform?: string
   stage?: string
+  /** Truth-block `system` — design system ids, the first one primary. */
+  systems?: string[]
+  /** Truth-block `example: true` — a fictional sample, not the designer's work. */
+  example?: boolean
 }
 
 /** `---`-fenced `key: value` lines at the top of a Markdown file, and the rest of it. */
@@ -189,6 +193,60 @@ const LEGACY_STATUS: Record<string, (typeof TRUTH_STATUSES)[number]> = {
 
 function fencedYaml(brief: string): string | undefined {
   return brief.match(/```yaml\r?\n([\s\S]*?)```/)?.[1]
+}
+
+/** A one-line `key: value` in the truth block, without a trailing `# comment`. Empty means not set. */
+function yamlScalar(brief: string | undefined, key: string): string | undefined {
+  const block = brief ? fencedYaml(brief) : undefined
+  const value = block
+    ?.match(new RegExp(`^${key}:[ \\t]*(.*)$`, 'm'))?.[1]
+    ?.replace(/\s+#.*$/, '')
+    .trim()
+  return value || undefined
+}
+
+/** Truth-block `system: mobile` or `system: desktop, mobile`. Ids are lowercased; the first is primary. */
+export function briefSystems(brief: string | undefined): string[] {
+  return (yamlScalar(brief, 'system') ?? '')
+    .replace(/^\[|\]$/g, '')
+    .split(',')
+    .map((id) => unquoteYaml(id).toLowerCase())
+    .filter(Boolean)
+}
+
+/** Truth-block `example: true`. */
+export function briefIsExample(brief: string | undefined): boolean {
+  return yamlScalar(brief, 'example')?.toLowerCase() === 'true'
+}
+
+/** What picking a design system needs from one. */
+export type SystemChoice = { id: string; platforms: string[]; isDefault: boolean }
+
+/** Where in a lowercased Platform line this system's first word appears, or -1. */
+function platformMatch(system: SystemChoice, platform: string): number {
+  const positions = system.platforms.map((word) => platform.search(new RegExp(`\\b${word}\\b`))).filter((i) => i >= 0)
+  return positions.length ? Math.min(...positions) : -1
+}
+
+/**
+ * The systems a project uses, primary first. The truth block's `system` wins;
+ * an id no system has is skipped. Without one, the Platform line's words pick,
+ * in the order the line names them. No match → the default system.
+ */
+export function projectSystemIds(
+  facts: Pick<ProjectBriefFacts, 'platform' | 'systems'>,
+  systems: SystemChoice[],
+): string[] {
+  const named = (facts.systems ?? []).filter((id) => systems.some((system) => system.id === id))
+  if (named.length) return [...new Set(named)]
+  const platform = (facts.platform ?? '').toLowerCase()
+  const matched = systems
+    .map((system) => ({ id: system.id, at: platformMatch(system, platform) }))
+    .filter((match) => match.at >= 0)
+    .sort((a, b) => a.at - b.at)
+  if (matched.length) return matched.map((match) => match.id)
+  const fallback = systems.find((system) => system.isDefault)
+  return fallback ? [fallback.id] : []
 }
 
 function statusFromYaml(block: string): string | undefined {
@@ -403,7 +461,14 @@ export function briefFacts(brief: string | undefined): ProjectBriefFacts {
     const value = briefField(header, label)?.replace(/\s*\(see [^)]*\)\s*$/, '')
     return value && !UNFILLED_FACTS.has(value) ? value : undefined
   }
-  return { status: briefStatus(brief), platform: fact('Platform'), stage: fact('Stage') }
+  const systems = briefSystems(brief)
+  return {
+    status: briefStatus(brief),
+    platform: fact('Platform'),
+    stage: fact('Stage'),
+    ...(systems.length ? { systems } : {}),
+    ...(briefIsExample(brief) ? { example: true } : {}),
+  }
 }
 
 /** Plain body of a brief section (e.g. `Intent`), or `undefined` when empty or a placeholder. */

@@ -156,7 +156,7 @@ Gitignored. Agents read this index first, then matching paths.
 
 | Path | When to read |
 |------|----------------|
-| preferences.md | Only the matching work-type section, by its reader skill |
+| preferences.md | The short index at the top; only the matching work-type lines, by its reader skill |
 | sources.md | Cross-cutting private bookmarks |
 | referrals/ | Referral / growth topics |
 | projects/invite-friends/ | Private notes for that shared project |

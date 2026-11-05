@@ -2,15 +2,24 @@
 // Runs the harness benchmark: each task as a fresh Claude Code chat in a
 // throwaway worktree. See harness/harness-audit/references/benchmark.md.
 import { spawn, execFileSync } from 'node:child_process'
-import { appendFileSync, copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync, symlinkSync } from 'node:fs'
+import {
+  appendFileSync,
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  symlinkSync,
+} from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join, resolve } from 'node:path'
+import { dirname, join, resolve } from 'node:path'
 
 const ROOT = resolve(import.meta.dirname, '..')
 const BENCH = join(ROOT, 'harness/harness-audit/benchmark')
 const EVALS = join(ROOT, 'harness/harness-audit/references/eval-prompts.md')
 const RESULTS = join(ROOT, 'harness/logs/benchmark-results.jsonl')
-const SKILL_PATH = /harness\/skills\/([^/]+)\/SKILL\.md$/
+const SKILL_PATH = /harness\/(?:skills\/)?([^/]+)\/SKILL\.md$/
 
 const fixture = (name) => readFileSync(join(BENCH, name), 'utf8')
 const project = 'In the mobile-banking-dashboard project,'
@@ -149,6 +158,7 @@ function parseArgs(argv) {
     budget: '3',
     routing: false,
     task: null,
+    cases: null,
     limit: Infinity,
     runs: 1,
     label: null,
@@ -159,6 +169,7 @@ function parseArgs(argv) {
     if (arg === '--routing') opts.routing = true
     else if (arg === '--dirty') opts.dirty = true
     else if (arg === '--task') opts.task = argv[++i]
+    else if (arg === '--cases') opts.cases = argv[++i].split(',').map((c) => (/^\d+$/.test(c) ? `eval-${c}` : c))
     else if (arg === '--model') opts.model = argv[++i]
     else if (arg === '--budget') opts.budget = argv[++i]
     else if (arg === '--label') opts.label = argv[++i]
@@ -186,6 +197,11 @@ function makeWorktree(task, opts) {
   if (opts.dirty) {
     const diff = execFileSync('git', ['diff', 'HEAD'], { cwd: ROOT })
     if (diff.length) execFileSync('git', ['apply'], { cwd: dir, input: diff })
+    const untracked = execFileSync('git', ['ls-files', '--others', '--exclude-standard', '-z'], { cwd: ROOT })
+    for (const file of untracked.toString().split('\0').filter(Boolean)) {
+      mkdirSync(dirname(join(dir, file)), { recursive: true })
+      copyFileSync(join(ROOT, file), join(dir, file))
+    }
   }
   if (!task.fresh && !task.cloud) {
     copyFileSync(join(BENCH, 'designer-profile.fixture.md'), join(dir, 'designer-profile.local.md'))
@@ -310,7 +326,10 @@ function summarize(task, opts, record, commit) {
 
 const opts = parseArgs(process.argv.slice(2))
 const pool = opts.routing ? routingCases() : TASKS
-const selected = pool.filter((task) => !opts.task || task.id === opts.task).slice(0, opts.limit)
+const selected = pool
+  .filter((task) => !opts.task || task.id === opts.task)
+  .filter((task) => !opts.cases || opts.cases.includes(task.id))
+  .slice(0, opts.limit)
 if (!selected.length) throw new Error(`No task matches "${opts.task}"`)
 
 const commit = execFileSync('git', ['rev-parse', '--short', 'HEAD'], { cwd: ROOT }).toString().trim()

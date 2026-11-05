@@ -7,6 +7,8 @@ approved. The old bullet said EXAMPLE, which maps to draft.
 
 ```yaml
 status: draft
+example: true
+system: desktop, mobile
 assumptions:
   - text: "Three segments — Premium, New and Dormant — are enough to act on."
     source: brief.md

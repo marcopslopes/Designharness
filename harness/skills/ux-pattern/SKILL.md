@@ -117,7 +117,7 @@ Form this review's opinion without reading `audit`'s findings first.
 ## Load before reviewing
 
 **First, before any other load:** read `<repo root>/designer-context.local/preferences.md`
-(next to `CLAUDE.md`, never under `harness/`) with the `Read` tool — never Glob or file search, which skip gitignored files. Use the `## Figma` section only; file not found → carry on. If a saved rule there applies to this review, your reply
+(next to `CLAUDE.md`, never under `harness/`) with the `Read` tool — never Glob or file search, which skip gitignored files. Use only its `[Figma]` index lines at the top (open `## Figma` below only when one applies and needs detail); file not found → carry on. If a saved rule there applies to this review, your reply
 must say so once: "Following your preference: <rule>." It shapes what you write and recommend; it is never a finding against
 the work. Contract:
 `harness/references/designer-preferences.md`.
@@ -298,8 +298,8 @@ skill produces.
 trail, not the deliverable.** The markdown table above is right for
 abstract decisions (which sprint structure, which research method — nothing
 to look at). But when the options are actual screens or flows, the real
-precedent for "what good looks like" already exists in this repo:
-`projects/invite-friends/screens/InviteFriendsPrototypePage.tsx`
+precedent for "what good looks like" was an invite-friends prototype (no
+longer in this repo)
 — four sections, three full-fidelity real-DS variants each, one flagged
 `recommended` per section with a one-line rationale and a grounding
 stakeholder quote. That's `ui-agent`'s Step 1.5 review-board format doing

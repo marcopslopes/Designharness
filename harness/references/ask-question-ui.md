@@ -13,6 +13,12 @@ Cursor rule (always applied): `.cursor/rules/ask-question-ui.mdc`
 
 ---
 
+## Ask less first
+
+When the ask names what to make, ask nothing: pick the default, say it in
+one line, and do the work. Ask only for a choice that changes the output
+and is costly to undo. Never re-ask something already answered in this chat.
+
 ## When to use `AskQuestion`
 
 | Situation | Use `AskQuestion`? |

@@ -130,6 +130,12 @@ clean. Write the journal entry, then append one handoff row to
   the session raised a new one, say so in chat and offer to add it to
   `brief.md`.
 - No task folder → journal entry only; say there was no `log.md` to write.
+- Misses review: run `harness/references/miss-log.md` § Review on wrap up.
+  It drafts fixes for today's misses into `harness/logs/harness-proposals.md`
+  and applies nothing. No misses → say nothing about it.
+- Chat digest: if this session's `harness:context` said `Digest: due` and
+  it hasn't run yet, run `harness/references/transcript-digest.md` now,
+  before the last line. Don't ask.
 - Docs freshness, once, and only here: if this session changed a §2 row, a skill description, or added a skill, and `harness/logs/docs-freshness.md` has no line dated today for that change, say: "Docs freshness still due — run the checklist in `documentation/maintainers/docs-freshness.md` and append to `harness/logs/docs-freshness.md`." Never on any other reply.
 - Then end with one line: "Wrapped up. Start a new chat and say 'continue
   <slug>'."

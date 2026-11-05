@@ -1,6 +1,6 @@
 # Using this skill outside the Design Harness
 
-This skill was written for the [Design Harness](https://github.com/marcopslopes/design-harness),
+This skill was written for the [Design Harness](https://github.com/marcopslopes/thedesignharness),
 a full design workspace with routing, company context, and a prototype app.
 In the Design Skills package it runs on its own. Some paths in the skill
 point at Harness files your project may not have. Use this table when a

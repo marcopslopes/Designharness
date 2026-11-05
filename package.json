@@ -24,6 +24,8 @@
     "docs:check": "node scripts/check-docs-facts.mjs",
     "ds:index": "node scripts/ds-index.mjs",
     "harness:context": "node scripts/harness-context.mjs",
+    "harness:recall": "node scripts/harness-recall.mjs",
+    "harness:digest": "node scripts/transcript-digest.mjs",
     "skills:package": "node scripts/build-skills-package.mjs",
     "prepare": "node scripts/install-git-hooks.mjs",
     "setup:claude-skills": "bash scripts/setup-claude-skills.sh",

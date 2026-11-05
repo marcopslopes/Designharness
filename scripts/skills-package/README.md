@@ -12,7 +12,7 @@ A skill is a written playbook your agent follows for one kind of design work: wh
 to bring, which steps to take, what to check, and what to hand back. You get the
 same careful process every time instead of a fresh prompt.
 
-**[Browse the skills](https://thedesignharness.com/skills.html) · [Get started](#get-started) · [The full Design Harness](https://github.com/marcopslopes/design-harness)**
+**[Browse the skills](https://thedesignharness.com/skills.html) · [Get started](#get-started) · [The full Design Harness](https://github.com/marcopslopes/thedesignharness)**
 
 ## What you can do
 
@@ -71,7 +71,7 @@ your design tokens, or the screens you're reviewing.
 
 ## Use them on their own or with the Harness
 
-These skills come from the [Design Harness](https://github.com/marcopslopes/design-harness),
+These skills come from the [Design Harness](https://github.com/marcopslopes/thedesignharness),
 a complete design workspace with routing between skills, company context, and a
 prototype app. Each skill also works on its own: a short
 `references/standalone-mode.md` tells the agent what to use when the Harness files

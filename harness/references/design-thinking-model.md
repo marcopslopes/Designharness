@@ -8,6 +8,15 @@ This is your mental model for understanding designer intent, proposing
 fidelity, judging "good enough," and knowing when a decision is reversible vs.
 load-bearing.
 
+**When it applies** (moved from §0.5):
+
+- **Discovery** — a new question, research, "what do we know", assumptions, which method to use.
+- **Strategy** — bets, goals, prioritization, "where should I focus".
+- **Kickoff** — a new or ambiguous request. Wayfinding is its own row. Kickoff itself: `harness/skills/design-kickoff/SKILL.md`.
+- **Critique** — critique, review, gut check, or "any thoughts" on work already made.
+
+The routing table says which skill runs. This file says how to reason about the decision.
+
 ---
 
 ## The three modes of design work

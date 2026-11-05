@@ -4,8 +4,8 @@ description: >-
   Wraps every mobile/phone-frame Design Harness prototype in the shared PhoneShell
   component (hardware bezel, notch, iOS status bar, floating pill tab bar,
   home indicator, 16px screen padding) instead of one-off chrome per file.
-  Triggers on: "build a mobile screen", "phone prototype", "does this match
-  the navigation-profile frame", "why do the prototypes look different",
+  Triggers on: "build a mobile screen", "phone prototype", "does this phone
+  frame match X's", "why do the prototypes look different",
   "align the phone frames". Rides inside a `ui-agent` chain when the target
   is a phone-frame screen; also runnable standalone as an audit over
   `src/design-harness/pages/` to flag prototypes still using bespoke chrome. Does
@@ -137,7 +137,8 @@ Run this over `src/design-harness/pages/*.tsx` when asked "do the prototypes all
 |------|------|
 | `src/design-harness/shared/PhoneShell.tsx` | The component: `PhoneShell`, `PhoneStatusBar`, `PhoneTabBar` |
 | `src/design-harness/styles/phone-shell.css` | `.phone-shell__*` rules (incl. hidden body scrollbar) |
-| `src/design-harness/pages/NavigationProfilePrototypePage.tsx` | Reference consumer — 4-tab pro app flow, FABs, toast, modal overlay, all via `PhoneShell` |
+| `projects/mobile-banking-dashboard/screens/WalletHomePage.tsx` | Reference consumer — header, tab bar and content, all via `PhoneShell` |
+| `projects/clients-list-redesign/screens/mobile/ClientsListMobilePage.tsx` | Reference for the `floating` slot (FAB) |
 | `harness/skills/ui-agent/SKILL.md` | Builds screen content; chains into this skill for phone-frame screens; applies the interaction pattern docs below |
 | `harness/skills/mobile-shell/references/ios-interaction-patterns.md` | iOS behavior layer — push/modal, swipe actions, sheet detents, segmented controls, icon weight |
 | `harness/skills/mobile-shell/references/android-interaction-patterns.md` | Android behavior layer — bottom sheets/dialogs, FAB, ripple/elevation, drawer/bottom nav |

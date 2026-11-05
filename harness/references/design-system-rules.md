@@ -89,7 +89,7 @@ premium (`#4f3791`), warm paper canvas (`#fafaf7`). Type is **Inter** +
 | **Design Harness kit** (2026-08-11 — current colour/type/depth + button authority, light **and** dark) | `context/design-system/source/design-harness-kit/` → `tokens.css` (`--kit-*`); see `STUDIO-OS-KIT-NOTES.md` |
 | **Foundations** — spacing, radius, border, type ramp *(geometry scales; colour superseded)* | Exported `FIGMA-FOUNDATIONS-*.md` — trust `tokens.css` for live hex |
 | **Legacy component specs** — pending further kit migration | `FIGMA-DESIGN-SYSTEM-*.md` |
-| **Systems** (2026-10-11) — Mobile (default), Desktop, Brand, Studio: what each has, what's missing, its rules; a project's brief **Platform** line picks one | `context/design-system/systems/*.md` → Design Harness `#/design-system/systems`; protocol in `harness/skills/design-system/SKILL.md` § Which system |
+| **Systems** (2026-10-11) — Mobile (default), Desktop, Brand, Studio: what each has, what's missing, its rules; a project's truth-block `system` picks one (the brief's **Platform** line only when `system` is empty) | `context/design-system/systems/*.md` → Design Harness `#/design-system/systems`; protocol in `harness/skills/design-system/SKILL.md` § Which system |
 
 ### 7.3 Design tokens reference
 

@@ -13,6 +13,7 @@
 import { readFileSync, appendFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { countsAsUse, rangeOf, readKind } from './skill-read-kind.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -79,12 +80,23 @@ function sessionOf(data) {
   return data.session_id || data.conversation_id || process.env.CURSOR_SESSION_ID || process.env.CLAUDE_SESSION_ID || 'unknown'
 }
 
+function readEvents() {
+  if (!existsSync(USAGE_LOG)) return [];
+  return readFileSync(USAGE_LOG, 'utf-8').split('\n').flatMap((line) => {
+    try { return line.trim() ? [JSON.parse(line)] : [] } catch { return [] }
+  });
+}
+
 function logUsage(skillName, data) {
+  const session = sessionOf(data);
+  const range = rangeOf(data.tool_input || data.toolInput || {});
   const event = {
     timestamp: new Date().toISOString(),
     skill: skillName,
     designer: getDesignerName(),
-    session: sessionOf(data),
+    session,
+    range,
+    kind: readKind(readEvents(), { skill: skillName, session, range }),
     cwd: data.cwd || process.cwd()
   };
   
@@ -99,10 +111,8 @@ function logUsage(skillName, data) {
  * Generate usage summary from log
  */
 function updateSummary() {
-  if (!existsSync(USAGE_LOG)) return;
-  
-  const lines = readFileSync(USAGE_LOG, 'utf-8').trim().split('\n');
-  const events = lines.map(line => JSON.parse(line));
+  const events = readEvents().filter(countsAsUse);
+  if (!events.length) return;
   
   // Aggregate by skill
   const skillCounts = {};

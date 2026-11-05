@@ -13,7 +13,7 @@ The shortest path through the harness. Each chapter takes a few minutes and link
 You need Git, Node 22, and an agent that works in a folder: Cursor, Claude Code, or Codex.
 
 ```bash
-git clone https://github.com/marcopslopes/design-harness.git
+git clone https://github.com/marcopslopes/thedesignharness.git
 cd design-harness
 npm install
 ```

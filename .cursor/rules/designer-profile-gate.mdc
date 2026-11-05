@@ -1,28 +1,18 @@
 ---
-description: Gate designer onboarding — read profile file before any onboarding UI
+description: First step every chat — run harness:context (or Read the root profile) before any onboarding
 alwaysApply: true
 ---
 
 # Designer profile gate (every chat)
 
-**Before any reply or other tool call**, `Read` `<workspace root>/designer-profile.local.md`
-(next to `AGENTS.md`, never under `harness/`) — never Glob or file search, which skip gitignored files.
+Before any reply or other tool call, run `npm run -s harness:context`. No
+shell: `Read` `<workspace root>/designer-profile.local.md`, next to
+`AGENTS.md`. Never under `harness/`. Never Glob or search.
 
-| Result | Action |
-|--------|--------|
-| **File exists** (`Status: ACTIVE` or `SKIPPED`) | **Stop.** Do not run onboarding, MCP gate, profile `AskQuestion`, squad questions, handoff tables, or handoff menu. Use the profile silently. Handle the user's message. |
-| **File not found, and nobody can answer** (headless, background, one-shot) | No greeting, no question, no profile file. Role focus is `product`. Do their request. |
-| **File not found, and a person is here** | At most one question, the role (`harness/designer-onboarding/references/onboarding-questions.md`). Then do their request in the same turn. Do not wait for the answer, and do not run the tool probe, workload, or handoff before it. Write the profile only after they answer. |
+- `Profile: found` → silent. No onboarding, MCP gate, profile questions, or handoff. Handle the message.
+- `Profile: missing`, nobody can answer (headless, background, one-shot) → no question, no profile file. Role focus is `product`.
+- `Profile: missing`, a person is here → one question, the role. Do the request in the same turn.
 
-**Never** infer "profile missing" from memory, a new chat, or prior turns.
-**Never** run onboarding because the user typed a short message (`df`, `hi`).
-The filesystem is the only source of truth.
-
-**No narration leak on this `Read` itself.** Found live (2026-07-17): the
-gate-check narrated as "Checking your designer profile, then I'll greet
-you back" — a stray bit of internal planning leaking into user-facing
-text, announcing the *next* step before its own result is known. Either
-run this `Read` silently, or, if you narrate it at all, stop at
-"Checking your designer profile..." — never a forward-looking clause
-("...then I'll greet you back", "...then I'll continue"). What happens
-next is decided by this `Read`'s actual result, not pre-announced.
+That output is the only source of truth. Never memory, a new chat, or a
+short message (`hi`). Narrate at most "Checking your designer profile...",
+never the next step. Full rule: `harness/references/session-start.md`.

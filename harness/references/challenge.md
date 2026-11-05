@@ -1,6 +1,14 @@
 # Challenge — how to fill §2h
 
-When to challenge is `harness/ORCHESTRATOR.md` §2h. This file holds the sentences, their buttons, how to fill the blanks, and what each button writes. It is not loaded every session.
+The full text behind `harness/ORCHESTRATOR.md` §2h: when to challenge, the sentences, their buttons, how to fill the blanks, and what each button writes. It is not loaded every session.
+
+## When to challenge
+
+Before building in an existing project, read the truth block and the brief's scope: what's in, what's out, and any named owner.
+
+Challenge only when `status` is `draft` or `exploring` and they asked to build, the ask builds something parked, an unknown's `blocks` covers this step, or an unsourced claim is being treated as fact. One sentence from the matching template, then `AskQuestion`. Plain words. Their past decision when there is one. Wait for the answer. Do not plan a build in that same message. A kickoff owner or scope conflict is the kickoff skill's one message, not this file (`harness/skills/design-kickoff/SKILL.md`).
+
+Do not ask about that same gap again unless that item later changes. Writing the choice is not that change.
 
 Say the sentence in plain words. Never say "truth block", "row", "parked list", or "unknown" as a label. Braces are blanks, not text to print. `{, because {reason}}` and `{. {owner} owns it}` are included only when that blank has a value.
 

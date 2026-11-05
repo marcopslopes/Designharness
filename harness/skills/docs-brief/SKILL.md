@@ -113,7 +113,7 @@ research sweep, or a short status page from what we already have?"*
 ### Step 1 — Draft in chat
 
 Read `<repo root>/designer-context.local/preferences.md` (next to `CLAUDE.md`) with the `Read` tool — never Glob or file search, which skip gitignored files, and use
-the `## Slack/docs` section only if it has rules — skip the read when it's empty or the file is
+only its `[Slack/docs]` index lines at the top — stop there when there are none or the file is
 missing. If a saved rule applies to the draft, say once: "Following your
 preference: <rule>." Contract: `harness/references/designer-preferences.md`.
 

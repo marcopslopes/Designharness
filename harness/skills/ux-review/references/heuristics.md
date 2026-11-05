@@ -104,7 +104,7 @@ It may be necessary to provide help and documentation. Any such information shou
 
 ---
 
-## WCAG 2.1 AA — Key Checkpoints
+## WCAG 2.2 AA — Key Checkpoints
 
 ### Perceivable
 
@@ -129,7 +129,9 @@ It may be necessary to provide help and documentation. Any such information shou
 | Focus order | 2.4.3 | Tab order matches visual layout |
 | Link purpose | 2.4.4 | Link text is descriptive (not "click here") |
 | Focus visible | 2.4.7 | Keyboard focus indicator is visible |
-| Target size | 2.5.5 | Touch targets >= 44x44 CSS pixels |
+| Focus not obscured | 2.4.11 | Sticky headers, tab bars, or toasts never fully hide the focused control |
+| Dragging movements | 2.5.7 | Every drag action also works with a single tap or click |
+| Target size (minimum) | 2.5.8 | Targets >= 24x24 CSS pixels, or spaced so they don't crowd. The house bar is 44x44 (2.5.5 is AAA) |
 
 ### Understandable
 
@@ -141,14 +143,18 @@ It may be necessary to provide help and documentation. Any such information shou
 | Labels | 3.3.2 | Form inputs have associated labels |
 | Error suggestion | 3.3.3 | Error messages suggest corrections |
 | Error prevention | 3.3.4 | Reversible/confirmed/checked submissions for legal/financial data |
+| Consistent help | 3.2.6 | Help links or contact sit in the same place on every screen |
+| Redundant entry | 3.3.7 | Don't ask again for info already given in the same flow |
+| Accessible authentication | 3.3.8 | Sign-in allows paste and password managers; no memory or puzzle test without an alternative |
 
 ### Robust
 
 | Criterion | ID | What to Check |
 |---|---|---|
-| Parsing | 4.1.1 | Valid HTML (no duplicate IDs, proper nesting) |
 | Name, Role, Value | 4.1.2 | Custom components have proper ARIA roles and states |
 | Status messages | 4.1.3 | Status updates announced to screen readers via live regions |
+
+4.1.1 Parsing was removed in WCAG 2.2. Duplicate IDs still matter when they break a label or ARIA reference (4.1.2).
 
 ---
 

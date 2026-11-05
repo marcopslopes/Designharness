@@ -11,6 +11,8 @@ The full text of `harness/ORCHESTRATOR.md` §2b. The orchestrator keeps a short 
 | `approved` | Gate passed, logged in `decisions.md` | Iterating row applies — safe to skip `design-kickoff`. |
 | `closed` | Exploration ended with no winner, or the work was closed | Do not reopen it into a build unless the designer asks. |
 
+**A sample is not the designer's work.** A truth block with `example: true` is a made-up sample that ships with the harness. Never resume it, never treat it as "already started", and never write into it, whatever its `status` says. The exception: the designer names it (its slug or its title) or opens it. Then it resumes like any project. A new request that sounds like a sample starts a new project. If the sample is relevant, say it once, in plain words: "There's a made-up example on this topic, `<slug>`. I'm starting your own project instead." Do not offer to add to it.
+
 The project stage line (§5, `harness/references/project-stage.md`) reads this `status` as its `kickoff`/`framed` signal — it never overrides this table.
 
 If `brief.md` has no truth block and no old `Status:` line (a legacy folder from before this rule existed), inspect it directly: literal placeholder text (`<task-slug>`, `<What the designer...>`, unfilled bracket fields) means treat it as `exploring`.

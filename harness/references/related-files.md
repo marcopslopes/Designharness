@@ -86,12 +86,19 @@ not on every request.
 | `harness/designer-onboarding/references/mcp-check.md` | Step 0b — **mandatory** MCP gate (blocks until all 4 connected) — runs *after* Step 0a's greeting, never before |
 | `documentation/setup/mcp-setup.md` | Human guide — connect your docs tool, tracker, chat, Figma, and Miro |
 | `harness/references/ask-question-ui.md` | Repo-wide `AskQuestion` contract — all fixed-choice designer questions |
-| `harness/references/onboarding-gate.md` | §0 in full — onboarding order (greeting first), manager path, and the `sessionStart` hook note; read only when the profile is missing |
+| `harness/references/session-start.md` | §0 and §0a in full — the `harness:context` first step, the profile result table, the narration rule, and org-pack resolution |
+| `harness/references/classify-and-log.md` | §2e and §2f in full — classify, log only exceptions, the forbidden shortcuts, and routing confidence |
+| `harness/references/harness-recall.md` | `npm run -s harness:recall -- "<topic>"`: what projects (any designer's), raw material, the inbox and past chats already hold, before a project, screen or insight |
+| `harness/references/transcript-digest.md` | "Digest my chats": condenses past agent chats into `designer-context.local/how-i-work.md` and backfills misses (`scripts/transcript-digest.mjs`) |
+| `harness/references/miss-log.md` | `MISS` / `MISROUTE` rows on pushback, and the wrap-up review that drafts fixes into `harness/logs/harness-proposals.md` |
+| `scripts/harness-context.mjs` | `npm run -s harness:context` — profile, org pack, and project facts; `--ask` lists literal trigger-phrase hits |
+| `harness/references/onboarding-gate.md` | Pointer only: the first step is `session-start.md`, the questions are `harness/designer-onboarding/SKILL.md` |
 | `harness/references/resume-detection.md` | §2b in full — `brief.md` `Status:` decides whether an existing folder is kicked off; the no-STUB-at-end-of-turn rule |
 | `harness/references/challenge.md` | §2h templates and buttons, how to fill the blanks, and what each button writes |
 | `harness/references/routes.md` | The long tail of §2, grouped by phase. Holds the group rows' trigger phrases. Opened only when a §2 group row matches |
-| `harness/references/routing-notes.md` | Notes only, one entry per route, keyed by the Chain name. No trigger phrases. Grep the skill name after a row matches |
+| `harness/references/routing-notes.md` | Notes only, one entry per route, keyed by the Chain name. No trigger phrases. Read by `harness-audit` and route edits, not at routing time |
 | `harness/references/people-lookup.md` | §2c in full — direct "who works on X" lookup from the profile and `COMPANY-SQUADS.md`; the honesty rule |
+| `harness/references/skill-finder.md` | Direct "what can you do / is there a skill for X" answer from the routing phrases and skill front matter; same match as the in-app `#/skills/assistant` page (`src/design-harness/skillFinder.ts`) |
 | `harness/references/design-critique.md` | §2d in full — artifact type, drop-time `AskQuestion`, written chain, follow-up offers, carve-outs |
 | `harness/references/autonomy-dial.md` | §3a in full — the per-task "how hands-on" question inside a plan block |
 | `harness/references/remote-sync.md` | §6 in full — Git remote as the only sync; `audit`'s push prompt and gallery check |
@@ -105,7 +112,7 @@ not on every request.
 | `harness/designer-onboarding/references/onboarding-workload-scope.md` | Auto `workload-agent` after profile — squad-scoped tracker snapshot |
 | `harness/designer-onboarding/references/post-onboarding-handoff.md` | Personalized headline (not a recap table) + workload tables after snapshot; next-step menu strictly after the tables |
 | `harness/designer-onboarding/references/handoff-menu-question.md` | `AskQuestion` menu — not chat prose |
-| `.cursor/hooks.json` / `.cursor/hooks/designer-onboarding-check.sh` | The `sessionStart` hook that actually enforces §0 — fires before any message is handled |
+| `.cursor/hooks.json` / `.cursor/hooks/designer-onboarding-check.sh` | The `sessionStart` hook for §0. Currently a no-op (Cursor bug, see the script). The working first step is `npm run -s harness:context` |
 | `harness/references/intake.md` | §1 intake — a new design task with open gaps |
 | `harness/references/plan-gate.md` | §3 plan gate — more than one skill |
 | `harness/references/fallback.md` | §4 fallback — no routing row matched |

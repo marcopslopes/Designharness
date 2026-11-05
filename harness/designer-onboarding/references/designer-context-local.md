@@ -34,8 +34,10 @@ After reading `designer-profile.local.md`, agents should:
    and by `case-study`. Not read for `audit` or design-critique. An old
    `design-record.md` from `design-memory` is no longer read.
 6. **`preferences.md` is read by section:** `ui-agent`, `content`,
-   `ux-pattern`, `writing`, and `docs-brief` each read only their own
-   section; nothing is written there without the designer's Yes
+   `ux-pattern`, `writing`, and `docs-brief` each read the short index at
+   the top and use only their own section's lines; nothing is written
+   there without the designer's Yes (a repeat of a saved rule bumps its
+   count, and the reply says so)
    (`harness/references/designer-preferences.md`).
 
 Trivial one-liners don't require reading the whole tree every time.
@@ -81,7 +83,7 @@ Agents read it for standing context.
 
 | Path | When to read |
 |------|----------------|
-| preferences.md | Only the matching work-type section, by its reader skill |
+| preferences.md | The short index at the top; only the matching work-type lines, by its reader skill |
 | sources.md | Cross-cutting private bookmarks |
 | working-notes.md | Referrals, payments, or agent/harness work |
 | referrals/ | Referral / growth topics |

@@ -48,6 +48,7 @@ Changing the harness itself:
 - [Skill benchmarking](maintainers/skill-benchmarking.md)
 - [Self-improvement loops](maintainers/self-improvement-loops.md)
 - [Marketing site strategy](maintainers/marketing-site-strategy.md) - Ideas from impeccable.style for presenting the harness
+- [Team and Git plan inputs](maintainers/team-git-plan-inputs.md) - Draft research for a team plan, not a decision
 
 ### `/skills`
 Individual skill guides - what each skill does and how to use it:

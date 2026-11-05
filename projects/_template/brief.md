@@ -16,6 +16,11 @@ ship packet read them from there. Don't repeat them in another section.
 Truth block — the index the next session reads. Add a row only when a
 source says it. Never invent one. An empty list means not recorded.
 status: exploring (nothing built) | draft (built, not approved) | approved | closed
+system: the design system the screens use — a file name in
+  context/design-system/systems/ (mobile, desktop, brand). Two systems:
+  desktop, mobile — the first is the main one. Empty: the app guesses from
+  the Platform line below, and uses mobile when it can't tell.
+example: true only on a made-up sample project. Leave it out on real work.
 assumptions: { text, source } — believed, not proven. source: none if unsourced
 unknowns: a string, or { text, owner, blocks } — owner and blocks optional. explicitly missing
 evidence: { text, source }
@@ -24,6 +29,7 @@ parked: a string — a direction that was not approved
 
 ```yaml
 status: exploring
+system:
 assumptions: []
 unknowns: []
 evidence: []

@@ -6,7 +6,7 @@ Each keyword maps to a default repository so the Cloud Agent loads
 
 | Keyword | Maps to | Notes |
 |---------|---------|-------|
-| `checkout` | `github.com/marcopslopes/design-harness` | briefing with checkout context |
+| `checkout` | `github.com/marcopslopes/thedesignharness` | briefing with checkout context |
 | `payments` | same | include payments taxonomy when user pastes it |
 | `onboarding` | same | onboarding-focused briefings |
 | `search` | same | discovery / search product context |

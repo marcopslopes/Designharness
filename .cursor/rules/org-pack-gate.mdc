@@ -5,34 +5,10 @@ alwaysApply: true
 
 # Org-pack resolution (every chat)
 
-This repo is generic and public. It never hardcodes a company name,
-product, voice, or org chart. Any skill or doc reference to
-`COMPANY-BUSINESS.md`, `COMPANY-VOICE.md`, `COMPANY-ARCHETYPES.md`,
-`COMPANY-PATTERNS.md`, `COMPANY-SQUADS.md`, `COMPANY-SOURCES.md`,
-`COMPANY-VOCABULARY.md`, or `COMPANY-STYLE-GUIDE.md` resolves in this
-order:
-
-1. `context/org-pack.local/COMPANY-*.md` — real company content, gitignored.
-2. `context/org-pack/COMPANY-*.md` — public fictional "Northline" example,
-   shipped with the harness as a fallback and a worked-example template.
-
-**Read the local file when it exists; never mix the two** (don't fall
-back to individual example files if the local pack exists but is
-missing one file — flag the gap instead and ask, since a partial local
-pack usually means a setup step didn't finish).
-
-Full protocol: `harness/ORCHESTRATOR.md` §0a.
-
-Any other `COMPANY-*.md` in the resolved folder is an **extra file**: read
-its `about:` / `use-when:` header and load it when `use-when` matches the
-skill or task (`harness/references/org-pack-extra-files.md`).
-
-## Forbidden
-
-- Hardcoding a specific company's name, product framing, or voice rules
-  directly into `harness/ORCHESTRATOR.md`, any `harness/skills/**/SKILL.md`,
-  or other engine files — those must reference the resolved `COMPANY-*.md`
-  files instead.
-- Writing real company facts into `context/org-pack/` (public folder).
-- Treating a missing `context/org-pack.local/` as broken — it's the
-  expected state on a fresh clone; fall back to the example pack silently.
+`COMPANY-*.md` resolves from `context/org-pack.local/` (real, gitignored)
+first, else `context/org-pack/` (the public fictional example). The
+`Org pack:` line of `npm run -s harness:context` says which. Never mix
+them. A partial local pack → flag the gap and ask. No local pack is normal.
+Never hardcode a company in engine files. Never write real company facts
+into `context/org-pack/`. Full rules, extra files included:
+`harness/references/session-start.md` § Org pack.

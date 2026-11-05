@@ -25,9 +25,9 @@ const arg = (name, fallback) => {
 }
 const out = path.resolve(repo, arg('out', '../design-skills'))
 const version = arg('version', '0.1.0')
-const owner = { name: 'Design Harness', url: 'https://github.com/marcopslopes/design-harness' }
+const owner = { name: 'Design Harness', url: 'https://github.com/marcopslopes/thedesignharness' }
 const packageRepo = 'https://github.com/marcopslopes/design-skills'
-const harnessRepo = 'https://github.com/marcopslopes/design-harness'
+const harnessRepo = 'https://github.com/marcopslopes/thedesignharness'
 const site = 'https://thedesignharness.com/skills.html'
 const templates = path.join(repo, 'scripts/skills-package')
 const groups = JSON.parse(readFileSync(path.join(templates, 'groups.json'), 'utf8'))

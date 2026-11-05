@@ -249,6 +249,7 @@ from fetched bodies, not link-only.
 
 ## Workflow
 
+0. **Recall first** — `npm run -s harness:recall -- "<topic>"` (`harness/references/harness-recall.md`). What projects, raw material, the inbox and past chats already hold is the first section of the answer, and the outside search fills the gaps.
 1. **Search in parallel** — the docs tool (full page bodies), the tracker (full tickets, sweeping every board in `harness/skills/workload-agent/references/roadmap-boards.md` when the topic could span domains, running the live roadmap query from `harness/skills/workload-agent/references/roadmap-check.md` against any board the topic touches), chat threads; then Miro/Figma for URLs found in bodies
 2. **Synthesise** — confidence rating (High / Medium / Low), conflict handling, no fabrication
 3. **Write the draft** — full PRD scaffold from `references/brief-template.md` in the docs tool; blank placeholders where sources are missing; **draft only**, never auto-publish

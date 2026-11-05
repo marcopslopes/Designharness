@@ -60,7 +60,7 @@ Sync via `BroadcastChannel`. Previews load the same HTML with
 
 ## Demo
 
-`projects/account-settings/artifacts/decks/account-settings-stakeholder-update.html` —
+`projects/mobile-banking-dashboard/artifacts/decks/mobile-banking-dashboard-case-study.html` —
 speaker notes remain on slides for later; **presenter UI is off by
 default** on that deck (no `S` hint, script not loaded). Re-enable by
 adding the script + shortcuts span when needed.

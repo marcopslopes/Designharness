@@ -37,12 +37,10 @@ If options were just ideated (`ux-pattern`), prefer mocking **those** options
 
 ### Reference layout (keep)
 
-Worked example designers liked:
-
-`projects/checkout/artifacts/snapshots/till-header-variants.html` (2026-08-07)
-
-Do not freestyle a new board aesthetic each time — clone that structure
-(page head, 2×2 cards, status bar + toolbar mock, tools row, ghost appts).
+The board designers liked (2026-08-07, from a project no longer in this
+repo) had: page head, 2×2 cards, the surface's own chrome mocked once per
+card, a tools row, and ghost placeholders below the contested region. Do
+not freestyle a new board aesthetic each time — use that structure.
 
 ---
 
@@ -59,4 +57,6 @@ into the real screen and shows them in the project's Compare view
 - Shipping all variants as live Design Harness routes before a pick
 - Building a clickable tabbed lab when the ask was “mockups / compare”
 - Different fake data per card (breaks comparison)
+- Paragraphs, sticky notes or a text section longer than two lines — screens
+  first, one line of what and why under each
 - Skipping the Today/baseline card when the ask is “fix this mess”

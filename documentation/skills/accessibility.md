@@ -5,7 +5,7 @@ Deep WCAG compliance review - beyond what audit checks.
 ## What It Does
 
 **Comprehensive a11y review** that checks:
-- WCAG 2.1 AA compliance (minimum)
+- WCAG 2.2 AA compliance (minimum)
 - AAA where possible
 - Screen reader experience
 - Keyboard navigation

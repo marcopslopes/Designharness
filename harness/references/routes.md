@@ -3,9 +3,9 @@
 `harness/ORCHESTRATOR.md` §2 keeps the common rows and one row per group.
 When an ask matches a group row there, find that group's heading here and
 match inside it. The trigger phrases for group rows live here and nowhere
-else. Full notes for each route live in `harness/references/routing-notes.md`,
-keyed by the route name in the Chain column (Grep the skill name). Change
-triggers here and notes there.
+else. A match goes straight to the skill's `SKILL.md`. Background notes per
+route live in `harness/references/routing-notes.md` for audits and route
+edits, not for routing. Change triggers here and notes there.
 
 ## Framing and strategy
 
@@ -48,7 +48,7 @@ triggers here and notes there.
 
 | Intent signal | Chain | Notes |
 |---|---|---|
-| "structure this flow / does this match how the company works / which archetype" (reviewing a flow that already exists) | `ux-pattern` | Structure review, no build step. |
+| "structure this flow / does this match how the company works / which archetype / my board has too much / what does a designer need on the board" (reviewing a flow or board that already exists) | `ux-pattern` | Structure review, no build step. |
 | **"breadboard this flow / map the interaction structure for X / where does this go / text-based flow before we design it / settle the places and affordances"** — flow doesn't exist yet, or is being restructured | **`ux-pattern`** (breadboard mode) | Drafts a new flow as text (`breadboard.md`); the row above reviews an existing one. |
 | **"define the objects / map relationships / what states can this be in / object model / ubiquitous language / what does this thing mean / is this one thing or two things / how do these connect"** — between kickoff and screens | **`conceptual-model`** | Objects, relationships, states, vocabulary — after kickoff, before screens. |
 | **"map this domain / what concepts exist in this domain / terminology audit / how does the domain talk about this before our product / domain event storming / bounded context for X"** — the real world's vocabulary, before any product decision | **`conceptual-model`** (domain-mapping mode) | Real-world vocabulary before product decisions; record contradictions, don't resolve them. |
@@ -63,8 +63,8 @@ triggers here and notes there.
 |---|---|---|
 | **"should I sketch this or build it" / "do I need a real prototype for this yet" / "what fidelity should I use for X" / "is this worth building in Design Harness or just talking through"** | **`ui-agent`** (fidelity check, Step 0.5) | Recommends talk-through, sketch, or prototype; never a gate. |
 | "check this token / where should this style live / is this a real Foundations token / design-system skill" | **`design-system`** | Token check + three-layer rule; not a replacement for `audit`. |
-| "add an icon / which icon library" (standalone) | `icon-usage` | Usually rides inside a `ui-agent` chain. |
-| "align the phone frames / why do the prototypes look different / does this match navigation-profile's frame" | `mobile-shell` | Phone-frame consistency, or inside a `ui-agent` chain. |
+| "add an icon / which icon library / which icon should I use for X / which icon for X" (standalone) | `icon-usage` | Usually rides inside a `ui-agent` chain. |
+| "align the phone frames / why do the prototypes look different / does this phone frame match X's / do these phone frames match" | `mobile-shell` | Phone-frame consistency, or inside a `ui-agent` chain. |
 | **"taste check this" / "is this heading in the right direction visually" / "mid-build visual check" / "does this density feel right" / "is this a persuade or an operate surface" / "scale the ambition to the surface" / "should this be quieter"** | **`taste-feedback`** | Names the surface first; stays inside Foundations tokens. |
 | **"motion spec for X" / "animate this transition" / "prototype this micro-interaction" / "reduced motion for this" / "choreograph the loading state" / "review these animations" / "what could be animated here" / "find motion opportunities" / "make this feel more alive" / "audit the motion" / "improve the animations" / "what's it called when [motion feel]" / "animation vocabulary" / "list the motions" / "what motions do we have" / "scan this for motion" / "scan the project for motion" / "apply the sheet motion" / "apply the menu" / "apply the pill" / "add the right motion here" / "does the system already animate this" / "custom motion only if the platform doesn't"** | **`motion-choreography`** | Spec / review / opportunities / audit→plan / vocabulary / list / scan / apply; reduced motion mandatory. |
 | **"responsive patterns" / "breakpoint strategy" / "does this reflow" / "200% zoom check" / "what collapses at narrow widths" / "container queries for this"** | **`responsive-patterns`** | Breakpoints and reflow; hands build to `ui-agent`. |

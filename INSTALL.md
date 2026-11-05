@@ -30,8 +30,8 @@ account or subscription.
 ### 2. Clone and install
 
 ```bash
-git clone https://github.com/marcopslopes/design-harness.git
-cd design-harness
+git clone https://github.com/marcopslopes/thedesignharness.git
+cd thedesignharness
 npm install
 ```
 
@@ -69,7 +69,8 @@ npm run dev
 ```
 
 Opens Design Harness at **http://localhost:3002**: the design system catalog,
-your projects, the team gallery, skill docs, and usage.
+your projects, the team gallery, skill docs, and usage. If 3002 is busy, it
+uses the next free port and prints the address in the terminal.
 
 ### 6. Try it
 
@@ -164,7 +165,7 @@ Protecting `main` on GitHub and working side by side:
 New releases never change your copy on their own. To take one:
 
 ```bash
-git remote add upstream https://github.com/marcopslopes/design-harness.git  # once
+git remote add upstream https://github.com/marcopslopes/thedesignharness.git  # once
 git fetch upstream --tags
 git switch -c upgrade
 git merge v0.1.0   # a release tag, or upstream/main for the latest changes
@@ -208,12 +209,8 @@ missing from the repo root. A new chat doesn't reset it.
 `AskQuestion` tool. The harness asks the same question in plain text instead.
 See [KNOWN-ISSUES.md](KNOWN-ISSUES.md).
 
-**Port 3002 is busy.**
-
-```bash
-lsof -ti:3002 | xargs kill -9
-npm run dev
-```
+**Port 3002 is busy.** The app opens on the next free port instead (3003,
+3004, …). The terminal shows the address it picked. Open that one.
 
 **`npm run build` fails on `design:check`.** You've written a raw colour or
 spacing value that already has a token. Run
@@ -222,7 +219,7 @@ spacing value that already has a token. Run
 **Claude Code doesn't list the skills.** Run `npm run setup:claude-skills`
 (Windows: `npm run setup:claude-skills-windows`), then restart Claude Code.
 
-Still stuck? [Open an issue](https://github.com/marcopslopes/design-harness/issues).
+Still stuck? [Open an issue](https://github.com/marcopslopes/thedesignharness/issues).
 
 ---
 

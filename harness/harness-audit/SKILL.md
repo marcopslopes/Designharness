@@ -73,6 +73,9 @@ first, propose a diff, apply only on explicit approval.
 5. `harness/references/handoff-patterns.md` — the named handoff
    anti-patterns and handoff types, when a task felt bumpy even though
    routing was technically right.
+6. `designer-context.local/how-i-work.md` § Where the harness goes wrong,
+   if it exists — recurring misses condensed from past chats. "Digest my
+   chats" builds it: `harness/references/transcript-digest.md`.
 
 ## What to look for
 
@@ -159,6 +162,41 @@ available) rather than defaulting to build.
 This does not undo the skills already shipped this way — it stops the
 next one from happening on an implicit read, and gives the retrospective
 audit above a real chance to catch up before the roster grows further.
+
+## Retirement pass (2026-11-04)
+
+Rules and skills get retired, not only added. Every retrospective audit,
+and "prune the harness" / "retire unused rules", runs this pass once
+`harness/logs/skill-usage.jsonl` covers 30 days or more. With less, say how
+many days it covers and stop.
+
+1. **Skills.** List each skill with no `SKILL.md` read in the last 30 days
+   (dedupe exact repeat lines first). Skip skills another skill loads by
+   name, and manager-only skills when no profile has `Reports:`.
+2. **Rules.** List each `MISS`/`MISROUTE` fix and each dated rule in
+   `harness/ORCHESTRATOR.md`, `harness/references/state-rules.md` and
+   `classify-and-log.md` older than 30 days whose case in
+   `references/eval-prompts.md` has never failed, and that no routing-log
+   row in the window cites.
+3. **Proof before delete.** For each candidate, save a copy of the file,
+   remove the rule or skill, run
+   `npm run benchmark -- --dirty --cases <its eval cases> --label retire-<name>`,
+   then put the file back. No new failure → propose deletion. A failure →
+   keep it, and note why in one line.
+4. **Report and wait.** One list: what goes, what stays and why, and the
+   bytes saved. Delete only on an explicit yes. A deleted skill also loses
+   its routing row, its `routing-notes.md` entry and its eval cases, and
+   gets a release note.
+
+The pass removes; it never adds a rule to replace what it removed.
+
+## Skill freeze (2026-11-03)
+
+No new skill ships until the freeze is lifted in this section. Designer
+interviews found the cost is in routing weight, not missing skills. A gap
+found by an audit or an external scan becomes a section in an existing
+skill or a prompt the designer can reuse, never a new `harness/skills/`
+folder. Merging or removing skills is allowed and encouraged.
 
 ## Docs freshness
 

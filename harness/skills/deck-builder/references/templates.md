@@ -20,13 +20,11 @@ how each chapter becomes slides. **No `case-study.md` yet** → §3 PLAN:
 task folder here.
 
 **Reference decks:**
-- Long-form / scroll narrative:
-  `projects/account-settings/artifacts/decks/navigation_ia_case_study_v10.html`
-  (structure + component precedent; pre-`?embed=1` mockups are
-  superseded — use `references/live-embed.md` for new embeds).
 - Slide chassis + live embed precedent:
-  `projects/account-settings/artifacts/decks/account-settings-stakeholder-update.html`
-  (rounded frame, pickers, `?embed=1` Calendar prototype).
+  `projects/mobile-banking-dashboard/artifacts/decks/mobile-banking-dashboard-case-study.html`
+  (`?embed=1` prototype screens).
+- A shorter one with the same chassis:
+  `projects/clients-list-redesign/artifacts/decks/clients-list-redesign-case-study.html`.
 
 ### Chapter → slides
 

@@ -190,7 +190,7 @@ Makes work resumable and auditable.
 
 ### 1. Install (5 minutes)
 ```
-git clone https://github.com/marcopslopes/design-harness.git
+git clone https://github.com/marcopslopes/thedesignharness.git
 cd design-harness && npm install
 ```
 Open the folder in Cursor, Claude Code, or Codex and say `hi`.

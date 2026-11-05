@@ -68,7 +68,7 @@ Each annotation card must state which layer it draws from (see Card format).
 4. **Screenshot each screen** — close analysis.
 5. **Analyse** — checklist below + House layers; label every finding;
    draft **First look** (holistic) before placement.
-6. **Place cards** — inject `scripts/card-builder.js` helpers, run via
+6. **Place cards** — inject `harness/skills/figma-ux-audit/scripts/card-builder.js` helpers, run via
    `use_figma` (Plugin API code). Load `/figma-use` (or
    `skill://figma/figma-use/SKILL.md`) before writing.
 7. **Cross-reference signals** (optional) — docs page URL (Confluence, Notion, or Google Docs) → embed links.
@@ -168,7 +168,7 @@ Cross-cutting issues get one shared card in the gap between sections.
 
 ## Using the card builder
 
-Read `scripts/card-builder.js` in full before writing any card placement code.
+Read `harness/skills/figma-ux-audit/scripts/card-builder.js` in full before writing any card placement code.
 It defines: `card()`, `cH()`, `cV()`, `ri()`, `ab()`, and `deepDelete()`.
 
 Inject the entire file content as the first block of your `use_figma` code,

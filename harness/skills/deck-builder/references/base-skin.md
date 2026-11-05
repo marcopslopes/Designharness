@@ -11,11 +11,11 @@ from each other in small ways.
 
 Canonical sources, in order of preference:
 
-- `projects/account-settings/artifacts/decks/navigation_ia_case_study_v10.html` —
-  the fuller/heavier skin, most complete component inventory.
-- `projects/account-settings/artifacts/decks/navigation_workshop_slides_v3.html` —
-  the lighter/faster skin, use as the base for the **workshop** template
-  specifically.
+- `projects/mobile-banking-dashboard/artifacts/decks/mobile-banking-dashboard-case-study.html` —
+  the fullest skin, most complete component inventory.
+- `projects/clients-list-redesign/artifacts/decks/clients-list-redesign-case-study.html` —
+  the same skin, fewer slides. There is no workshop deck in the repo yet;
+  start a workshop deck from either and drop the heavier components.
 
 ## Structural chassis (present in both)
 

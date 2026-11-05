@@ -28,7 +28,7 @@ project's raw material — read them, don't move them.
 | Save | Don't save |
 |---|---|
 | Pasted text: transcripts, thread text, doc excerpts, notes, survey answers | A link the source still holds (Slack permalink, Doc URL) — that's a `sources.md` link row |
-| An attached file — **copied**, never moved | Anything with no project in play (that's `designer-context.local/` or nothing) |
+| An attached file — **copied**, never moved | Anything with no project in play (that goes to the inbox, § No project in play) |
 | A link plus the parts that mattered, when the source may not last | Secrets, credentials, personal DMs the designer didn't ask to use |
 
 ## File shape
@@ -56,3 +56,19 @@ filed: YYYY-MM-DD
 - **Never edit or delete a filed item.** Misfiled → move it, update its
   `sources.md` line, and say so.
 - One line in chat when saving: `Saved to raw/<file>.`
+
+## No project in play
+
+The same drop with no project open (a meeting transcript, a doc, a file
+"just to look at") still gets saved, so it isn't lost in chat history:
+`designer-context.local/inbox/`, same file name and header as above,
+gitignored. No `sources.md` line; `harness:recall` searches the inbox
+directly. One line in chat: `Saved to your inbox: <file>.`
+
+When a project starts on that topic, kickoff's recall finds the file:
+copy it (never move it) into the project's `raw/` and add its `sources.md`
+line. The inbox copy stays.
+
+Same "don't save" column as above. And if `preferences.md` § Harness rules
+the material out of this repo (company content in a personal harness),
+don't save it anywhere; say so in one line.

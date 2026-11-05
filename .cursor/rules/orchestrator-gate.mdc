@@ -5,32 +5,13 @@ alwaysApply: true
 
 # Orchestrator gate — classify → log → skill (or loud fallback)
 
-After the designer-profile gate, **before** answering substance or editing
-prototype code:
+After the profile gate, before answering substance or editing prototype
+code, classify the ask against `harness/ORCHESTRATOR.md` §2.
 
-1. **Classify** the ask against `harness/ORCHESTRATOR.md` §2 (read the
-   table if unsure this session).
-2. **Log exceptions only** to `harness/logs/routing-log.md`: `FALLBACK`,
-   `MISROUTE`, or an approved §3 plan. Plain matches are recorded by the
-   skill-usage hook. If a `projects/<slug>/` applies, add a row to that
-   task’s `log.md`.
-3. **Then**:
-   - Matched skill(s) → `Read` full `harness/skills/<name>/SKILL.md` (or
-     `harness/harness-audit/SKILL.md`) and follow it. Multi-skill → §3 PLAN
-     and wait for go.
-   - No match → §4 loud fallback only (“doesn't match… closest is X… run
-     that or freestyle without harness?”). **No substantive freestyle in
-     the same turn.**
+- Matched → `Read` the full `SKILL.md` once per chat and follow it; never re-read a skill already read in this chat. More than one skill → §3 plan, wait for go.
+- No match → §4 loud fallback. No substantive freestyle in the same turn.
+- Log only `FALLBACK`, `MISROUTE`, `MISS`, or an approved plan to `harness/logs/routing-log.md`, plus the task's `log.md` row.
+- Never edit `src/design-harness/**`, `projects/*/screens/**`, or prototype CSS without loading `ui-agent`.
+- "Quick", "just", or "any thoughts?" never skip routing.
 
-## Forbidden
-
-- Answering design/product/harness questions as normal chat when no skill
-  was loaded and no FALLBACK was logged
-- Editing `src/design-harness/**`, `projects/*/screens/**`, or prototype CSS without matching the iterating /
-  micro-edit row and loading `ui-agent` (account-settings failure mode)
-- Treating “quick”, “just”, or “any thoughts?” as license to skip routing
-
-## Related
-
-- Design critiques: `harness/skills/ux-pattern/SKILL.md` (Critique gate) + §2d
-- Full rules: `harness/ORCHESTRATOR.md` §2e, §4, §5
+Full steps: `harness/references/classify-and-log.md`.

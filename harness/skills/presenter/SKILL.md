@@ -138,6 +138,8 @@ system, many layouts — not one template per format.
 - Build a format page or theme per project — configs only; the pages are
   shared
 - Copy code from outside template kits into the repo
+- Write paragraphs or sticky notes on a canvas or board — screens first,
+  one line of what and why under each, blocks the designer can move or delete
 
 ---
 

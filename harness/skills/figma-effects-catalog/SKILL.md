@@ -188,7 +188,7 @@ void main() {
 - [Live prototype](design-harness-url)
 
 **Related:**
-- See `context/design-system/FIGMA-FOUNDATIONS-DEPTH.md` for elevation system
+- See `context/design-system/FIGMA-FOUNDATIONS-SHADOWS.md` and `FIGMA-FOUNDATIONS-EFFECTS.md` for elevation
 - Related effect: "Glass Edge Highlight"
 ```
 

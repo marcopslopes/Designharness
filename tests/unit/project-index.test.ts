@@ -20,6 +20,10 @@ import {
   chosenDecisions,
   projectStoryOutline,
   caseStudyStoryOutline,
+  briefFacts,
+  briefIsExample,
+  briefSystems,
+  projectSystemIds,
 } from '../../src/design-harness/projectFacts.ts'
 
 const repo = path.resolve(import.meta.dirname, '../..')
@@ -206,6 +210,54 @@ test('every project brief has a title', () => {
     const brief = path.join(repo, 'projects', slug, 'brief.md')
     if (slug.startsWith('_') || !existsSync(brief)) continue
     assert.ok(projectTitle(slug, readFileSync(brief, 'utf8')).length > 0, slug)
+  }
+})
+
+const SYSTEMS = [
+  { id: 'mobile', platforms: ['phone', 'ios', 'android', 'tablet', 'mobile'], isDefault: true },
+  { id: 'desktop', platforms: ['desktop', 'web', 'browser', 'laptop'], isDefault: false },
+  { id: 'brand', platforms: [], isDefault: false },
+]
+
+test('the truth block names the design system; the Platform line is only the fallback', () => {
+  const brief = (yaml: string, platform = 'iOS') =>
+    `\`\`\`yaml\nstatus: draft\n${yaml}\n\`\`\`\n\n- **Platform:** ${platform}\n`
+  assert.deepEqual(briefSystems(brief('system: desktop')), ['desktop'])
+  assert.deepEqual(briefSystems(brief('system: [Desktop, "mobile"]')), ['desktop', 'mobile'])
+  assert.deepEqual(briefSystems(brief('system:')), [])
+  assert.equal(briefFacts(brief('system:')).systems, undefined)
+
+  const ids = (yaml: string, platform?: string) => projectSystemIds(briefFacts(brief(yaml, platform)), SYSTEMS)
+  assert.deepEqual(ids('system: desktop'), ['desktop'])
+  assert.deepEqual(ids('system: brand, mobile', 'Desktop web'), ['brand', 'mobile'])
+  assert.deepEqual(ids('system: watch'), ['mobile'], 'an unknown id falls back to the guess')
+  assert.deepEqual(ids('system:', 'Desktop web and phone'), ['desktop', 'mobile'])
+  assert.deepEqual(ids('system:', 'mobile app (iOS) and desktop web'), ['mobile', 'desktop'])
+  assert.deepEqual(ids('system:', 'Smart TV'), ['mobile'], 'no match uses the default system')
+})
+
+test('a sample project says example: true in its truth block', () => {
+  assert.equal(briefIsExample('```yaml\nstatus: draft\nexample: true\n```'), true)
+  assert.equal(briefIsExample('```yaml\nstatus: draft\nexample: false\n```'), false)
+  assert.equal(briefIsExample('```yaml\nstatus: draft\n```'), false)
+  assert.equal(briefFacts('```yaml\nstatus: draft\nexample: true\n```').example, true)
+  assert.equal(briefFacts('```yaml\nstatus: draft\n```').example, undefined)
+})
+
+test('every project names systems the app knows, and the samples are marked', () => {
+  const known = readdirSync(path.join(repo, 'context/design-system/systems'))
+    .filter((file) => file.endsWith('.md'))
+    .map((file) => file.replace(/\.md$/, ''))
+  assert.ok(known.includes('mobile'))
+  const template = readFileSync(path.join(repo, 'projects/_template/brief.md'), 'utf8')
+  assert.deepEqual(briefSystems(template), [])
+  assert.equal(briefIsExample(template), false)
+  for (const slug of readdirSync(path.join(repo, 'projects')).filter((name) => !name.startsWith('_'))) {
+    const file = path.join(repo, 'projects', slug, 'brief.md')
+    if (!existsSync(file)) continue
+    const brief = readFileSync(file, 'utf8')
+    for (const id of briefSystems(brief)) assert.ok(known.includes(id), `${slug}: unknown system ${id}`)
+    if (/^\*\*(Fictional example|Concept project)\.\*\*/m.test(brief)) assert.ok(briefIsExample(brief), slug)
   }
 })
 

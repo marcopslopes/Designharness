@@ -69,7 +69,7 @@ Does **not** auto-run Design Harness `audit` unless they also want the code swee
 | | |
 |---|---|
 | **When it fires** | Explicit triggers (“annotate this Figma”, “notes on the canvas”) → §2 **`figma-ux-audit`** row directly. Otherwise only after opt-in: drop-time AskQuestion § A (`annotations` / `both`) or post–written-critique § B (`offer-questions.md`). **Never auto-run.** |
-| **What it does** | Loads same ground truth as design-critique (`ux-pattern` ± `content`); places colour-coded cards via Figma MCP `use_figma` + `scripts/card-builder.js`; each card labels `[UX Heuristic: …]` or `[House: …]` (`figma-ux-audit/SKILL.md`). **First look** in chat/findings before card list. Figma **pre-build only** — wrong artifact type → redirect. |
+| **What it does** | Loads same ground truth as design-critique (`ux-pattern` ± `content`); places colour-coded cards via Figma MCP `use_figma` + `harness/skills/figma-ux-audit/scripts/card-builder.js`; each card labels `[UX Heuristic: …]` or `[House: …]` (`figma-ux-audit/SKILL.md`). **First look** in chat/findings before card list. Figma **pre-build only** — wrong artifact type → redirect. |
 | **vs written findings** | Written path = `findings.md` itemized critique. Annotations = visual cards on canvas; can reuse prior `findings.md` as primary source. § A: choose written / annotations / both. § B: after written-only, offer annotate follow-up. |
 | **Real example** | Post–Notifications critique: 5 cards on nodes `3275:6360` + `3275:6418` (`routing-log.md` `2026-07-25T16:58`; `findings.md` § `figma-ux-audit (Notifications 3275:6350)`). |
 

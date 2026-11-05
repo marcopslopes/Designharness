@@ -31,7 +31,7 @@ ls ~/Documents/design-harness
 
 # If not, offer to clone:
 cd ~/Documents
-git clone https://github.com/marcopslopes/design-harness.git
+git clone https://github.com/marcopslopes/thedesignharness.git
 cd design-harness
 npm install
 ```
@@ -246,7 +246,7 @@ Error: Harness repo not found.
 To use the full harness with preview, let me clone the repo:
 
 cd ~/Documents
-git clone https://github.com/marcopslopes/design-harness.git
+git clone https://github.com/marcopslopes/thedesignharness.git
 cd design-harness
 npm install
 

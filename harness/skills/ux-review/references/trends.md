@@ -30,11 +30,11 @@ Use these trends as context when evaluating modern web pages. A page that follow
 
 ## Accessibility & Inclusion
 
-- **WCAG 2.1 AA as baseline** — not optional, increasingly legally required.
+- **WCAG 2.2 AA as baseline** — not optional, increasingly legally required.
 - **Focus indicators** — visible, high-contrast focus rings. Browser defaults are often insufficient.
 - **Reduced motion** — respect `prefers-reduced-motion` media query. Don't force animations.
 - **Semantic HTML over ARIA** — native `<button>`, `<nav>`, `<main>` preferred over `div` + `role=`.
-- **Touch targets 44px+** — WCAG 2.5.5. Minimum tap target size for mobile.
+- **Touch targets 44px+** — the house bar for mobile (WCAG 2.5.5, AAA). The WCAG 2.2 AA minimum is 24px (2.5.8).
 - **Color not sole indicator** — error states need icons/text in addition to red color.
 
 ## Performance & Trust

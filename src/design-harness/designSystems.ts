@@ -26,13 +26,14 @@
  * A `## <item label>` section in the body becomes that item's page (tables
  * there can use a `var(--token)` cell for a live swatch) and leaves the overview.
  *
- * A prototype uses a system when its brief's **Platform** line mentions one of
- * that system's `platforms` words. With no match it uses the `Default` one.
+ * A prototype uses the systems its brief's truth block names (`system: mobile`,
+ * file ids, first one primary). Without that, it uses a system when the
+ * **Platform** line mentions one of its `platforms` words, else the `Default` one.
  */
 import { COMPONENT_PAGES } from './componentRoutes'
 import { CONTEXT_DOCS } from './contextDocs'
 import { FOUNDATION_DOCS, FOUNDATION_ROUTES } from './foundationDocs'
-import { splitFrontMatter } from './projectFacts'
+import { projectSystemIds, splitFrontMatter } from './projectFacts'
 import { PROJECTS, type Project } from './projectsIndex'
 import kitTokens from '../../context/design-system/tokens.css?raw'
 import labTokens from './styles/tokens.lab.css?raw'
@@ -237,24 +238,16 @@ export function systemForDesignRoute(route: string): DesignSystem | undefined {
   return BY_ROUTE.get(route)?.system ?? DEFAULT_SYSTEM
 }
 
-/** Where in the brief's Platform line this system's first word appears, or -1. */
-function platformMatch(system: DesignSystem, platform: string): number {
-  const positions = system.platforms.map((word) => platform.search(new RegExp(`\\b${word}\\b`))).filter((i) => i >= 0)
-  return positions.length ? Math.min(...positions) : -1
-}
-
-/** Every system a project's Platform line names, or the default system when it names none. */
+/** Every system a project uses: the brief's `system`, else what its Platform line names, else the default. */
 export function systemsForProject(project: Project): DesignSystem[] {
-  const platform = (project.facts.platform ?? '').toLowerCase()
-  const matched = DESIGN_SYSTEMS.filter((system) => platformMatch(system, platform) >= 0)
-  if (matched.length) return matched
-  return DEFAULT_SYSTEM ? [DEFAULT_SYSTEM] : []
+  const ids = projectSystemIds(project.facts, DESIGN_SYSTEMS)
+  return DESIGN_SYSTEMS.filter((system) => ids.includes(system.id))
 }
 
-/** The system the brief names first — "Desktop web and phone" → Desktop. */
+/** The system the brief names first — `system: desktop, mobile` or "Desktop web and phone" → Desktop. */
 export function primarySystemForProject(project: Project): DesignSystem | undefined {
-  const platform = (project.facts.platform ?? '').toLowerCase()
-  return [...systemsForProject(project)].sort((a, b) => platformMatch(a, platform) - platformMatch(b, platform))[0]
+  const [primary] = projectSystemIds(project.facts, DESIGN_SYSTEMS)
+  return DESIGN_SYSTEMS.find((system) => system.id === primary)
 }
 
 export function projectsUsingSystem(system: DesignSystem): Project[] {

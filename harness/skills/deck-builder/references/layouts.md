@@ -119,6 +119,6 @@ Big photo **left**, chapter title **right** (vertically centered).
 
 ## Worked demo
 
-`projects/account-settings/artifacts/decks/account-settings-stakeholder-update.html` is the
+`projects/mobile-banking-dashboard/artifacts/decks/mobile-banking-dashboard-case-study.html` is the
 **master template demo deck** — case-study narrative using these layouts.
 Copy its `<style>` + nav script when starting a new deck, then swap content.

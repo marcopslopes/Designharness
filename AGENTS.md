@@ -5,25 +5,20 @@ It carries two rules of its own, Git and the taste log, below.
 
 **Git:** never run `git switch`, `commit`, `revert`, `merge` or `push` yourself. Never to `main`, never force.
 
-**Taste log — every reply, even when you skip the orchestrator:** the trigger is the designer pushing back on output you already gave in this chat, with a rule that would apply next time too ("no borders on cards", "never more than one sentence when I ask to tighten text"). Then apply it and end that reply with exactly `Save as a preference? [Yes / Just this time]`. No pushback, no question: never on a first ask, never because a style guide made you change something. Save to `designer-context.local/preferences.md` only on Yes (`harness/references/designer-preferences.md`); never silently, never to the tool's own memory.
+**Taste log — every reply, even when you skip the orchestrator:** the trigger is the designer pushing back on output you already gave in this chat, with a rule that would apply next time too ("no borders on cards", "never more than one sentence when I ask to tighten text"). Then apply it and end that reply with exactly `Save as a preference? [Yes / Just this time]`. If the rule is already in the file's index, don't ask: bump its count and say so in one line. No pushback, no question: never on a first ask, never because a style guide made you change something. Save to `designer-context.local/preferences.md` only on Yes (`harness/references/designer-preferences.md`); never silently, never to the tool's own memory.
+
+**Miss log — same trigger, plus redirects ("no, I mean…"):** unless it is only taste, append one `MISS` or `MISROUTE` row to `harness/logs/routing-log.md` with the designer's words verbatim. Wrap up drafts fixes from them; nothing is applied without "apply P<n>". Format and review: `harness/references/miss-log.md`.
 
 **All real instructions — routing, gates, hard rules on design tokens and
 `context/design-system/ds` composition, the skill roster, state rules —
 live in [`harness/ORCHESTRATOR.md`](harness/ORCHESTRATOR.md). Read that first, always,
 before doing anything else in this repo.**
 
-That includes the mandatory first check: `Read` `<repo root>/designer-profile.local.md` (next to this file, never under `harness/`); never Glob or search for it (gitignored files are skipped)
-(`harness/ORCHESTRATOR.md` §0) — do not skip ahead to the user's request without
-doing that check first.
+That includes the mandatory first step: run `npm run -s harness:context` and use its output (no shell: `Read` `<repo root>/designer-profile.local.md`, next to this file, never under `harness/`) (`harness/ORCHESTRATOR.md` §0). Do not skip ahead to the user's request before it.
 
 ## Cursor-specific mechanics (can't live in `harness/ORCHESTRATOR.md`)
 
-- `.cursor/rules/designer-profile-gate.mdc` is a second, independent
-  always-applied Cursor rule that enforces the same `designer-profile.local.md`
-  check described in `harness/ORCHESTRATOR.md` §0. It exists because Cursor rules
-  (`.mdc` files) are a Cursor-only mechanism with no Claude Code
-  equivalent — this file's pointer above is what does the equivalent job
-  for Claude Code.
+- `.cursor/rules/designer-profile-gate.mdc` repeats the §0 first step as an always-applied Cursor rule. Claude Code has no equivalent; the pointer above does that job.
 - `.cursor/hooks.json` / `.cursor/hooks/designer-onboarding-check.sh` is a
   Cursor `sessionStart` hook attempting the same check via Cursor's hook
   schema. It is currently a no-op (confirmed Cursor platform bug — see the

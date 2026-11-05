@@ -56,8 +56,10 @@ the same gates.
 
 Say you type: **"build me a calendar screen."**
 
-1. **Profile gate.** The AI checks for `designer-profile.local.md`. If it's
-   missing, onboarding runs once. If it exists, nothing is asked.
+1. **Profile gate.** The AI runs `npm run -s harness:context`. It reports
+   whether `designer-profile.local.md` exists at the repo root, which org
+   pack is in use, and your projects. If the profile is missing, the AI asks
+   one question, your role. If it exists, nothing is asked.
 2. **Intake** (§1). Before asking anything, it checks `projects/` for a
    matching folder, whether the screen already exists, and what your
    message and profile already say. It asks at most three questions, in one

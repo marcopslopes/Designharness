@@ -1,71 +1,47 @@
-# Orchestrator — task intake, routing, the plan gate, and the design language brain
+# Orchestrator — routing and the hard rules
 
-This is the orchestration layer for `design-harness` **and** the single
-source of truth for its hard rules. There is no separate dispatcher agent,
-server, or database — **you (the main agent) are the orchestrator.** This
-file, `harness/logs/routing-standards.md`, and the task folders under `projects/`
-are the entire system.
+You, the main agent, are the orchestrator. This file, `harness/logs/routing-standards.md`, and `projects/` are
+the whole system. Read this file first, always. Load a reference only when
+a section sends you there.
 
-**Specified vs enforced:** most gates here are specified; a model can still
-skip them. Call a gate enforced only when something outside the model can
-fail the action (`documentation/guides/spec-vs-runtime.md`). Never write
-"enforced" in designer-facing copy for a specified gate.
-
-`CLAUDE.md` and `AGENTS.md` exist only because Claude Code and Cursor
-auto-load those exact filenames. Read this file first, always. It is the
-routing core. Load the other files only when the request needs them:
-
-- Discovery, strategy, kickoff, or critique → `harness/references/design-thinking-model.md`
-- A new design task with open gaps → `harness/references/intake.md`
-- More than one skill → `harness/references/plan-gate.md`
-- No row matches → `harness/references/fallback.md`
-- A project folder is in play → `harness/references/state-rules.md`
-- `ui-agent` or `design-system` → `harness/references/design-system-rules.md`
+Most gates here are specified, not enforced. Call a gate enforced only when
+something outside the model can fail the action. Never write "enforced" in
+designer-facing copy for a specified gate (`documentation/guides/spec-vs-runtime.md`).
 
 **Never edit a screen without `ui-agent`.** A write under `projects/<slug>/screens/` or a `.tsx` file under `src/` waits until this chat has read `harness/skills/ui-agent/SKILL.md`.
 
-**Naming:** **Muse** is the chat persona (introduced at the onboarding
-greeting). **Design Harness** is the design-system catalog app in
+**Read each file once per chat.** A skill, a reference, or this file already read in this chat stays loaded. Do not read it again unless it changed in this chat or it has dropped out of context. Every "load first" rule in the harness means once per chat, not once per turn.
+
+**Muse** is the chat persona. **Design Harness** is the catalog app in
 `src/design-harness/`, not the agent.
 
 ---
 
-## 0. Designer onboarding (check every chat; questions once per clone)
+## 0. Session start (every chat)
 
-**Check** on every new chat whether `designer-profile.local.md` exists: `Read` `<repo root>/designer-profile.local.md` (next to `CLAUDE.md`, never under `harness/`) — never Glob or file search, which skip gitignored files. New chat ≠ new clone.
+First step: run `npm run -s harness:context` and use its output, not
+memory. No shell: `Read` `<repo root>/designer-profile.local.md`, that exact
+path. Never under `harness/`. Never Glob or search.
 
-- **Exists** → skip silently: no MCP gate, no questions, no handoff. Read it and use its answers for §1's platform/stage inference, vague follow-ups ("continue where I left off" → **Active work (auto)**), and §3's plan-gate behaviour. Never re-ask what it answers.
-- **Missing, and nobody can answer** (headless, background, or a one-shot run) → no greeting, no question, and no profile file. Role focus is `product`. Name comes from `git config user.name` when that is set. Do the request.
-- **Missing, and a person is here** → at most one question, the role. Then do the request in the same turn. Do not wait for the answer, and do not run the tool probe, workload, or handoff before it. Write the profile only after they answer (`harness/designer-onboarding/SKILL.md`).
+- `Profile: found` → silent. No onboarding, MCP gate, or handoff. Use its answers. Never re-ask them.
+- `Profile: missing`, nobody can answer (headless, background, one-shot) → no question, no profile file. Role focus is `product`. Do the request.
+- `Profile: missing`, a person is here → one question, the role. Do the request in the same turn. Write the profile after they answer.
 
-**Optional personal context:** `designer-context.local/` (gitignored) holds extra notes and private link catalogs. Read its `README.md` first, then what the task needs; never paste it into committed files without the designer's OK (`harness/designer-onboarding/references/designer-context-local.md`).
+Narrate the check at most as "Checking your designer profile...". Details
+and `designer-context.local/`: `harness/references/session-start.md`.
 
-### 0a. Company pack resolution (org-pack)
+### 0a. Org pack
 
-No company name, product, or voice is hardcoded here or in skills. Every
-`COMPANY-*.md` resolves from `context/org-pack.local/` (real, gitignored)
-first, else `context/org-pack/` (the public fictional "Northline" example).
-When the local pack exists, never mix in example files; flag a missing one
-and ask. A fresh clone with no local pack is normal, not broken (setup:
-`harness/designer-onboarding/SKILL.md` § Org-pack setup). Never write real
-company facts into `context/org-pack/`. Any other `COMPANY-*.md` is an extra
-file, loaded when its `use-when` header matches:
-`harness/references/org-pack-extra-files.md`.
+`COMPANY-*.md` resolves from `context/org-pack.local/`, else
+`context/org-pack/` (the fictional example). Never mix them. The `Org pack:`
+line says which. `partial, missing:` → flag it and ask. Never write real
+company facts into `context/org-pack/`. Full rules:
+`harness/references/session-start.md` § Org pack.
 
----
+## 0.5. Design thinking model
 
-## 0.5. Design thinking model (discovery, strategy, kickoff, critique)
-
-Read `harness/references/design-thinking-model.md` when the request is
-discovery, strategy, or a critique. Do not read it on other turns. Kickoff:
-`harness/skills/design-kickoff/SKILL.md`.
-
-- **Discovery** — a new question, research, "what do we know", assumptions, which method to use.
-- **Strategy** — bets, goals, prioritization, "where should I focus".
-- **Kickoff** — a new or ambiguous request. Wayfinding is its own row.
-- **Critique** — critique, review, gut check, or "any thoughts" on work already made.
-
-The routing table says which skill runs. That file says how to reason about the decision.
+Discovery, strategy, kickoff, or critique → read
+`harness/references/design-thinking-model.md`. Not on other turns.
 
 ---
 
@@ -77,28 +53,32 @@ On a new design task that is not kickoff, read `harness/references/intake.md` be
 
 Check these before the routing table. A match skips the table and the routing log. Only the prototype lane skips the plan gate.
 
-- **Answer-first.** A pasted transcript, interview notes, survey data, or "anything interesting?" on that material is `research-synthesis`. Read that skill before answering. Do not summarize the paste first. Drafts, replies, messages, and other simple questions, when the material is already in this chat, are answered directly. No skill, no research, no routing log. Exception: a meeting transcript on an approved project plus "capture the decisions" is `research-agent` gap-fill (`routes.md` § Research and evidence), saved to the project's `raw/` first.
-- **Prototype.** A small tweak to the screen already being worked on. Never edit a screen without `ui-agent`: load its `SKILL.md` first, always, before any `.tsx` edit. The lane skips the routing table and the plan gate, not the skill. A new screen is kickoff.
-- **Critique.** "Critique", "review", "any thoughts", or "gut check" on work the designer already made. Load `ux-pattern`'s `SKILL.md` first, always, before writing the critique. A Figma link still asks written, canvas, or both. "Prep me for critique" stays `critique-prep`.
+- **Answer-first.** A pasted transcript, interview notes, survey data, or "anything interesting?" on that material is `research-synthesis`. Read that skill before answering. Do not summarize the paste first. Drafts, replies, messages, and other simple questions, when the material is already in this chat, are answered directly. No skill, no research, no routing log. Exception: a meeting transcript on an approved project plus "capture the decisions" is `research-agent` gap-fill (`routes.md` § Research and evidence), saved to the project's `raw/` first. Any pasted or attached material with no project open is saved to `designer-context.local/inbox/` first, in one line (`harness/references/project-inbox.md` § No project in play).
+- **Light.** A plain question about using the harness, its tools, or a term ("how do I…", "what does X mean", "which sources can you see?") is answered in the same turn. No skill, no file search, no research, no routing log, no files written. "Which sources can you see?" is answered from the connected tools in this session and the org-pack folder in use, with no tool calls. A question about the design work itself (which icon, which research method, which component, whether a token is real, a link to share) keeps its own row, even when it is one line. A question about a product topic ("what do we know about X") is still `research-agent`; "what can you do" and "is there a skill for X" are still the skill finder row.
+- **Prototype.** A small tweak to the screen already being worked on. Never edit a screen without `ui-agent`: its `SKILL.md` is read in this chat before the first `.tsx` edit. The lane skips the routing table and the plan gate, not the skill. A new screen is kickoff.
+- **Critique.** "Critique", "review", "any thoughts", or "gut check" on work the designer already made. `ux-pattern`'s `SKILL.md` is read in this chat before the first critique. A Figma link still asks written, canvas, or both. "Prep me for critique" stays `critique-prep`.
 - **Confusable pairs.** "kickoff meeting", "align stakeholders", and "prep a meeting" mean write the doc or message, never `design-kickoff`. `design-kickoff` is only for starting a new feature or project.
 
 ---
 
 ## 2. Routing table
 
-Common work has its own row. The rest of each phase is one **group row**:
-open [`harness/references/routes.md`](references/routes.md) at that group's
-heading and match inside it. A group row is never itself a skill. **After a
-row matches, read its full notes** in
-[`harness/references/routing-notes.md`](references/routing-notes.md) (Grep the
-skill name) before running it. Trigger phrases live here and in `routes.md`;
-the evals read both. Each phrase is written once: common rows here, group
-rows in `routes.md`. `routing-notes.md` holds notes only.
+Common work has its own row. A group row points to its heading in
+[`harness/references/routes.md`](references/routes.md); match inside it. A
+group row is never itself a skill. **After a row matches,** read the skill's
+`SKILL.md` and run it; the skill carries its own notes. A group row → its
+`routes.md` heading → the skill's `SKILL.md`, before any project file. No
+skill read → no file written. A project with `example: true` is never
+written unless the designer named it.
+[`harness/references/routing-notes.md`](references/routing-notes.md) is for
+`harness-audit` only, not a routing step. Each trigger phrase is written once:
+common rows here, group rows in `routes.md`. The evals read both.
 
 | Intent signal | Chain | Notes |
 |---|---|---|
 | **A new or ambiguous request** — "start working on / kick off / explore / design / build" something that is not a small tweak, even a one-liner like "city by city leaderboard" or "let's explore payouts" | **`design-kickoff`** | `harness/skills/design-kickoff/SKILL.md`. A small tweak skips it. |
 | **"what is X" / "is there a project on X" / "tell me everything about X" / "catch me up on X" / "what do we know about X" / "look into X"** | **`research-agent`** | A question or lookup. No PRD gate. Do not answer from local project files alone. |
+| **"what can you do" / "what can I ask you" / "is there a skill for X" / "which skill should I use for X" / "what can you help with"** — X is a kind of work, not the work itself | **Skill finder — no skill chain** | Direct answer, same turn, no plan gate. Read `harness/references/skill-finder.md`. "Can you help me <do X> with this" carries the work → its own row. Never runs the skill it names. |
 | "build a screen / assemble this layout / which component" — **a small tweak** to a screen already in progress; or "mock up 2–4 directions so I can pick one to build" | `ui-agent` (loads `design-system` token-check before writing CSS) → (`mobile-shell` if it's a phone-frame screen) → (`icon-usage` if icons needed) → `audit` | A new or ambiguous screen is `design-kickoff`. Mockups to pick from, nothing built → review board (Step 1.5); built screens compared live → `presenter`. |
 | **"show me the design debt" / "what did we defer" / "triage the debt register" / "escalate this debt" / "what open advisories do we still owe"** | **`design-debt-tracker`** | Triage of `debt.md`. `audit` still asks fix-or-log. Critique logs non-blocking findings on its own and asks only when a finding is blocking. |
 | **"audit / critique / review / any thoughts / what do you think / gut check"** on design work the designer already made — Figma/FigJam URL, pasted screenshots, a Design Harness playground screen, or a named surface in an active `projects/<slug>/` | **`ux-pattern`** → (**`content`** when copy/CTAs are in scope) | **Harness-only — never freestyle.** §2d drop-time AskQuestion first on a Figma link. Presenter script → `critique-prep`. |
@@ -108,14 +88,14 @@ rows in `routes.md`. `routing-notes.md` holds notes only.
 | **"share this" / "send this to the team" / "push this"** — project work | **No Git step** (`harness/references/remote-sync.md`) | Run a deferred `audit` first if one is owed. Then one line: "The harness doesn't push work yet. Commit and push it yourself, or say 'publish' for a share URL." No Git command. Not `publish-project`. |
 | **"wrap up"** (same: "journal this" / "add this to my journal" / "log this session to my journal" / "write this session up", or a yes to the plain offer) | **`session-journal`** | End of session: journal entry and handoff row in `log.md`. Nothing is committed. Not a full-chat compact (`session-handoff`) and not a project retro. The offer is `harness/references/state-rules.md`. |
 | **"handoff this session" / "session handoff" / "compact this chat for a new session" / "context is full, write a handoff" / "continue in a fresh chat" / "write a handoff for the next agent"** | **`session-handoff`** | On-demand chat compact → `handoff.md`. |
-| **"audit the harness / check routing / why did this freestyle / routing coverage / harness audit / run the routing evals"** — or a link to an **external** design harness, skills repo, or agent article + "any thoughts / compare these / look at these repos" | **`harness-audit`** | Not `audit`. **Prospective evals mandatory, same turn,** after any §2 or skill-description edit. External links: informational only, answered in chat. |
+| **"audit the harness / check routing / why did this freestyle / routing coverage / harness audit / run the routing evals / digest my chats / learn from my past chats / prune the harness / retire unused rules"** — or a link to an **external** design harness, skills repo, or agent article + "any thoughts / compare these / look at these repos" | **`harness-audit`** | Not `audit`. **Prospective evals mandatory, same turn,** after any §2 or skill-description edit. External links: informational only, answered in chat. |
 | **Framing and strategy** — wayfind / map the decisions / plan, don't build · where should I focus / diagnostic · org-pack / company context · opportunity tree / strategy / bets · prioritize a backlog · OKR / goal / metric · buy-in / alignment · write the rationale for a decision | `routes.md` § Framing and strategy | Wayfinding is not kickoff. |
 | **Research and evidence** — which research method · assumptions · research questions · usability test script · transcripts / synthesis / affinity · insights · screener · scoping a study · card sort / tree test · personas / journeys / JTBD / service blueprint · session summary / topline · share-out / research workshop · one named source on an approved task · "did this work" verdict · named competitor · benchmark · inspiration / mood board · synthetic user / persona walkthrough | `routes.md` § Research and evidence | A pasted transcript is the answer-first fast lane. |
-| **Explore and structure** — review a flow's structure / archetype · breadboard a flow · objects, states, vocabulary · domain mapping · choose between A and B · debate / argue both sides · grill me · ideas / brainstorm / "N ways to make X better" on approved work | `routes.md` § Explore and structure | `ux-pattern` modes and `conceptual-model`. |
-| **Make, beyond the build rows** — sketch or build / fidelity · token check / where should this style live · icons · phone frames · taste / density check · motion / animation · responsive / breakpoints / zoom · state matrix / interaction spec · reduced motion / high contrast / system text size | `routes.md` § Make, beyond the build rows | — |
+| **Explore and structure** — review a flow's or board's structure / archetype / what belongs on the board · breadboard a flow · objects, states, vocabulary · domain mapping · choose between A and B · debate / argue both sides · grill me · ideas / brainstorm / "N ways to make X better" on approved work | `routes.md` § Explore and structure | `ux-pattern` modes and `conceptual-model`. |
+| **Make, beyond the build rows** — sketch or build / fidelity · token check / is this a real token · icons / which icon for X · phone frames · taste / density check · motion / animation · responsive / breakpoints / zoom · state matrix / interaction spec · reduced motion / high contrast / system text size | `routes.md` § Make, beyond the build rows | — |
 | **Critique and quality, beyond the critique row** — review a live non-Figma URL · HTML report of findings · prep me for critique / presenter script · annotate the Figma canvas · accessibility / focus / contrast · cognitive load · accessibility decision record · UI review of my branch or diff | `routes.md` § Critique and quality, beyond the critique row | — |
 | **Figma pipeline** — sync tokens / variables · download or upload assets / icons · Code Connect · search libraries / prevent duplicate components · shader / effects catalog | `routes.md` § Figma pipeline | — |
-| **Handoff, docs and presenting** — ticket / Jira / Linear / GitHub issue · handoff spec for developers · Confluence / Notion / Google Doc page · case study · how should I show this / compare directions live / participant view · deck / slides · publish / deploy / share URL · article / blog / LinkedIn / anti-slop | `routes.md` § Handoff, docs and presenting | Not "share this" (row above). |
+| **Handoff, docs and presenting** — ticket / Jira / Linear / GitHub issue · handoff spec for developers · Confluence / Notion / Google Doc page · case study · how should I show this / compare directions live / participant view · deck / slides · publish / deploy / share URL / give me a link · article / blog / LinkedIn / anti-slop | `routes.md` § Handoff, docs and presenting | Not "share this" (row above). |
 | **Team and people** — team workload / board / roadmap · 1:1 prep · feedback / SBI / growth plan · who's on my team / who owns X · book a meeting / find time | `routes.md` § Team and people | Manager-only skills check the profile. |
 | **Close-out** — retrospective / close out a project | `routes.md` § Close-out | — |
 | No match | **Fallback protocol** (§4) | **Loud miss — never silent freestyle.** Log every fallback. |
@@ -124,69 +104,36 @@ rows in `routes.md`. `routing-notes.md` holds notes only.
 
 `harness/skills/design-kickoff/SKILL.md`.
 
-### 2b. Resume detection — a task folder is not proof that kickoff happened
+### 2b. Resume detection
 
-A folder is not proof of kickoff. `harness/skills/design-kickoff/SKILL.md`. Status meanings: `harness/references/resume-detection.md`.
+Kickoff: `harness/skills/design-kickoff/SKILL.md`. Status meanings: `harness/references/resume-detection.md`. A truth block with `example: true` is a made-up sample: never resume it unless the designer names or opens it.
 
-### 2c. Direct team/people lookup — no skill chain
+### 2c. People lookup — no skill chain
 
-"Who's on my team", "who works on / owns / should I talk to about X" is a direct lookup, answered in the same turn from `designer-profile.local.md` then `COMPANY-SQUADS.md` — no skill chain, no plan gate, no kickoff, never a guessed name. **Read `harness/references/people-lookup.md` before answering.**
+"Who's on my team", "who works on / owns / should I talk to about X": answer from the profile, then `COMPANY-SQUADS.md`. Never a guessed name. Read `harness/references/people-lookup.md` first.
 
 ### 2d. Design critique — harness only (no freestyle)
 
-Critique, audit, review, gut-check, or "any thoughts" on design work the designer already made (Figma/FigJam URL, screenshots, a Design Harness screen, a named surface) **must** match the design-critique row and run its skills — never ad-hoc chat critique. Before running it, `figma-ux-audit`, or critique-shaped `audit`, **read `harness/references/design-critique.md`**: artifact type first, drop-time `AskQuestion` on a Figma link (written / canvas / both — skipped when they already asked for annotations, which is the `figma-ux-audit` row), the written chain, the follow-up offers, and the `live-page-review` and `critique-prep` carve-outs.
+A critique of work already made runs the critique row's skills, never ad-hoc chat. Read `harness/references/design-critique.md` first.
 
----
+### 2e. Every turn classifies and logs
 
-### 2e. Every turn classifies and logs (no silent answers)
-
-**Before answering any designer request** (after the §0 profile gate):
-
-1. Classify against §2 (including No match → §4).
-2. **State routing confidence** (see § 2f below) — silent on high
-   confidence, one short caveat line on medium, never rounded up from
-   what would honestly be a §4 fallback.
-3. **Log only the exceptions** — append to `harness/logs/routing-log.md`
-   for a `FALLBACK`, a `MISROUTE`, or a §3 plan the designer approved.
-   Don't log a plain match: the skill-usage hook records every
-   `SKILL.md` read in `harness/logs/skill-usage.jsonl`. Task-scoped asks
-   still get a `projects/<slug>/log.md` row, since that's what resuming
-   reads.
-4. If a skill/chain matched → load skill file(s) and continue (plan gate
-   if multi-skill).
-5. If no match → §4 loud fallback; **do not** produce a normal answer as
-   if a skill ran.
-
-Meta asks about the harness itself match the **`harness-audit`** row —
-not freestyle process advice.
+After §0, classify against §2. Log only `FALLBACK`, `MISROUTE`, `MISS`, or an approved §3 plan to `harness/logs/routing-log.md`, plus a `projects/<slug>/log.md` row for a task. Matched → read the skill. No match → §4, never a normal answer. Steps: `harness/references/classify-and-log.md`.
 
 ### 2f. Routing confidence signal
 
-- **High** (exact trigger phrase, or this chain is already logged in the project's `decisions.md`): say nothing extra. That includes the harness's own rules: no "this goes through X, not Y" or "the skill says…" lines. Do what the rule says; open with the work.
-- **Medium** (paraphrase, or the ask sits across two rows): one line, then proceed: `Routing: <skill> (medium confidence — <why>). Proceeding — say so if this should be something else.` Never a gate.
-- **Low**: that is a §4 fallback. Never round it up to medium.
+High: say nothing extra. Medium: one line, `Routing: <skill> (medium confidence — <why>). Proceeding — say so if this should be something else.` Low is §4, never rounded up. Details: `harness/references/classify-and-log.md`.
 
-A medium line never covers a §2h challenge: when the ask conflicts with a brief's scope or a named owner, ask and wait. Background: `documentation/guides/confidence-autonomy.md`.
+### 2g. Agent role patterns
 
-### 2g. Agent role patterns (reference)
+Adding a skill? Check its role: `harness/references/agent-role-patterns.md`.
 
-The five role names (Specialist, Validator, Router, Orchestrator, Fallback)
-and which skills fit each: `harness/references/agent-role-patterns.md`.
-When adding a skill, check which role it fits to avoid overlap.
+### 2h. Challenge
 
-### 2h. Challenge — one sentence, then a smaller step
-
-Before building in an existing project, read the truth block and the brief's scope: what's in, what's out, and any named owner. How to fill the blanks: `harness/references/challenge.md`.
-
-Say nothing on an edit, a copy tweak, an import, or a question answered from chat. Challenge only when `status` is `draft` or `exploring` and they asked to build, the ask builds something parked, an unknown's `blocks` covers this step, or an unsourced claim is being treated as fact. One sentence from the matching template, then `AskQuestion`. Plain words. Their past decision when there is one. Never say "truth block" or "row" to them. Wait for the answer. Do not plan a build in that same message. A kickoff conflict is the skill's one message, not this section.
-
-Templates and buttons: `harness/references/challenge.md` § Templates.
-
-Kickoff owner or scope conflict: `harness/skills/design-kickoff/SKILL.md`.
-
-Do not ask about that same gap again unless that item later changes. Writing the choice is not that change.
+Before building in an existing project, read the truth block and the brief's scope. A build on `draft` or `exploring`, a parked direction, a blocking unknown, or an unsourced claim gets one plain sentence, then `AskQuestion`, then wait. Never on an edit, a copy tweak, or an import. `harness/references/challenge.md`.
 
 ---
+
 ## 3. Plan-then-execute gate
 
 When the matched chain is more than one skill, read `harness/references/plan-gate.md`, show the plan, and wait. One skill does not.
@@ -199,34 +146,18 @@ When no row matches, or confidence is too low to pick one, read `harness/referen
 
 When this turn reads or writes `projects/<slug>/` or `projects.local/<slug>/`, read `harness/references/state-rules.md`.
 
-## 6. Remote sync (no shared/hosted instance — yet)
+## 6. Remote sync
 
-Each designer runs a local clone; the team's Git remote is the only sync. The harness runs no Git: committing, branching, and pushing are the designer's. "Share this" says so in one line. Full rule: `harness/references/remote-sync.md`.
-
----
+The harness runs no Git. Committing and pushing are the designer's. `harness/references/remote-sync.md`.
 
 ## 7. Design system rules
 
-When the chain includes `ui-agent` or `design-system`, read `harness/references/design-system-rules.md` before composing. Those two skills load it themselves. Rule numbers (§7.1, §7.3) live in that file.
+When the chain includes `ui-agent` or `design-system`, read `harness/references/design-system-rules.md` before composing. Rule numbers (§7.1, §7.3) live there.
 
-## 8. Handoff Anti-Patterns
+## 8. Handoff patterns (8a: types)
 
-Named failure modes for agent handoffs (black hole, echo chamber, context cliff, jarring transition, silent redirect). Diagnostic labels for `harness-audit`, not gates: `harness/references/handoff-patterns.md`.
+Labels for `harness-audit`, not gates: `harness/references/handoff-patterns.md`.
 
-### 8a. Handoff types in use
+## 9. Context architecture
 
-Sequential, parallel fan-out, fan-in, escalation, fallback, human handoff — with an example of each: `harness/references/handoff-patterns.md`.
-
----
-
-## 9. Context Architecture
-
-Why context loads in this order (system rules first, the request last,
-skills only when routed): `harness/references/context-architecture.md`.
-
----
-
-## Related files
-
-The file index (logs, references, skills, hooks, scripts, onboarding) is in
-[`harness/references/related-files.md`](references/related-files.md).
+`harness/references/context-architecture.md`. File index: [`harness/references/related-files.md`](references/related-files.md).

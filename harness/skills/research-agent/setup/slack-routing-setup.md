@@ -38,7 +38,7 @@ Still in `@Cursor settings` → "Routing rules":
 
 | Keyword | Repository |
 |---------|-----------|
-| `checkout` | `github.com/marcopslopes/design-harness` (or your fork) |
+| `checkout` | `github.com/marcopslopes/thedesignharness` (or your fork) |
 | `payments` | same |
 | `onboarding` | same |
 | `design research` | same |

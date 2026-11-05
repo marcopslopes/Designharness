@@ -178,7 +178,7 @@ via Mobbin/web] · [general best-practice example, if used]
 ### Intentionally different, not a gap
 
 - [Thing that looked like a gap] — **not flagged as a gap.**
-  Per `COMPANY-PATTERNS.md` § [section] / `context/COMPANY-ARCHETYPES.md` § [section]: "[the actual documented passage]." [One
+  Per `COMPANY-PATTERNS.md` § [section] / `COMPANY-ARCHETYPES.md` § [section]: "[the actual documented passage]." [One
   sentence on why this makes the apparent gap intentional.]
 
 ### Not a recommendation to copy

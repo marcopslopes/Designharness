@@ -22,7 +22,7 @@ the proven, higher-component-coverage option per `base-skin.md`).
 ## Dark (default, existing)
 
 Copy `:root` verbatim from
-`projects/account-settings/artifacts/decks/account-settings-stakeholder-update.html` (or
+`projects/mobile-banking-dashboard/artifacts/decks/mobile-banking-dashboard-case-study.html` (or
 either canonical source deck in `base-skin.md`). No changes needed.
 
 ## Light

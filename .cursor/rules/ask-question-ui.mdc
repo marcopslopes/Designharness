@@ -5,43 +5,13 @@ alwaysApply: true
 
 # AskQuestion UI (repo-wide — not chat prose)
 
-**Any question you ask the designer with two or more discrete answer paths
-must use Cursor's native `AskQuestion` tool** — clickable buttons in the
-UI — **when that tool is in the session tool list**. Never use numbered/
-bulleted option lists in chat **as a substitute while buttons are available**.
+A question with two or more fixed answers uses Cursor's `AskQuestion` tool
+when it is in the tool list. Never a numbered or bulleted menu in chat,
+never "reply with 1 / 2 / 3", and never a menu beside the buttons.
 
-Full contract: `harness/references/ask-question-ui.md`
+- One `AskQuestion` per message. Batch related questions (intake: max 3).
+- Do not add your own "Other…". Cursor appends one. Closed pairs get none.
+- A single paste request (Figma URL, ticket key, free text) can be one chat line.
+- No `AskQuestion` tool: do not stop or tell them to switch models. One honesty line, the same question in plain text with the options spelled out, then wait. No substance meanwhile.
 
-## Required
-
-- Call `AskQuestion` with `title` + `questions[]`
-  (`id`, `prompt`, `options[{id,label}]`, `allow_multiple` as needed).
-- **One `AskQuestion` per assistant message**; batch related questions in
-  one call when the orchestrator allows (e.g. intake — max 3 questions).
-- End option sets with **Other…** when the list might not cover every case.
-  Do not add your own Other — Cursor already appends one. Closed pairs
-  (Keep it local / Suggest it to the harness, Undo it / Keep it) get no Other.
-- Scripted payloads: onboarding +
-  `harness/designer-onboarding/references/onboarding-questions.md`,
-  handoff menu +
-  `harness/designer-onboarding/references/handoff-menu-question.md`.
-
-## Forbidden (when `AskQuestion` is available)
-
-- Numbered or bulleted option lists in assistant chat
-- "Reply with 1 / 2 / 3" style prompts
-- Chat menus "for clarity" instead of (or alongside) `AskQuestion`
-
-## Exceptions (chat OK — still no fake menus)
-
-- Single-line request for a paste (Figma URL, Jira key, free text) when
-  there is no sensible fixed option set.
-
-## If `AskQuestion` is not in your tool list
-
-**Do not stop. Do not tell the designer to switch models or sessions.**
-
-Degrade per `harness/references/ask-question-ui.md`: one honesty line that
-the tool is missing, then ask the **same question in plain text** with the
-options spelled out, and wait for a typed reply. Still do not guess or
-freestyle substance while waiting. See `KNOWN-ISSUES.md`.
+Full contract and scripted payloads: `harness/references/ask-question-ui.md`.

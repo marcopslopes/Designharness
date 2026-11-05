@@ -120,6 +120,30 @@ for (const { file, line, href, target } of missing) {
   if (!ignored.has(target)) problems.push(`${file}:${line} links ${href}, which a fresh clone doesn't have`)
 }
 
+// A backticked repo path in a harness rule must exist. Skipped: quoted or
+// worked-example lines, scenario files, and files a skill creates on first use.
+const REPO_PATH = /`((?:src|harness|context|scripts|projects|tests|\.cursor|documentation)\/[^`\s<>*{}$…|]+\.[a-z]{2,5})`/g
+const NOT_A_POINTER = /^\s*>|creat|writes?\b|first use|not built|future|ephemeral|would|e\.g\.|example|template|placeholder|scaffold|copy|rename|moved|removed|deleted|retired|no longer/i
+const SCENARIOS = /^harness\/(logs|docs)\/|^harness\/harness-enforcement-handoff\.md$|eval-prompts\.md$|worked-example\.md$/
+const FIRST_USE = /\/(learnings|improvements)\.md$|^harness\/logs\//
+const deadPaths = []
+for (const file of tracked) {
+  if (!/^harness\/.*\.mdc?$/.test(file) || SCENARIOS.test(file) || !existsSync(path.join(repo, file))) continue
+  read(file)
+    .split('\n')
+    .forEach((line, i) => {
+      if (NOT_A_POINTER.test(line)) return
+      for (const [, p] of line.matchAll(REPO_PATH)) {
+        if (/\.local|\/X\b|\bslug\b/.test(p) || FIRST_USE.test(p) || existsSync(path.join(repo, p))) continue
+        deadPaths.push({ file, line: i + 1, p })
+      }
+    })
+}
+const ignoredPaths = new Set(deadPaths.length ? checkIgnore(deadPaths.map((d) => d.p)).split('\n') : [])
+for (const { file, line, p } of deadPaths) {
+  if (!ignoredPaths.has(p)) problems.push(`${file}:${line} names ${p}, which doesn't exist`)
+}
+
 for (const name of skills) {
   if (!skillPages.has(name)) problems.push(`documentation/skills/${name}.md is missing`)
 }

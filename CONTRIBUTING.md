@@ -64,7 +64,7 @@ Currently supports Cursor, Codex, Claude Code. Help add:
 
 ### 6. Report Bugs
 
-Found a bug? [Open an issue](https://github.com/marcopslopes/design-harness/issues/new) with:
+Found a bug? [Open an issue](https://github.com/marcopslopes/thedesignharness/issues/new) with:
 - Clear title
 - Steps to reproduce
 - Expected vs actual behavior
@@ -73,7 +73,7 @@ Found a bug? [Open an issue](https://github.com/marcopslopes/design-harness/issu
 
 ### 7. Request Features
 
-Have an idea? [Open an issue](https://github.com/marcopslopes/design-harness/issues/new) describing:
+Have an idea? [Open an issue](https://github.com/marcopslopes/thedesignharness/issues/new) describing:
 - The problem you're trying to solve
 - Your proposed solution
 - Why this would be valuable
@@ -311,6 +311,6 @@ Thank you for contributing! 🎨
 
 ## Questions?
 
-- **General questions:** [Open a discussion](https://github.com/marcopslopes/design-harness/discussions)
-- **Bug reports:** [Open an issue](https://github.com/marcopslopes/design-harness/issues)
-- **Security issues:** [Report privately](https://github.com/marcopslopes/design-harness/security/advisories/new), not in a public issue
+- **General questions:** [Open a discussion](https://github.com/marcopslopes/thedesignharness/discussions)
+- **Bug reports:** [Open an issue](https://github.com/marcopslopes/thedesignharness/issues)
+- **Security issues:** [Report privately](https://github.com/marcopslopes/thedesignharness/security/advisories/new), not in a public issue

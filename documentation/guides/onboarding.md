@@ -224,6 +224,29 @@ Check this prototype before I share it
 
 ---
 
+## Working Well
+
+### Spend less on each request
+- Plan with a stronger model, then switch to a smaller, cheaper one to build or make edits.
+- Ask simple questions plainly ("how do I…", "what does X mean"). They are answered without loading skills or searching files.
+- Kickoff uses your own projects only. Say "find references first" when you want Mobbin, notebooks and team docs searched.
+- Start a new chat when a task changes. A long chat costs more on every turn.
+
+### Get closer to the design system: Figma first
+When a prototype keeps coming out off-system (wrong spacing, colours or components), do it in two steps:
+1. "Design this screen in Figma with our library" (with a Figma file link). The agent builds it from the library's components.
+2. Fix it in Figma until it looks right, then "build this Figma frame as a prototype" (with the frame link).
+
+The prototype then starts from components that are already right, instead of guessing them.
+
+### Ask what the agent can see
+"Which sources can you see?" lists the connected tools and the company context in use. It costs almost nothing, so ask it whenever you're unsure.
+
+### Where your work is
+After a build, the reply gives the local link (`http://localhost:3002/#/…`) and the folder it saved to. "Saved on your computer, not shared yet" means only you have it. Say "give me a link" when someone else needs to open it.
+
+---
+
 ## Updating Your Profile Later
 
 Want to change your setup?
@@ -246,9 +269,9 @@ Muse will let you update any field.
 **This shouldn't happen.** If `designer-profile.local.md` exists, onboarding should skip.
 
 If it keeps running:
-1. Check the file exists at repo root
-2. Check it's not empty
-3. Check it has `Status: ACTIVE`
+1. Run `npm run -s harness:context`. The first line says `Profile: found` or `Profile: missing`, and the exact path it checked
+2. The file must be at the repo root, next to `AGENTS.md`. A copy under `harness/` does not count
+3. Check it's not empty and has `Status: ACTIVE`
 
 ### Can't Connect MCPs
 See [MCP Setup Troubleshooting](../setup/mcp-setup.md#troubleshooting)

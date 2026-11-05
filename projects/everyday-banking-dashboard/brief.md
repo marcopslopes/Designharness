@@ -20,6 +20,8 @@ parked: a string — a direction that was not approved
 
 ```yaml
 status: draft
+example: true
+system: mobile
 assumptions:
   - text: "Most home visits are a quick check of balance and recent activity, not a task."
     source: none

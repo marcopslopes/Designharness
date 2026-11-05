@@ -96,8 +96,8 @@ function skills(root: string): { name: string; count: number }[] {
   for (const line of readFileSync(log, 'utf8').split('\n')) {
     if (!line.trim()) continue
     try {
-      const event = JSON.parse(line) as { skill?: string }
-      if (!event.skill) continue
+      const event = JSON.parse(line) as { skill?: string; kind?: string }
+      if (!event.skill || event.kind === 'part') continue
       counts.set(event.skill, (counts.get(event.skill) ?? 0) + 1)
     } catch {
       /* a torn line should not blank the year */

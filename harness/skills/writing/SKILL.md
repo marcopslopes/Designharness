@@ -37,7 +37,7 @@ writeups. An HTML report of a critique (findings, not a ship story) is
 ## Before Step 0 — Your preferences
 
 **First, before any other load:** read `<repo root>/designer-context.local/preferences.md`
-(next to `CLAUDE.md`, never under `harness/`) with the `Read` tool — never Glob or file search, which skip gitignored files. Use the `## Writing` section only; file not found → carry on. If a saved rule there applies to this draft, your reply
+(next to `CLAUDE.md`, never under `harness/`) with the `Read` tool — never Glob or file search, which skip gitignored files. Use only its `[Writing]` index lines at the top (open `## Writing` below only when one applies and needs detail); file not found → carry on. If a saved rule there applies to this draft, your reply
 must say so once: "Following your preference: <rule>." Contract:
 `harness/references/designer-preferences.md`.
 

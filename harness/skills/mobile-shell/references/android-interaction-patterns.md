@@ -63,7 +63,7 @@ dumping ground for secondary actions:
   `floating` prop convention for iOS FABs — same placement rule, platform-agnostic).
 - **One FAB per screen.** Never stack multiple FABs, and never use a FAB for anything that isn't the screen's
   primary create/add action (e.g. "add appointment" on a calendar screen — a real example already in
-  `NavigationProfilePrototypePage.tsx`'s `floating` slot).
+  `projects/clients-list-redesign/screens/mobile/ClientsListMobilePage.tsx`'s `floating` slot).
 - **Behavior on scroll:** a FAB may shrink to icon-only or hide on scroll-down and reappear on scroll-up, to avoid
   permanently obscuring content — but it must never disappear entirely with no way back without scrolling up.
 - **Extended FAB (icon + label)** is appropriate when the action isn't fully obvious from the icon alone, or on a

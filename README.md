@@ -19,8 +19,8 @@ configured anything.
 ## Quick start
 
 ```bash
-git clone https://github.com/marcopslopes/design-harness.git
-cd design-harness
+git clone https://github.com/marcopslopes/thedesignharness.git
+cd thedesignharness
 npm install
 ```
 
@@ -36,7 +36,7 @@ words:
 ```
 
 Preview your design system and projects with `npm run dev` at
-**http://localhost:3002**.
+**http://localhost:3002** (or the next free port, shown in the terminal).
 
 **Full guide:** [INSTALL.md](INSTALL.md), including company setup, team use,
 and updates. **New here?** [The manual](documentation/guides/manual.md) is six

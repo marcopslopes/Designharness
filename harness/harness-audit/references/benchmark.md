@@ -8,7 +8,9 @@ Run it with `npm run benchmark` (all tasks) or
 `npm run benchmark -- --task small-edit`. Results append to
 `harness/logs/benchmark-results.jsonl` (gitignored) and print as a table.
 Add `--routing` to run the canonical cases in `eval-prompts.md` instead:
-each one stops as soon as the first skill file is read.
+each one stops as soon as the first skill file is read. `--cases eval-1,eval-141`
+runs only those. `--dirty` tests the working tree: uncommitted edits and new
+untracked files.
 
 Needs the Claude Code CLI, signed in (`claude` once, then `/login`).
 

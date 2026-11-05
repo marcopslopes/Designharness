@@ -666,7 +666,7 @@ And unlike generic Company Brains that try to handle every domain, Design Harnes
 
 ## How to Adopt It
 
-1. **Clone** → `git clone marcopslopes/design-harness`
+1. **Clone** → `git clone marcopslopes/thedesignharness`
 2. **Install** → `npm install` (sets up pre-commit hook automatically)
 3. **Connect** → the MCPs your team uses (docs, tracker, chat, Figma, Miro) via Cursor settings
 4. **Onboard** → First chat triggers profile setup + org-pack interview

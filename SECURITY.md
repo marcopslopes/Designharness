@@ -18,7 +18,7 @@ Only the latest commit on `main` is supported. There are no backported fixes.
 Design Harness is a local tool. It assumes a trusted machine, a trusted
 clone, and a trusted AI agent working in it.
 
-- **The dev server is local only.** `npm run dev` binds to `127.0.0.1:3002`.
+- **The dev server is local only.** `npm run dev` binds to `127.0.0.1` (port 3002, or the next free one).
   Don't expose it to a network, tunnel it, or run it on a shared host.
 - **The dev server writes files.** `/__harness/settings` reads and writes
   `designer-profile.local.md`, `harness.config.local.json`, files in

@@ -40,7 +40,7 @@ You build on-brand screens in Design Harness using only real design tokens (`tok
 Read each of these once. A file already read this build stays read — edit from that, don't open it again.
 
 **First:** read `<repo root>/designer-context.local/preferences.md`
-(next to `CLAUDE.md`, never under `harness/`) with the `Read` tool — never Glob or file search, which skip gitignored files. Use the `## Prototype` section only; file not found → carry on. If a saved rule there applies to this build, your reply
+(next to `CLAUDE.md`, never under `harness/`) with the `Read` tool — never Glob or file search, which skip gitignored files. Use only its `[Prototype]` index lines at the top (open `## Prototype` below only when one applies and needs detail); file not found → carry on. If a saved rule there applies to this build, your reply
 must say so once: "Following your preference: <rule>." Contract:
 `harness/references/designer-preferences.md`.
 
@@ -65,7 +65,7 @@ Do not preload `harness/ORCHESTRATOR.md`, `COMPANY-BUSINESS.md`, `COMPANY-ARCHET
 
 **New screen.** `harness/skills/design-kickoff/SKILL.md`, then this workflow. A small tweak to a screen already in progress does not stop for that. Nobody to answer (headless, one-shot): the plan is the whole reply. Do not build the screen, the storyboard, or the case study in that turn.
 
-0. **Read-back, existing project only** — read the fenced YAML truth block in `brief.md`, the brief's scope (in, out, named owner), and the last 10 `decisions.md` entries (see Project decisions above). `log.md` and `findings.md` stay unread. If the request touches a `parked` direction, an unknown with `blocks`, a `decisions.md` entry, or the brief's scope or a named owner, say that with the matching sentence in `harness/ORCHESTRATOR.md` §2h and run that challenge. If none of those are touched, say nothing and continue. No project folder yet: skip this step.
+0. **Read-back, existing project only** — read the fenced YAML truth block in `brief.md`, the brief's scope (in, out, named owner), and the last 10 `decisions.md` entries (see Project decisions above). `log.md` and `findings.md` stay unread. If the request touches a `parked` direction, an unknown with `blocks`, a `decisions.md` entry, or the brief's scope or a named owner, say that with the matching sentence in `harness/ORCHESTRATOR.md` §2h and run that challenge. If none of those are touched, say nothing and continue. A screen this project doesn't have yet: run `npm run -s harness:recall -- "<screen topic>"` and reuse a matching screen from another project as the starting structure, naming it in one line (`harness/references/harness-recall.md`). No project folder yet: skip this step.
 
 0.5. **Fidelity check (only when genuinely asked or genuinely unclear)** — most builds skip this silently and go
    straight to Step 1, same as the platform/format checks below. Only reason through this when the designer asks
@@ -116,9 +116,9 @@ Do not preload `harness/ORCHESTRATOR.md`, `COMPANY-BUSINESS.md`, `COMPANY-ARCHET
    ask got built as an interactive tabbed lab without asking this. The designer called it "a mess," then built his
    own reference in Magic Patterns — a static review board — which is what he'd wanted from the start. Rebuilding
    from an interactive lab to a static board cost a full extra pass that this one question would have skipped.
-   **2026-08-07:** checkout till-header "variation mockups" → board at
-   `projects/checkout/artifacts/snapshots/till-header-variants.html` — locked as the default layout recipe in the
-   HOWTO above.
+   **2026-08-07:** checkout till-header "variation mockups" → a static
+   board (that project is no longer in this repo) — its layout is the default recipe in
+   `references/review-board.md`.
 2. **Name the person** — the brief's For whom. Use a `COMPANY-ARCHETYPES.md` archetype when one fits (never
    "providers" as one group). When none fits, use the brief's words and say nothing about the archetype file.
 2.5. **Flag directive conflicts with documented research (only when traceable, rare)** — before composing, check

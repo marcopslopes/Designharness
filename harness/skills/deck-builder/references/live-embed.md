@@ -58,8 +58,10 @@ panels — otherwise the iframe still shows hero / legend / inventory.
 same** — check `getDesignHarnessHashQuery().get('embed') === '1'` and render
 the `PhoneShell` alone.
 
-`NavigationProfilePrototypePage` is already phone-only (no case-study
-chrome) — `#/playground/navigation-profile?embed=1` is enough for decks.
+A project screen that renders only a `PhoneShell` (for example
+`projects/mobile-banking-dashboard/screens/WalletHomePage.tsx`) is already
+phone-only — `#/playground/mobile-banking-dashboard/wallet-home?embed=1` is
+enough for decks.
 
 **PhoneShell fit in deck iframes (fixed 2026-08-04):** `usePhoneFitScale`
 must not subtract playground chrome when `data-embed="true"`, and must
@@ -144,8 +146,8 @@ render over scroll hacks.
 <div class="proto-frame-wrap">
   <iframe
     class="proto"
-    src="/#/playground/navigation-profile?embed=1"
-    title="Navigation profile — live prototype"
+    src="/#/playground/mobile-banking-dashboard/wallet-home?embed=1"
+    title="Wallet home — live prototype"
     loading="lazy"
   ></iframe>
 </div>

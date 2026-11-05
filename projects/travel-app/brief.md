@@ -27,6 +27,8 @@ parked: a string — a direction that was not approved
 
 ```yaml
 status: draft
+example: true
+system: mobile
 assumptions:
   - text: "A traveler can name a starting point, a destination, and how flexible the dates are before they want an itinerary."
     source: "Marco Paulo Lopes, 2026-11-02"

@@ -54,7 +54,7 @@ Philosophy: **copy a layout file → replace demo data → never invent from bla
 
 5. **Formal PNG export script**  
    Headless Chrome, or wrap our Playwright into
-   `harness/skills/deck-builder/scripts/render-deck.mjs`.
+   `harness/skills/deck-builder/scripts/render-deck.mjs` (not built yet).
 
 6. **Layout snippets we still lack** (adapt to DS tokens, not imported themes):
    - `kpi-grid` with ↑/↓ deltas + `counter-up`

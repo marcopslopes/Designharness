@@ -25,23 +25,58 @@ Use `AskQuestion` with exactly those two options when it's available
 (`harness/references/ask-question-ui.md`). Without it, ask the same line
 in plain text and wait.
 
-- **Yes** → append the rule to its section (below). Reply with one line:
+- **Yes** → add one index line and append the rule to its section
+  (below). Reply with one line:
   `Saved under Prototype: no borders on cards.`
 - **Just this time** → apply it in this chat only. Don't ask again for
-  the same rule in this chat.
+  the same rule in this chat. Nothing is written: no candidate list, no
+  count. "Just this time" means don't keep it.
 - **Never save silently.** No answer means no save.
   That includes the tool's own memory: Claude Code's auto memory is off
   in this repo (`.claude/settings.json`), so rules only land here.
-- Don't offer for a rule already in the file.
+
+## Already saved — bump, don't ask
+
+If the pushback matches a rule already in the index, don't ask again.
+Apply it, add 1 to its `seen` count, set `last` to today, and say so in
+one line:
+
+> Already a preference — bumped: no borders on cards (seen 3).
+
+This edits a rule the designer already said Yes to, and the reply says
+so, so it isn't a silent save. Match on meaning, not exact words. If
+you're unsure it's the same rule, treat it as new and ask.
+
+A rule with a high count is one the agent keeps breaking. That is worth
+knowing, but the count never changes precedence (below).
 
 ## File format
 
-One rule per line, in the designer's words, dated. Grouped by work type.
+Two parts. A short **index** at the top, one line per rule. It's the only
+part every reader loads. The **detail** below it, grouped by work type,
+holds the rule in the designer's words, the date saved, and any example.
 
 ```markdown
+## Index
+- [Prototype] No borders on cards. — seen 2, last 2026-11-03
+- [Copy] One sentence max when asked to tighten. — seen 1, last 2026-10-30
+
 ## Prototype
-- No borders on cards. (2026-10-29)
+- No borders on cards. Saved 2026-10-29. Applies to list rows too.
+
+## Copy
+- Never more than one sentence when I ask to tighten text. Saved 2026-10-30.
 ```
+
+- Index line: `- [Section] short rule. — seen N, last YYYY-MM-DD`. Keep it
+  under about 80 characters. A new rule starts at `seen 1`.
+- Detail line: the full rule, `Saved YYYY-MM-DD`, and an optional short
+  example. Skip the extra when the index line says it all.
+- Keep the index sorted by section, in the order of the table below.
+
+A file saved before the index existed has detail lines only. On the next
+save, build the index from them, `seen 1` each, `last` = the saved date,
+and say so in one line.
 
 | Section | Work it covers | Read by |
 |---|---|---|
@@ -57,13 +92,21 @@ two candidate sections.
 
 ## Reading
 
-Each reader skill reads `<repo root>/designer-context.local/preferences.md` with the `Read` tool — never Glob or file search, which skip gitignored files, and uses **only its own section**, as its **first step**,
-before any other load. It doesn't read the other sections and doesn't
-load the file for any other skill.
+Each reader skill reads `<repo root>/designer-context.local/preferences.md` with the `Read` tool — never Glob or file search, which skip gitignored files, as its **first step**, before any other load.
 
-- **Missing file or empty section** → carry on; don't mention it.
-  `## Slack/docs` readers check first and skip the read when it's empty —
-  a one-line reply shouldn't pay for a file load.
+1. Read the top of the file only (`limit: 40` covers the index).
+2. Use only index lines tagged with its own section.
+3. Open its detail section only when one of those lines applies to this
+   output and the index line isn't enough.
+
+It doesn't use the other sections and doesn't load the file for any
+other skill.
+
+- **Missing file or no index lines for its section** → carry on; don't
+  mention it. A file with no `## Index` yet → read its own section, as
+  before.
+- **`## Slack/docs` readers** stop at the index when it has no
+  `[Slack/docs]` line — a one-line reply shouldn't pay for more.
 - **Precedence:** the designer's ask in this turn > house hard rules
   (`harness/references/design-system-rules.md` §7, `COMPANY-*.md`, the content style
   guide) > preferences. When a preference loses, say so in one line.
@@ -84,5 +127,20 @@ The rule covers the whole reply, including notes around the deliverable.
 
 ## Editing
 
-"Forget that preference" / "remove the borders rule" → delete the line
-and confirm in one line. The designer can also edit the file by hand.
+"Forget that preference" / "remove the borders rule" → delete its index
+line and its detail line, and confirm in one line. The designer can also
+edit the file by hand.
+
+## Tidy-up past ~30 rules
+
+When a save pushes the index past about 30 lines, offer once, after the
+save line, to tidy it. Use `AskQuestion` with two options: **Show me a
+tidy-up** / **Not now**.
+
+- **Show me a tidy-up** → propose merges (two rules that say the same
+  thing) and drops (`seen 1`, with `last` older than 90 days). List each
+  change in one line. Edit only what the designer approves. Merged rules
+  add their counts and keep the newer `last`.
+- **Not now** → don't offer again in this chat.
+
+Never prune on your own. A count is a hint, not a reason to delete.

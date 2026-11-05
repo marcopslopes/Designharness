@@ -9,8 +9,8 @@ description: >-
   deck renders `projects/<slug>/case-study.md` (written by `case-study`,
   which owns the story) — it never re-tells the story itself. Reuses the dark
   presentation skin and slide-component library already proven in
-  `projects/account-settings/artifacts/decks/navigation_ia_case_study_v10.html`
-  and `navigation_workshop_slides_v3.html`. Embeds live, interactive prototype
+  `projects/mobile-banking-dashboard/artifacts/decks/mobile-banking-dashboard-case-study.html`.
+  Embeds live, interactive prototype
   mockups via a chromeless Design Harness route iframe (`?embed=1`) instead of
   hand-copied lookalike markup, so embedded mockups can't silently drift
   from the real prototype. Supports a dark (default) or light theme, and
@@ -32,9 +32,9 @@ skin, keyboard/dot navigation, and (when relevant) live interactive phone
 mockups embedded mid-slide.
 
 This formalizes a pattern that already existed by hand:
-`projects/account-settings/artifacts/decks/navigation_ia_case_study_v10.html` and
-`navigation_workshop_slides_v3.html` are real, previously hand-built decks
-in this repo. **Don't reinvent the skin or slide-component CSS** — copy the
+`projects/mobile-banking-dashboard/artifacts/decks/mobile-banking-dashboard-case-study.html` and
+`projects/clients-list-redesign/artifacts/decks/clients-list-redesign-case-study.html`
+are real decks in this repo. **Don't reinvent the skin or slide-component CSS** — copy the
 `<style>` block and nav script from one of those files as the base chassis
 (see `references/base-skin.md`) and extend, rather than writing new CSS
 components from scratch.
@@ -261,7 +261,7 @@ deck done.
 | `harness/skills/case-study/SKILL.md` | Writes `case-study.md`, the source for case-study decks |
 | `references/live-embed.md` | Chromeless `?embed=1` Design Harness route embedding — the one-time app change this skill depends on |
 | `references/themes.md` | Dark (default) vs light `:root` theme — orthogonal to template choice |
-| `projects/account-settings/artifacts/decks/navigation_ia_case_study_v10.html` | Reference deck — case study skin + live-mockup precedent (pre-`?embed=1`, uses `srcdoc` lookalikes — superseded pattern, kept as the CSS/structure reference only) |
-| `projects/account-settings/artifacts/decks/navigation_workshop_slides_v3.html` | Reference deck — lighter workshop skin |
+| `projects/mobile-banking-dashboard/artifacts/decks/mobile-banking-dashboard-case-study.html` | Reference deck — case study skin with `?embed=1` live mockups |
+| `projects/clients-list-redesign/artifacts/decks/clients-list-redesign-case-study.html` | Second reference deck, same skin |
 | `harness/ORCHESTRATOR.md` §2 | Routing row |
 | `harness/skills/ticket-create/SKILL.md` | Same draft-outline-first → build posture |

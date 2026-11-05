@@ -68,6 +68,7 @@ projects/*/raw/*
 # referenced literally throughout harness/ and .cursor/rules/. See the
 # matching *.example.md for format + first-run note.
 harness/logs/routing-log.md
+harness/logs/harness-proposals.md
 harness/logs/skill-benchmarking.md
 harness/logs/token-usage.jsonl
 harness/logs/benchmark-results.jsonl
