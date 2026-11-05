@@ -9,6 +9,8 @@ import { harnessUsagePlugin } from './scripts/harness-usage-plugin.ts'
 const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
+  // Hosted viewing copy is served at thedesignharness.com/demo
+  base: process.env.VERCEL ? '/demo/' : '/',
   plugins: [react(), harnessSettingsPlugin(), harnessUsagePlugin()],
   server: {
     host: '127.0.0.1',
