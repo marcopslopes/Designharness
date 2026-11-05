@@ -2,5 +2,11 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm ci --ignore-scripts",
-  "framework": "vite"
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/demo/assets/:path*", "destination": "/assets/:path*" },
+    { "source": "/demo", "destination": "/index.html" },
+    { "source": "/demo/", "destination": "/index.html" },
+    { "source": "/demo/:path*", "destination": "/:path*" }
+  ]
 }
