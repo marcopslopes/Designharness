@@ -4,7 +4,7 @@ Illustrative worked example, written for this harness — not a real project tra
 
 ## Scenario
 
-`design-kickoff` Step 1.5 recommended a quantitative usability test on
+`decision-first-research` recommended a quantitative usability test on
 the live "book a service" flow to benchmark before/after a checkout
 redesign. Fidelity is high (live product), so quant is the right call —
 not the mid-fidelity qualitative session.

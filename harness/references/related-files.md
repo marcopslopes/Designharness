@@ -39,12 +39,12 @@ not on every request.
 | `harness/skills/session-handoff/SKILL.md` | On-demand chat compact for a fresh agent session — state-first; saves to `projects/<slug>/handoff.md`; human guide `harness/skills/session-handoff/GUIDE.md` |
 | `harness/skills/assumption-mapper/SKILL.md` | Separates sourced "known" from unsourced "believed" before research/a build starts. Not part of kickoff. Human guide `harness/skills/assumption-mapper/GUIDE.md` |
 | `harness/skills/research-question-sharpener/SKILL.md` | Rewrites vague stakeholder research questions into TEDW story-based ones; flags what qual research can't answer. Feeds `usability-test-guide`; human guide `harness/skills/research-question-sharpener/GUIDE.md` |
-| `harness/skills/usability-test-guide/SKILL.md` | Quant or qual usability test guide for an existing prototype — fires from `design-kickoff` Step 1.5 or standalone; human guide `harness/skills/usability-test-guide/GUIDE.md` |
+| `harness/skills/usability-test-guide/SKILL.md` | Quant or qual usability test guide for an existing prototype — fires from `decision-first-research` or standalone; human guide `harness/skills/usability-test-guide/GUIDE.md` |
 | `harness/skills/research-synthesis/SKILL.md` | Debrief/lightning synthesis/full tag+affinity — turns raw session data into pattern candidates, feeds `insight-writer`; human guide `harness/skills/research-synthesis/GUIDE.md` |
 | `harness/skills/insight-writer/SKILL.md` | Key learning + why + consequence insight writing, plus the 5-question so-what check before anything ships; human guide `harness/skills/insight-writer/GUIDE.md` |
 | `harness/skills/screener-builder/SKILL.md` | Behavior-first recruitment screener — feeds `usability-test-guide` / `research-synthesis`; human guide `harness/skills/screener-builder/GUIDE.md` |
-| `harness/skills/decision-first-research/SKILL.md` | Names the decision + blocking unknown before method selection; feeds `design-kickoff` Step 1.5; human guide `harness/skills/decision-first-research/GUIDE.md` |
-| `harness/skills/ia-methods/SKILL.md` | Card sorting + tree testing for navigation/IA questions — what Step 1.5's IA method-menu line routes to; human guide `harness/skills/ia-methods/GUIDE.md`
+| `harness/skills/decision-first-research/SKILL.md` | Names the decision + blocking unknown, then hands off to the method skill; human guide `harness/skills/decision-first-research/GUIDE.md` |
+| `harness/skills/ia-methods/SKILL.md` | Card sorting + tree testing for navigation/IA questions — what `decision-first-research` routes to for IA; human guide `harness/skills/ia-methods/GUIDE.md` |
 | `harness/skills/research-artifacts/SKILL.md` | Persona / empathy map / journey map / ability spectrum / job stories from synthesized research; human guide `harness/skills/research-artifacts/GUIDE.md` |
 | `harness/skills/design-rationale/SKILL.md` | Documents an already-made decision for the record; human guide `harness/skills/design-rationale/GUIDE.md` |
 | `harness/skills/accessibility-decisions/SKILL.md` | A11y decision records, tradeoffs, eng handoff; human guide `harness/skills/accessibility-decisions/GUIDE.md` |

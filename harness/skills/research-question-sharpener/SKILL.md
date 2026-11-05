@@ -151,5 +151,5 @@ method skill fits) for the actual session structure.
 |------|------|
 | `harness/skills/usability-test-guide/SKILL.md` | Consumes this skill's High-priority rewrites to structure the actual session |
 | `harness/skills/assumption-mapper/SKILL.md` | Often runs first — its "research goals" are the raw input this skill sharpens into real questions |
-| `harness/skills/design-kickoff/SKILL.md` § Step 1.5 | Method recommendation this skill's redirect table feeds into |
+| `harness/skills/decision-first-research/SKILL.md` | Method recommendation this skill's redirect table feeds into |
 | `harness/skills/research-question-sharpener/references/worked-example.md` | Full before/after sharpening pass on a stakeholder's question list |

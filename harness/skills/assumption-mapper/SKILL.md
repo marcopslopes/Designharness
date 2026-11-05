@@ -85,7 +85,7 @@ Confidence (1=unsure → 5=very confident) × Impact if wrong (1=low →
 
 For each low-confidence/high-impact assumption: "what would we need to
 learn to know if this is true?" → that becomes a research goal, fed
-forward into `design-kickoff` Step 1.5's method recommendation.
+forward into `decision-first-research`'s method recommendation.
 
 ## Step 5 — The business-vs-user-problem check
 
@@ -179,7 +179,7 @@ this output alone.
 
 | File | Role |
 |------|------|
-| `harness/skills/design-kickoff/SKILL.md` | Usual caller — Step 0/1, before PRD draft; Step 1.5 consumes this skill's research goals |
+| `harness/skills/design-kickoff/SKILL.md` | Usual caller — Step 0, before the brief. `decision-first-research` consumes this skill's research goals. |
 | `harness/skills/research-question-sharpener/SKILL.md` | Turns this skill's research goals into answerable interview/study questions |
 | `harness/references/source-links.md` | Citation format for "what we know" items |
 | `harness/skills/assumption-mapper/references/worked-example.md` | Full walkthrough of a mapped assumption set, end to end |

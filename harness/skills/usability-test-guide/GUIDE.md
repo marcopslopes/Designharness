@@ -15,7 +15,7 @@ Agents load the full protocol from
 |------|------|
 | Agent skill | `harness/skills/usability-test-guide/SKILL.md` |
 | Routing entry | `harness/ORCHESTRATOR.md` §2 |
-| Upstream | `design-kickoff` Step 1.5 · [`research-question-sharpener`](../research-question-sharpener/GUIDE.md) · [`screener-builder`](../screener-builder/GUIDE.md) |
+| Upstream | `decision-first-research` · [`research-question-sharpener`](../research-question-sharpener/GUIDE.md) · [`screener-builder`](../screener-builder/GUIDE.md) |
 | Downstream | [`research-synthesis`](../research-synthesis/GUIDE.md) |
 | Does not build | Prototype → `ui-agent` |
 
@@ -55,7 +55,7 @@ Any of these should route here:
 | Need numbers for a stakeholder | “Quant UT guide — task success, time on task, SEQ” |
 | Method-rec already said UT | “Build the UT guide from that recommendation” |
 
-Fires from `design-kickoff` Step 1.5 when the recommended method is UT, or
+Fires from `decision-first-research` when the recommended method is UT, or
 standalone on an approved task with a prototype ready.
 
 Acceptance walkthrough: [`tests/scenarios.md`](../../../tests/scenarios.md)

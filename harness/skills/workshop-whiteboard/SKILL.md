@@ -35,7 +35,7 @@ own — in ~25–30 minutes of board time, then present/discuss.
   skill's output is a workshop artifact + handoff to harness skills).
   Pure Decision Briefs
   without a board exercise → `decision-first-research`. Settled decision
-  needing only a method pick → `design-kickoff` Step 1.5.
+  needing only a method pick → `decision-first-research`.
 - **Companies / rooms are not expecting a perfect solution** — they
   need a coherent thought process. Same rule in a workshop: logic over
   polish.
@@ -153,7 +153,7 @@ clarity for non-researchers · intellectual honesty about unknowns —
 **Timeline:** …
 **Next steps:** …
 
-**Handoff:** [decision-first-research / design-kickoff 1.5 /
+**Handoff:** [decision-first-research /
 screener-builder / …]
 ```
 
@@ -183,6 +183,6 @@ If the workshop locked a decision + window, run
 | File | Role |
 |------|------|
 | `harness/skills/decision-first-research/SKILL.md` | Durable Decision Brief after the board |
-| `harness/skills/design-kickoff/SKILL.md` § Step 1.5 | Method pick once decision is clear |
+| `harness/skills/decision-first-research/SKILL.md` | Method pick once decision is clear |
 | `harness/skills/research-shareout/SKILL.md` | Later: how findings get shared |
 | `harness/skills/workshop-whiteboard/references/worked-example.md` | Full board walkthrough |

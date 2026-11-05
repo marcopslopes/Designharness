@@ -1,16 +1,11 @@
 ---
 name: research-agent
 description: >-
-  Design discovery kickoff PRD scaffold for product designers. Triggered by:
-  "tell me everything about X", "kick off discovery on X", "PRD starter for X",
-  "catch me up on X", "research X for a new project", "what do we know about X",
-  "give me ideas for X". Searches the team's docs tool (Confluence, Notion, or
-  Google Docs), tracker (Jira, Linear, or GitHub Issues), and chat in full
-  depth — plus linked Figma and Miro boards — then writes a structured draft
-  page to the docs tool and returns a short executive summary
-  with confidence rating. A question or lookup runs this skill directly,
-  with no PRD gate. A new or ambiguous request is `design-kickoff`.
-  See that skill. This skill is not part of it.
+  A question or lookup: "tell me everything about X", "catch me up on X",
+  "what do we know about X", "look into X", "is there a project on X".
+  Searches the team's docs tool, tracker, and chat, then answers. A new
+  or ambiguous request is `design-kickoff`. "Give me ideas for X" is
+  `ux-pattern`. This skill is not part of kickoff.
 
   Also runs standalone, in a lighter **single-source gap-fill mode**, on an
   already-approved `projects/<slug>/` task (no PRD, no docs draft) —

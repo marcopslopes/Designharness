@@ -4,9 +4,9 @@ description: >-
   Wraps every mobile/phone-frame Design Harness prototype in the shared PhoneShell
   component (hardware bezel, notch, iOS status bar, floating pill tab bar,
   home indicator, 16px screen padding) instead of one-off chrome per file.
-  Triggers on: "build a mobile screen", "phone prototype", "does this phone
+  Triggers on: "phone prototype", "does this phone
   frame match X's", "why do the prototypes look different",
-  "align the phone frames". Rides inside a `ui-agent` chain when the target
+  "align the phone frames". A new mobile screen is kickoff or `ui-agent`. Rides inside a `ui-agent` chain when the target
   is a phone-frame screen; also runnable standalone as an audit over
   `src/design-harness/pages/` to flag prototypes still using bespoke chrome. Does
   not decide screen content, layout, or copy — see ui-agent.

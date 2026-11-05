@@ -15,7 +15,7 @@ Agents load the full protocol from
 | Agent skill | `harness/skills/assumption-mapper/SKILL.md` |
 | Routing entry | `harness/ORCHESTRATOR.md` §2 |
 | Composed by | `design-kickoff` Step 0/1 |
-| Feeds | `design-kickoff` Step 1.5 · PRD “Assumptions & open questions” |
+| Feeds | `decision-first-research` · PRD “Assumptions & open questions” |
 | Sibling | [`decision-first-research`](../decision-first-research/GUIDE.md) |
 
 ---

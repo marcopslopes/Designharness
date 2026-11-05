@@ -942,7 +942,7 @@ decision it's for."*
 1. MATCHED `decision-first-research`.
 2. Four-question knife → Decision Brief; scopes to the window; does not
    jump straight to “run a survey” as the method.
-3. Hands named decision to `design-kickoff` Step 1.5 / method skill.
+3. Hands named decision to `decision-first-research` / method skill.
 4. Logged.
 
 **Fail conditions:** accepts method-first ask without naming the decision;

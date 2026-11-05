@@ -18,7 +18,7 @@ Agents load
 |------|------|
 | Agent skill | `harness/skills/workshop-whiteboard/SKILL.md` |
 | Routing entry | `harness/ORCHESTRATOR.md` §2 |
-| Often hands off to | `decision-first-research` · `design-kickoff` Step 1.5 |
+| Often hands off to | `decision-first-research` · `decision-first-research` |
 
 ---
 

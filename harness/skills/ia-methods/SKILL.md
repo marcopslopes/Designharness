@@ -173,7 +173,7 @@ documented elsewhere in the repo, note that cross-reference explicitly.
 
 | File | Role |
 |------|------|
-| `harness/skills/design-kickoff/SKILL.md` § Step 1.5 | Method menu's "card sort / tree test" line routes here |
+| `harness/skills/decision-first-research/SKILL.md` | Method menu's "card sort / tree test" line routes here |
 | `harness/skills/decision-first-research/SKILL.md` | Routes structural/IA unknowns to this skill |
 | `harness/skills/usability-test-guide/SKILL.md` | Next step after tree testing validates the structure |
 | `harness/skills/ia-methods/references/worked-example.md` | Full card-sort → tree-test sequence on a contested label |

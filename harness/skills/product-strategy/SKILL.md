@@ -367,7 +367,7 @@ graph TD
 **Related:**
 - **assumption-mapper** — separates known from believed before strategy
 - **`harness/references/ethical-design-check.md`** — harm/access/sustainability check for bets with a behavioral-shaping or scale dynamic (Step 3)
-- **design-kickoff** — Step 1.5 method recommendation may route here
+- **decision-first-research** — may route here when the method is strategy work
 
 ---
 

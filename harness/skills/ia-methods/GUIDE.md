@@ -16,7 +16,7 @@ Agents load the full protocol from
 |------|------|
 | Agent skill | `harness/skills/ia-methods/SKILL.md` |
 | Routing entry | `harness/ORCHESTRATOR.md` §2 |
-| Routed from | `design-kickoff` Step 1.5 (“card sort / tree test”) |
+| Routed from | `decision-first-research` (“card sort / tree test”) |
 | Next after tree test | [`usability-test-guide`](../usability-test-guide/GUIDE.md) |
 
 ---

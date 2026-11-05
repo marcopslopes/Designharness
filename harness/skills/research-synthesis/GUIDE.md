@@ -34,7 +34,7 @@ cluster with a decision-ready writeup.
 
 - Does **not** write finished insights (`insight-writer`)
 - Does **not** invent patterns from one or two comments
-- Does **not** pick the research method (`decision-first-research` / `design-kickoff` Step 1.5)
+- Does **not** pick the research method (`decision-first-research` / `decision-first-research`)
 
 ---
 

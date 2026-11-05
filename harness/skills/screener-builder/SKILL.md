@@ -26,8 +26,8 @@ the right people"
 - **Fires on:** any real recruit for an approved `projects/<slug>/` task
   or standalone research ask.
 - **Does not fire on:** designing the session itself (`usability-test-guide`)
-  or deciding which method to run in the first place (`design-kickoff`
-  Step 1.5 / `decision-first-research`) — this skill assumes the method
+  or deciding which method to run in the first place
+  (`decision-first-research`) — this skill assumes the method
   is already chosen and now needs the right people in the room.
 - **Never leads with demographics.** Age/gender/location tell you almost
   nothing about whether someone can give useful data — behavior does.

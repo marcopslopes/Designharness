@@ -11,8 +11,8 @@ description: >-
   study", "decision brief", "my research isn't getting used", "our
   research sits on a shelf", "I have one week to do research", "how do
   I say no to a vague research request". Fires before method selection
-  — hands off to `design-kickoff` Step 1.5 or `usability-test-guide` once
-  the decision and window are locked.
+  — then the named method skill (`usability-test-guide`, `ia-methods`,
+  `screener-builder`) once the decision and window are locked.
 ---
 
 # Decision-First Research
@@ -35,9 +35,8 @@ decision brief for this"
   slow-burn "what jobs are we missing" research — those need open-ended
   exploration without a decision deadline forced onto them. Say so
   explicitly rather than squeezing exploratory work into this frame.
-- **Composes with `design-kickoff` Step 1.5** — this skill's output
-  (the named decision + blocking unknown + window) is exactly the input
-  that step's method-recommendation reasoning needs when time is short.
+- **Then the method skill** — this skill's output (the named decision +
+  blocking unknown + window) is the input that skill needs.
 
 ---
 
@@ -123,8 +122,7 @@ Use the Decision Brief template from Step 2, plus:
 **Evidence sentence (once data lands):** Ship [X], backed by [Y], to
 reduce [Z] risk.
 
-**Method handoff:** [design-kickoff Step 1.5 / usability-test-guide /
-ia-methods / screener-builder] — [why]
+**Method handoff:** [usability-test-guide / ia-methods / screener-builder] — [why]
 ```
 
 ---
@@ -155,7 +153,7 @@ Decision Log if the team keeps one.
 
 | File | Role |
 |------|------|
-| `harness/skills/design-kickoff/SKILL.md` § Step 1.5 | Consumes this skill's named decision + window when recommending a method |
+| `harness/skills/decision-first-research/SKILL.md` | This file. After the decision is named, the next read is the method skill it picked. |
 | `harness/skills/screener-builder/SKILL.md` | Recruits for the method this skill scopes |
 | `harness/skills/ia-methods/SKILL.md` | The method this skill routes to for structural/IA unknowns |
 | `harness/skills/insight-writer/SKILL.md` | The evidence-formula sentence overlaps with this skill's so-what check |

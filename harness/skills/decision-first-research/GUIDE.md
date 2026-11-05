@@ -16,7 +16,7 @@ Agents load the full protocol from
 |------|------|
 | Agent skill | `harness/skills/decision-first-research/SKILL.md` |
 | Routing entry | `harness/ORCHESTRATOR.md` §2 |
-| Feeds | `design-kickoff` Step 1.5 · [`usability-test-guide`](../usability-test-guide/GUIDE.md) · [`ia-methods`](../ia-methods/GUIDE.md) · [`screener-builder`](../screener-builder/GUIDE.md) |
+| Feeds | `decision-first-research` · [`usability-test-guide`](../usability-test-guide/GUIDE.md) · [`ia-methods`](../ia-methods/GUIDE.md) · [`screener-builder`](../screener-builder/GUIDE.md) |
 | Out of scope | Generative / vision / slow-burn discovery |
 
 ---

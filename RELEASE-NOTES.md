@@ -6,6 +6,7 @@ Each release is a version in `package.json` and a matching Git tag, such as `v0.
 
 ### 5 November 2026
 
+- **Routing leftovers from the 5 November audit.** "What do we need to do" after a harness comparison is this repo. Wayfinding and "which research method" go to skills that exist. Kickoff no longer claims a Step 1.5. "Give me ideas" is not a research lookup. Board and roadmap phrases have a tie-break.
 - **The first build after a new project is not stopped again.** Kickoff already asked. Coming back later to an exploring or draft project still gets the challenge. After that first screen, status becomes draft.
 - **No share link from chat.** After a build, the reply no longer says "ask me for a link". "Give me a link", "publish this", and "share URL" get one line: the harness doesn't publish a share link yet. The old publish skill stays on disk. The local address after a build is unchanged.
 - **One-line design questions get the harness too.** "Which icon should I use for share?", "is this a real token?" and "give me a link" were answered from general knowledge in Claude Code, with no skill. `CLAUDE.md` now carries the first step itself, so every chat checks your profile and routes, even for one line.

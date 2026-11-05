@@ -41,7 +41,7 @@ interviews", "what patterns are in this data"
   `projects/<slug>/` task or a standalone ask.
 - **Does not fire on:** writing the finished insight from a pattern
   (`insight-writer`), planning which method to run in the first place
-  (`design-kickoff` Step 1.5 or `decision-first-research`), or building
+  (`decision-first-research` or `decision-first-research`), or building
   the usability test itself (`usability-test-guide`).
 - **Never invents a pattern.** A cluster with one data point is an
   anecdote, not a pattern — say so explicitly rather than rounding up.

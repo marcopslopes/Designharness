@@ -10,7 +10,7 @@ description: >-
   testing next week". Does NOT cover generative 1x1 interviews, concept
   testing, or A/B tests — those need different skills/methods this repo
   doesn't have standalone yet; say so rather than stretching this one.
-  Usually fires from `design-kickoff`'s Step 1.5 method recommendation
+  Usually fires from `decision-first-research` method recommendation
   (when it recommends "usability test") or standalone on an
   already-approved `projects/<slug>/` task with a Design Harness prototype ready
   to test — never on a net-new topic with no PRD (that's `design-kickoff`'s
@@ -237,7 +237,7 @@ task folder, return the guide in chat only — this skill never creates a
 
 | File | Role |
 |------|------|
-| `harness/skills/design-kickoff/SKILL.md` § Step 1.5 | Usually the caller — recommends this skill when "usability test" is the right method |
+| `harness/skills/decision-first-research/SKILL.md` | Usually the caller — recommends this skill when "usability test" is the right method |
 | `harness/skills/research-agent/references/test-plan-template.md` | Where this guide's method/criteria land once a study is actually planned |
 | `harness/skills/research-agent/SKILL.md` § Verdict synthesis mode | Where results get synthesized after the session runs |
 | `harness/skills/ui-agent/SKILL.md` | Builds the prototype first if nothing exists to test yet |
