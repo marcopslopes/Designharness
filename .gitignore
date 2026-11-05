@@ -101,3 +101,4 @@ harness.config.local.json
 # Licensed webfonts dropped in per clone (see public/fonts/README.md).
 public/fonts/*
 !public/fonts/README.md
+.env*
